@@ -11,7 +11,7 @@ import java.util.Date;
 public class ProfiloTutore implements Serializable {
     @Id
     @Column(columnDefinition = "CHAR(16)")
-    private String codice_fiscale;
+    private String codiceFiscale;
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = false)
     private String nome;
@@ -19,7 +19,7 @@ public class ProfiloTutore implements Serializable {
 
     private String cognome;
     @Column(nullable = false)
-    private Date data_nascita;
+    private Date dataNascita;
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String indirizzo;
     @Column(columnDefinition = "VARCHAR(15)", nullable = false)
@@ -32,30 +32,30 @@ public class ProfiloTutore implements Serializable {
     private char sesso;
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
-    private String totp_key;
+    private String totpKey;
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
-    private String relazione_di_parentela;
+    private String relazioneDiParentela;
 
     public ProfiloTutore() {
     }
 
-    public ProfiloTutore(String codice_fiscale, String nome, String cognome, Date data_nascita, String indirizzo, String telefono, String email, String password, char sesso, String totp_key, String relazione_di_parentela) {
-        this.codice_fiscale = codice_fiscale;
+    public ProfiloTutore(String codiceFiscale, String nome, String cognome, Date dataNascita, String indirizzo, String telefono, String email, String password, char sesso, String totpKey, String relazioneDiParentela) {
+        this.codiceFiscale = codiceFiscale;
         this.nome = nome;
         this.cognome = cognome;
-        this.data_nascita = data_nascita;
+        this.dataNascita = dataNascita;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.email = email;
         this.password = password;
         this.sesso = sesso;
-        this.totp_key = totp_key;
-        this.relazione_di_parentela = relazione_di_parentela;
+        this.totpKey = totpKey;
+        this.relazioneDiParentela = relazioneDiParentela;
     }
 
     @Override
     public String toString() {
-        return "ProfiloTutore{" + "codice_fiscale='" + codice_fiscale + '\'' + ", nome='" + nome + '\'' + ", cognome='" + cognome + '\'' + ", data_nascita=" + data_nascita + ", indirizzo='" + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", sesso=" + sesso + ", totp_key='" + totp_key + '\'' + ", relazione_di_parentela='" + relazione_di_parentela + '\'' + '}';
+        return "ProfiloTutore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\'' + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='" + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\'' + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
     }
 }

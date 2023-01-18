@@ -10,9 +10,9 @@ public class Farmaco {
     private int id;
 
     @Column(columnDefinition = "VARCHAR(50)")
-    private String nome_farmaco;
+    private String nomeFarmaco;
     @Column(columnDefinition = "VARCHAR(255)")
-    private String principio_attivo;
+    private String principioAttivo;
     @Column(columnDefinition = "VARCHAR(255)")
     private String confezione;
 
@@ -20,9 +20,9 @@ public class Farmaco {
     public Farmaco() {
     }
 
-    public Farmaco(String nome_farmaco, String principio_attivo, String confezione) {
-        this.nome_farmaco = nome_farmaco;
-        this.principio_attivo = principio_attivo;
+    public Farmaco(String nomeFarmaco, String principioAttivo, String confezione) {
+        this.nomeFarmaco = nomeFarmaco;
+        this.principioAttivo = principioAttivo;
         this.confezione = confezione;
     }
 
@@ -34,20 +34,20 @@ public class Farmaco {
         this.id = id;
     }
 
-    public String getNome_farmaco() {
-        return nome_farmaco;
+    public String getNomeFarmaco() {
+        return nomeFarmaco;
     }
 
-    public void setNome_farmaco(String nome_farmaco) {
-        this.nome_farmaco = nome_farmaco;
+    public void setNomeFarmaco(String nomeFarmaco) {
+        this.nomeFarmaco = nomeFarmaco;
     }
 
-    public String getPrincipio_attivo() {
-        return principio_attivo;
+    public String getPrincipioAttivo() {
+        return principioAttivo;
     }
 
-    public void setPrincipio_attivo(String principio_attivo) {
-        this.principio_attivo = principio_attivo;
+    public void setPrincipioAttivo(String principioAttivo) {
+        this.principioAttivo = principioAttivo;
     }
 
     public String getConfezione() {
@@ -60,6 +60,6 @@ public class Farmaco {
 
     @Override
     public String toString() {
-        return "Farmaco{" + "id=" + id + ", nome_farmaco='" + nome_farmaco + '\'' + ", principio_attivo='" + principio_attivo + '\'' + ", confezione='" + confezione + '\'' + '}';
+        return "Farmaco{" + "id=" + id + ", nomeFarmaco='" + nomeFarmaco + '\'' + ", principioAttivo='" + principioAttivo + '\'' + ", confezione='" + confezione + '\'' + '}';
     }
 }

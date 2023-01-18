@@ -2,6 +2,7 @@ package com.GlucoseGuardian.WebBackend.storage.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.sql.Time;
@@ -14,7 +15,8 @@ import java.util.Objects;
 public class AssunzioneFarmaco implements Serializable {
 
   @Id
-  @Column(columnDefinition = "UNSIGNED INT")
+  @GeneratedValue
+  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
   private long id;
   @Column(length = 50, nullable = false)
   private String farmaco;
@@ -30,9 +32,8 @@ public class AssunzioneFarmaco implements Serializable {
   /**
    * costruttore entity.
    */
-  public AssunzioneFarmaco(long id, String farmaco, int dosaggio, Time orarioAssunzione,
+  public AssunzioneFarmaco(String farmaco, int dosaggio, Time orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
-    this.id = id;
     this.farmaco = farmaco;
     this.dosaggio = dosaggio;
     this.orarioAssunzione = orarioAssunzione;

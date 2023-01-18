@@ -36,8 +36,7 @@ public class Feedback {
 
     }
 
-    public Feedback(int id, String stato_salute, String ore_sonno, String dolori, String svenimenti, Date data, Time ora) {
-        this.id = id;
+    public Feedback(String stato_salute, String ore_sonno, String dolori, String svenimenti, Date data, Time ora) {
         this.stato_salute = stato_salute;
         this.ore_sonno = ore_sonno;
         this.dolori = dolori;

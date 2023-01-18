@@ -1,7 +1,14 @@
 package com.GlucoseGuardian.WebBackend.storage.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+/**
+ * Questa classe rappresenta l'entità Farmaco.
+ */
 @Entity
 public class Farmaco {
 
@@ -21,6 +28,9 @@ public class Farmaco {
   public Farmaco() {
   }
 
+  /**
+   * Costruttore di default della classe Farmaco.
+   */
   public Farmaco(String nomeFarmaco, String principioAttivo, String confezione) {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
@@ -61,11 +71,11 @@ public class Farmaco {
 
   @Override
   public String toString() {
-    return "Farmaco{" +
-        "id=" + id +
-        ", nomeFarmaco='" + nomeFarmaco + '\'' +
-        ", principioAttivo='" + principioAttivo + '\'' +
-        ", confezione='" + confezione + '\'' +
-        '}';
+    return "Farmaco{"
+        + "id=" + id
+        + ", nomeFarmaco='" + nomeFarmaco + '\''
+        + ", principioAttivo='" + principioAttivo + '\''
+        + ", confezione='" + confezione + '\''
+        + '}';
   }
 }

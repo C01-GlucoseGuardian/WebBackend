@@ -3,10 +3,12 @@ package com.GlucoseGuardian.WebBackend.storage.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Questa classe rappresenta l'entità ProfiloTutore.
+ */
 @Entity
 public class ProfiloTutore implements Serializable {
 
@@ -41,6 +43,9 @@ public class ProfiloTutore implements Serializable {
   public ProfiloTutore() {
   }
 
+  /**
+   * Costruttore di default della classe ProfiloTutore.
+   */
   public ProfiloTutore(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
       String relazioneDiParentela) {
@@ -59,18 +64,18 @@ public class ProfiloTutore implements Serializable {
 
   @Override
   public String toString() {
-    return "ProfiloTutore{" +
-        "codiceFiscale='" + codiceFiscale + '\'' +
-        ", nome='" + nome + '\'' +
-        ", cognome='" + cognome + '\'' +
-        ", dataNascita=" + dataNascita +
-        ", indirizzo='" + indirizzo + '\'' +
-        ", telefono='" + telefono + '\'' +
-        ", email='" + email + '\'' +
-        ", password='" + password + '\'' +
-        ", sesso=" + sesso +
-        ", totpKey='" + totpKey + '\'' +
-        ", relazioneDiParentela='" + relazioneDiParentela + '\'' +
-        '}';
+    return "ProfiloTutore{"
+        + "codiceFiscale='" + codiceFiscale + '\''
+        + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\''
+        + ", dataNascita=" + dataNascita
+        + ", indirizzo='" + indirizzo + '\''
+        + ", telefono='" + telefono + '\''
+        + ", email='" + email + '\''
+        + ", password='" + password + '\''
+        + ", sesso=" + sesso
+        + ", totpKey='" + totpKey + '\''
+        + ", relazioneDiParentela='" + relazioneDiParentela + '\''
+        + '}';
   }
 }

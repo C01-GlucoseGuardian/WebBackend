@@ -5,7 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class NumeroTelefono {
+import java.io.Serializable;
+
+public class NumeroTelefono implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

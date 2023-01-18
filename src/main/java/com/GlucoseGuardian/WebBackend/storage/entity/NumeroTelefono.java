@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class NumDiTelefono {
+public class NumeroTelefono {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,11 +13,11 @@ public class NumDiTelefono {
     @Column(length = 15, nullable = false)
     private String numero;
 
-    public NumDiTelefono() {
+    public NumeroTelefono() {
 
     }
 
-    public NumDiTelefono(String numero) {
+    public NumeroTelefono(String numero) {
         this.numero = numero;
     }
 

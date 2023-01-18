@@ -5,10 +5,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Dottore {
+public class Dottore implements Serializable {
     @Id
     @Column(length = 16,nullable = false)
     private String codice_fiscale;

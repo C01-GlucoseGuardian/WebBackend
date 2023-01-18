@@ -2,11 +2,12 @@ package com.GlucoseGuardian.WebBackend.storage.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
 @Entity
-public class Glicemia {
+public class Glicemia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "UNSIGNED INT",nullable = false)

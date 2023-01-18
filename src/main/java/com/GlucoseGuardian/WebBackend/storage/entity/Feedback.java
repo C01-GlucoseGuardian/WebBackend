@@ -4,114 +4,120 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Questa classe rappresenta l'entità Feedback.
+ */
 public class Feedback implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    @Column(length = 300, nullable = false)
-    private String stato_salute;
+  @Column(length = 300, nullable = false)
+  private String statoSalute;
 
-    @Column(length = 300, nullable = false)
-    private String ore_sonno;
+  @Column(length = 300, nullable = false)
+  private String oreSonno;
 
-    @Column(length = 300, nullable = false)
-    private String dolori;
+  @Column(length = 300, nullable = false)
+  private String dolori;
 
-    @Column(length = 300, nullable = false)
-    private String svenimenti;
+  @Column(length = 300, nullable = false)
+  private String svenimenti;
 
-    @Column(nullable = false)
-    private Date data;
+  @Column(nullable = false)
+  private Date data;
 
-    @Column(nullable = false)
-    private Time ora;
+  @Column(nullable = false)
+  private Time ora;
 
-    public Feedback() {
+  public Feedback() {
 
-    }
+  }
 
-    public Feedback(String stato_salute, String ore_sonno, String dolori, String svenimenti, Date data, Time ora) {
-        this.stato_salute = stato_salute;
-        this.ore_sonno = ore_sonno;
-        this.dolori = dolori;
-        this.svenimenti = svenimenti;
-        this.data = data;
-        this.ora = ora;
-    }
+  /**
+   * Costruttore di default della classe Feedback.
+   */
+  public Feedback(String statoSalute, String oreSonno, String dolori, String svenimenti,
+      Date data, Time ora) {
+    this.statoSalute = statoSalute;
+    this.oreSonno = oreSonno;
+    this.dolori = dolori;
+    this.svenimenti = svenimenti;
+    this.data = data;
+    this.ora = ora;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getStato_salute() {
-        return stato_salute;
-    }
+  public String getStatoSalute() {
+    return statoSalute;
+  }
 
-    public void setStato_salute(String stato_salute) {
-        this.stato_salute = stato_salute;
-    }
+  public void setStatoSalute(String statoSalute) {
+    this.statoSalute = statoSalute;
+  }
 
-    public String getOre_sonno() {
-        return ore_sonno;
-    }
+  public String getOreSonno() {
+    return oreSonno;
+  }
 
-    public void setOre_sonno(String ore_sonno) {
-        this.ore_sonno = ore_sonno;
-    }
+  public void setOreSonno(String oreSonno) {
+    this.oreSonno = oreSonno;
+  }
 
-    public String getDolori() {
-        return dolori;
-    }
+  public String getDolori() {
+    return dolori;
+  }
 
-    public void setDolori(String dolori) {
-        this.dolori = dolori;
-    }
+  public void setDolori(String dolori) {
+    this.dolori = dolori;
+  }
 
-    public String getSvenimenti() {
-        return svenimenti;
-    }
+  public String getSvenimenti() {
+    return svenimenti;
+  }
 
-    public void setSvenimenti(String svenimenti) {
-        this.svenimenti = svenimenti;
-    }
+  public void setSvenimenti(String svenimenti) {
+    this.svenimenti = svenimenti;
+  }
 
-    public Date getData() {
-        return data;
-    }
+  public Date getData() {
+    return data;
+  }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
+  public void setData(Date data) {
+    this.data = data;
+  }
 
-    public Time getOra() {
-        return ora;
-    }
+  public Time getOra() {
+    return ora;
+  }
 
-    public void setOra(Time ora) {
-        this.ora = ora;
-    }
+  public void setOra(Time ora) {
+    this.ora = ora;
+  }
 
-    @Override
-    public String toString() {
-        return "Feedback{" +
-                "id=" + id +
-                ", stato_salute='" + stato_salute + '\'' +
-                ", ore_sonno='" + ore_sonno + '\'' +
-                ", dolori='" + dolori + '\'' +
-                ", svenimenti='" + svenimenti + '\'' +
-                ", data=" + data +
-                ", ora=" + ora +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Feedback{"
+        + "id=" + id
+        + ", statoSalute='" + statoSalute + '\''
+        + ", oreSonno='" + oreSonno + '\''
+        + ", dolori='" + dolori + '\''
+        + ", svenimenti='" + svenimenti + '\''
+        + ", data=" + data
+        + ", ora=" + ora
+        + '}';
+  }
 }

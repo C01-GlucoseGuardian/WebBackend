@@ -10,7 +10,7 @@ import java.util.Date;
 public class Glicemia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "UNSIGNED INT",nullable = false)
+    @Column(columnDefinition = "UNSIGNED INT", nullable = false)
     private int id;
     @Column(nullable = false)
     private int livelloGlucosio;

@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Classe che rappresenta un'istanza dell'entity Glicemia.
+ */
 @Entity
 public class Glicemia implements Serializable {
     @Id

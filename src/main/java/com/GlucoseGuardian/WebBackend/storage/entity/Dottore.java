@@ -7,18 +7,21 @@ import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Classe che rappresenta un'istanza dell'entity Dottore.
+ */
 @Entity
 public class Dottore implements Serializable {
 
   @Id
   @Column(length = 16, nullable = false)
-  private String codice_fiscale;
+  private String codiceFiscale;
   @Column(length = 30, nullable = false)
   private String nome;
   @Column(length = 30, nullable = false)
   private String cognome;
   @Column(nullable = false)
-  private Date data_nascita;
+  private Date dataNascita;
   @Column(length = 50, nullable = false)
   private String indirizzo;
   @Column(length = 15, nullable = false)
@@ -30,24 +33,24 @@ public class Dottore implements Serializable {
   @Column(columnDefinition = "CHAR(1)")
   private char sesso;
   @Column()
-  private String totp_key;
+  private String totpKey;
   @Column(length = 100, nullable = false)
   private String specializzazione;
   @Column(length = 50, nullable = false)
-  private String codice_albo;
+  private String codiceAlbo;
   @Column(length = 100, nullable = false)
-  private String nome_struttura;
+  private String nomeStruttura;
   @Column(length = 100, nullable = false)
-  private String indirizzo_struttura;
+  private String indirizzoStruttura;
   @Column(columnDefinition = "UNSIGNED INT(1)")
   private int stato = 0;
 
-  public String getCodice_fiscale() {
-    return codice_fiscale;
+  public String getCodiceFiscale() {
+    return codiceFiscale;
   }
 
-  public void setCodice_fiscale(String codice_fiscale) {
-    this.codice_fiscale = codice_fiscale;
+  public void setCodiceFiscale(String codiceFiscale) {
+    this.codiceFiscale = codiceFiscale;
   }
 
   public String getNome() {
@@ -66,12 +69,12 @@ public class Dottore implements Serializable {
     this.cognome = cognome;
   }
 
-  public Date getData_nascita() {
-    return data_nascita;
+  public Date getDataNascita() {
+    return dataNascita;
   }
 
-  public void setData_nascita(Date data_nascita) {
-    this.data_nascita = data_nascita;
+  public void setDataNascita(Date dataNascita) {
+    this.dataNascita = dataNascita;
   }
 
   public String getIndirizzo() {
@@ -114,12 +117,12 @@ public class Dottore implements Serializable {
     this.sesso = sesso;
   }
 
-  public String getTotp_key() {
-    return totp_key;
+  public String getTotpKey() {
+    return totpKey;
   }
 
-  public void setTotp_key(String totp_key) {
-    this.totp_key = totp_key;
+  public void setTotpKey(String totpKey) {
+    this.totpKey = totpKey;
   }
 
   public String getSpecializzazione() {
@@ -130,28 +133,28 @@ public class Dottore implements Serializable {
     this.specializzazione = specializzazione;
   }
 
-  public String getCodice_albo() {
-    return codice_albo;
+  public String getCodiceAlbo() {
+    return codiceAlbo;
   }
 
-  public void setCodice_albo(String codice_albo) {
-    this.codice_albo = codice_albo;
+  public void setCodiceAlbo(String codiceAlbo) {
+    this.codiceAlbo = codiceAlbo;
   }
 
-  public String getNome_struttura() {
-    return nome_struttura;
+  public String getNomeStruttura() {
+    return nomeStruttura;
   }
 
-  public void setNome_struttura(String nome_struttura) {
-    this.nome_struttura = nome_struttura;
+  public void setNomeStruttura(String nomeStruttura) {
+    this.nomeStruttura = nomeStruttura;
   }
 
-  public String getIndirizzo_struttura() {
-    return indirizzo_struttura;
+  public String getIndirizzoStruttura() {
+    return indirizzoStruttura;
   }
 
-  public void setIndirizzo_struttura(String indirizzo_struttura) {
-    this.indirizzo_struttura = indirizzo_struttura;
+  public void setIndirizzoStruttura(String indirizzoStruttura) {
+    this.indirizzoStruttura = indirizzoStruttura;
   }
 
   public int getStato() {
@@ -162,24 +165,27 @@ public class Dottore implements Serializable {
     this.stato = stato;
   }
 
-  public Dottore(String codice_fiscale, String nome, String cognome, Date data_nascita,
+  /**
+   * Costruttore predefinito della classe Dottore.
+   */
+  public Dottore(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono,
-      String email, String password, char sesso, String totp_key, String specializzazione,
-      String codice_albo, String nome_struttura, String indirizzo_struttura, int stato) {
-    this.codice_fiscale = codice_fiscale;
+      String email, String password, char sesso, String totpKey, String specializzazione,
+      String codiceAlbo, String nomeStruttura, String indirizzoStruttura, int stato) {
+    this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
-    this.data_nascita = data_nascita;
+    this.dataNascita = dataNascita;
     this.indirizzo = indirizzo;
     this.telefono = telefono;
     this.email = email;
     this.password = password;
     this.sesso = sesso;
-    this.totp_key = totp_key;
+    this.totpKey = totpKey;
     this.specializzazione = specializzazione;
-    this.codice_albo = codice_albo;
-    this.nome_struttura = nome_struttura;
-    this.indirizzo_struttura = indirizzo_struttura;
+    this.codiceAlbo = codiceAlbo;
+    this.nomeStruttura = nomeStruttura;
+    this.indirizzoStruttura = indirizzoStruttura;
     this.stato = stato;
   }
 
@@ -188,22 +194,22 @@ public class Dottore implements Serializable {
 
   @Override
   public String toString() {
-    return "Dottore{" +
-        "codice_fiscale='" + codice_fiscale + '\'' +
-        ", nome='" + nome + '\'' +
-        ", cognome='" + cognome + '\'' +
-        ", data_nascita=" + data_nascita +
-        ", indirizzo='" + indirizzo + '\'' +
-        ", telefono='" + telefono + '\'' +
-        ", email='" + email + '\'' +
-        ", password='" + password + '\'' +
-        ", sesso='" + sesso + '\'' +
-        ", totp_key='" + totp_key + '\'' +
-        ", specializzazione='" + specializzazione + '\'' +
-        ", codice_albo='" + codice_albo + '\'' +
-        ", nome_struttura='" + nome_struttura + '\'' +
-        ", indirizzo_struttura='" + indirizzo_struttura + '\'' +
-        ", stato=" + stato +
-        '}';
+    return "Dottore{"
+        + "codice_fiscale='" + codiceFiscale + '\''
+        + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\''
+        + ", data_nascita=" + dataNascita
+        + ", indirizzo='" + indirizzo + '\''
+        + ", telefono='" + telefono + '\''
+        + ", email='" + email + '\''
+        + ", password='" + password + '\''
+        + ", sesso='" + sesso + '\''
+        + ", totp_key='" + totpKey + '\''
+        + ", specializzazione='" + specializzazione + '\''
+        + ", codice_albo='" + codiceAlbo + '\''
+        + ", nome_struttura='" + nomeStruttura + '\''
+        + ", indirizzo_struttura='" + indirizzoStruttura + '\''
+        + ", stato=" + stato
+        + '}';
   }
 }

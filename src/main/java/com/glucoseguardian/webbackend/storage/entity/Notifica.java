@@ -31,7 +31,7 @@ public class Notifica implements Serializable {
   private Time ora;
 
   @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
-  private int stato;
+  private int stato = 0;
 
   public Notifica() {
 

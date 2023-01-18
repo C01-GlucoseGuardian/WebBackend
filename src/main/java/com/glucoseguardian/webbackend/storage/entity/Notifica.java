@@ -40,8 +40,7 @@ public class Notifica implements Serializable {
   /**
    * Costruttore predefinito dell'entity Notifica.
    */
-  public Notifica(long id, String messaggio, Date data, Time ora, int stato) {
-    this.id = id;
+  public Notifica(String messaggio, Date data, Time ora, int stato) {
     this.messaggio = messaggio;
     this.data = data;
     this.ora = ora;

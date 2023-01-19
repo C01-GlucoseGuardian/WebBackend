@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackendstorage.entity;
+package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.persistence.*;
 

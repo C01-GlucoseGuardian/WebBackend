@@ -18,7 +18,7 @@ public class NumeroTelefono implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private long id;
   @Column(length = 15, nullable = false)
   private String numero;
   @ManyToOne
@@ -32,17 +32,17 @@ public class NumeroTelefono implements Serializable {
    * Costruttore della entity Numero di telefono.
    */
 
-  public NumeroTelefono(int id, String numero, Paziente paziente) {
+  public NumeroTelefono(long id, String numero, Paziente paziente) {
     this.id = id;
     this.numero = numero;
     this.paziente = paziente;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 

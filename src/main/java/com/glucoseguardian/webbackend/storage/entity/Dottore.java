@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,9 +37,9 @@ public class Dottore implements Serializable {
   private String email;
   @Column(nullable = false)
   private String password;
-  @Column(columnDefinition = "CHAR(1)")
+  @Column(columnDefinition = "CHAR(1)", nullable = false)
   private char sesso;
-  @Column()
+  @Column
   private String totpKey;
   @Column(length = 100, nullable = false)
   private String specializzazione;
@@ -49,7 +49,7 @@ public class Dottore implements Serializable {
   private String nomeStruttura;
   @Column(length = 100, nullable = false)
   private String indirizzoStruttura;
-  @Column(columnDefinition = "UNSIGNED INT(1)")
+  @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
   private int stato = 0;
   @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;

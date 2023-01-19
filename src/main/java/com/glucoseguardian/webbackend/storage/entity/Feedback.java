@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -21,7 +20,7 @@ public class Feedback implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private long id;
 
   @Column(length = 300, nullable = false)
   private String statoSalute;
@@ -54,7 +53,7 @@ public class Feedback implements Serializable {
   /**
    * Costruttore di default della classe Feedback.
    */
-  public Feedback(int id, String statoSalute, String oreSonno, String dolori, String svenimenti,
+  public Feedback(long id, String statoSalute, String oreSonno, String dolori, String svenimenti,
       Date data, Time ora, Paziente paziente) {
     this.id = id;
     this.statoSalute = statoSalute;
@@ -66,11 +65,11 @@ public class Feedback implements Serializable {
     this.paziente = paziente;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 

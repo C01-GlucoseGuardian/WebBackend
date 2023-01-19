@@ -2,12 +2,9 @@ package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
 /**
@@ -18,8 +15,8 @@ public class Farmaco {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNSIGNED INT")
-  private int id;
+  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
+  private long id;
 
   @Column(length = 50, nullable = false)
   private String nomeFarmaco;
@@ -59,11 +56,11 @@ public class Farmaco {
     return Objects.hash(id, nomeFarmaco, principioAttivo, confezione);
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -93,12 +90,12 @@ public class Farmaco {
 
   @Override
   public String toString() {
-    return "Farmaco{" +
-        "id=" + id +
-        ", nomeFarmaco='" + nomeFarmaco + '\'' +
-        ", principioAttivo='" + principioAttivo + '\'' +
-        ", confezione='" + confezione + '\'' +
-        '}';
+    return "Farmaco{"
+        + "id=" + id
+        + ", nomeFarmaco='" + nomeFarmaco + '\''
+        + ", principioAttivo='" + principioAttivo + '\''
+        + ", confezione='" + confezione + '\''
+        + '}';
   }
 
 

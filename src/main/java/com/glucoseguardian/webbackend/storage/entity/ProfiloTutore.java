@@ -39,7 +39,6 @@ public class ProfiloTutore implements Serializable {
   @Column(columnDefinition = "CHAR(1)", nullable = false)
   private char sesso;
 
-  @Column(nullable = false)
   private String totpKey;
 
   @Column(nullable = false)

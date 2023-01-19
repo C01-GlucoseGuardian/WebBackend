@@ -21,7 +21,7 @@ public class Farmaco {
   @Column(columnDefinition = "UNSIGNED INT")
   private int id;
 
-  @Column(length = 50)
+  @Column(length = 50, nullable = false)
   private String nomeFarmaco;
   private String principioAttivo;
   private String confezione;

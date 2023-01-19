@@ -114,6 +114,6 @@ public class Glicemia implements Serializable {
   }
 
   @ManyToOne
-  @JoinColumn(name = "monitoraPazienti")
+  @JoinColumn(name = "codiceFiscale")
   private Paziente paziente;
 }

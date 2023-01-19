@@ -206,12 +206,13 @@ public class Dottore implements Serializable {
     this.terapias = terapias;
   }
 
-  public Notifica getNotifica() {
-    return notifica;
+  public List<Notifica> getNotificas() {
+    return notificas;
   }
 
-  public void setNotifica(Notifica notifica) {
-    this.notifica = notifica;
+  public void setNotificas(
+      List<Notifica> notificas) {
+    this.notificas = notificas;
   }
 
   /**
@@ -241,25 +242,30 @@ public class Dottore implements Serializable {
   public Dottore() {
   }
 
+
   @Override
   public String toString() {
-    return "Dottore{"
-        + "codice_fiscale='" + codiceFiscale + '\''
+    return "Dottore{" +
+        "codiceFiscale='" + codiceFiscale + '\''
         + ", nome='" + nome + '\''
         + ", cognome='" + cognome + '\''
-        + ", data_nascita=" + dataNascita
+        + ", dataNascita=" + dataNascita
         + ", indirizzo='" + indirizzo + '\''
         + ", telefono='" + telefono + '\''
         + ", email='" + email + '\''
         + ", password='" + password + '\''
-        + ", sesso='" + sesso + '\''
-        + ", totp_key='" + totpKey + '\''
+        + ", sesso=" + sesso
+        + ", totpKey='" + totpKey + '\''
         + ", specializzazione='" + specializzazione + '\''
-        + ", codice_albo='" + codiceAlbo + '\''
-        + ", nome_struttura='" + nomeStruttura + '\''
-        + ", indirizzo_struttura='" + indirizzoStruttura + '\''
+        + ", codiceAlbo='" + codiceAlbo + '\''
+        + ", nomeStruttura='" + nomeStruttura + '\''
+        + ", indirizzoStruttura='" + indirizzoStruttura + '\''
         + ", stato=" + stato
-        + ", notifica=" + notifica
+        + ", feedbacks=" + feedbacks
+        + ", pazientes=" + pazientes
+        + ", admins=" + admins
+        + ", terapias=" + terapias
+        + ", notificas=" + notificas
         + '}';
   }
 
@@ -284,29 +290,28 @@ public class Dottore implements Serializable {
         && Objects.equals(indirizzoStruttura, dottore.indirizzoStruttura)
         && Objects.equals(feedbacks, dottore.feedbacks) && Objects.equals(
         pazientes, dottore.pazientes) && Objects.equals(admins, dottore.admins)
-        && Objects.equals(terapias, dottore.terapias) && Objects.equals(notifica,
-        dottore.notifica);
+        && Objects.equals(terapias, dottore.terapias) && Objects.equals(notificas,
+        dottore.notificas);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
         password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
-        stato, feedbacks, pazientes, admins, terapias, notifica);
+        stato, feedbacks, pazientes, admins, terapias, notificas);
   }
 
-  @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;
-  @OneToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazientes;
 
-  @OneToMany(mappedBy = "Admin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Admin> admins;
 
-  @OneToMany(mappedBy = "Terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Terapia> terapias;
 
-  @ManyToOne
-  @JoinColumn(name = "notificheDottore")
-  private Notifica notifica;
+  @OneToMany(mappedBy = "dottoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Notifica> notificas;
 }

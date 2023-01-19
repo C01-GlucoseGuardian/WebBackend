@@ -116,15 +116,15 @@ public class Terapia implements Serializable {
     return Objects.hash(id, dataInizio, feedbacks, pazientes, assunzioneFarmacos, dottore);
   }
 
-  @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;
-  @OneToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazientes;
 
-  @OneToMany(mappedBy = "AssunzioneFarmaco", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AssunzioneFarmaco> assunzioneFarmacos;
 
   @ManyToOne
-  @JoinColumn(name = "prescrizioniDottore")
+  @JoinColumn(name = "codiceFiscale")
   private Dottore dottore;
 }

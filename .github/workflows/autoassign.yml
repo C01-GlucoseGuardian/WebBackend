@@ -11,3 +11,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           reviewers: scient122, aminesr97
           skipKeywords: wip, draft
+          addAssignees: false

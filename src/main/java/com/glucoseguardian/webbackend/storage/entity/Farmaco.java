@@ -20,7 +20,7 @@ public class Farmaco {
   @Column(columnDefinition = "UNSIGNED INT")
   private int id;
 
-  @Column(columnDefinition = "VARCHAR(50)")
+  @Column(length = 50)
   private String nomeFarmaco;
   private String principioAttivo;
   private String confezione;

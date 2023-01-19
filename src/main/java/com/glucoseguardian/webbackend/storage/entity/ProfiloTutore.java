@@ -20,16 +20,16 @@ public class ProfiloTutore implements Serializable {
   @Column(columnDefinition = "CHAR(16)")
   private String codiceFiscale;
 
-  @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+  @Column(length = 30, nullable = false)
   private String nome;
-  @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+  @Column(length = 30, nullable = false)
 
   private String cognome;
   @Column(nullable = false)
   private Date dataNascita;
-  @Column(columnDefinition = "VARCHAR(50)", nullable = false)
+  @Column(length = 50, nullable = false)
   private String indirizzo;
-  @Column(columnDefinition = "VARCHAR(15)", nullable = false)
+  @Column(length = 15, nullable = false)
   private String telefono;
   @Column(nullable = false)
   private String email;

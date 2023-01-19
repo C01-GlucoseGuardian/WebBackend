@@ -32,6 +32,9 @@ public class AssunzioneFarmaco implements Serializable {
   private String viaDiSomministrazione;
   @Column(length = 300)
   private String noteAggiuntive;
+  @ManyToOne
+  @JoinColumn(name = "terapia")
+  private Terapia terapia;
 
   /**
    * costruttore entity.
@@ -132,6 +135,14 @@ public class AssunzioneFarmaco implements Serializable {
 
   public void setDottore(Dottore dottore) {
     this.dottore = dottore;
+  }
+
+  public Terapia getTerapia() {
+    return terapia;
+  }
+
+  public void setTerapia(Terapia terapia) {
+    this.terapia = terapia;
   }
 
   @Override

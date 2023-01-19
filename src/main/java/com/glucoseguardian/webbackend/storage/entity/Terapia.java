@@ -31,7 +31,7 @@ public class Terapia implements Serializable {
   @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;
 
-  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AssunzioneFarmaco> assunzioneFarmacos;
 
   @ManyToOne

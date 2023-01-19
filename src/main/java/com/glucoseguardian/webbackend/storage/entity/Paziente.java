@@ -68,7 +68,7 @@ public class Paziente implements Serializable {
   private String comorbilita;
   @Column(length = 100, nullable = false)
   private String farmaciAssunti;
-  @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
+  @Column(nullable = false)
   private int periodoDiMonitoraggio;
 
   /**

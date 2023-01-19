@@ -15,7 +15,7 @@ public class Farmaco {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
+  @Column(nullable = false)
   private long id;
 
   @Column(length = 50, nullable = false)

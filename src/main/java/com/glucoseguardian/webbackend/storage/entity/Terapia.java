@@ -24,7 +24,7 @@ public class Terapia implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
+  @Column(nullable = false)
   private long id;
   @Column
   private Date dataInizio;

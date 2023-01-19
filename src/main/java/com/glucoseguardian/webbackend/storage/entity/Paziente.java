@@ -22,24 +22,24 @@ import java.util.Objects;
 @Entity
 public class Paziente implements Serializable {
 
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<NumeroTelefono> numeriTelefono;
   @OneToMany(mappedBy = "pazienteOggetto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Notifica> notificheInvio;
   @OneToMany(mappedBy = "pazienteDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Notifica> notificheRicezione;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Glicemia> glicemie;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Feedback> feedbacks;
-  @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "paziente", cascade = CascadeType.ALL)
   Terapia terapia;
   @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
+  @JoinColumn(name = "dottore")
   Dottore dottore;
   @ManyToMany
-  @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "codiceFiscale"),
-      inverseJoinColumns = @JoinColumn(name = "codiceFiscale"))
+  @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "paziente"),
+      inverseJoinColumns = @JoinColumn(name = "tutore"))
   List<ProfiloTutore> profiliTutore;
 
   @Id
@@ -96,6 +96,75 @@ public class Paziente implements Serializable {
 
   public Paziente() {
 
+  }
+
+  public List<NumeroTelefono> getNumeriTelefono() {
+    return numeriTelefono;
+  }
+
+  public void setNumeriTelefono(
+      List<NumeroTelefono> numeriTelefono) {
+    this.numeriTelefono = numeriTelefono;
+  }
+
+  public List<Notifica> getNotificheInvio() {
+    return notificheInvio;
+  }
+
+  public void setNotificheInvio(
+      List<Notifica> notificheInvio) {
+    this.notificheInvio = notificheInvio;
+  }
+
+  public List<Notifica> getNotificheRicezione() {
+    return notificheRicezione;
+  }
+
+  public void setNotificheRicezione(
+      List<Notifica> notificheRicezione) {
+    this.notificheRicezione = notificheRicezione;
+  }
+
+  public List<Glicemia> getGlicemie() {
+    return glicemie;
+  }
+
+  public void setGlicemie(List<Glicemia> glicemie) {
+    this.glicemie = glicemie;
+  }
+
+  public List<Feedback> getFeedbacks() {
+    return feedbacks;
+  }
+
+  public void setFeedbacks(
+      List<Feedback> feedbacks) {
+    this.feedbacks = feedbacks;
+  }
+
+  public Terapia getTerapia() {
+    return terapia;
+  }
+
+  public void setTerapia(Terapia terapia) {
+    this.terapia = terapia;
+  }
+
+  public Dottore getDottore() {
+    return dottore;
+  }
+
+  public void setDottore(Dottore dottore) {
+    this.dottore = dottore;
+  }
+
+  public List<ProfiloTutore> getProfiliTutore() {
+    return profiliTutore;
+  }
+
+  public void setProfiliTutore(
+      List<ProfiloTutore> profiliTutore) {
+    this.profiliTutore = profiliTutore;
   }
 
   public String getCodiceFiscale() {
@@ -219,19 +288,31 @@ public class Paziente implements Serializable {
       return false;
     }
     Paziente paziente = (Paziente) o;
-    return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(codiceFiscale,
-        paziente.codiceFiscale) && nome.equals(paziente.nome) && cognome.equals(paziente.cognome)
-        && dataNascita.equals(paziente.dataNascita) && indirizzo.equals(paziente.indirizzo)
-        && telefono.equals(paziente.telefono) && email.equals(paziente.email) && password.equals(
-        paziente.password) && sesso.equals(paziente.sesso) && Objects.equals(totpKey,
-        paziente.totpKey) && tipoDiabete.equals(paziente.tipoDiabete) && comorbilita.equals(
-        paziente.comorbilita) && farmaciAssunti.equals(paziente.farmaciAssunti);
+    return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(
+        numeriTelefono, paziente.numeriTelefono) && Objects.equals(notificheInvio,
+        paziente.notificheInvio) && Objects.equals(notificheRicezione,
+        paziente.notificheRicezione) && Objects.equals(glicemie, paziente.glicemie)
+        && Objects.equals(feedbacks, paziente.feedbacks) && Objects.equals(
+        terapia, paziente.terapia) && Objects.equals(dottore, paziente.dottore)
+        && Objects.equals(profiliTutore, paziente.profiliTutore)
+        && Objects.equals(codiceFiscale, paziente.codiceFiscale)
+        && Objects.equals(nome, paziente.nome) && Objects.equals(cognome,
+        paziente.cognome) && Objects.equals(dataNascita, paziente.dataNascita)
+        && Objects.equals(indirizzo, paziente.indirizzo) && Objects.equals(
+        telefono, paziente.telefono) && Objects.equals(email, paziente.email)
+        && Objects.equals(password, paziente.password) && Objects.equals(sesso,
+        paziente.sesso) && Objects.equals(totpKey, paziente.totpKey)
+        && Objects.equals(tipoDiabete, paziente.tipoDiabete) && Objects.equals(
+        comorbilita, paziente.comorbilita) && Objects.equals(farmaciAssunti,
+        paziente.farmaciAssunti);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti, periodoDiMonitoraggio);
+    return Objects.hash(numeriTelefono, notificheInvio, notificheRicezione, glicemie, feedbacks,
+        terapia, dottore, profiliTutore, codiceFiscale, nome, cognome, dataNascita, indirizzo,
+        telefono, email, password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti,
+        periodoDiMonitoraggio);
   }
 
   @Override

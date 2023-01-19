@@ -34,6 +34,25 @@ public class Notifica implements Serializable {
 
   @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
   private int stato = 0;
+  @ManyToOne
+  @JoinColumn(name = "pazienteOggetto")
+  private Paziente pazienteOggetto;
+
+  @ManyToOne
+  @JoinColumn(name = "pazienteDestinatario")
+  private Paziente pazienteDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "dottoreDestinatario")
+  private Dottore dottoreDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "tutoreDestinatario")
+  private ProfiloTutore tutoreDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "adminDestinatario")
+  private Admin adminDestinatario;
 
   public Notifica() {
 
@@ -48,6 +67,9 @@ public class Notifica implements Serializable {
     this.ora = ora;
     this.stato = stato;
   }
+  /**
+   * Questo è il costruttore della entity Notifica.
+   */
 
   public Notifica(long id, String messaggio, Date data, Time ora, int stato,
       Paziente pazienteOggetto, Paziente pazienteDestinatario, Dottore dottoreDestinatario,
@@ -74,22 +96,6 @@ public class Notifica implements Serializable {
         + '}';
   }
 
-  public Date getData() {
-    return data;
-  }
-
-  public void setData(Date data) {
-    this.data = data;
-  }
-
-  public int getStato() {
-    return stato;
-  }
-
-  public void setStato(int stato) {
-    this.stato = stato;
-  }
-
   public long getId() {
     return id;
   }
@@ -106,6 +112,14 @@ public class Notifica implements Serializable {
     this.messaggio = messaggio;
   }
 
+  public Date getData() {
+    return data;
+  }
+
+  public void setData(Date data) {
+    this.data = data;
+  }
+
   public Time getOra() {
     return ora;
   }
@@ -114,20 +128,12 @@ public class Notifica implements Serializable {
     this.ora = ora;
   }
 
-  public Dottore getDottoreDestinatario() {
-    return dottoreDestinatario;
+  public int getStato() {
+    return stato;
   }
 
-  public Paziente getPazienteDestinatario() {
-    return pazienteDestinatario;
-  }
-
-  public ProfiloTutore getTutoreDestinatario() {
-    return tutoreDestinatario;
-  }
-
-  public Admin getAdminDestinatario() {
-    return adminDestinatario;
+  public void setStato(int stato) {
+    this.stato = stato;
   }
 
   public Paziente getPazienteOggetto() {
@@ -138,16 +144,35 @@ public class Notifica implements Serializable {
     this.pazienteOggetto = pazienteOggetto;
   }
 
-  public void setPazienteDestinatario(Paziente pazienteDestinatario) {
+  public Paziente getPazienteDestinatario() {
+    return pazienteDestinatario;
+  }
+
+  public void setPazienteDestinatario(
+      Paziente pazienteDestinatario) {
     this.pazienteDestinatario = pazienteDestinatario;
   }
 
-  public void setDottoreDestinatario(Dottore dottoreDestinatario) {
+  public Dottore getDottoreDestinatario() {
+    return dottoreDestinatario;
+  }
+
+  public void setDottoreDestinatario(
+      Dottore dottoreDestinatario) {
     this.dottoreDestinatario = dottoreDestinatario;
   }
 
-  public void setTutoreDestinatario(ProfiloTutore tutoreDestinatario) {
+  public ProfiloTutore getTutoreDestinatario() {
+    return tutoreDestinatario;
+  }
+
+  public void setTutoreDestinatario(
+      ProfiloTutore tutoreDestinatario) {
     this.tutoreDestinatario = tutoreDestinatario;
+  }
+
+  public Admin getAdminDestinatario() {
+    return adminDestinatario;
   }
 
   public void setAdminDestinatario(Admin adminDestinatario) {
@@ -164,10 +189,11 @@ public class Notifica implements Serializable {
     }
     Notifica notifica = (Notifica) o;
     return id == notifica.id && stato == notifica.stato && Objects.equals(messaggio,
-        notifica.messaggio) && Objects.equals(data, notifica.data) && Objects.equals(ora,
-        notifica.ora) && Objects.equals(pazienteOggetto, notifica.pazienteOggetto)
-        && Objects.equals(pazienteDestinatario, notifica.pazienteDestinatario) && Objects.equals(
-        dottoreDestinatario, notifica.dottoreDestinatario) && Objects.equals(tutoreDestinatario,
+        notifica.messaggio) && Objects.equals(data, notifica.data)
+        && Objects.equals(ora, notifica.ora) && Objects.equals(pazienteOggetto,
+        notifica.pazienteOggetto) && Objects.equals(pazienteDestinatario,
+        notifica.pazienteDestinatario) && Objects.equals(dottoreDestinatario,
+        notifica.dottoreDestinatario) && Objects.equals(tutoreDestinatario,
         notifica.tutoreDestinatario) && Objects.equals(adminDestinatario,
         notifica.adminDestinatario);
   }
@@ -177,26 +203,6 @@ public class Notifica implements Serializable {
     return Objects.hash(id, messaggio, data, ora, stato, pazienteOggetto, pazienteDestinatario,
         dottoreDestinatario, tutoreDestinatario, adminDestinatario);
   }
-
-  @ManyToOne
-  @JoinColumn(name = "pazienteOggetto")
-  private Paziente pazienteOggetto;
-
-  @ManyToOne
-  @JoinColumn(name = "pazienteDestinatario")
-  private Paziente pazienteDestinatario;
-
-  @ManyToOne
-  @JoinColumn(name = "dottoreDestinatario")
-  private Dottore dottoreDestinatario;
-
-  @ManyToOne
-  @JoinColumn(name = "tutoreDestinatario")
-  private ProfiloTutore tutoreDestinatario;
-
-  @ManyToOne
-  @JoinColumn(name = "adminDestinatario")
-  private Admin adminDestinatario;
 
 
 }

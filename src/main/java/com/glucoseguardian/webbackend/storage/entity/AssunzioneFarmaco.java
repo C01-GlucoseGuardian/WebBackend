@@ -1,18 +1,14 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.sql.Time;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,8 +21,9 @@ public class AssunzioneFarmaco implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(columnDefinition = "UNSIGNED INT", nullable = false)
   private long id;
-  @Column(length = 50, nullable = false)
-  private String farmaco;
+  @ManyToOne
+  @JoinColumn(name = "farmaco")
+  private Farmaco farmaco;
   @Column(nullable = false)
   private int dosaggio;
   @Column(nullable = false)
@@ -39,8 +36,8 @@ public class AssunzioneFarmaco implements Serializable {
   /**
    * costruttore entity.
    */
-  public AssunzioneFarmaco(long id, String farmaco, int dosaggio, Time orarioAssunzione,
-                           String viaDiSomministrazione, String noteAggiuntive) {
+  public AssunzioneFarmaco(long id, Farmaco farmaco, int dosaggio, Time orarioAssunzione,
+      String viaDiSomministrazione, String noteAggiuntive) {
     this.id = id;
     this.farmaco = farmaco;
     this.dosaggio = dosaggio;
@@ -52,7 +49,7 @@ public class AssunzioneFarmaco implements Serializable {
   /**
    * costruttore entity senza id.
    */
-  public AssunzioneFarmaco(String farmaco, int dosaggio, Time orarioAssunzione,
+  public AssunzioneFarmaco(Farmaco farmaco, int dosaggio, Time orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
     this.farmaco = farmaco;
     this.dosaggio = dosaggio;
@@ -65,6 +62,22 @@ public class AssunzioneFarmaco implements Serializable {
 
   }
 
+  @Override
+  public String toString() {
+    return "AssunzioneFarmaco{"
+        + "id=" + id
+        + ", farmaco='" + farmaco + '\''
+        + ", dosaggio=" + dosaggio
+        + ", orario_assunzione=" + orarioAssunzione
+        + ", via_di_somministrazione='" + viaDiSomministrazione + '\''
+        + ", note_aggiuntive='" + noteAggiuntive + '\''
+        + '}';
+  }
+
+  @ManyToOne
+  @JoinColumn(name = "dottore")
+  private Dottore dottore;
+
   public long getId() {
     return id;
   }
@@ -73,11 +86,11 @@ public class AssunzioneFarmaco implements Serializable {
     this.id = id;
   }
 
-  public String getFarmaco() {
+  public Farmaco getFarmaco() {
     return farmaco;
   }
 
-  public void setFarmaco(String farmaco) {
+  public void setFarmaco(Farmaco farmaco) {
     this.farmaco = farmaco;
   }
 
@@ -113,6 +126,14 @@ public class AssunzioneFarmaco implements Serializable {
     this.noteAggiuntive = noteAggiuntive;
   }
 
+  public Dottore getDottore() {
+    return dottore;
+  }
+
+  public void setDottore(Dottore dottore) {
+    this.dottore = dottore;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -122,33 +143,16 @@ public class AssunzioneFarmaco implements Serializable {
       return false;
     }
     AssunzioneFarmaco that = (AssunzioneFarmaco) o;
-    return id == that.id && dosaggio == that.dosaggio && farmaco.equals(that.farmaco)
-        && orarioAssunzione.equals(that.orarioAssunzione) && viaDiSomministrazione.equals(
-        that.viaDiSomministrazione) && Objects.equals(noteAggiuntive, that.noteAggiuntive);
+    return id == that.id && dosaggio == that.dosaggio && Objects.equals(farmaco,
+        that.farmaco) && Objects.equals(orarioAssunzione, that.orarioAssunzione)
+        && Objects.equals(viaDiSomministrazione, that.viaDiSomministrazione)
+        && Objects.equals(noteAggiuntive, that.noteAggiuntive) && Objects.equals(
+        dottore, that.dottore);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, farmaco, dosaggio, orarioAssunzione, viaDiSomministrazione,
-        noteAggiuntive);
+        noteAggiuntive, dottore);
   }
-
-  @Override
-  public String toString() {
-    return "AssunzioneFarmaco{"
-        + "id=" + id
-        + ", farmaco='" + farmaco + '\''
-        + ", dosaggio=" + dosaggio
-        + ", orario_assunzione=" + orarioAssunzione
-        + ", via_di_somministrazione='" + viaDiSomministrazione + '\''
-        + ", note_aggiuntive='" + noteAggiuntive + '\''
-        + '}';
-  }
-
-  @ManyToOne
-  @JoinColumn(name = "Terapia")
-  Dottore dottore;
-
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  List<Farmaco> farmaci;
 }

@@ -7,7 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +44,7 @@ public class ProfiloTutore implements Serializable {
   @Column(nullable = false)
   private String relazioneDiParentela;
 
-  @ManyToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "profiliTutore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
 
   public ProfiloTutore() {
@@ -162,17 +162,9 @@ public class ProfiloTutore implements Serializable {
     return pazienteList;
   }
 
-  public void setPazienteList(List<Paziente> pazienteList) {
+  public void setPazienteList(
+      List<Paziente> pazienteList) {
     this.pazienteList = pazienteList;
-  }
-
-  @Override
-  public String toString() {
-    return "ProfiloTutore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
-        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
-        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
-        + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
   }
 
   @Override
@@ -184,11 +176,28 @@ public class ProfiloTutore implements Serializable {
       return false;
     }
     ProfiloTutore that = (ProfiloTutore) o;
-    return getCodiceFiscale().equals(that.getCodiceFiscale());
+    return sesso == that.sesso && Objects.equals(codiceFiscale, that.codiceFiscale)
+        && Objects.equals(nome, that.nome) && Objects.equals(cognome,
+        that.cognome) && Objects.equals(dataNascita, that.dataNascita)
+        && Objects.equals(indirizzo, that.indirizzo) && Objects.equals(telefono,
+        that.telefono) && Objects.equals(email, that.email) && Objects.equals(
+        password, that.password) && Objects.equals(totpKey, that.totpKey)
+        && Objects.equals(relazioneDiParentela, that.relazioneDiParentela)
+        && Objects.equals(pazienteList, that.pazienteList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getCodiceFiscale());
+    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
+        password, sesso, totpKey, relazioneDiParentela, pazienteList);
+  }
+
+  @Override
+  public String toString() {
+    return "ProfiloTutore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
+        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
+        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
+        + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
   }
 }

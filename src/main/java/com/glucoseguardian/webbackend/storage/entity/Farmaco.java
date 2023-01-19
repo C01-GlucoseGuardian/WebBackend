@@ -2,12 +2,9 @@ package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
 /**
@@ -18,17 +15,14 @@ public class Farmaco {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNSIGNED INT")
-  private int id;
+  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
+  private long id;
 
   @Column(length = 50, nullable = false)
   private String nomeFarmaco;
   private String principioAttivo;
   private String confezione;
 
-  @ManyToOne
-  @JoinColumn(name = "assunzioneFarmaco")
-  private AssunzioneFarmaco assunzioneFarmaco;
 
   public Farmaco() {
   }
@@ -36,28 +30,37 @@ public class Farmaco {
   /**
    * Costruttore di default della classe Farmaco.
    */
-  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione,
-      AssunzioneFarmaco assunzioneFarmaco) {
+  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione) {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
     this.confezione = confezione;
-    this.assunzioneFarmaco = assunzioneFarmaco;
+
   }
 
-  public AssunzioneFarmaco getAssunzioneFarmaco() {
-    return assunzioneFarmaco;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Farmaco farmaco = (Farmaco) o;
+    return id == farmaco.id && Objects.equals(nomeFarmaco, farmaco.nomeFarmaco)
+        && Objects.equals(principioAttivo, farmaco.principioAttivo)
+        && Objects.equals(confezione, farmaco.confezione);
   }
 
-  public void setAssunzioneFarmaco(
-      AssunzioneFarmaco assunzioneFarmaco) {
-    this.assunzioneFarmaco = assunzioneFarmaco;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, nomeFarmaco, principioAttivo, confezione);
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -87,29 +90,13 @@ public class Farmaco {
 
   @Override
   public String toString() {
-    return "Farmaco{" +
-        "id=" + id +
-        ", nomeFarmaco='" + nomeFarmaco + '\'' +
-        ", principioAttivo='" + principioAttivo + '\'' +
-        ", confezione='" + confezione + '\'' +
-        ", assunzioneFarmaco=" + assunzioneFarmaco +
-        '}';
+    return "Farmaco{"
+        + "id=" + id
+        + ", nomeFarmaco='" + nomeFarmaco + '\''
+        + ", principioAttivo='" + principioAttivo + '\''
+        + ", confezione='" + confezione + '\''
+        + '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Farmaco farmaco = (Farmaco) o;
-    return getId() == farmaco.getId();
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getId());
-  }
 }

@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -22,7 +22,7 @@ public class Glicemia implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(columnDefinition = "UNSIGNED INT", nullable = false)
-  private int id;
+  private long id;
   @Column(nullable = false)
   private int livelloGlucosio;
   @Column(nullable = false)
@@ -30,11 +30,15 @@ public class Glicemia implements Serializable {
   @Column(nullable = false)
   private Time ora;
 
-  public int getId() {
+  @ManyToOne
+  @JoinColumn(name = "paziente")
+  private Paziente paziente;
+
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -113,7 +117,5 @@ public class Glicemia implements Serializable {
     return Objects.hash(id, livelloGlucosio, data, ora, paziente);
   }
 
-  @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
-  private Paziente paziente;
+
 }

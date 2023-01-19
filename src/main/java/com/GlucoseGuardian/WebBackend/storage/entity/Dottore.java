@@ -4,202 +4,212 @@ package com.GlucoseGuardian.WebBackend.storage.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Classe che rappresenta un'istanza dell'entity Dottore.
+ */
 @Entity
 public class Dottore implements Serializable {
-    @Id
-    @Column(length = 16,nullable = false)
-    private String codice_fiscale;
-    @Column(length = 30,nullable = false)
-    private  String nome;
-    @Column(length = 30,nullable = false)
-    private String cognome;
-    @Column(nullable = false)
-    private Date data_nascita;
-    @Column(length = 50,nullable = false)
-    private String indirizzo;
-    @Column(length = 15,nullable = false)
-    private String telefono;
-    @Column(length = 255,nullable = false)
-    private String email;
-    @Column(length = 255,nullable = false)
-    private String password;
-    @Column(columnDefinition = "CHAR(1)")
-    private char sesso;
-    @Column(length = 255)
-    private String totp_key;
-    @Column(length = 100,nullable = false)
-    private String specializzazione;
-    @Column(length = 50,nullable = false)
-    private String codice_albo;
-    @Column(length = 100,nullable = false)
-    private String nome_struttura;
-    @Column(length = 100,nullable = false)
-    private String indirizzo_struttura;
-    @Column(columnDefinition = "UNSIGNED INT(1)")
-    private int stato=0;
 
-    public String getCodice_fiscale() {
-        return codice_fiscale;
-    }
+  @Id
+  @Column(length = 16, nullable = false)
+  private String codiceFiscale;
+  @Column(length = 30, nullable = false)
+  private String nome;
+  @Column(length = 30, nullable = false)
+  private String cognome;
+  @Column(nullable = false)
+  private Date dataNascita;
+  @Column(length = 50, nullable = false)
+  private String indirizzo;
+  @Column(length = 15, nullable = false)
+  private String telefono;
+  @Column(nullable = false)
+  private String email;
+  @Column(nullable = false)
+  private String password;
+  @Column(columnDefinition = "CHAR(1)")
+  private char sesso;
+  @Column()
+  private String totpKey;
+  @Column(length = 100, nullable = false)
+  private String specializzazione;
+  @Column(length = 50, nullable = false)
+  private String codiceAlbo;
+  @Column(length = 100, nullable = false)
+  private String nomeStruttura;
+  @Column(length = 100, nullable = false)
+  private String indirizzoStruttura;
+  @Column(columnDefinition = "UNSIGNED INT(1)")
+  private int stato = 0;
 
-    public void setCodice_fiscale(String codice_fiscale) {
-        this.codice_fiscale = codice_fiscale;
-    }
+  public String getCodiceFiscale() {
+    return codiceFiscale;
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public void setCodiceFiscale(String codiceFiscale) {
+    this.codiceFiscale = codiceFiscale;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public String getCognome() {
-        return cognome;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
+  public String getCognome() {
+    return cognome;
+  }
 
-    public Date getData_nascita() {
-        return data_nascita;
-    }
+  public void setCognome(String cognome) {
+    this.cognome = cognome;
+  }
 
-    public void setData_nascita(Date data_nascita) {
-        this.data_nascita = data_nascita;
-    }
+  public Date getDataNascita() {
+    return dataNascita;
+  }
 
-    public String getIndirizzo() {
-        return indirizzo;
-    }
+  public void setDataNascita(Date dataNascita) {
+    this.dataNascita = dataNascita;
+  }
 
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-    }
+  public String getIndirizzo() {
+    return indirizzo;
+  }
 
-    public String getTelefono() {
-        return telefono;
-    }
+  public void setIndirizzo(String indirizzo) {
+    this.indirizzo = indirizzo;
+  }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+  public String getTelefono() {
+    return telefono;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setTelefono(String telefono) {
+    this.telefono = telefono;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public char getSesso() {
-        return sesso;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setSesso(char sesso) {
-        this.sesso = sesso;
-    }
+  public char getSesso() {
+    return sesso;
+  }
 
-    public String getTotp_key() {
-        return totp_key;
-    }
+  public void setSesso(char sesso) {
+    this.sesso = sesso;
+  }
 
-    public void setTotp_key(String totp_key) {
-        this.totp_key = totp_key;
-    }
+  public String getTotpKey() {
+    return totpKey;
+  }
 
-    public String getSpecializzazione() {
-        return specializzazione;
-    }
+  public void setTotpKey(String totpKey) {
+    this.totpKey = totpKey;
+  }
 
-    public void setSpecializzazione(String specializzazione) {
-        this.specializzazione = specializzazione;
-    }
+  public String getSpecializzazione() {
+    return specializzazione;
+  }
 
-    public String getCodice_albo() {
-        return codice_albo;
-    }
+  public void setSpecializzazione(String specializzazione) {
+    this.specializzazione = specializzazione;
+  }
 
-    public void setCodice_albo(String codice_albo) {
-        this.codice_albo = codice_albo;
-    }
+  public String getCodiceAlbo() {
+    return codiceAlbo;
+  }
 
-    public String getNome_struttura() {
-        return nome_struttura;
-    }
+  public void setCodiceAlbo(String codiceAlbo) {
+    this.codiceAlbo = codiceAlbo;
+  }
 
-    public void setNome_struttura(String nome_struttura) {
-        this.nome_struttura = nome_struttura;
-    }
+  public String getNomeStruttura() {
+    return nomeStruttura;
+  }
 
-    public String getIndirizzo_struttura() {
-        return indirizzo_struttura;
-    }
+  public void setNomeStruttura(String nomeStruttura) {
+    this.nomeStruttura = nomeStruttura;
+  }
 
-    public void setIndirizzo_struttura(String indirizzo_struttura) {
-        this.indirizzo_struttura = indirizzo_struttura;
-    }
+  public String getIndirizzoStruttura() {
+    return indirizzoStruttura;
+  }
 
-    public int getStato() {
-        return stato;
-    }
+  public void setIndirizzoStruttura(String indirizzoStruttura) {
+    this.indirizzoStruttura = indirizzoStruttura;
+  }
 
-    public void setStato(int stato) {
-        this.stato = stato;
-    }
+  public int getStato() {
+    return stato;
+  }
 
-    public Dottore(String nome, String cognome, Date data_nascita, String indirizzo, String telefono, String email, String password, char sesso, String totp_key, String specializzazione, String codice_albo, String nome_struttura, String indirizzo_struttura, int stato) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.data_nascita = data_nascita;
-        this.indirizzo = indirizzo;
-        this.telefono = telefono;
-        this.email = email;
-        this.password = password;
-        this.sesso = sesso;
-        this.totp_key = totp_key;
-        this.specializzazione = specializzazione;
-        this.codice_albo = codice_albo;
-        this.nome_struttura = nome_struttura;
-        this.indirizzo_struttura = indirizzo_struttura;
-        this.stato = stato;
-    }
+  public void setStato(int stato) {
+    this.stato = stato;
+  }
 
-    public Dottore(){
-    }
+  /**
+   * Costruttore predefinito della classe Dottore.
+   */
+  public Dottore(String codiceFiscale, String nome, String cognome, Date dataNascita,
+      String indirizzo, String telefono,
+      String email, String password, char sesso, String totpKey, String specializzazione,
+      String codiceAlbo, String nomeStruttura, String indirizzoStruttura, int stato) {
+    this.codiceFiscale = codiceFiscale;
+    this.nome = nome;
+    this.cognome = cognome;
+    this.dataNascita = dataNascita;
+    this.indirizzo = indirizzo;
+    this.telefono = telefono;
+    this.email = email;
+    this.password = password;
+    this.sesso = sesso;
+    this.totpKey = totpKey;
+    this.specializzazione = specializzazione;
+    this.codiceAlbo = codiceAlbo;
+    this.nomeStruttura = nomeStruttura;
+    this.indirizzoStruttura = indirizzoStruttura;
+    this.stato = stato;
+  }
 
-    @Override
-    public String toString() {
-        return "Dottore{" +
-                "codice_fiscale='" + codice_fiscale + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", data_nascita=" + data_nascita +
-                ", indirizzo='" + indirizzo + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", sesso='" + sesso + '\'' +
-                ", totp_key='" + totp_key + '\'' +
-                ", specializzazione='" + specializzazione + '\'' +
-                ", codice_albo='" + codice_albo + '\'' +
-                ", nome_struttura='" + nome_struttura + '\'' +
-                ", indirizzo_struttura='" + indirizzo_struttura + '\'' +
-                ", stato=" + stato +
-                '}';
-    }
+  public Dottore() {
+  }
+
+  @Override
+  public String toString() {
+    return "Dottore{"
+        + "codice_fiscale='" + codiceFiscale + '\''
+        + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\''
+        + ", data_nascita=" + dataNascita
+        + ", indirizzo='" + indirizzo + '\''
+        + ", telefono='" + telefono + '\''
+        + ", email='" + email + '\''
+        + ", password='" + password + '\''
+        + ", sesso='" + sesso + '\''
+        + ", totp_key='" + totpKey + '\''
+        + ", specializzazione='" + specializzazione + '\''
+        + ", codice_albo='" + codiceAlbo + '\''
+        + ", nome_struttura='" + nomeStruttura + '\''
+        + ", indirizzo_struttura='" + indirizzoStruttura + '\''
+        + ", stato=" + stato
+        + '}';
+  }
 }

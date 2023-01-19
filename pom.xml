@@ -8,10 +8,10 @@
 		<version>3.0.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.GlucoseGuardian</groupId>
-	<artifactId>WebBackend</artifactId>
+	<groupId>com.glucoseguardian</groupId>
+	<artifactId>webbackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>WebBackend</name>
+	<name>webbackend</name>
 	<description>Backend web</description>
 	<properties>
 		<java.version>17</java.version>

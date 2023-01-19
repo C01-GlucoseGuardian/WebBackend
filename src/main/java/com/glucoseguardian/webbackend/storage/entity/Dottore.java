@@ -51,6 +51,46 @@ public class Dottore implements Serializable {
   private String indirizzoStruttura;
   @Column(columnDefinition = "UNSIGNED INT(1)")
   private int stato = 0;
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Feedback> feedbacks;
+  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Paziente> pazientes;
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Admin> admins;
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Terapia> terapias;
+  @OneToMany(mappedBy = "dottoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Notifica> notificas;
+  @ManyToOne
+  @JoinColumn(name = "convalidatoDa")
+  private Admin convalidatoDa;
+
+  /**
+   * Costruttore predefinito della classe Dottore.
+   */
+  public Dottore(String codiceFiscale, String nome, String cognome, Date dataNascita,
+      String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
+      String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
+      int stato) {
+    this.codiceFiscale = codiceFiscale;
+    this.nome = nome;
+    this.cognome = cognome;
+    this.dataNascita = dataNascita;
+    this.indirizzo = indirizzo;
+    this.telefono = telefono;
+    this.email = email;
+    this.password = password;
+    this.sesso = sesso;
+    this.totpKey = totpKey;
+    this.specializzazione = specializzazione;
+    this.codiceAlbo = codiceAlbo;
+    this.nomeStruttura = nomeStruttura;
+    this.indirizzoStruttura = indirizzoStruttura;
+    this.stato = stato;
+  }
+
+  public Dottore() {
+  }
 
   public String getCodiceFiscale() {
     return codiceFiscale;
@@ -176,8 +216,7 @@ public class Dottore implements Serializable {
     return feedbacks;
   }
 
-  public void setFeedbacks(
-      List<Feedback> feedbacks) {
+  public void setFeedbacks(List<Feedback> feedbacks) {
     this.feedbacks = feedbacks;
   }
 
@@ -185,8 +224,7 @@ public class Dottore implements Serializable {
     return pazientes;
   }
 
-  public void setPazientes(
-      List<Paziente> pazientes) {
+  public void setPazientes(List<Paziente> pazientes) {
     this.pazientes = pazientes;
   }
 
@@ -210,63 +248,20 @@ public class Dottore implements Serializable {
     return notificas;
   }
 
-  public void setNotificas(
-      List<Notifica> notificas) {
+  public void setNotificas(List<Notifica> notificas) {
     this.notificas = notificas;
   }
 
-  /**
-   * Costruttore predefinito della classe Dottore.
-   */
-  public Dottore(String codiceFiscale, String nome, String cognome, Date dataNascita,
-      String indirizzo, String telefono,
-      String email, String password, char sesso, String totpKey, String specializzazione,
-      String codiceAlbo, String nomeStruttura, String indirizzoStruttura, int stato) {
-    this.codiceFiscale = codiceFiscale;
-    this.nome = nome;
-    this.cognome = cognome;
-    this.dataNascita = dataNascita;
-    this.indirizzo = indirizzo;
-    this.telefono = telefono;
-    this.email = email;
-    this.password = password;
-    this.sesso = sesso;
-    this.totpKey = totpKey;
-    this.specializzazione = specializzazione;
-    this.codiceAlbo = codiceAlbo;
-    this.nomeStruttura = nomeStruttura;
-    this.indirizzoStruttura = indirizzoStruttura;
-    this.stato = stato;
-  }
-
-  public Dottore() {
-  }
-
-
   @Override
   public String toString() {
-    return "Dottore{" +
-        "codiceFiscale='" + codiceFiscale + '\''
-        + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\''
-        + ", dataNascita=" + dataNascita
-        + ", indirizzo='" + indirizzo + '\''
-        + ", telefono='" + telefono + '\''
-        + ", email='" + email + '\''
-        + ", password='" + password + '\''
-        + ", sesso=" + sesso
-        + ", totpKey='" + totpKey + '\''
-        + ", specializzazione='" + specializzazione + '\''
-        + ", codiceAlbo='" + codiceAlbo + '\''
-        + ", nomeStruttura='" + nomeStruttura + '\''
-        + ", indirizzoStruttura='" + indirizzoStruttura + '\''
-        + ", stato=" + stato
-        + ", feedbacks=" + feedbacks
-        + ", pazientes=" + pazientes
-        + ", admins=" + admins
-        + ", terapias=" + terapias
-        + ", notificas=" + notificas
-        + '}';
+    return "Dottore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
+        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
+        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
+        + ", specializzazione='" + specializzazione + '\'' + ", codiceAlbo='" + codiceAlbo + '\''
+        + ", nomeStruttura='" + nomeStruttura + '\'' + ", indirizzoStruttura='" + indirizzoStruttura
+        + '\'' + ", stato=" + stato + ", feedbacks=" + feedbacks + ", pazientes=" + pazientes
+        + ", admins=" + admins + ", terapias=" + terapias + ", notificas=" + notificas + '}';
   }
 
   @Override
@@ -279,18 +274,16 @@ public class Dottore implements Serializable {
     }
     Dottore dottore = (Dottore) o;
     return sesso == dottore.sesso && stato == dottore.stato && Objects.equals(codiceFiscale,
-        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome)
-        && Objects.equals(cognome, dottore.cognome) && Objects.equals(dataNascita,
-        dottore.dataNascita) && Objects.equals(indirizzo, dottore.indirizzo)
-        && Objects.equals(telefono, dottore.telefono) && Objects.equals(email,
-        dottore.email) && Objects.equals(password, dottore.password)
-        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(
-        specializzazione, dottore.specializzazione) && Objects.equals(codiceAlbo,
-        dottore.codiceAlbo) && Objects.equals(nomeStruttura, dottore.nomeStruttura)
-        && Objects.equals(indirizzoStruttura, dottore.indirizzoStruttura)
-        && Objects.equals(feedbacks, dottore.feedbacks) && Objects.equals(
-        pazientes, dottore.pazientes) && Objects.equals(admins, dottore.admins)
-        && Objects.equals(terapias, dottore.terapias) && Objects.equals(notificas,
+        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome) && Objects.equals(cognome,
+        dottore.cognome) && Objects.equals(dataNascita, dottore.dataNascita) && Objects.equals(
+        indirizzo, dottore.indirizzo) && Objects.equals(telefono, dottore.telefono)
+        && Objects.equals(email, dottore.email) && Objects.equals(password, dottore.password)
+        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(specializzazione,
+        dottore.specializzazione) && Objects.equals(codiceAlbo, dottore.codiceAlbo)
+        && Objects.equals(nomeStruttura, dottore.nomeStruttura) && Objects.equals(
+        indirizzoStruttura, dottore.indirizzoStruttura) && Objects.equals(feedbacks,
+        dottore.feedbacks) && Objects.equals(pazientes, dottore.pazientes) && Objects.equals(admins,
+        dottore.admins) && Objects.equals(terapias, dottore.terapias) && Objects.equals(notificas,
         dottore.notificas);
   }
 
@@ -301,17 +294,11 @@ public class Dottore implements Serializable {
         stato, feedbacks, pazientes, admins, terapias, notificas);
   }
 
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Feedback> feedbacks;
-  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Paziente> pazientes;
+  public Admin getConvalidatoDa() {
+    return convalidatoDa;
+  }
 
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Admin> admins;
-
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Terapia> terapias;
-
-  @OneToMany(mappedBy = "dottoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Notifica> notificas;
+  public void setConvalidatoDa(Admin convalidatoDa) {
+    this.convalidatoDa = convalidatoDa;
+  }
 }

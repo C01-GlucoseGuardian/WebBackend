@@ -1,10 +1,14 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Questa classe rappresenta l'entità ProfiloTutore.
@@ -40,6 +44,9 @@ public class ProfiloTutore implements Serializable {
   @Column(columnDefinition = "VARCHAR(255)", nullable = false)
   private String relazioneDiParentela;
 
+  @ManyToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Paziente> pazienteList;
+
   public ProfiloTutore() {
   }
 
@@ -48,7 +55,7 @@ public class ProfiloTutore implements Serializable {
    */
   public ProfiloTutore(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
-      String relazioneDiParentela) {
+      String relazioneDiParentela, List<Paziente> pazienteList) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -60,22 +67,24 @@ public class ProfiloTutore implements Serializable {
     this.sesso = sesso;
     this.totpKey = totpKey;
     this.relazioneDiParentela = relazioneDiParentela;
+    this.pazienteList = pazienteList;
   }
 
   @Override
   public String toString() {
-    return "ProfiloTutore{"
-        + "codiceFiscale='" + codiceFiscale + '\''
-        + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\''
-        + ", dataNascita=" + dataNascita
-        + ", indirizzo='" + indirizzo + '\''
-        + ", telefono='" + telefono + '\''
-        + ", email='" + email + '\''
-        + ", password='" + password + '\''
-        + ", sesso=" + sesso
-        + ", totpKey='" + totpKey + '\''
-        + ", relazioneDiParentela='" + relazioneDiParentela + '\''
-        + '}';
+    return "ProfiloTutore{" +
+        "codiceFiscale='" + codiceFiscale + '\'' +
+        ", nome='" + nome + '\'' +
+        ", cognome='" + cognome + '\'' +
+        ", dataNascita=" + dataNascita +
+        ", indirizzo='" + indirizzo + '\'' +
+        ", telefono='" + telefono + '\'' +
+        ", email='" + email + '\'' +
+        ", password='" + password + '\'' +
+        ", sesso=" + sesso +
+        ", totpKey='" + totpKey + '\'' +
+        ", relazioneDiParentela='" + relazioneDiParentela + '\'' +
+        ", pazienteList=" + pazienteList +
+        '}';
   }
 }

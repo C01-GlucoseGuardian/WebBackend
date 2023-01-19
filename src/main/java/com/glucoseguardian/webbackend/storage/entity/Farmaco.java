@@ -2,9 +2,12 @@ package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * Questa classe rappresenta l'entità Farmaco.
@@ -24,6 +27,10 @@ public class Farmaco {
   @Column(columnDefinition = "VARCHAR(255)")
   private String confezione;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "farmacoId")
+  private AssunzioneFarmaco assunzioneFarmaco;
+
 
   public Farmaco() {
   }
@@ -31,10 +38,11 @@ public class Farmaco {
   /**
    * Costruttore di default della classe Farmaco.
    */
-  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione) {
+  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione, AssunzioneFarmaco assunzioneFarmaco) {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
     this.confezione = confezione;
+    this.assunzioneFarmaco = assunzioneFarmaco;
   }
 
   public int getId() {
@@ -71,11 +79,12 @@ public class Farmaco {
 
   @Override
   public String toString() {
-    return "Farmaco{"
-        + "id=" + id
-        + ", nomeFarmaco='" + nomeFarmaco + '\''
-        + ", principioAttivo='" + principioAttivo + '\''
-        + ", confezione='" + confezione + '\''
-        + '}';
+    return "Farmaco{" +
+        "id=" + id +
+        ", nomeFarmaco='" + nomeFarmaco + '\'' +
+        ", principioAttivo='" + principioAttivo + '\'' +
+        ", confezione='" + confezione + '\'' +
+        ", assunzioneFarmaco=" + assunzioneFarmaco +
+        '}';
   }
 }

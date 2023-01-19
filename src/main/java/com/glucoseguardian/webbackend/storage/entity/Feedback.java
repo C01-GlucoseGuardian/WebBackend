@@ -130,6 +130,27 @@ public class Feedback implements Serializable {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Feedback feedback = (Feedback) o;
+    return id == feedback.id && Objects.equals(statoSalute, feedback.statoSalute)
+        && Objects.equals(oreSonno, feedback.oreSonno) && Objects.equals(dolori,
+        feedback.dolori) && Objects.equals(svenimenti, feedback.svenimenti)
+        && Objects.equals(data, feedback.data) && Objects.equals(ora,
+        feedback.ora);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, statoSalute, oreSonno, dolori, svenimenti, data, ora);
+  }
+
+  @Override
   public String toString() {
     return "Feedback{" + "id=" + id + ", statoSalute='" + statoSalute + '\'' + ", oreSonno='"
         + oreSonno + '\'' + ", dolori='" + dolori + '\'' + ", svenimenti='" + svenimenti + '\''

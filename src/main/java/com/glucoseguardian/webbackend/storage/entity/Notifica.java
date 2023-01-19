@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
@@ -45,6 +47,21 @@ public class Notifica implements Serializable {
     this.data = data;
     this.ora = ora;
     this.stato = stato;
+  }
+
+  public Notifica(long id, String messaggio, Date data, Time ora, int stato,
+      Paziente pazienteOggetto, Paziente pazienteDestinatario, Dottore dottoreDestinatario,
+      ProfiloTutore tutoreDestinatario, Admin adminDestinatario) {
+    this.id = id;
+    this.messaggio = messaggio;
+    this.data = data;
+    this.ora = ora;
+    this.stato = stato;
+    this.pazienteOggetto = pazienteOggetto;
+    this.pazienteDestinatario = pazienteDestinatario;
+    this.dottoreDestinatario = dottoreDestinatario;
+    this.tutoreDestinatario = tutoreDestinatario;
+    this.adminDestinatario = adminDestinatario;
   }
 
   @Override
@@ -97,6 +114,46 @@ public class Notifica implements Serializable {
     this.ora = ora;
   }
 
+  public Dottore getDottoreDestinatario() {
+    return dottoreDestinatario;
+  }
+
+  public Paziente getPazienteDestinatario() {
+    return pazienteDestinatario;
+  }
+
+  public ProfiloTutore getTutoreDestinatario() {
+    return tutoreDestinatario;
+  }
+
+  public Admin getAdminDestinatario() {
+    return adminDestinatario;
+  }
+
+  public Paziente getPazienteOggetto() {
+    return pazienteOggetto;
+  }
+
+  public void setPazienteOggetto(Paziente pazienteOggetto) {
+    this.pazienteOggetto = pazienteOggetto;
+  }
+
+  public void setPazienteDestinatario(Paziente pazienteDestinatario) {
+    this.pazienteDestinatario = pazienteDestinatario;
+  }
+
+  public void setDottoreDestinatario(Dottore dottoreDestinatario) {
+    this.dottoreDestinatario = dottoreDestinatario;
+  }
+
+  public void setTutoreDestinatario(ProfiloTutore tutoreDestinatario) {
+    this.tutoreDestinatario = tutoreDestinatario;
+  }
+
+  public void setAdminDestinatario(Admin adminDestinatario) {
+    this.adminDestinatario = adminDestinatario;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -106,12 +163,40 @@ public class Notifica implements Serializable {
       return false;
     }
     Notifica notifica = (Notifica) o;
-    return id == notifica.id && stato == notifica.stato && messaggio.equals(notifica.messaggio)
-        && data.equals(notifica.data) && ora.equals(notifica.ora);
+    return id == notifica.id && stato == notifica.stato && Objects.equals(messaggio,
+        notifica.messaggio) && Objects.equals(data, notifica.data) && Objects.equals(ora,
+        notifica.ora) && Objects.equals(pazienteOggetto, notifica.pazienteOggetto)
+        && Objects.equals(pazienteDestinatario, notifica.pazienteDestinatario) && Objects.equals(
+        dottoreDestinatario, notifica.dottoreDestinatario) && Objects.equals(tutoreDestinatario,
+        notifica.tutoreDestinatario) && Objects.equals(adminDestinatario,
+        notifica.adminDestinatario);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, messaggio, data, ora, stato);
+    return Objects.hash(id, messaggio, data, ora, stato, pazienteOggetto, pazienteDestinatario,
+        dottoreDestinatario, tutoreDestinatario, adminDestinatario);
   }
+
+  @ManyToOne
+  @JoinColumn(name = "pazienteOggetto")
+  private Paziente pazienteOggetto;
+
+  @ManyToOne
+  @JoinColumn(name = "pazienteDestinatario")
+  private Paziente pazienteDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "dottoreDestinatario")
+  private Dottore dottoreDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "tutoreDestinatario")
+  private ProfiloTutore tutoreDestinatario;
+
+  @ManyToOne
+  @JoinColumn(name = "adminDestinatario")
+  private Admin adminDestinatario;
+
+
 }

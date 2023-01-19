@@ -1,16 +1,19 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Questa classe rappresenta l'entità Feedback.
  */
+@Entity
 public class Feedback implements Serializable {
 
   @Id
@@ -106,6 +109,27 @@ public class Feedback implements Serializable {
 
   public void setOra(Time ora) {
     this.ora = ora;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Feedback feedback = (Feedback) o;
+    return id == feedback.id && Objects.equals(statoSalute, feedback.statoSalute)
+        && Objects.equals(oreSonno, feedback.oreSonno) && Objects.equals(dolori,
+        feedback.dolori) && Objects.equals(svenimenti, feedback.svenimenti)
+        && Objects.equals(data, feedback.data) && Objects.equals(ora,
+        feedback.ora);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, statoSalute, oreSonno, dolori, svenimenti, data, ora);
   }
 
   @Override

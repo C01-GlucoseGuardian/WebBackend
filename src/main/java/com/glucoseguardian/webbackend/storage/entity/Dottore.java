@@ -1,11 +1,15 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Classe che rappresenta un'istanza dell'entity Dottore.
@@ -165,6 +169,40 @@ public class Dottore implements Serializable {
     this.stato = stato;
   }
 
+  public List<Feedback> getFeedbacks() {
+    return feedbacks;
+  }
+
+  public void setFeedbacks(
+      List<Feedback> feedbacks) {
+    this.feedbacks = feedbacks;
+  }
+
+  public List<Paziente> getPazientes() {
+    return pazientes;
+  }
+
+  public void setPazientes(
+      List<Paziente> pazientes) {
+    this.pazientes = pazientes;
+  }
+
+  public List<Admin> getAdmins() {
+    return admins;
+  }
+
+  public void setAdmins(List<Admin> admins) {
+    this.admins = admins;
+  }
+
+  public List<Terapia> getTerapias() {
+    return terapias;
+  }
+
+  public void setTerapias(List<Terapia> terapias) {
+    this.terapias = terapias;
+  }
+
   /**
    * Costruttore predefinito della classe Dottore.
    */
@@ -212,4 +250,17 @@ public class Dottore implements Serializable {
         + ", stato=" + stato
         + '}';
   }
+
+  @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Feedback> feedbacks;
+  @OneToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Paziente> pazientes;
+
+  @OneToMany(mappedBy = "Admin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Admin> admins;
+
+  @OneToMany(mappedBy = "Terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Terapia> terapias;
+
+
 }

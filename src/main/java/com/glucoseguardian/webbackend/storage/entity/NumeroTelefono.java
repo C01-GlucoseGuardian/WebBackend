@@ -1,4 +1,4 @@
-package com.GlucoseGuardian.WebBackend.storage.entity;
+package com.glucoseguardian.webbackendstorage.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

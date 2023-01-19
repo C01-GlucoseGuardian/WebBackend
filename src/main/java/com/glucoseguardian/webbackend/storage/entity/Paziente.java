@@ -1,8 +1,7 @@
 package com.glucoseguardian.webbackendstorage.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;

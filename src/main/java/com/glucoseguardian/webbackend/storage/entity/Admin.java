@@ -7,7 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class Admin implements Serializable {
   @Column(length = 30, nullable = false)
   private String cognome;
   @Column(nullable = false)
-  private java.util.Date dataNascita;
+  private Date dataNascita;
   @Column(length = 50, nullable = false)
   private String indirizzo;
   @Column(length = 15, nullable = false)
@@ -36,7 +36,7 @@ public class Admin implements Serializable {
   private String password;
   @Column(columnDefinition = "CHAR(1)")
   private char sesso;
-  @Column()
+  @Column
   private String totpKey;
   @Column(length = 100, nullable = false)
   private String specializzazione;
@@ -60,7 +60,7 @@ public class Admin implements Serializable {
   /**
    * Costruttore predefinito della classe Admin.
    */
-  public Admin(String codiceFiscale, String nome, String cognome, java.util.Date dataNascita,
+  public Admin(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
       String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
       int stato) {

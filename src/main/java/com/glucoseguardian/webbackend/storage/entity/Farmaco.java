@@ -26,9 +26,6 @@ public class Farmaco {
   private String principioAttivo;
   private String confezione;
 
-  @ManyToOne
-  @JoinColumn(name = "assunzioneFarmaco")
-  private AssunzioneFarmaco assunzioneFarmaco;
 
   public Farmaco() {
   }
@@ -36,21 +33,30 @@ public class Farmaco {
   /**
    * Costruttore di default della classe Farmaco.
    */
-  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione,
-      AssunzioneFarmaco assunzioneFarmaco) {
+  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione) {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
     this.confezione = confezione;
-    this.assunzioneFarmaco = assunzioneFarmaco;
+
   }
 
-  public AssunzioneFarmaco getAssunzioneFarmaco() {
-    return assunzioneFarmaco;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Farmaco farmaco = (Farmaco) o;
+    return id == farmaco.id && Objects.equals(nomeFarmaco, farmaco.nomeFarmaco)
+        && Objects.equals(principioAttivo, farmaco.principioAttivo)
+        && Objects.equals(confezione, farmaco.confezione);
   }
 
-  public void setAssunzioneFarmaco(
-      AssunzioneFarmaco assunzioneFarmaco) {
-    this.assunzioneFarmaco = assunzioneFarmaco;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, nomeFarmaco, principioAttivo, confezione);
   }
 
   public int getId() {
@@ -92,24 +98,8 @@ public class Farmaco {
         ", nomeFarmaco='" + nomeFarmaco + '\'' +
         ", principioAttivo='" + principioAttivo + '\'' +
         ", confezione='" + confezione + '\'' +
-        ", assunzioneFarmaco=" + assunzioneFarmaco +
         '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Farmaco farmaco = (Farmaco) o;
-    return getId() == farmaco.getId();
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getId());
-  }
 }

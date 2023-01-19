@@ -30,6 +30,10 @@ public class Glicemia implements Serializable {
   @Column(nullable = false)
   private Time ora;
 
+  @ManyToOne
+  @JoinColumn(name = "paziente")
+  private Paziente paziente;
+
   public int getId() {
     return id;
   }
@@ -113,7 +117,5 @@ public class Glicemia implements Serializable {
     return Objects.hash(id, livelloGlucosio, data, ora, paziente);
   }
 
-  @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
-  private Paziente paziente;
+
 }

@@ -1,6 +1,6 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
-import com.glucoseguardian.webbackendstorage.entity.Paziente;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,13 +41,19 @@ public class Feedback implements Serializable {
   @Column(nullable = false)
   private Time ora;
   @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
-  private com.glucoseguardian.webbackendstorage.entity.Paziente paziente;
+  @JoinColumn(name = "paziente")
+  private Paziente paziente;
+  @ManyToOne
+  @JoinColumn(name = "dottore")
+  private Dottore dottore;
 
   public Feedback() {
 
   }
 
+  /**
+   * Costruttore di default della classe Feedback.
+   */
   public Feedback(int id, String statoSalute, String oreSonno, String dolori, String svenimenti,
       Date data, Time ora, Paziente paziente) {
     this.id = id;
@@ -59,11 +65,6 @@ public class Feedback implements Serializable {
     this.ora = ora;
     this.paziente = paziente;
   }
-
-  /**
-   * Costruttore di default della classe Feedback.
-   */
-
 
   public int getId() {
     return id;
@@ -129,6 +130,14 @@ public class Feedback implements Serializable {
     this.paziente = paziente;
   }
 
+  public Dottore getDottore() {
+    return dottore;
+  }
+
+  public void setDottore(Dottore dottore) {
+    this.dottore = dottore;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -145,35 +154,5 @@ public class Feedback implements Serializable {
         feedback.ora);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, statoSalute, oreSonno, dolori, svenimenti, data, ora);
-  }
 
-  @Override
-  public String toString() {
-    return "Feedback{" + "id=" + id + ", statoSalute='" + statoSalute + '\'' + ", oreSonno='"
-        + oreSonno + '\'' + ", dolori='" + dolori + '\'' + ", svenimenti='" + svenimenti + '\''
-        + ", data=" + data + ", ora=" + ora + ", paziente=" + paziente + '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Feedback feedback = (Feedback) o;
-    return id == feedback.id && Objects.equals(statoSalute, feedback.statoSalute) && Objects.equals(
-        oreSonno, feedback.oreSonno) && Objects.equals(dolori, feedback.dolori) && Objects.equals(
-        svenimenti, feedback.svenimenti) && Objects.equals(data, feedback.data) && Objects.equals(
-        ora, feedback.ora) && Objects.equals(paziente, feedback.paziente);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, statoSalute, oreSonno, dolori, svenimenti, data, ora, paziente);
-  }
 }

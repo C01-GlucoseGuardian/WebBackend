@@ -51,13 +51,11 @@ public class Dottore implements Serializable {
   private String indirizzoStruttura;
   @Column(columnDefinition = "UNSIGNED INT(1)")
   private int stato = 0;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;
-  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazientes;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Admin> admins;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Terapia> terapias;
   @OneToMany(mappedBy = "dottoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Notifica> notificas;
@@ -216,7 +214,8 @@ public class Dottore implements Serializable {
     return feedbacks;
   }
 
-  public void setFeedbacks(List<Feedback> feedbacks) {
+  public void setFeedbacks(
+      List<Feedback> feedbacks) {
     this.feedbacks = feedbacks;
   }
 
@@ -224,16 +223,9 @@ public class Dottore implements Serializable {
     return pazientes;
   }
 
-  public void setPazientes(List<Paziente> pazientes) {
+  public void setPazientes(
+      List<Paziente> pazientes) {
     this.pazientes = pazientes;
-  }
-
-  public List<Admin> getAdmins() {
-    return admins;
-  }
-
-  public void setAdmins(List<Admin> admins) {
-    this.admins = admins;
   }
 
   public List<Terapia> getTerapias() {
@@ -248,20 +240,17 @@ public class Dottore implements Serializable {
     return notificas;
   }
 
-  public void setNotificas(List<Notifica> notificas) {
+  public void setNotificas(
+      List<Notifica> notificas) {
     this.notificas = notificas;
   }
 
-  @Override
-  public String toString() {
-    return "Dottore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
-        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
-        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
-        + ", specializzazione='" + specializzazione + '\'' + ", codiceAlbo='" + codiceAlbo + '\''
-        + ", nomeStruttura='" + nomeStruttura + '\'' + ", indirizzoStruttura='" + indirizzoStruttura
-        + '\'' + ", stato=" + stato + ", feedbacks=" + feedbacks + ", pazientes=" + pazientes
-        + ", admins=" + admins + ", terapias=" + terapias + ", notificas=" + notificas + '}';
+  public Admin getConvalidatoDa() {
+    return convalidatoDa;
+  }
+
+  public void setConvalidatoDa(Admin convalidatoDa) {
+    this.convalidatoDa = convalidatoDa;
   }
 
   @Override
@@ -274,31 +263,25 @@ public class Dottore implements Serializable {
     }
     Dottore dottore = (Dottore) o;
     return sesso == dottore.sesso && stato == dottore.stato && Objects.equals(codiceFiscale,
-        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome) && Objects.equals(cognome,
-        dottore.cognome) && Objects.equals(dataNascita, dottore.dataNascita) && Objects.equals(
-        indirizzo, dottore.indirizzo) && Objects.equals(telefono, dottore.telefono)
-        && Objects.equals(email, dottore.email) && Objects.equals(password, dottore.password)
-        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(specializzazione,
-        dottore.specializzazione) && Objects.equals(codiceAlbo, dottore.codiceAlbo)
-        && Objects.equals(nomeStruttura, dottore.nomeStruttura) && Objects.equals(
-        indirizzoStruttura, dottore.indirizzoStruttura) && Objects.equals(feedbacks,
-        dottore.feedbacks) && Objects.equals(pazientes, dottore.pazientes) && Objects.equals(admins,
-        dottore.admins) && Objects.equals(terapias, dottore.terapias) && Objects.equals(notificas,
-        dottore.notificas);
+        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome)
+        && Objects.equals(cognome, dottore.cognome) && Objects.equals(dataNascita,
+        dottore.dataNascita) && Objects.equals(indirizzo, dottore.indirizzo)
+        && Objects.equals(telefono, dottore.telefono) && Objects.equals(email,
+        dottore.email) && Objects.equals(password, dottore.password)
+        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(
+        specializzazione, dottore.specializzazione) && Objects.equals(codiceAlbo,
+        dottore.codiceAlbo) && Objects.equals(nomeStruttura, dottore.nomeStruttura)
+        && Objects.equals(indirizzoStruttura, dottore.indirizzoStruttura)
+        && Objects.equals(feedbacks, dottore.feedbacks) && Objects.equals(
+        pazientes, dottore.pazientes) && Objects.equals(terapias, dottore.terapias)
+        && Objects.equals(notificas, dottore.notificas) && Objects.equals(
+        convalidatoDa, dottore.convalidatoDa);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
         password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
-        stato, feedbacks, pazientes, admins, terapias, notificas);
-  }
-
-  public Admin getConvalidatoDa() {
-    return convalidatoDa;
-  }
-
-  public void setConvalidatoDa(Admin convalidatoDa) {
-    this.convalidatoDa = convalidatoDa;
+        stato, feedbacks, pazientes, terapias, notificas, convalidatoDa);
   }
 }

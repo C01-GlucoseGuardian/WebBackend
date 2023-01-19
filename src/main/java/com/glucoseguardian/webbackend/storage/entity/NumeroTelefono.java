@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
-import com.glucoseguardian.webbackendstorage.entity.Paziente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,21 +22,20 @@ public class NumeroTelefono implements Serializable {
   @Column(length = 15, nullable = false)
   private String numero;
   @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
-  private com.glucoseguardian.webbackendstorage.entity.Paziente paziente;
+  @JoinColumn(name = "paziente")
+  private Paziente paziente;
 
   public NumeroTelefono() {
 
   }
+  /**
+   * Costruttore della entity Numero di telefono.
+   */
 
   public NumeroTelefono(int id, String numero, Paziente paziente) {
     this.id = id;
     this.numero = numero;
     this.paziente = paziente;
-  }
-
-  public NumeroTelefono(String numero) {
-    this.numero = numero;
   }
 
   public int getId() {
@@ -65,12 +63,6 @@ public class NumeroTelefono implements Serializable {
   }
 
   @Override
-  public String toString() {
-    return "NumeroTelefono{" + "id=" + id + ", numero='" + numero + '\'' + ", paziente=" + paziente
-        + '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -79,13 +71,20 @@ public class NumeroTelefono implements Serializable {
       return false;
     }
     NumeroTelefono that = (NumeroTelefono) o;
-    return id == that.id && Objects.equals(numero, that.numero) && Objects.equals(paziente,
-        that.paziente);
+    return id == that.id && Objects.equals(numero, that.numero) && Objects.equals(
+        paziente, that.paziente);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, numero, paziente);
   }
+
+  @Override
+  public String toString() {
+    return "NumeroTelefono{" + "id=" + id + ", numero='" + numero + '\'' + ", paziente=" + paziente
+        + '}';
+  }
+
 
 }

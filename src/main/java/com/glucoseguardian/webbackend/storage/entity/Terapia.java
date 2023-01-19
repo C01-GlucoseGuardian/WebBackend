@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -27,14 +28,20 @@ public class Terapia implements Serializable {
   private int id;
   @Column
   private Date dataInizio;
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Feedback> feedbacks;
 
-  public Date getDataInizio() {
-    return dataInizio;
-  }
+  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<AssunzioneFarmaco> assunzioneFarmacos;
 
-  public void setDataInizio(Date dataInizio) {
-    this.dataInizio = dataInizio;
-  }
+  @ManyToOne
+  @JoinColumn(name = "dottore")
+  private Dottore dottore;
+
+  @OneToOne
+  @JoinColumn(name = "paziente")
+  private Paziente paziente;
+
 
   public int getId() {
     return id;
@@ -44,6 +51,14 @@ public class Terapia implements Serializable {
     this.id = id;
   }
 
+  public Date getDataInizio() {
+    return dataInizio;
+  }
+
+  public void setDataInizio(Date dataInizio) {
+    this.dataInizio = dataInizio;
+  }
+
   public List<Feedback> getFeedbacks() {
     return feedbacks;
   }
@@ -51,15 +66,6 @@ public class Terapia implements Serializable {
   public void setFeedbacks(
       List<Feedback> feedbacks) {
     this.feedbacks = feedbacks;
-  }
-
-  public List<Paziente> getPazientes() {
-    return pazientes;
-  }
-
-  public void setPazientes(
-      List<Paziente> pazientes) {
-    this.pazientes = pazientes;
   }
 
   public List<AssunzioneFarmaco> getAssunzioneFarmacos() {
@@ -79,11 +85,12 @@ public class Terapia implements Serializable {
     this.dottore = dottore;
   }
 
-  public Terapia(Date dataInizio) {
-    this.dataInizio = dataInizio;
+  public Paziente getPaziente() {
+    return paziente;
   }
 
-  public Terapia() {
+  public void setPaziente(Paziente paziente) {
+    this.paziente = paziente;
   }
 
   @Override
@@ -97,8 +104,13 @@ public class Terapia implements Serializable {
     Terapia terapia = (Terapia) o;
     return id == terapia.id && Objects.equals(dataInizio, terapia.dataInizio)
         && Objects.equals(feedbacks, terapia.feedbacks) && Objects.equals(
-        pazientes, terapia.pazientes) && Objects.equals(assunzioneFarmacos,
-        terapia.assunzioneFarmacos) && Objects.equals(dottore, terapia.dottore);
+        assunzioneFarmacos, terapia.assunzioneFarmacos) && Objects.equals(dottore,
+        terapia.dottore) && Objects.equals(paziente, terapia.paziente);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, dataInizio, feedbacks, assunzioneFarmacos, dottore, paziente);
   }
 
   @Override
@@ -106,25 +118,8 @@ public class Terapia implements Serializable {
     return "Terapia{" + "id=" + id
         + ", dataInizio=" + dataInizio
         + ", feedbacks=" + feedbacks
-        + ", pazientes=" + pazientes
+        + ", pazientes=" + paziente
         + ", assunzioneFarmacos=" + assunzioneFarmacos
         + ", dottore=" + dottore + '}';
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, dataInizio, feedbacks, pazientes, assunzioneFarmacos, dottore);
-  }
-
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Feedback> feedbacks;
-  @OneToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Paziente> pazientes;
-
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<AssunzioneFarmaco> assunzioneFarmacos;
-
-  @ManyToOne
-  @JoinColumn(name = "codiceFiscale")
-  private Dottore dottore;
 }

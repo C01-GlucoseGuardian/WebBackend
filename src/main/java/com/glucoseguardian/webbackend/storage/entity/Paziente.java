@@ -1,10 +1,19 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,6 +21,26 @@ import java.util.Objects;
  */
 @Entity
 public class Paziente implements Serializable {
+
+  @OneToMany(mappedBy = "NumeroTelefono", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<NumeroTelefono> numeriTelefono;
+  @OneToMany(mappedBy = "Notifica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<Notifica> notificheInvio;
+  @OneToMany(mappedBy = "Notifica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<Notifica> notificheRicezione;
+  @OneToMany(mappedBy = "Glicemia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<Glicemia> glicemie;
+  @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<Feedback> feedbacks;
+  @OneToOne(mappedBy = "Terapia", cascade = CascadeType.ALL)
+  Terapia terapia;
+  @ManyToOne
+  @JoinColumn(name = "codiceFiscale")
+  Dottore dottore;
+  @ManyToMany
+  @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "codiceFiscale"),
+      inverseJoinColumns = @JoinColumn(name = "codiceFiscale"))
+  List<ProfiloTutore> profiliTutore;
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
@@ -190,41 +219,31 @@ public class Paziente implements Serializable {
       return false;
     }
     Paziente paziente = (Paziente) o;
-    return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(
-        codiceFiscale, paziente.codiceFiscale) && nome.equals(paziente.nome) && cognome.equals(
-        paziente.cognome) && dataNascita.equals(paziente.dataNascita) && indirizzo.equals(
-        paziente.indirizzo) && telefono.equals(paziente.telefono) && email.equals(paziente.email)
-        && password.equals(paziente.password) && sesso.equals(paziente.sesso) && Objects.equals(
-        totpKey, paziente.totpKey) && tipoDiabete.equals(paziente.tipoDiabete)
-        && comorbilita.equals(paziente.comorbilita) && farmaciAssunti.equals(
-        paziente.farmaciAssunti);
+    return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(codiceFiscale,
+        paziente.codiceFiscale) && nome.equals(paziente.nome) && cognome.equals(paziente.cognome)
+        && dataNascita.equals(paziente.dataNascita) && indirizzo.equals(paziente.indirizzo)
+        && telefono.equals(paziente.telefono) && email.equals(paziente.email) && password.equals(
+        paziente.password) && sesso.equals(paziente.sesso) && Objects.equals(totpKey,
+        paziente.totpKey) && tipoDiabete.equals(paziente.tipoDiabete) && comorbilita.equals(
+        paziente.comorbilita) && farmaciAssunti.equals(paziente.farmaciAssunti);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti,
-        periodoDiMonitoraggio);
+        password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti, periodoDiMonitoraggio);
   }
 
   @Override
   public String toString() {
-    return "Paziente{"
-        + "codice_fiscale='"
-        + codiceFiscale + '\''
-        + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\''
-        + ", data_nascita=" + dataNascita
-        + ", indirizzo='" + indirizzo + '\''
-        + ", telefono='" + telefono + '\''
-        + ", email='" + email + '\''
-        + ", password='" + password + '\''
-        + ", sesso='" + sesso + '\''
-        + ", totp_key='" + totpKey + '\''
-        + ", tipo_diabete='" + tipoDiabete + '\''
-        + ", comorbilita='" + comorbilita + '\''
-        + ", farmaci_assunti='" + farmaciAssunti + '\''
-        + ", periodo_di_monitoraggio=" + periodoDiMonitoraggio
-        + '}';
+    return "Paziente{" + "codice_fiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\'' + ", data_nascita=" + dataNascita + ", indirizzo='"
+        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
+        + ", password='" + password + '\'' + ", sesso='" + sesso + '\'' + ", totp_key='" + totpKey
+        + '\'' + ", tipo_diabete='" + tipoDiabete + '\'' + ", comorbilita='" + comorbilita + '\''
+        + ", farmaci_assunti='" + farmaciAssunti + '\'' + ", periodo_di_monitoraggio="
+        + periodoDiMonitoraggio + '}';
   }
+
+
 }

@@ -1,11 +1,17 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,6 +37,19 @@ public class AssunzioneFarmaco implements Serializable {
 
   /**
    * costruttore entity.
+   */
+  public AssunzioneFarmaco(long id, String farmaco, int dosaggio, Time orarioAssunzione,
+                           String viaDiSomministrazione, String noteAggiuntive) {
+    this.id = id;
+    this.farmaco = farmaco;
+    this.dosaggio = dosaggio;
+    this.orarioAssunzione = orarioAssunzione;
+    this.viaDiSomministrazione = viaDiSomministrazione;
+    this.noteAggiuntive = noteAggiuntive;
+  }
+
+  /**
+   * costruttore entity senza id.
    */
   public AssunzioneFarmaco(String farmaco, int dosaggio, Time orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
@@ -124,4 +143,11 @@ public class AssunzioneFarmaco implements Serializable {
         + ", note_aggiuntive='" + noteAggiuntive + '\''
         + '}';
   }
+
+  @ManyToOne
+  @JoinColumn(name = "Terapia")
+  Dottore dottore;
+
+  @OneToMany(mappedBy = "Farmaco", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  List<Farmaco> farmaci;
 }

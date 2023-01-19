@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Questa classe rappresenta l'entità ProfiloTutore.
@@ -162,26 +163,33 @@ public class ProfiloTutore implements Serializable {
     return pazienteList;
   }
 
-  public void setPazienteList(
-      List<Paziente> pazienteList) {
+  public void setPazienteList(List<Paziente> pazienteList) {
     this.pazienteList = pazienteList;
   }
 
   @Override
   public String toString() {
-    return "ProfiloTutore{" +
-        "codiceFiscale='" + codiceFiscale + '\'' +
-        ", nome='" + nome + '\'' +
-        ", cognome='" + cognome + '\'' +
-        ", dataNascita=" + dataNascita +
-        ", indirizzo='" + indirizzo + '\'' +
-        ", telefono='" + telefono + '\'' +
-        ", email='" + email + '\'' +
-        ", password='" + password + '\'' +
-        ", sesso=" + sesso +
-        ", totpKey='" + totpKey + '\'' +
-        ", relazioneDiParentela='" + relazioneDiParentela + '\'' +
-        ", pazienteList=" + pazienteList +
-        '}';
+    return "ProfiloTutore{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
+        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
+        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
+        + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProfiloTutore that = (ProfiloTutore) o;
+    return getCodiceFiscale().equals(that.getCodiceFiscale());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getCodiceFiscale());
   }
 }

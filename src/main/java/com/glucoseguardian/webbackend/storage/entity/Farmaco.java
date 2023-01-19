@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 
 /**
  * Questa classe rappresenta l'entità Farmaco.
@@ -29,15 +30,6 @@ public class Farmaco {
   @JoinColumn(name = "farmacoId")
   private AssunzioneFarmaco assunzioneFarmaco;
 
-  public AssunzioneFarmaco getAssunzioneFarmaco() {
-    return assunzioneFarmaco;
-  }
-
-  public void setAssunzioneFarmaco(
-      AssunzioneFarmaco assunzioneFarmaco) {
-    this.assunzioneFarmaco = assunzioneFarmaco;
-  }
-
   public Farmaco() {
   }
 
@@ -49,6 +41,15 @@ public class Farmaco {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
     this.confezione = confezione;
+    this.assunzioneFarmaco = assunzioneFarmaco;
+  }
+
+  public AssunzioneFarmaco getAssunzioneFarmaco() {
+    return assunzioneFarmaco;
+  }
+
+  public void setAssunzioneFarmaco(
+      AssunzioneFarmaco assunzioneFarmaco) {
     this.assunzioneFarmaco = assunzioneFarmaco;
   }
 
@@ -93,5 +94,22 @@ public class Farmaco {
         ", confezione='" + confezione + '\'' +
         ", assunzioneFarmaco=" + assunzioneFarmaco +
         '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Farmaco farmaco = (Farmaco) o;
+    return getId() == farmaco.getId();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId());
   }
 }

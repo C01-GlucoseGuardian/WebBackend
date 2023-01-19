@@ -1,13 +1,14 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,7 +21,7 @@ public class Admin implements Serializable {
   @Column(length = 16, nullable = false)
   private String codiceFiscale;
   @Column(length = 30, nullable = false)
-  private  String nome;
+  private String nome;
   @Column(length = 30, nullable = false)
   private String cognome;
   @Column(nullable = false)
@@ -47,6 +48,10 @@ public class Admin implements Serializable {
   private String indirizzoStruttura;
   @Column(columnDefinition = "UNSIGNED INT(1)")
   private int stato = 0;
+  @OneToMany(mappedBy = "adminDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Notifica> notifiche;
+  @OneToMany(mappedBy = "convalidatoDa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Dottore> dottoriConvalidati;
 
   public Admin() {
 
@@ -78,23 +83,13 @@ public class Admin implements Serializable {
 
   @Override
   public String toString() {
-    return "Admin{"
-        + "codiceFiscale='" + codiceFiscale + '\''
-        + ", nome='" + nome + '\''
-        + ", cognome='" + cognome + '\''
-        + ", dataNascita=" + dataNascita
-        + ", indirizzo='" + indirizzo + '\''
-        + ", telefono='" + telefono + '\''
-        + ", email='" + email + '\''
-        + ", password='" + password + '\''
-        + ", sesso=" + sesso
-        + ", totpKey='" + totpKey + '\''
-        + ", specializzazione='" + specializzazione + '\''
-        + ", codiceAlbo='" + codiceAlbo + '\''
-        + ", nomeStruttura='" + nomeStruttura + '\''
-        + ", indirizzoStruttura='" + indirizzoStruttura + '\''
-        + ", stato=" + stato
-        + '}';
+    return "Admin{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
+        + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
+        + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
+        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
+        + ", specializzazione='" + specializzazione + '\'' + ", codiceAlbo='" + codiceAlbo + '\''
+        + ", nomeStruttura='" + nomeStruttura + '\'' + ", indirizzoStruttura='" + indirizzoStruttura
+        + '\'' + ", stato=" + stato + '}';
   }
 
   @Override
@@ -107,15 +102,13 @@ public class Admin implements Serializable {
     }
     Admin admin = (Admin) o;
     return sesso == admin.sesso && stato == admin.stato && Objects.equals(codiceFiscale,
-        admin.codiceFiscale) && Objects.equals(nome, admin.nome)
-        && Objects.equals(cognome, admin.cognome) && Objects.equals(dataNascita,
-        admin.dataNascita) && Objects.equals(indirizzo, admin.indirizzo)
-        && Objects.equals(telefono, admin.telefono) && Objects.equals(email,
-        admin.email) && Objects.equals(password, admin.password)
-        && Objects.equals(totpKey, admin.totpKey) && Objects.equals(
-        specializzazione, admin.specializzazione) && Objects.equals(codiceAlbo,
-        admin.codiceAlbo) && Objects.equals(nomeStruttura, admin.nomeStruttura)
-        && Objects.equals(indirizzoStruttura, admin.indirizzoStruttura);
+        admin.codiceFiscale) && Objects.equals(nome, admin.nome) && Objects.equals(cognome,
+        admin.cognome) && Objects.equals(dataNascita, admin.dataNascita) && Objects.equals(
+        indirizzo, admin.indirizzo) && Objects.equals(telefono, admin.telefono) && Objects.equals(
+        email, admin.email) && Objects.equals(password, admin.password) && Objects.equals(totpKey,
+        admin.totpKey) && Objects.equals(specializzazione, admin.specializzazione)
+        && Objects.equals(codiceAlbo, admin.codiceAlbo) && Objects.equals(nomeStruttura,
+        admin.nomeStruttura) && Objects.equals(indirizzoStruttura, admin.indirizzoStruttura);
   }
 
   @Override
@@ -243,5 +236,21 @@ public class Admin implements Serializable {
 
   public void setStato(int stato) {
     this.stato = stato;
+  }
+
+  public List<Notifica> getNotifiche() {
+    return notifiche;
+  }
+
+  public void setNotifiche(List<Notifica> notifiche) {
+    this.notifiche = notifiche;
+  }
+
+  public List<Dottore> getDottoriConvalidati() {
+    return dottoriConvalidati;
+  }
+
+  public void setDottoriConvalidati(List<Dottore> dottoriConvalidati) {
+    this.dottoriConvalidati = dottoriConvalidati;
   }
 }

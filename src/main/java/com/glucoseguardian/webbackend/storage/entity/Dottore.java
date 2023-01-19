@@ -6,10 +6,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Classe che rappresenta un'istanza dell'entity Dottore.
@@ -203,6 +206,14 @@ public class Dottore implements Serializable {
     this.terapias = terapias;
   }
 
+  public Notifica getNotifica() {
+    return notifica;
+  }
+
+  public void setNotifica(Notifica notifica) {
+    this.notifica = notifica;
+  }
+
   /**
    * Costruttore predefinito della classe Dottore.
    */
@@ -248,7 +259,40 @@ public class Dottore implements Serializable {
         + ", nome_struttura='" + nomeStruttura + '\''
         + ", indirizzo_struttura='" + indirizzoStruttura + '\''
         + ", stato=" + stato
+        + ", notifica=" + notifica
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Dottore dottore = (Dottore) o;
+    return sesso == dottore.sesso && stato == dottore.stato && Objects.equals(codiceFiscale,
+        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome)
+        && Objects.equals(cognome, dottore.cognome) && Objects.equals(dataNascita,
+        dottore.dataNascita) && Objects.equals(indirizzo, dottore.indirizzo)
+        && Objects.equals(telefono, dottore.telefono) && Objects.equals(email,
+        dottore.email) && Objects.equals(password, dottore.password)
+        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(
+        specializzazione, dottore.specializzazione) && Objects.equals(codiceAlbo,
+        dottore.codiceAlbo) && Objects.equals(nomeStruttura, dottore.nomeStruttura)
+        && Objects.equals(indirizzoStruttura, dottore.indirizzoStruttura)
+        && Objects.equals(feedbacks, dottore.feedbacks) && Objects.equals(
+        pazientes, dottore.pazientes) && Objects.equals(admins, dottore.admins)
+        && Objects.equals(terapias, dottore.terapias) && Objects.equals(notifica,
+        dottore.notifica);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
+        password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
+        stato, feedbacks, pazientes, admins, terapias, notifica);
   }
 
   @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -262,5 +306,7 @@ public class Dottore implements Serializable {
   @OneToMany(mappedBy = "Terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Terapia> terapias;
 
-
+  @ManyToOne
+  @JoinColumn(name = "notificheDottore")
+  private Notifica notifica;
 }

@@ -3,11 +3,7 @@ on:
   pull_request:
     types: [opened]
 jobs:
-  run:
+  add-reviews:
     runs-on: ubuntu-latest
     steps:
-      - uses: wow-actions/auto-assign@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          reviewers: scient122, aminesr97
-          skipKeywords: wip, draft
+      - uses: kentaro-m/auto-assign-action@v1.2.4

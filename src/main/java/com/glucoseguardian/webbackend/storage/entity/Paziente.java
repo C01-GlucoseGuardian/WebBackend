@@ -22,17 +22,17 @@ import java.util.Objects;
 @Entity
 public class Paziente implements Serializable {
 
-  @OneToMany(mappedBy = "NumeroTelefono", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<NumeroTelefono> numeriTelefono;
-  @OneToMany(mappedBy = "Notifica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "pazienteOggetto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Notifica> notificheInvio;
-  @OneToMany(mappedBy = "Notifica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "pazienteDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Notifica> notificheRicezione;
-  @OneToMany(mappedBy = "Glicemia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Glicemia> glicemie;
-  @OneToMany(mappedBy = "Feedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Feedback> feedbacks;
-  @OneToOne(mappedBy = "Terapia", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
   Terapia terapia;
   @ManyToOne
   @JoinColumn(name = "codiceFiscale")

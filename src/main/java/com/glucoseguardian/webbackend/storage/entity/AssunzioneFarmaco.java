@@ -148,6 +148,6 @@ public class AssunzioneFarmaco implements Serializable {
   @JoinColumn(name = "Terapia")
   Dottore dottore;
 
-  @OneToMany(mappedBy = "Farmaco", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Farmaco> farmaci;
 }

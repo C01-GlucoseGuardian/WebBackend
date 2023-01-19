@@ -1,10 +1,13 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import com.glucoseguardian.webbackendstorage.entity.Paziente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
@@ -37,23 +40,30 @@ public class Feedback implements Serializable {
 
   @Column(nullable = false)
   private Time ora;
+  @ManyToOne
+  @JoinColumn(name = "codiceFiscale")
+  private com.glucoseguardian.webbackendstorage.entity.Paziente paziente;
 
   public Feedback() {
 
   }
 
-  /**
-   * Costruttore di default della classe Feedback.
-   */
-  public Feedback(String statoSalute, String oreSonno, String dolori, String svenimenti,
-      Date data, Time ora) {
+  public Feedback(int id, String statoSalute, String oreSonno, String dolori, String svenimenti,
+      Date data, Time ora, Paziente paziente) {
+    this.id = id;
     this.statoSalute = statoSalute;
     this.oreSonno = oreSonno;
     this.dolori = dolori;
     this.svenimenti = svenimenti;
     this.data = data;
     this.ora = ora;
+    this.paziente = paziente;
   }
+
+  /**
+   * Costruttore di default della classe Feedback.
+   */
+
 
   public int getId() {
     return id;
@@ -111,6 +121,14 @@ public class Feedback implements Serializable {
     this.ora = ora;
   }
 
+  public Paziente getPaziente() {
+    return paziente;
+  }
+
+  public void setPaziente(Paziente paziente) {
+    this.paziente = paziente;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -134,14 +152,28 @@ public class Feedback implements Serializable {
 
   @Override
   public String toString() {
-    return "Feedback{"
-        + "id=" + id
-        + ", statoSalute='" + statoSalute + '\''
-        + ", oreSonno='" + oreSonno + '\''
-        + ", dolori='" + dolori + '\''
-        + ", svenimenti='" + svenimenti + '\''
-        + ", data=" + data
-        + ", ora=" + ora
-        + '}';
+    return "Feedback{" + "id=" + id + ", statoSalute='" + statoSalute + '\'' + ", oreSonno='"
+        + oreSonno + '\'' + ", dolori='" + dolori + '\'' + ", svenimenti='" + svenimenti + '\''
+        + ", data=" + data + ", ora=" + ora + ", paziente=" + paziente + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Feedback feedback = (Feedback) o;
+    return id == feedback.id && Objects.equals(statoSalute, feedback.statoSalute) && Objects.equals(
+        oreSonno, feedback.oreSonno) && Objects.equals(dolori, feedback.dolori) && Objects.equals(
+        svenimenti, feedback.svenimenti) && Objects.equals(data, feedback.data) && Objects.equals(
+        ora, feedback.ora) && Objects.equals(paziente, feedback.paziente);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, statoSalute, oreSonno, dolori, svenimenti, data, ora, paziente);
   }
 }

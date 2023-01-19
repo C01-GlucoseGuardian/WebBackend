@@ -31,17 +31,17 @@ public class ProfiloTutore implements Serializable {
   private String indirizzo;
   @Column(columnDefinition = "VARCHAR(15)", nullable = false)
   private String telefono;
-  @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+  @Column(nullable = false)
   private String email;
-  @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+  @Column(nullable = false)
   private String password;
   @Column(columnDefinition = "CHAR(1)", nullable = false)
   private char sesso;
 
-  @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+  @Column(nullable = false)
   private String totpKey;
 
-  @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+  @Column(nullable = false)
   private String relazioneDiParentela;
 
   @ManyToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -67,6 +67,103 @@ public class ProfiloTutore implements Serializable {
     this.sesso = sesso;
     this.totpKey = totpKey;
     this.relazioneDiParentela = relazioneDiParentela;
+    this.pazienteList = pazienteList;
+  }
+
+  public String getCodiceFiscale() {
+    return codiceFiscale;
+  }
+
+  public void setCodiceFiscale(String codiceFiscale) {
+    this.codiceFiscale = codiceFiscale;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getCognome() {
+    return cognome;
+  }
+
+  public void setCognome(String cognome) {
+    this.cognome = cognome;
+  }
+
+  public Date getDataNascita() {
+    return dataNascita;
+  }
+
+  public void setDataNascita(Date dataNascita) {
+    this.dataNascita = dataNascita;
+  }
+
+  public String getIndirizzo() {
+    return indirizzo;
+  }
+
+  public void setIndirizzo(String indirizzo) {
+    this.indirizzo = indirizzo;
+  }
+
+  public String getTelefono() {
+    return telefono;
+  }
+
+  public void setTelefono(String telefono) {
+    this.telefono = telefono;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public char getSesso() {
+    return sesso;
+  }
+
+  public void setSesso(char sesso) {
+    this.sesso = sesso;
+  }
+
+  public String getTotpKey() {
+    return totpKey;
+  }
+
+  public void setTotpKey(String totpKey) {
+    this.totpKey = totpKey;
+  }
+
+  public String getRelazioneDiParentela() {
+    return relazioneDiParentela;
+  }
+
+  public void setRelazioneDiParentela(String relazioneDiParentela) {
+    this.relazioneDiParentela = relazioneDiParentela;
+  }
+
+  public List<Paziente> getPazienteList() {
+    return pazienteList;
+  }
+
+  public void setPazienteList(
+      List<Paziente> pazienteList) {
     this.pazienteList = pazienteList;
   }
 

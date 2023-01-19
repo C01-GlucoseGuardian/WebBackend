@@ -22,15 +22,21 @@ public class Farmaco {
 
   @Column(columnDefinition = "VARCHAR(50)")
   private String nomeFarmaco;
-  @Column(columnDefinition = "VARCHAR(255)")
   private String principioAttivo;
-  @Column(columnDefinition = "VARCHAR(255)")
   private String confezione;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "farmacoId")
   private AssunzioneFarmaco assunzioneFarmaco;
 
+  public AssunzioneFarmaco getAssunzioneFarmaco() {
+    return assunzioneFarmaco;
+  }
+
+  public void setAssunzioneFarmaco(
+      AssunzioneFarmaco assunzioneFarmaco) {
+    this.assunzioneFarmaco = assunzioneFarmaco;
+  }
 
   public Farmaco() {
   }
@@ -38,7 +44,8 @@ public class Farmaco {
   /**
    * Costruttore di default della classe Farmaco.
    */
-  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione, AssunzioneFarmaco assunzioneFarmaco) {
+  public Farmaco(String nomeFarmaco, String principioAttivo, String confezione,
+      AssunzioneFarmaco assunzioneFarmaco) {
     this.nomeFarmaco = nomeFarmaco;
     this.principioAttivo = principioAttivo;
     this.confezione = confezione;

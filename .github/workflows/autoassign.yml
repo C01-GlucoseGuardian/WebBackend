@@ -1,10 +1,13 @@
 name: Auto Assign
 on:
   pull_request:
-    types: [opened]
+    types: [opened, edited]    
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write 
     steps:
       - uses: wow-actions/auto-assign@v3
         with:

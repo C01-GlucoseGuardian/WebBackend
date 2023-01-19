@@ -44,7 +44,7 @@ public class ProfiloTutore implements Serializable {
   @Column(nullable = false)
   private String relazioneDiParentela;
 
-  @ManyToMany(mappedBy = "Paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "codiceFiscale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
 
   public ProfiloTutore() {

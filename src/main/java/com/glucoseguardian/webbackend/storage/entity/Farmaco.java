@@ -26,8 +26,8 @@ public class Farmaco {
   private String principioAttivo;
   private String confezione;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "farmacoId")
+  @ManyToOne
+  @JoinColumn(name = "assunzioneFarmaco")
   private AssunzioneFarmaco assunzioneFarmaco;
 
   public Farmaco() {

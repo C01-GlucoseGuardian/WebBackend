@@ -24,14 +24,14 @@ public class Terapia implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNSIGNED INT", nullable = false)
+  @Column(nullable = false)
   private long id;
   @Column
   private Date dataInizio;
   @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;
 
-  @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AssunzioneFarmaco> assunzioneFarmacos;
 
   @ManyToOne

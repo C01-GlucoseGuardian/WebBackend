@@ -49,7 +49,7 @@ public class Dottore implements Serializable {
   private String nomeStruttura;
   @Column(length = 100, nullable = false)
   private String indirizzoStruttura;
-  @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
+  @Column(nullable = false)
   private int stato = 0;
   @OneToMany(mappedBy = "dottore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;

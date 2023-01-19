@@ -20,10 +20,10 @@ public class Notifica implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(columnDefinition = "UNISGNED INT", nullable = false)
+  @Column(nullable = false)
   private long id;
 
-  @Column(columnDefinition = "UNISGNED INT", length = 1024, nullable = false)
+  @Column(length = 1024, nullable = false)
   private String messaggio;
 
   @Column(nullable = false)
@@ -32,7 +32,7 @@ public class Notifica implements Serializable {
   @Column(nullable = false)
   private Time ora;
 
-  @Column(columnDefinition = "UNSIGNED INT(1)", nullable = false)
+  @Column(nullable = false)
   private int stato = 0;
   @ManyToOne
   @JoinColumn(name = "pazienteOggetto")

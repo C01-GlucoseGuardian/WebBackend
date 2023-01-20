@@ -1,12 +1,11 @@
 package com.glucoseguardian.webbackend.storage.dao;
 
 import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  * This will be AUTO IMPLEMENTED by Spring into a Bean called NumeroTelefonoDao.
- * CRUD refers Create, Read, Update, Delete.
  */
-
-public interface NumeroTelefonoDao extends CrudRepository<NumeroTelefono, Long> {
+public interface NumeroTelefonoDao extends JpaRepository<NumeroTelefono, Long> {
 
 }

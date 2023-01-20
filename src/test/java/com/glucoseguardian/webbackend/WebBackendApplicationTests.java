@@ -1,4 +1,4 @@
-package com.GlucoseGuardian.WebBackend;
+package com.glucoseguardian.webbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

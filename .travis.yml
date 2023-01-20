@@ -1,0 +1,19 @@
+language: java
+jdk: openjdk17
+dist: jammy #ubuntu 22.04
+
+services: postgresql # postgres 14.5+
+
+before_script:
+  # use travis configuration
+  - cp -f src/main/resources/application.properties.travis src/main/resources/application.properties
+
+before_install:
+  # Set exec permission
+  - chmod +x mvnw
+  # Create test database
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+script:
+  # Run build, test and integration tests
+  - mvn verify

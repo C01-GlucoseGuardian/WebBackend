@@ -1,0 +1,10 @@
+## This is the configuration for travis CI
+
+# update: Hibernate changes the database according to the given entity structures.
+# TODO: Switch to none in production
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.datasource.url=jdbc:postgresql://localhost:5432/travis_ci_test
+# TODO: Change credentials in production
+spring.datasource.username=postgres
+spring.datasource.password=
+spring.datasource.driver-class-name=org.postgresql.Driver

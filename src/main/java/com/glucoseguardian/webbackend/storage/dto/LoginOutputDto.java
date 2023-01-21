@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * Rappresenta l'output delle funzioni di login.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class LoginOutput {
+public class LoginOutputDto {
 
   private long idUtente;
   private int tipoUtente;
@@ -16,13 +16,13 @@ public class LoginOutput {
   /**
    * Costruttore completo.
    */
-  public LoginOutput(long idUtente, int tipoUtente, boolean needOtp) {
+  public LoginOutputDto(long idUtente, int tipoUtente, boolean needOtp) {
     this.idUtente = idUtente;
     this.tipoUtente = tipoUtente;
     this.needOtp = needOtp;
   }
 
-  public LoginOutput() {
+  public LoginOutputDto() {
   }
 
   public long getIdUtente() {

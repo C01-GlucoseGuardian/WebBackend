@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * Rappresenta l'input delle funzioni di login.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class LoginInput {
+public class LoginInputDto {
 
   private String email;
   private String password;
@@ -17,14 +17,14 @@ public class LoginInput {
   /**
    * Costruttore completo.
    */
-  public LoginInput(String email, String password, String newPassword, int otp) {
+  public LoginInputDto(String email, String password, String newPassword, int otp) {
     this.email = email;
     this.password = password;
     this.otp = otp;
     this.newPassword = newPassword;
   }
 
-  public LoginInput() {
+  public LoginInputDto() {
   }
 
   public String getEmail() {

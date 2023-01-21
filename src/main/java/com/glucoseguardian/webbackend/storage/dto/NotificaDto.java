@@ -2,12 +2,13 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.io.Serializable;
 
 /**
  * Rappresenta il dto dell'entita notifica.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class NotificaDto {
+public class NotificaDto implements Serializable {
 
   private long id;
   private long pazienteOggetto;

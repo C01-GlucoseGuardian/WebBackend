@@ -2,12 +2,13 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.io.Serializable;
 
 /**
  * Rappresenta l'input delle funzioni di login.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class LoginInputDto {
+public class LoginInputDto implements Serializable {
 
   private String email;
   private String password;

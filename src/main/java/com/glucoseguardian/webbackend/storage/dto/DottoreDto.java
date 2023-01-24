@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 /**
  * Rappresenta l'entity dottore.
- * TODO: to correct...
  */
 @JsonInclude(Include.NON_ABSENT)
 public class DottoreDto implements Serializable {

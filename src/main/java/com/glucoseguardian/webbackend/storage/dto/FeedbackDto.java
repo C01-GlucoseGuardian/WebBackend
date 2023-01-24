@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Rappresenta l'entity feedback.
- * TODO: to correct...
  */
 @JsonInclude(Include.NON_ABSENT)
 public class FeedbackDto {

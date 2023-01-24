@@ -16,6 +16,7 @@ public class PazienteDto implements Serializable {
   private String dataNascita;
   private String indirizzo;
   private String telefono;
+  private String email;
   private String sesso;
   private String tipoDiabete;
   private String comorbilita;
@@ -31,14 +32,16 @@ public class PazienteDto implements Serializable {
    * Costruttore completo.
    */
   public PazienteDto(String codiceFiscale, String nome, String cognome, String dataNascita,
-      String indirizzo, String telefono, String sesso, String tipoDiabete, String comorbilita,
-      String farmaciAssunti, int periodoMonitoraggio, List<NumeroTelefonoDto> numeriUtili) {
+      String indirizzo, String telefono, String email, String sesso, String tipoDiabete,
+      String comorbilita, String farmaciAssunti, int periodoMonitoraggio,
+      List<NumeroTelefonoDto> numeriUtili) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
     this.dataNascita = dataNascita;
     this.indirizzo = indirizzo;
     this.telefono = telefono;
+    this.email = email;
     this.sesso = sesso;
     this.tipoDiabete = tipoDiabete;
     this.comorbilita = comorbilita;
@@ -133,6 +136,14 @@ public class PazienteDto implements Serializable {
 
   public void setPeriodoMonitoraggio(int periodoMonitoraggio) {
     this.periodoMonitoraggio = periodoMonitoraggio;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public List<NumeroTelefonoDto> getNumeriUtili() {

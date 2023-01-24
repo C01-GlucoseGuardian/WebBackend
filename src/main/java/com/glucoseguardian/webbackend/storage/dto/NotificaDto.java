@@ -11,11 +11,11 @@ import java.io.Serializable;
 public class NotificaDto implements Serializable {
 
   private long id;
-  private long pazienteOggetto;
-  private long pazienteDestinatario;
-  private long tutoreDestinatario;
-  private long adminDestinatario;
-  private long dottoreDestinatario;
+  private String pazienteOggetto;
+  private String pazienteDestinatario;
+  private String tutoreDestinatario;
+  private String adminDestinatario;
+  private String dottoreDestinatario;
   private String messaggio;
   private String data;
   private String time;
@@ -24,9 +24,9 @@ public class NotificaDto implements Serializable {
   /**
    * Costruttore con tutti i campi.
    */
-  public NotificaDto(long id, long pazienteOggetto, long pazienteDestinatario,
-      long tutoreDestinatario, long adminDestinatario, long dottoreDestinatario, String messaggio,
-      String data, String time, int stato) {
+  public NotificaDto(long id, String pazienteOggetto, String pazienteDestinatario,
+      String tutoreDestinatario, String adminDestinatario, String dottoreDestinatario,
+      String messaggio, String data, String time, int stato) {
     this.id = id;
     this.pazienteOggetto = pazienteOggetto;
     this.pazienteDestinatario = pazienteDestinatario;
@@ -52,7 +52,7 @@ public class NotificaDto implements Serializable {
   /**
    * Costruttore con tutti i campi tranne i destinatari.
    */
-  public NotificaDto(long id, long pazienteOggetto, String messaggio, String data, String time,
+  public NotificaDto(long id, String pazienteOggetto, String messaggio, String data, String time,
       int stato) {
     this.id = id;
     this.pazienteOggetto = pazienteOggetto;
@@ -70,43 +70,43 @@ public class NotificaDto implements Serializable {
     this.id = id;
   }
 
-  public long getPazienteOggetto() {
+  public String getPazienteOggetto() {
     return pazienteOggetto;
   }
 
-  public void setPazienteOggetto(long pazienteOggetto) {
+  public void setPazienteOggetto(String pazienteOggetto) {
     this.pazienteOggetto = pazienteOggetto;
   }
 
-  public long getPazienteDestinatario() {
+  public String getPazienteDestinatario() {
     return pazienteDestinatario;
   }
 
-  public void setPazienteDestinatario(long pazienteDestinatario) {
+  public void setPazienteDestinatario(String pazienteDestinatario) {
     this.pazienteDestinatario = pazienteDestinatario;
   }
 
-  public long getTutoreDestinatario() {
+  public String getTutoreDestinatario() {
     return tutoreDestinatario;
   }
 
-  public void setTutoreDestinatario(long tutoreDestinatario) {
+  public void setTutoreDestinatario(String tutoreDestinatario) {
     this.tutoreDestinatario = tutoreDestinatario;
   }
 
-  public long getAdminDestinatario() {
+  public String getAdminDestinatario() {
     return adminDestinatario;
   }
 
-  public void setAdminDestinatario(long adminDestinatario) {
+  public void setAdminDestinatario(String adminDestinatario) {
     this.adminDestinatario = adminDestinatario;
   }
 
-  public long getDottoreDestinatario() {
+  public String getDottoreDestinatario() {
     return dottoreDestinatario;
   }
 
-  public void setDottoreDestinatario(long dottoreDestinatario) {
+  public void setDottoreDestinatario(String dottoreDestinatario) {
     this.dottoreDestinatario = dottoreDestinatario;
   }
 

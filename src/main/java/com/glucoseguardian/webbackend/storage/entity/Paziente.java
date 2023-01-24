@@ -40,7 +40,7 @@ public class Paziente implements Serializable {
   @ManyToMany
   @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "paziente"),
       inverseJoinColumns = @JoinColumn(name = "tutore"))
-  List<ProfiloTutore> profiliTutore;
+  List<Tutore> profiliTutore;
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
@@ -158,12 +158,12 @@ public class Paziente implements Serializable {
     this.dottore = dottore;
   }
 
-  public List<ProfiloTutore> getProfiliTutore() {
+  public List<Tutore> getProfiliTutore() {
     return profiliTutore;
   }
 
   public void setProfiliTutore(
-      List<ProfiloTutore> profiliTutore) {
+      List<Tutore> profiliTutore) {
     this.profiliTutore = profiliTutore;
   }
 

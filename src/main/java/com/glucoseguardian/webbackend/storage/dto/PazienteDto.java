@@ -21,7 +21,7 @@ public class PazienteDto implements Serializable {
   private String tipoDiabete;
   private String comorbilita;
   private String farmaciAssunti;
-  private int periodoMonitoraggio;
+  private Integer periodoMonitoraggio;
 
   private List<NumeroTelefonoDto> numeriUtili;
 
@@ -33,7 +33,7 @@ public class PazienteDto implements Serializable {
    */
   public PazienteDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email, String sesso, String tipoDiabete,
-      String comorbilita, String farmaciAssunti, int periodoMonitoraggio,
+      String comorbilita, String farmaciAssunti, Integer periodoMonitoraggio,
       List<NumeroTelefonoDto> numeriUtili) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
@@ -130,11 +130,11 @@ public class PazienteDto implements Serializable {
     this.farmaciAssunti = farmaciAssunti;
   }
 
-  public int getPeriodoMonitoraggio() {
+  public Integer getPeriodoMonitoraggio() {
     return periodoMonitoraggio;
   }
 
-  public void setPeriodoMonitoraggio(int periodoMonitoraggio) {
+  public void setPeriodoMonitoraggio(Integer periodoMonitoraggio) {
     this.periodoMonitoraggio = periodoMonitoraggio;
   }
 

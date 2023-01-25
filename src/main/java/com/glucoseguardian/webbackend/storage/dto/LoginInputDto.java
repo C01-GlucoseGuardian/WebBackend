@@ -13,12 +13,12 @@ public class LoginInputDto implements Serializable {
   private String email;
   private String password;
   private String newPassword;
-  private int otp;
+  private Integer otp;
 
   /**
    * Costruttore completo.
    */
-  public LoginInputDto(String email, String password, String newPassword, int otp) {
+  public LoginInputDto(String email, String password, String newPassword, Integer otp) {
     this.email = email;
     this.password = password;
     this.otp = otp;
@@ -44,11 +44,11 @@ public class LoginInputDto implements Serializable {
     this.password = password;
   }
 
-  public int getOtp() {
+  public Integer getOtp() {
     return otp;
   }
 
-  public void setOtp(int otp) {
+  public void setOtp(Integer otp) {
     this.otp = otp;
   }
 

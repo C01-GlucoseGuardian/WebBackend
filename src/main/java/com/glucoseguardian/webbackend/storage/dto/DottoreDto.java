@@ -18,20 +18,20 @@ public class DottoreDto implements Serializable {
   private String telefono;
   private String email;
   private String password;
-  private char sesso;
+  private String sesso;
   private String specializzazione;
   private String codiceAlbo;
   private String nomeStruttura;
   private String indirizzoStruttura;
-  private int stato = 0;
+  private Integer stato = 0;
 
   /**
    * Costruttore completo.
    */
   public DottoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
-      String indirizzo, String telefono, String email, String password, char sesso,
+      String indirizzo, String telefono, String email, String password, String sesso,
       String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
-      int stato) {
+      Integer stato) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -115,11 +115,11 @@ public class DottoreDto implements Serializable {
     this.password = password;
   }
 
-  public char getSesso() {
+  public String getSesso() {
     return sesso;
   }
 
-  public void setSesso(char sesso) {
+  public void setSesso(String sesso) {
     this.sesso = sesso;
   }
 
@@ -155,11 +155,11 @@ public class DottoreDto implements Serializable {
     this.indirizzoStruttura = indirizzoStruttura;
   }
 
-  public int getStato() {
+  public Integer getStato() {
     return stato;
   }
 
-  public void setStato(int stato) {
+  public void setStato(Integer stato) {
     this.stato = stato;
   }
 }

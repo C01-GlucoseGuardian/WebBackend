@@ -11,13 +11,13 @@ import java.io.Serializable;
 public class LoginOutputDto implements Serializable {
 
   private String idUtente;
-  private int tipoUtente;
-  private boolean needOtp;
+  private Integer tipoUtente;
+  private Boolean needOtp;
 
   /**
    * Costruttore completo.
    */
-  public LoginOutputDto(String idUtente, int tipoUtente, boolean needOtp) {
+  public LoginOutputDto(String idUtente, Integer tipoUtente, Boolean needOtp) {
     this.idUtente = idUtente;
     this.tipoUtente = tipoUtente;
     this.needOtp = needOtp;
@@ -34,19 +34,19 @@ public class LoginOutputDto implements Serializable {
     this.idUtente = idUtente;
   }
 
-  public int getTipoUtente() {
+  public Integer getTipoUtente() {
     return tipoUtente;
   }
 
-  public void setTipoUtente(int tipoUtente) {
+  public void setTipoUtente(Integer tipoUtente) {
     this.tipoUtente = tipoUtente;
   }
 
-  public boolean isNeedOtp() {
+  public Boolean isNeedOtp() {
     return needOtp;
   }
 
-  public void setNeedOtp(boolean needOtp) {
+  public void setNeedOtp(Boolean needOtp) {
     this.needOtp = needOtp;
   }
 }

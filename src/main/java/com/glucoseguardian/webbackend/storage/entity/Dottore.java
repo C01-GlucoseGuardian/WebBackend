@@ -37,7 +37,7 @@ public class Dottore implements Serializable, Utente {
   private String email;
   @Column(nullable = false)
   private String password;
-  @Column(columnDefinition = "CHAR(1)", nullable = false)
+  @Column(nullable = false)
   private char sesso;
   @Column
   private String totpKey;

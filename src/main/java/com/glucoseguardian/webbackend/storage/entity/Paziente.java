@@ -59,8 +59,8 @@ public class Paziente implements Serializable, Utente {
   private String email;
   @Column(nullable = false)
   private String password;
-  @Column(columnDefinition = "CHAR(1)", nullable = false)
-  private String sesso;
+  @Column(nullable = false)
+  private char sesso;
   private String totpKey;
   @Column(length = 10, nullable = false)
   private String tipoDiabete;
@@ -75,7 +75,7 @@ public class Paziente implements Serializable, Utente {
    * costruttore Paziente.
    */
   public Paziente(String codiceFiscale, String nome, String cognome, Date dataNascita,
-      String indirizzo, String telefono, String email, String password, String sesso,
+      String indirizzo, String telefono, String email, String password, char sesso,
       String totpKey, String tipoDiabete, String comorbilita, String farmaciAssunti,
       int periodoDiMonitoraggio) {
     this.codiceFiscale = codiceFiscale;
@@ -231,11 +231,11 @@ public class Paziente implements Serializable, Utente {
     this.password = password;
   }
 
-  public String getSesso() {
+  public char getSesso() {
     return sesso;
   }
 
-  public void setSesso(String sesso) {
+  public void setSesso(char sesso) {
     this.sesso = sesso;
   }
 

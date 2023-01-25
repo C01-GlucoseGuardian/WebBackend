@@ -15,7 +15,7 @@ import java.util.Objects;
  * Questa classe rappresenta l'entity notifica.
  */
 @Entity
-public class Admin implements Serializable {
+public class Admin implements Serializable, Utente {
 
   @Id
   @Column(length = 16, nullable = false)

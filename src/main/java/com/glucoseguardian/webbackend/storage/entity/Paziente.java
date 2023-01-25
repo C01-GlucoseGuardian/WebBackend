@@ -20,14 +20,14 @@ import java.util.Objects;
  * classe entity Paziente.
  */
 @Entity
-public class Paziente implements Serializable {
+public class Paziente implements Serializable, Utente {
 
   @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<NumeroTelefono> numeriUtili;
   @OneToMany(mappedBy = "pazienteOggetto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Notifica> notificheInvio;
   @OneToMany(mappedBy = "pazienteDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  List<Notifica> notificheRicezione;
+  List<Notifica> notifiche;
   @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   List<Glicemia> glicemie;
   @OneToMany(mappedBy = "paziente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -116,13 +116,13 @@ public class Paziente implements Serializable {
     this.notificheInvio = notificheInvio;
   }
 
-  public List<Notifica> getNotificheRicezione() {
-    return notificheRicezione;
+  public List<Notifica> getNotifiche() {
+    return notifiche;
   }
 
-  public void setNotificheRicezione(
-      List<Notifica> notificheRicezione) {
-    this.notificheRicezione = notificheRicezione;
+  public void setNotifiche(
+      List<Notifica> notifiche) {
+    this.notifiche = notifiche;
   }
 
   public List<Glicemia> getGlicemie() {
@@ -290,8 +290,8 @@ public class Paziente implements Serializable {
     Paziente paziente = (Paziente) o;
     return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(numeriUtili,
         paziente.numeriUtili) && Objects.equals(notificheInvio,
-        paziente.notificheInvio) && Objects.equals(notificheRicezione,
-        paziente.notificheRicezione) && Objects.equals(glicemie, paziente.glicemie)
+        paziente.notificheInvio) && Objects.equals(notifiche,
+        paziente.notifiche) && Objects.equals(glicemie, paziente.glicemie)
         && Objects.equals(feedbacks, paziente.feedbacks) && Objects.equals(
         terapia, paziente.terapia) && Objects.equals(dottore, paziente.dottore)
         && Objects.equals(profiliTutore, paziente.profiliTutore)
@@ -309,7 +309,7 @@ public class Paziente implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(numeriUtili, notificheInvio, notificheRicezione, glicemie, feedbacks,
+    return Objects.hash(numeriUtili, notificheInvio, notifiche, glicemie, feedbacks,
         terapia, dottore, profiliTutore, codiceFiscale, nome, cognome, dataNascita, indirizzo,
         telefono, email, password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti,
         periodoDiMonitoraggio);

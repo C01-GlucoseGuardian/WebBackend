@@ -18,7 +18,7 @@ import java.util.Objects;
  * Classe che rappresenta un'istanza dell'entity Dottore.
  */
 @Entity
-public class Dottore implements Serializable {
+public class Dottore implements Serializable, Utente {
 
   @Id
   @Column(length = 16, nullable = false)
@@ -236,11 +236,11 @@ public class Dottore implements Serializable {
     this.terapias = terapias;
   }
 
-  public List<Notifica> getNotificas() {
+  public List<Notifica> getNotifiche() {
     return notificas;
   }
 
-  public void setNotificas(
+  public void setNotifiche(
       List<Notifica> notificas) {
     this.notificas = notificas;
   }

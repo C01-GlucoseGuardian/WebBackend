@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
@@ -20,19 +21,18 @@ public class Notifica implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false)
   private long id;
 
-  @Column(length = 1024, nullable = false)
+  @Column(length = 1024)
+  @NotNull
   private String messaggio;
 
-  @Column(nullable = false)
+  @NotNull
   private Date data;
 
-  @Column(nullable = false)
+  @NotNull
   private Time ora;
 
-  @Column(nullable = false)
   private int stato = 0;
   @ManyToOne
   @JoinColumn(name = "pazienteOggetto")

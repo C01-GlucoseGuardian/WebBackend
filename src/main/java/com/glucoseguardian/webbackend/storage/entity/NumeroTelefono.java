@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,7 +20,9 @@ public class NumeroTelefono implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
-  @Column(length = 15, nullable = false)
+
+  @Column(length = 15)
+  @NotNull
   private String numero;
   @ManyToOne
   @JoinColumn(name = "paziente")

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -15,12 +16,14 @@ public class Farmaco {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false)
   private long id;
 
-  @Column(length = 50, nullable = false)
+  @Column(length = 50)
+  @NotNull
   private String nomeFarmaco;
+  @NotNull
   private String principioAttivo;
+  @NotNull
   private String confezione;
 
 

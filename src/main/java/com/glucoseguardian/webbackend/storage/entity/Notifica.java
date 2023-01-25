@@ -48,7 +48,7 @@ public class Notifica implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "tutoreDestinatario")
-  private ProfiloTutore tutoreDestinatario;
+  private Tutore tutoreDestinatario;
 
   @ManyToOne
   @JoinColumn(name = "adminDestinatario")
@@ -73,7 +73,7 @@ public class Notifica implements Serializable {
 
   public Notifica(long id, String messaggio, Date data, Time ora, int stato,
       Paziente pazienteOggetto, Paziente pazienteDestinatario, Dottore dottoreDestinatario,
-      ProfiloTutore tutoreDestinatario, Admin adminDestinatario) {
+      Tutore tutoreDestinatario, Admin adminDestinatario) {
     this.id = id;
     this.messaggio = messaggio;
     this.data = data;
@@ -162,12 +162,12 @@ public class Notifica implements Serializable {
     this.dottoreDestinatario = dottoreDestinatario;
   }
 
-  public ProfiloTutore getTutoreDestinatario() {
+  public Tutore getTutoreDestinatario() {
     return tutoreDestinatario;
   }
 
   public void setTutoreDestinatario(
-      ProfiloTutore tutoreDestinatario) {
+      Tutore tutoreDestinatario) {
     this.tutoreDestinatario = tutoreDestinatario;
   }
 

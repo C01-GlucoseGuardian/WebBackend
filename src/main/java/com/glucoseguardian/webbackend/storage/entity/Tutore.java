@@ -15,7 +15,7 @@ import java.util.Objects;
  * Questa classe rappresenta l'entità ProfiloTutore.
  */
 @Entity
-public class ProfiloTutore implements Serializable {
+public class Tutore implements Serializable {
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
@@ -47,13 +47,13 @@ public class ProfiloTutore implements Serializable {
   @ManyToMany(mappedBy = "profiliTutore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
 
-  public ProfiloTutore() {
+  public Tutore() {
   }
 
   /**
    * Costruttore di default della classe ProfiloTutore.
    */
-  public ProfiloTutore(String codiceFiscale, String nome, String cognome, Date dataNascita,
+  public Tutore(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
       String relazioneDiParentela, List<Paziente> pazienteList) {
     this.codiceFiscale = codiceFiscale;
@@ -175,7 +175,7 @@ public class ProfiloTutore implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProfiloTutore that = (ProfiloTutore) o;
+    Tutore that = (Tutore) o;
     return sesso == that.sesso && Objects.equals(codiceFiscale, that.codiceFiscale)
         && Objects.equals(nome, that.nome) && Objects.equals(cognome,
         that.cognome) && Objects.equals(dataNascita, that.dataNascita)

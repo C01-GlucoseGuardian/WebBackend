@@ -10,14 +10,14 @@ import java.io.Serializable;
 @JsonInclude(Include.NON_ABSENT)
 public class LoginOutputDto implements Serializable {
 
-  private long idUtente;
+  private String idUtente;
   private int tipoUtente;
   private boolean needOtp;
 
   /**
    * Costruttore completo.
    */
-  public LoginOutputDto(long idUtente, int tipoUtente, boolean needOtp) {
+  public LoginOutputDto(String idUtente, int tipoUtente, boolean needOtp) {
     this.idUtente = idUtente;
     this.tipoUtente = tipoUtente;
     this.needOtp = needOtp;
@@ -26,11 +26,11 @@ public class LoginOutputDto implements Serializable {
   public LoginOutputDto() {
   }
 
-  public long getIdUtente() {
+  public String getIdUtente() {
     return idUtente;
   }
 
-  public void setIdUtente(long idUtente) {
+  public void setIdUtente(String idUtente) {
     this.idUtente = idUtente;
   }
 

@@ -12,15 +12,15 @@ import java.util.List;
 public class TerapiaDto implements Serializable {
 
   private long id;
-  private long idPaziente;
-  private long idDottore;
+  private String idPaziente;
+  private String idDottore;
   private String dataInizio;
   private List<AssunzioneFarmacoDto> farmaci;
 
   /**
    * Costruttore completo.
    */
-  public TerapiaDto(long id, long idPaziente, long idDottore, String dataInizio,
+  public TerapiaDto(long id, String idPaziente, String idDottore, String dataInizio,
       List<AssunzioneFarmacoDto> farmaci) {
     this.id = id;
     this.idPaziente = idPaziente;
@@ -40,11 +40,11 @@ public class TerapiaDto implements Serializable {
     this.id = id;
   }
 
-  public long getIdPaziente() {
+  public String getIdPaziente() {
     return idPaziente;
   }
 
-  public void setIdPaziente(long idPaziente) {
+  public void setIdPaziente(String idPaziente) {
     this.idPaziente = idPaziente;
   }
 

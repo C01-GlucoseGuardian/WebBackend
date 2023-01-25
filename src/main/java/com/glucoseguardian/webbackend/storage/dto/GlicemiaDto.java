@@ -9,22 +9,22 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class GlicemiaDto implements Serializable {
 
-  private int livelloGlucosio;
+  private Integer livelloGlucosio;
   private String timestamp;
 
   public GlicemiaDto() {
   }
 
-  public GlicemiaDto(int livelloGlucosio, String timestamp) {
+  public GlicemiaDto(Integer livelloGlucosio, String timestamp) {
     this.livelloGlucosio = livelloGlucosio;
     this.timestamp = timestamp;
   }
 
-  public int getLivelloGlucosio() {
+  public Integer getLivelloGlucosio() {
     return livelloGlucosio;
   }
 
-  public void setLivelloGlucosio(int livelloGlucosio) {
+  public void setLivelloGlucosio(Integer livelloGlucosio) {
     this.livelloGlucosio = livelloGlucosio;
   }
 

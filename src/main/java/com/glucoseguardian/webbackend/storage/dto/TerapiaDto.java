@@ -11,7 +11,7 @@ import java.util.List;
 @JsonInclude(Include.NON_ABSENT)
 public class TerapiaDto implements Serializable {
 
-  private long id;
+  private Long id;
   private String idPaziente;
   private String idDottore;
   private String dataInizio;
@@ -20,7 +20,7 @@ public class TerapiaDto implements Serializable {
   /**
    * Costruttore completo.
    */
-  public TerapiaDto(long id, String idPaziente, String idDottore, String dataInizio,
+  public TerapiaDto(Long id, String idPaziente, String idDottore, String dataInizio,
       List<AssunzioneFarmacoDto> farmaci) {
     this.id = id;
     this.idPaziente = idPaziente;
@@ -32,11 +32,11 @@ public class TerapiaDto implements Serializable {
   public TerapiaDto() {
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

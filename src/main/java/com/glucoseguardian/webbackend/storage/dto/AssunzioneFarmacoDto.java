@@ -10,9 +10,9 @@ import java.io.Serializable;
 @JsonInclude(Include.NON_ABSENT)
 public class AssunzioneFarmacoDto implements Serializable {
 
-  private long id;
-  private long idFarmaco;
-  private int dosaggio;
+  private Long id;
+  private Long idFarmaco;
+  private Integer dosaggio;
   private String orarioAssunzione;
   private String viaDiSomministrazione;
   private String noteAggiuntive;
@@ -20,7 +20,7 @@ public class AssunzioneFarmacoDto implements Serializable {
   /**
    * Costruttore completo.
    */
-  public AssunzioneFarmacoDto(long id, long idFarmaco, int dosaggio, String orarioAssunzione,
+  public AssunzioneFarmacoDto(Long id, Long idFarmaco, Integer dosaggio, String orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
     this.id = id;
     this.idFarmaco = idFarmaco;
@@ -33,27 +33,27 @@ public class AssunzioneFarmacoDto implements Serializable {
   public AssunzioneFarmacoDto() {
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
-  public long getIdFarmaco() {
+  public Long getIdFarmaco() {
     return idFarmaco;
   }
 
-  public void setIdFarmaco(long idFarmaco) {
+  public void setIdFarmaco(Long idFarmaco) {
     this.idFarmaco = idFarmaco;
   }
 
-  public int getDosaggio() {
+  public Integer getDosaggio() {
     return dosaggio;
   }
 
-  public void setDosaggio(int dosaggio) {
+  public void setDosaggio(Integer dosaggio) {
     this.dosaggio = dosaggio;
   }
 

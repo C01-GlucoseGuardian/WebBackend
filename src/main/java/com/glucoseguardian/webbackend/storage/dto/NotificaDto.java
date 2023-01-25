@@ -10,7 +10,7 @@ import java.io.Serializable;
 @JsonInclude(Include.NON_ABSENT)
 public class NotificaDto implements Serializable {
 
-  private long id;
+  private Long id;
   private String pazienteOggetto;
   private String pazienteDestinatario;
   private String tutoreDestinatario;
@@ -19,14 +19,14 @@ public class NotificaDto implements Serializable {
   private String messaggio;
   private String data;
   private String time;
-  private int stato;
+  private Integer stato;
 
   /**
    * Costruttore con tutti i campi.
    */
-  public NotificaDto(long id, String pazienteOggetto, String pazienteDestinatario,
+  public NotificaDto(Long id, String pazienteOggetto, String pazienteDestinatario,
       String tutoreDestinatario, String adminDestinatario, String dottoreDestinatario,
-      String messaggio, String data, String time, int stato) {
+      String messaggio, String data, String time, Integer stato) {
     this.id = id;
     this.pazienteOggetto = pazienteOggetto;
     this.pazienteDestinatario = pazienteDestinatario;
@@ -45,15 +45,15 @@ public class NotificaDto implements Serializable {
   /**
    * Costruttore per l'input.
    */
-  public NotificaDto(long id) {
+  public NotificaDto(Long id) {
     this.id = id;
   }
 
   /**
    * Costruttore con tutti i campi tranne i destinatari.
    */
-  public NotificaDto(long id, String pazienteOggetto, String messaggio, String data, String time,
-      int stato) {
+  public NotificaDto(Long id, String pazienteOggetto, String messaggio, String data, String time,
+      Integer stato) {
     this.id = id;
     this.pazienteOggetto = pazienteOggetto;
     this.messaggio = messaggio;
@@ -62,11 +62,11 @@ public class NotificaDto implements Serializable {
     this.stato = stato;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -134,11 +134,11 @@ public class NotificaDto implements Serializable {
     this.time = time;
   }
 
-  public int getStato() {
+  public Integer getStato() {
     return stato;
   }
 
-  public void setStato(int stato) {
+  public void setStato(Integer stato) {
     this.stato = stato;
   }
 

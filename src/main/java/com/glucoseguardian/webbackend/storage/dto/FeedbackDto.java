@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_ABSENT)
 public class FeedbackDto {
 
-  private long id;
+  private Long id;
   private String oreSonno;
   private String statoSalute;
   private String dolori;
@@ -23,7 +23,7 @@ public class FeedbackDto {
   /**
    * Costruttore completo.
    */
-  public FeedbackDto(long id, String oreSonno, String statoSalute, String dolori, String svenimenti,
+  public FeedbackDto(Long id, String oreSonno, String statoSalute, String dolori, String svenimenti,
       String data, String ora, String idPaziente, String idDottore) {
     this.id = id;
     this.oreSonno = oreSonno;
@@ -39,11 +39,11 @@ public class FeedbackDto {
   public FeedbackDto() {
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

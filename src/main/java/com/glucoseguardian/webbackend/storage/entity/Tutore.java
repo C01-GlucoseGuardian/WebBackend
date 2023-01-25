@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Objects;
  * Questa classe rappresenta l'entità ProfiloTutore.
  */
 @Entity
-public class Tutore implements Serializable {
+public class Tutore implements Serializable, Utente {
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
@@ -36,7 +37,7 @@ public class Tutore implements Serializable {
   private String email;
   @Column(nullable = false)
   private String password;
-  @Column(columnDefinition = "CHAR(1)", nullable = false)
+  @Column(nullable = false)
   private char sesso;
 
   private String totpKey;
@@ -46,6 +47,9 @@ public class Tutore implements Serializable {
 
   @ManyToMany(mappedBy = "profiliTutore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
+
+  @OneToMany(mappedBy = "tutoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Notifica> notifiche;
 
   public Tutore() {
   }
@@ -165,6 +169,16 @@ public class Tutore implements Serializable {
   public void setPazienteList(
       List<Paziente> pazienteList) {
     this.pazienteList = pazienteList;
+  }
+
+  @Override
+  public List<Notifica> getNotifiche() {
+    return notifiche;
+  }
+
+  @Override
+  public void setNotifiche(List<Notifica> notifiche) {
+    this.notifiche = notifiche;
   }
 
   @Override

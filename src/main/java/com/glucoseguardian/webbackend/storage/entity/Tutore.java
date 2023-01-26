@@ -219,4 +219,8 @@ public class Tutore implements Serializable, Utente {
         + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
         + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
   }
+
+  public TipoUtente getTipoUtente() {
+    return TipoUtente.TUTORE;
+  }
 }

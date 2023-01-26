@@ -80,10 +80,6 @@ public class AssunzioneFarmaco implements Serializable {
         + '}';
   }
 
-  @ManyToOne
-  @JoinColumn(name = "dottore")
-  private Dottore dottore;
-
   public long getId() {
     return id;
   }
@@ -132,14 +128,6 @@ public class AssunzioneFarmaco implements Serializable {
     this.noteAggiuntive = noteAggiuntive;
   }
 
-  public Dottore getDottore() {
-    return dottore;
-  }
-
-  public void setDottore(Dottore dottore) {
-    this.dottore = dottore;
-  }
-
   public Terapia getTerapia() {
     return terapia;
   }
@@ -160,13 +148,12 @@ public class AssunzioneFarmaco implements Serializable {
     return id == that.id && dosaggio == that.dosaggio && Objects.equals(farmaco,
         that.farmaco) && Objects.equals(orarioAssunzione, that.orarioAssunzione)
         && Objects.equals(viaDiSomministrazione, that.viaDiSomministrazione)
-        && Objects.equals(noteAggiuntive, that.noteAggiuntive) && Objects.equals(
-        dottore, that.dottore);
+        && Objects.equals(noteAggiuntive, that.noteAggiuntive);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, farmaco, dosaggio, orarioAssunzione, viaDiSomministrazione,
-        noteAggiuntive, dottore);
+        noteAggiuntive);
   }
 }

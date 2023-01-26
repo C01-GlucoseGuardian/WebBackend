@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Rappresenta l'output dell'entità tutore.
@@ -18,7 +19,7 @@ public class TutoreDto implements Serializable {
   private String email;
   private String sesso;
   private String relazioneDiParentela;
-  private String idPaziente;
+  private List<PazienteDto> pazienteList;
 
   public TutoreDto() {
   }
@@ -28,7 +29,7 @@ public class TutoreDto implements Serializable {
    */
   public TutoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email, String sesso, String relazioneDiParentela,
-      String idPaziente) {
+      List<PazienteDto> pazienteList) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -38,7 +39,7 @@ public class TutoreDto implements Serializable {
     this.email = email;
     this.sesso = sesso;
     this.relazioneDiParentela = relazioneDiParentela;
-    this.idPaziente = idPaziente;
+    this.pazienteList = pazienteList;
   }
 
   public String getCodiceFiscale() {
@@ -113,11 +114,11 @@ public class TutoreDto implements Serializable {
     this.relazioneDiParentela = relazioneDiParentela;
   }
 
-  public String getIdPaziente() {
-    return idPaziente;
+  public List<PazienteDto> getPazienteList() {
+    return pazienteList;
   }
 
-  public void setIdPaziente(String idPaziente) {
-    this.idPaziente = idPaziente;
+  public void setPazienteList(List<PazienteDto> pazienteList) {
+    this.pazienteList = pazienteList;
   }
 }

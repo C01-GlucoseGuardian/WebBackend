@@ -46,18 +46,6 @@ public class Admin implements Serializable, Utente {
   private char sesso;
   @Nullable
   private String totpKey;
-  @Column(length = 100)
-  @NotNull
-  private String specializzazione;
-  @Column(length = 50)
-  @NotNull
-  private String codiceAlbo;
-  @Column(length = 100)
-  @NotNull
-  private String nomeStruttura;
-  @Column(length = 100)
-  @NotNull
-  private String indirizzoStruttura;
 
   private int stato = 0;
   @OneToMany(mappedBy = "adminDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -86,10 +74,6 @@ public class Admin implements Serializable, Utente {
     this.password = password;
     this.sesso = sesso;
     this.totpKey = totpKey;
-    this.specializzazione = specializzazione;
-    this.codiceAlbo = codiceAlbo;
-    this.nomeStruttura = nomeStruttura;
-    this.indirizzoStruttura = indirizzoStruttura;
     this.stato = stato;
   }
 
@@ -99,8 +83,6 @@ public class Admin implements Serializable, Utente {
         + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
         + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
         + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
-        + ", specializzazione='" + specializzazione + '\'' + ", codiceAlbo='" + codiceAlbo + '\''
-        + ", nomeStruttura='" + nomeStruttura + '\'' + ", indirizzoStruttura='" + indirizzoStruttura
         + '\'' + ", stato=" + stato + '}';
   }
 
@@ -118,15 +100,13 @@ public class Admin implements Serializable, Utente {
         admin.cognome) && Objects.equals(dataNascita, admin.dataNascita) && Objects.equals(
         indirizzo, admin.indirizzo) && Objects.equals(telefono, admin.telefono) && Objects.equals(
         email, admin.email) && Objects.equals(password, admin.password) && Objects.equals(totpKey,
-        admin.totpKey) && Objects.equals(specializzazione, admin.specializzazione)
-        && Objects.equals(codiceAlbo, admin.codiceAlbo) && Objects.equals(nomeStruttura,
-        admin.nomeStruttura) && Objects.equals(indirizzoStruttura, admin.indirizzoStruttura);
+        admin.totpKey);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
+        password, sesso, totpKey,
         stato);
   }
 
@@ -208,38 +188,6 @@ public class Admin implements Serializable, Utente {
 
   public void setTotpKey(String totpKey) {
     this.totpKey = totpKey;
-  }
-
-  public String getSpecializzazione() {
-    return specializzazione;
-  }
-
-  public void setSpecializzazione(String specializzazione) {
-    this.specializzazione = specializzazione;
-  }
-
-  public String getCodiceAlbo() {
-    return codiceAlbo;
-  }
-
-  public void setCodiceAlbo(String codiceAlbo) {
-    this.codiceAlbo = codiceAlbo;
-  }
-
-  public String getNomeStruttura() {
-    return nomeStruttura;
-  }
-
-  public void setNomeStruttura(String nomeStruttura) {
-    this.nomeStruttura = nomeStruttura;
-  }
-
-  public String getIndirizzoStruttura() {
-    return indirizzoStruttura;
-  }
-
-  public void setIndirizzoStruttura(String indirizzoStruttura) {
-    this.indirizzoStruttura = indirizzoStruttura;
   }
 
   public int getStato() {

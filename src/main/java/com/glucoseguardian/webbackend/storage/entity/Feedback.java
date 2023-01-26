@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
@@ -22,22 +23,26 @@ public class Feedback implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
-  @Column(length = 300, nullable = false)
+  @Column(length = 300)
+  @NotNull
   private String statoSalute;
 
-  @Column(length = 300, nullable = false)
+  @Column(length = 300)
+  @NotNull
   private String oreSonno;
 
-  @Column(length = 300, nullable = false)
+  @Column(length = 300)
+  @NotNull
   private String dolori;
 
-  @Column(length = 300, nullable = false)
+  @Column(length = 300)
+  @NotNull
   private String svenimenti;
 
-  @Column(nullable = false)
+  @NotNull
   private Date data;
 
-  @Column(nullable = false)
+  @NotNull
   private Time ora;
   @ManyToOne
   @JoinColumn(name = "paziente")

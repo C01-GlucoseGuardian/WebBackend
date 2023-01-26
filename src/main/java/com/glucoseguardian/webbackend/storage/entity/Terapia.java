@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,9 +25,8 @@ public class Terapia implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false)
   private long id;
-  @Column
+  @Nullable
   private Date dataInizio;
   @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Feedback> feedbacks;

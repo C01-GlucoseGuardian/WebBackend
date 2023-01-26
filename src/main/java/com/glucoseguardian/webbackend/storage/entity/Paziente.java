@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -44,31 +46,40 @@ public class Paziente implements Serializable, Utente {
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
+  @NotNull
   private String codiceFiscale;
-  @Column(length = 30, nullable = false)
+  @Column(length = 30)
+  @NotNull
   private String nome;
-  @Column(length = 30, nullable = false)
+  @Column(length = 30)
+  @NotNull
   private String cognome;
-  @Column(nullable = false)
+  @NotNull
   private Date dataNascita;
-  @Column(length = 50, nullable = false)
+  @Column(length = 50)
+  @NotNull
   private String indirizzo;
-  @Column(length = 15, nullable = false)
+  @Column(length = 15)
+  @NotNull
   private String telefono;
-  @Column(nullable = false)
+  @NotNull
   private String email;
-  @Column(nullable = false)
+  @NotNull
   private String password;
-  @Column(nullable = false)
+  @NotNull
   private char sesso;
+  @Nullable
   private String totpKey;
-  @Column(length = 10, nullable = false)
+  @Column(length = 10)
+  @NotNull
   private String tipoDiabete;
-  @Column(length = 100, nullable = false)
+  @Column(length = 100)
+  @NotNull
   private String comorbilita;
-  @Column(length = 100, nullable = false)
+  @Column(length = 100)
+  @NotNull
   private String farmaciAssunti;
-  @Column(nullable = false)
+  @NotNull
   private int periodoDiMonitoraggio;
 
   /**

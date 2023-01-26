@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
@@ -21,13 +22,11 @@ public class Glicemia implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false)
   private long id;
-  @Column(nullable = false)
   private int livelloGlucosio;
-  @Column(nullable = false)
+  @NotNull
   private Date data;
-  @Column(nullable = false)
+  @NotNull
   private Time ora;
 
   @ManyToOne

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Objects;
@@ -19,18 +20,20 @@ public class AssunzioneFarmaco implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false)
   private long id;
   @ManyToOne
   @JoinColumn(name = "farmaco")
   private Farmaco farmaco;
-  @Column(nullable = false)
+  @NotNull
   private int dosaggio;
-  @Column(nullable = false)
+  @NotNull
   private Time orarioAssunzione;
-  @Column(length = 300, nullable = false)
+
+  @Column(length = 300)
+  @NotNull
   private String viaDiSomministrazione;
   @Column(length = 300)
+  @NotNull
   private String noteAggiuntive;
   @ManyToOne
   @JoinColumn(name = "terapia")

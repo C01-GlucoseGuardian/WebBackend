@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.application.service;
+package com.glucoseguardian.webbackend.application.service.auth;
 
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService implements AuthServiceInterface {
+public class AuthServiceConcrete implements AuthServiceInterface {
 
   @Autowired
   private PasswordEncoder passwordEncoder;

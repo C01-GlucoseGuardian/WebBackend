@@ -337,5 +337,7 @@ public class Paziente implements Serializable, Utente {
         + periodoDiMonitoraggio + '}';
   }
 
-
+  public TipoUtente getTipoUtente() {
+    return TipoUtente.PAZIENTE;
+  }
 }

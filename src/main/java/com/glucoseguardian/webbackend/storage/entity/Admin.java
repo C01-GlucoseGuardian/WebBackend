@@ -265,4 +265,9 @@ public class Admin implements Serializable, Utente {
   public void setDottoriConvalidati(List<Dottore> dottoriConvalidati) {
     this.dottoriConvalidati = dottoriConvalidati;
   }
+
+  @Override
+  public TipoUtente getTipoUtente() {
+    return TipoUtente.ADMIN;
+  }
 }

@@ -52,4 +52,6 @@ public interface Utente {
   List<Notifica> getNotifiche();
 
   void setNotifiche(List<Notifica> notifiche);
+
+  TipoUtente getTipoUtente();
 }

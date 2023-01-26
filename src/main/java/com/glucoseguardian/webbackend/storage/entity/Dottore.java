@@ -294,4 +294,9 @@ public class Dottore implements Serializable, Utente {
         password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
         stato, feedbacks, pazientes, terapias, notificas, convalidatoDa);
   }
+
+  @Override
+  public TipoUtente getTipoUtente() {
+    return TipoUtente.DOTTORE;
+  }
 }

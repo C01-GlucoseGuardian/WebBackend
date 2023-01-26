@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import java.io.Serializable;
 
 /**
@@ -37,5 +38,9 @@ public class NumeroTelefonoDto implements Serializable {
 
   public void setNumero(String numero) {
     this.numero = numero;
+  }
+
+  public static NumeroTelefonoDto valueOf(NumeroTelefono numeroTelefono) {
+    return new NumeroTelefonoDto(numeroTelefono.getId(), numeroTelefono.getNumero());
   }
 }

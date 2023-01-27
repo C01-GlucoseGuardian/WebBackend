@@ -8,3 +8,5 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/travis_ci_test
 spring.datasource.username=postgres
 spring.datasource.password=
 spring.datasource.driver-class-name=org.postgresql.Driver
+# TODO: Change secret in production
+jwt.secret = 8GgZV79flpOfc7+IrF6vq/I4g70d1fgi7QP7gKx6EwdfchB6bE/QdmHVEVPJb1hG7fGR3pQM5D3iEPbiyn3/cw

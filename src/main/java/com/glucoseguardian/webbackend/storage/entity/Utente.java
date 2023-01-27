@@ -2,12 +2,13 @@ package com.glucoseguardian.webbackend.storage.entity;
 
 import java.sql.Date;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Questa interfaccia include alcuni metodi comuni alle entità {@link Admin}, {@link Dottore},
  * {@link Paziente}, {@link Tutore}.
  */
-public interface Utente {
+public interface Utente extends UserDetails {
 
   String getCodiceFiscale();
 

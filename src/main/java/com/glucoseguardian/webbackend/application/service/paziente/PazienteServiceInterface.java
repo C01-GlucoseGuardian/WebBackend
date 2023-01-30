@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.paziente;
 
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.util.List;
 
 /**
@@ -9,7 +8,7 @@ import java.util.List;
  */
 public interface PazienteServiceInterface {
 
-  PazienteDto findByCodifceFiscale(String codiceFiscalePaziente);
+  PazienteDto findByCodiceFiscale(String codiceFiscalePaziente);
 
   List<PazienteDto> findByDottore(String codiceFiscaleDottore);
 

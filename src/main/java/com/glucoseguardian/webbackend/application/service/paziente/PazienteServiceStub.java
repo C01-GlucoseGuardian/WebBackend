@@ -10,7 +10,7 @@ import java.util.List;
 public class PazienteServiceStub implements PazienteServiceInterface {
 
   @Override
-  public PazienteDto findByCodifceFiscale(String codiceFiscalePaziente) {
+  public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente) {
     return new PazienteDto();
   }
 

@@ -26,7 +26,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   TutoreDao tutoreDao;
 
   @Override
-  public PazienteDto findByCodifceFiscale(String codiceFiscalePaziente) {
+  public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente) {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       return PazienteDto.valueOf(result);

@@ -27,16 +27,13 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
     if (result != null) {
       return DottoreDto.valueOf(result);
     } else {
-      throw new RuntimeException();
+      throw new RuntimeException("Dottore non trovato.");
     }
   }
 
   @Override
   public List<DottoreDto> findByStato(int stato) {
     List<Dottore> result = dottoreDao.findByStato(stato);
-    if (result == null) {
-      throw new RuntimeException("Nessun dottore con quello stato.");
-    }
     List<DottoreDto> dottoreDtoStato = new ArrayList<>();
     for (Dottore dottore : result) {
       dottoreDtoStato.add(DottoreDto.valueOf(dottore));
@@ -71,7 +68,7 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
       result.setStato(nuovoStato);
       return DottoreDto.valueOf(result);
     } else {
-      throw new RuntimeException();
+      throw new RuntimeException("Dottore non trovato.");
     }
   }
 }

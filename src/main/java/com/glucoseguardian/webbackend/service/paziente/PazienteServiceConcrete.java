@@ -31,7 +31,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     if (result != null) {
       return PazienteDto.valueOf(result);
     } else {
-      throw new RuntimeException();
+      throw new RuntimeException("Paziente non trovato.");
     }
   }
 

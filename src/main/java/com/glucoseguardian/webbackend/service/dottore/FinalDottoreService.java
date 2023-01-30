@@ -1,0 +1,17 @@
+package com.glucoseguardian.webbackend.service.dottore;
+
+
+import org.springframework.stereotype.Service;
+
+/**
+ * This is an extension of the abstract class.
+ */
+@Service
+public class FinalDottoreService extends AbstractDottoreService {
+
+
+  @Override
+  public DottoreServiceInterface getImplementation() {
+    return new DottoreServiceConcrete();
+  }
+}

@@ -29,9 +29,9 @@ public class FarmacoServiceConcrete implements FarmacoServiceInterface {
 
   @Override
   public List<FarmacoDto> findFarmaco(String ricerca) {
-    List<Farmaco> list1 = farmacoDao.findBynomeFarmacoContainingIgnoreCase(ricerca);
-    List<Farmaco> list2 = farmacoDao.findByprincipioAttivoContainingIgnoreCase(ricerca);
-    List<Farmaco> list3 = farmacoDao.findByconfezioneContainingIgnoreCase(ricerca);
+    List<Farmaco> list1 = farmacoDao.findByNomeFarmacoContainingIgnoreCase(ricerca);
+    List<Farmaco> list2 = farmacoDao.findByPrincipioAttivoContainingIgnoreCase(ricerca);
+    List<Farmaco> list3 = farmacoDao.findByConfezioneContainingIgnoreCase(ricerca);
     List<FarmacoDto> ricercaFarmaci = new ArrayList<>();
     for (Farmaco farmaco : list1) {
       ricercaFarmaci.add(FarmacoDto.valueOf(farmaco));

@@ -15,12 +15,12 @@ public class AssunzioneFarmacoServiceStub implements AssunzioneFarmacoServiceInt
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByTerapia(Long idTeraoia) {
+  public List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
     return new ArrayList<>();
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByPaziente(String codifceFiscalePaziente) {
+  public List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
     return new ArrayList<>();
   }
 }

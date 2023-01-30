@@ -39,8 +39,8 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByTerapia(Long idTeraoia) {
-    Terapia result = terapiaDao.findById(idTeraoia).orElse(null);
+  public List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
+    Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
       for (AssunzioneFarmaco assunzioneFarmaco : result.getAssunzioneFarmacos()) {
@@ -48,13 +48,13 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       }
       return list;
     } else {
-      throw new RuntimeException("AssunzioneFarmaco non trovato.");
+      throw new RuntimeException("Terapia non trovata.");
     }
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByPaziente(String codifceFiscalePaziente) {
-    Paziente result = pazienteDao.findById(codifceFiscalePaziente).orElse(null);
+  public List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
+    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
       for (AssunzioneFarmaco assunzioneFarmaco : result.getTerapia().getAssunzioneFarmacos()) {

@@ -10,7 +10,7 @@ public interface AssunzioneFarmacoServiceInterface {
 
   AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco);
 
-  List<AssunzioneFarmacoDto> findByTerapia(Long idTeraoia);
+  List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia);
 
-  List<AssunzioneFarmacoDto> findByPaziente(String codifceFiscalePaziente);
+  List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente);
 }

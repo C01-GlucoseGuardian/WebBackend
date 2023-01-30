@@ -3,6 +3,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -85,8 +86,11 @@ public class AssunzioneFarmacoDto implements Serializable {
     this.noteAggiuntive = noteAggiuntive;
   }
 
+  /**
+   *  Costruisce un {@link AssunzioneFarmacoDto} a partire da un {@link AssunzioneFarmaco}.
+   */
   public static AssunzioneFarmacoDto valueOf(AssunzioneFarmaco assunzioneFarmaco) {
-    String timeString=assunzioneFarmaco.getOrarioAssunzione().toString();
+    String timeString = assunzioneFarmaco.getOrarioAssunzione().toString();
 
     AssunzioneFarmacoDto assunzioneFarmacoDto = new AssunzioneFarmacoDto();
     assunzioneFarmacoDto.setIdFarmaco(assunzioneFarmaco.getFarmaco().getId());

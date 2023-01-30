@@ -51,6 +51,10 @@ public class DottoreDto implements Serializable {
     this.indirizzoStruttura = indirizzoStruttura;
     this.stato = stato;
   }
+
+  /**
+   * Costruttore di Dottore DTO senza password.
+   */
   public DottoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email,  String sesso,
       String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
@@ -185,6 +189,11 @@ public class DottoreDto implements Serializable {
   public void setStato(Integer stato) {
     this.stato = stato;
   }
+
+  /**
+   *  Costruisce un DottoreDto a partire da un {@link Dottore}.
+   *  Il campo password non viene popolato.
+   */
   public static DottoreDto valueOf(Dottore dottore) {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     String dataNascitaDottoreDto = dateFormat.format(dottore.getDataNascita());

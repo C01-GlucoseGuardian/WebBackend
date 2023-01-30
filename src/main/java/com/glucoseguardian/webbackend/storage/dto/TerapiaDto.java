@@ -3,6 +3,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
@@ -80,19 +81,24 @@ public class TerapiaDto implements Serializable {
     this.farmaci = farmaci;
   }
 
+  /**
+   *  Costruisce un {@link TerapiaDto} a partire da un {@link Terapia}.
+   */
   public static TerapiaDto valueOf(Terapia terapia) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-    String dataInizioTerapia = dateFormat.format(terapia.getDataInizio());
-    List<AssunzioneFarmacoDto> list=new ArrayList<>();
-    for (AssunzioneFarmaco assunzioneFarmaco: terapia.getAssunzioneFarmacos()){
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
+    for (AssunzioneFarmaco assunzioneFarmaco : terapia.getAssunzioneFarmacos()) {
       list.add(AssunzioneFarmacoDto.valueOf(assunzioneFarmaco));
     }
     TerapiaDto terapiaDto = new TerapiaDto();
     terapiaDto.setId(terapia.getId());
     terapiaDto.setIdPaziente(terapia.getPaziente().getCodiceFiscale());
     terapiaDto.setIdDottore(terapia.getDottore().getCodiceFiscale());
-    terapiaDto.setDataInizio(dataInizioTerapia);
     terapiaDto.setFarmaci(list);
+
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataInizioTerapia = dateFormat.format(terapia.getDataInizio());
+    terapiaDto.setDataInizio(dataInizioTerapia);
+
     return terapiaDto;
   }
 }

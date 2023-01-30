@@ -65,6 +65,10 @@ public class FarmacoDto implements Serializable {
   public void setConfezione(String confezione) {
     this.confezione = confezione;
   }
+
+  /**
+   *  Costruisce un FarmacoDto a partire da un {@link Farmaco}.
+   */
   public static FarmacoDto valueOf(Farmaco farmaco) {
     FarmacoDto farmacoDto = new FarmacoDto();
     farmacoDto.setId(farmaco.getId());

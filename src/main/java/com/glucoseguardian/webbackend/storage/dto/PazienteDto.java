@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.io.Serializable;
@@ -159,12 +160,13 @@ public class PazienteDto implements Serializable {
   }
 
   public void setNumeriUtiliFromEntity(List<NumeroTelefono> numeriUtili) {
-    this.numeriUtili = numeriUtili.stream().map(x -> {
-      return NumeroTelefonoDto.valueOf(x);
-    }).toList();
-
+    this.numeriUtili = numeriUtili.stream().map(NumeroTelefonoDto::valueOf).toList();
   }
 
+  /**
+   *  Costruisce un PazienteDto a partire da un {@link Paziente},
+   *  il campo password non viene popolato.
+   */
   public static PazienteDto valueOf(Paziente paziente) {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     String dataNascitaPazienteDto = dateFormat.format(paziente.getDataNascita());

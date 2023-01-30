@@ -31,7 +31,7 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public DottoreDto updateStato(String codifceFiscaleDottore, int nuovoStato) {
-    return new DottoreDto();
+  public boolean updateStato(String codifceFiscaleDottore, int nuovoStato) {
+    return true;
   }
 }

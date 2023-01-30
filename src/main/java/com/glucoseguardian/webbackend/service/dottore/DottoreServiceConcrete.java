@@ -62,12 +62,12 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public DottoreDto updateStato(String codiceFiscaleDottore, int nuovoStato) {
+  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato) {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       result.setStato(nuovoStato);
-      dottoreDao.saveAndFlush(result);
-      return DottoreDto.valueOf(result);
+      dottoreDao.save(result);
+      return true;
     } else {
       throw new RuntimeException("Dottore non trovato.");
     }

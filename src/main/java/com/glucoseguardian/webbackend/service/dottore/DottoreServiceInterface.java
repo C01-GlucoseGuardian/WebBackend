@@ -15,6 +15,6 @@ public interface DottoreServiceInterface {
 
   List<DottoreDto> findAll();
 
-  DottoreDto updateStato(String codifceFiscaleDottore, int nuovoStato);
+  boolean updateStato(String codifceFiscaleDottore, int nuovoStato);
 
 }

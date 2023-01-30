@@ -12,5 +12,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PazienteDao extends JpaRepository<Paziente, String> {
   Optional<Paziente> findByEmail(String email);
 
-  List<Paziente> findAll();
 }

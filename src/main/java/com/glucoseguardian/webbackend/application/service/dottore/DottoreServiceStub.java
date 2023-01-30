@@ -11,7 +11,7 @@ import java.util.List;
 public class DottoreServiceStub implements DottoreServiceInterface {
 
   @Override
-  public DottoreDto findByCodifceFiscale(String codiceFiscaleDottore) {
+  public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) {
     return new DottoreDto();
   }
 
@@ -31,7 +31,7 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean updateStato(String codifceFiscaleDottore, int nuovoStato) {
+  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato) {
     return true;
   }
 }

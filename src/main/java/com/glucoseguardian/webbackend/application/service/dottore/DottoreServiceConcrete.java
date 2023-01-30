@@ -22,7 +22,7 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   PazienteDao pazienteDao;
 
   @Override
-  public DottoreDto findByCodifceFiscale(String codiceFiscaleDottore) {
+  public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       return DottoreDto.valueOf(result);

@@ -2,7 +2,11 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
+import com.glucoseguardian.webbackend.storage.entity.Terapia;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Rappresenta l'entita assunzione farmaco.
@@ -79,5 +83,18 @@ public class AssunzioneFarmacoDto implements Serializable {
 
   public void setNoteAggiuntive(String noteAggiuntive) {
     this.noteAggiuntive = noteAggiuntive;
+  }
+
+  public static AssunzioneFarmacoDto valueOf(AssunzioneFarmaco assunzioneFarmaco) {
+    String timeString=assunzioneFarmaco.getOrarioAssunzione().toString();
+
+    AssunzioneFarmacoDto assunzioneFarmacoDto = new AssunzioneFarmacoDto();
+    assunzioneFarmacoDto.setIdFarmaco(assunzioneFarmaco.getFarmaco().getId());
+    assunzioneFarmacoDto.setId(assunzioneFarmaco.getId());
+    assunzioneFarmacoDto.setDosaggio(assunzioneFarmaco.getDosaggio());
+    assunzioneFarmacoDto.setOrarioAssunzione(timeString);
+    assunzioneFarmacoDto.setViaDiSomministrazione(assunzioneFarmaco.getViaDiSomministrazione());
+    assunzioneFarmacoDto.setNoteAggiuntive(assunzioneFarmacoDto.getNoteAggiuntive());
+    return assunzioneFarmacoDto;
   }
 }

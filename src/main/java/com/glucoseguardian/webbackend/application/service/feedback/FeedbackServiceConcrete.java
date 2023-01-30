@@ -7,6 +7,8 @@ import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Feedback;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,17 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
     } else {
       throw new RuntimeException("Dottore non trovato.");
     }
+  }
+
+  @Override
+  public boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
+      Paziente paziente) {
+
+    Feedback feedback = new Feedback(statoSalute, oreSonno, dolori, svenimenti,
+        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), paziente);
+
+    feedbackDao.saveAndFlush(feedback);
+
+    return feedbackDao.existsById(feedback.getId());
   }
 }

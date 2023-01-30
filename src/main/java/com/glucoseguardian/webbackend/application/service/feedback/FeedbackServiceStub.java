@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.feedback;
 
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +23,11 @@ public class FeedbackServiceStub implements FeedbackServiceInterface {
   @Override
   public List<FeedbackDto> findByDottore(String codiceFiscaleDottore) {
     return new ArrayList<>();
+  }
+
+  @Override
+  public boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
+      Paziente paziente) {
+    return true;
   }
 }

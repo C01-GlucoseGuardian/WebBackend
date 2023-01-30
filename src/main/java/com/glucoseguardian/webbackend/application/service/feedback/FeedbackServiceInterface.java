@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.feedback;
 
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.util.List;
 
 /**
@@ -13,4 +14,8 @@ public interface FeedbackServiceInterface {
   List<FeedbackDto> findByPaziente(String codiceFiscalePaziente);
 
   List<FeedbackDto> findByDottore(String codiceFiscaleDottore);
+
+  boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
+      Paziente paziente);
+
 }

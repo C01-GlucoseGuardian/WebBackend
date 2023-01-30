@@ -12,4 +12,6 @@ public interface TutoreServiceInterface {
 
   List<TutoreDto> findByPaziente(String codiceFiscalePaziente);
 
+  boolean save(TutoreDto dto);
+
 }

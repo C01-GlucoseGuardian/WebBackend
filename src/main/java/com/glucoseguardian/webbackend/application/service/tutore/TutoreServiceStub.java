@@ -18,4 +18,9 @@ public class TutoreServiceStub implements TutoreServiceInterface {
   public List<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
     return new ArrayList<>();
   }
+
+  @Override
+  public boolean save(TutoreDto dto) {
+    return true;
+  }
 }

@@ -13,8 +13,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * Classe che rappresenta un'istanza dell'entity Dottore.
@@ -298,5 +301,35 @@ public class Dottore implements Serializable, Utente {
   @Override
   public TipoUtente getTipoUtente() {
     return TipoUtente.DOTTORE;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(getTipoUtente().name()));
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return stato == 1;
   }
 }

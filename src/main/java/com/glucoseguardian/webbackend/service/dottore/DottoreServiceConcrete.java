@@ -66,6 +66,7 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       result.setStato(nuovoStato);
+      dottoreDao.saveAndFlush(result);
       return DottoreDto.valueOf(result);
     } else {
       throw new RuntimeException("Dottore non trovato.");

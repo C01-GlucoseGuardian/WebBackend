@@ -5,9 +5,11 @@ import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +22,9 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   DottoreDao dottoreDao;
   @Autowired
   PazienteDao pazienteDao;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   @Override
   public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) {
@@ -71,5 +76,21 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
     } else {
       throw new RuntimeException("Dottore non trovato.");
     }
+  }
+
+  @Override
+  public boolean save(DottoreDto dto) {
+    // Create entity
+    Dottore entity = new Dottore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
+        Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
+        passwordEncoder.encode(dto.getPassword()), dto.getSesso().charAt(0), null,
+        dto.getSpecializzazione(), dto.getCodiceAlbo(), dto.getNomeStruttura(),
+        dto.getIndirizzoStruttura(), 0);
+
+    // persist the new entity
+    dottoreDao.saveAndFlush(entity);
+
+    // Check if entity is correctly saved
+    return dottoreDao.existsById(entity.getCodiceFiscale());
   }
 }

@@ -34,4 +34,9 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   public boolean updateStato(String codiceFiscaleDottore, int nuovoStato) {
     return true;
   }
+
+  @Override
+  public boolean save(DottoreDto dto) {
+    return true;
+  }
 }

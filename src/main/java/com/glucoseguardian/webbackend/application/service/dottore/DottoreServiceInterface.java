@@ -7,6 +7,7 @@ import java.util.List;
  * This is a DottoreService Interface.
  */
 public interface DottoreServiceInterface {
+
   DottoreDto findByCodiceFiscale(String codiceFiscaleDottore);
 
   List<DottoreDto> findByStato(int stato);
@@ -16,5 +17,7 @@ public interface DottoreServiceInterface {
   List<DottoreDto> findAll();
 
   boolean updateStato(String codiceFiscaleDottore, int nuovoStato);
+
+  boolean save(DottoreDto dto);
 
 }

@@ -38,6 +38,9 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   @Override
   public List<PazienteDto> findByDottore(String codiceFiscaleDottore) {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
+    if (result == null) {
+      throw new RuntimeException("Dottore non trovato.");
+    }
     List<Paziente> list = result.getPazientes();
     List<PazienteDto> pazienteDtos = new ArrayList<>();
     for (Paziente paziente : list) {
@@ -49,6 +52,9 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   @Override
   public List<PazienteDto> findByTutore(String codiceFiscaleTutore) {
     Tutore result = tutoreDao.findById(codiceFiscaleTutore).orElse(null);
+    if (result == null) {
+      throw new RuntimeException("Tutore non trovato.");
+    }
     List<Paziente> list = result.getPazienteList();
     List<PazienteDto> pazienteDtos = new ArrayList<>();
     for (Paziente paziente : list) {

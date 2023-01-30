@@ -5,6 +5,7 @@ import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
 import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,17 +30,13 @@ public class FarmacoServiceConcrete implements FarmacoServiceInterface {
 
   @Override
   public List<FarmacoDto> findFarmaco(String ricerca) {
-    List<Farmaco> list1 = farmacoDao.findByNomeFarmacoContainingIgnoreCase(ricerca);
-    List<Farmaco> list2 = farmacoDao.findByPrincipioAttivoContainingIgnoreCase(ricerca);
-    List<Farmaco> list3 = farmacoDao.findByConfezioneContainingIgnoreCase(ricerca);
+    List<Farmaco> listNome = farmacoDao.findByNomeFarmacoContainingIgnoreCase(ricerca);
+    List<Farmaco> listPrincipio = farmacoDao.findByPrincipioAttivoContainingIgnoreCase(ricerca);
+    List<Farmaco> listConfezione = farmacoDao.findByConfezioneContainingIgnoreCase(ricerca);
+    List<Farmaco> list = ListUtils.union(listNome, ListUtils.union(listPrincipio, listConfezione));
+
     List<FarmacoDto> ricercaFarmaci = new ArrayList<>();
-    for (Farmaco farmaco : list1) {
-      ricercaFarmaci.add(FarmacoDto.valueOf(farmaco));
-    }
-    for (Farmaco farmaco : list2) {
-      ricercaFarmaci.add(FarmacoDto.valueOf(farmaco));
-    }
-    for (Farmaco farmaco : list3) {
+    for (Farmaco farmaco : list) {
       ricercaFarmaci.add(FarmacoDto.valueOf(farmaco));
     }
     return ricercaFarmaci;

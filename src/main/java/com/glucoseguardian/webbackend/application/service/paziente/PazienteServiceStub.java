@@ -28,4 +28,9 @@ public class PazienteServiceStub implements PazienteServiceInterface {
   public List<PazienteDto> findPaziente(String query) {
     return new ArrayList<>();
   }
+
+  @Override
+  public boolean save(PazienteDto dto) {
+    return true;
+  }
 }

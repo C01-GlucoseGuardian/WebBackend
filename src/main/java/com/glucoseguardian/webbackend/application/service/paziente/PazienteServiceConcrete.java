@@ -63,4 +63,23 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     return pazienteDtos;
   }
 
+  @Override
+  public List<PazienteDto> findPaziente(String query) {
+    List<Paziente> listCf = pazienteDao.findByCodiceFiscaleContainingIgnoreCase(query);
+    List<Paziente> listEmail = pazienteDao.findByEmailContainingIgnoreCase(query);
+    List<Paziente> listCognome = pazienteDao.findByCognomeContainingIgnoreCase(query);
+    List<Paziente> listNome = pazienteDao.findByNomeContainingIgnoreCase(query);
+
+    List<Paziente> listAll = listCf;
+    listAll.addAll(listEmail);
+    listAll.addAll(listCognome);
+    listAll.addAll(listNome);
+
+    List<PazienteDto> ricercaPaziente = new ArrayList<>();
+    for (Paziente paziente : listAll) {
+      ricercaPaziente.add(PazienteDto.valueOf(paziente));
+    }
+    return ricercaPaziente;
+  }
+
 }

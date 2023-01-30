@@ -13,4 +13,6 @@ public interface PazienteServiceInterface {
   List<PazienteDto> findByDottore(String codiceFiscaleDottore);
 
   List<PazienteDto> findByTutore(String codiceFiscaleTutore);
+
+  List<PazienteDto> findPaziente(String query);
 }

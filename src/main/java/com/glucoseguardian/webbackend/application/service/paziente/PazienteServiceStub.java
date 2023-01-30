@@ -23,4 +23,9 @@ public class PazienteServiceStub implements PazienteServiceInterface {
   public List<PazienteDto> findByTutore(String codiceFiscaleTutore) {
     return new ArrayList<>();
   }
+
+  @Override
+  public List<PazienteDto> findPaziente(String query) {
+    return new ArrayList<>();
+  }
 }

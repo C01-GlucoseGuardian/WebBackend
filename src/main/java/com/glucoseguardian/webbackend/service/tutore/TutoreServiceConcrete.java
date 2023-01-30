@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.service.tutore;
 
-import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;

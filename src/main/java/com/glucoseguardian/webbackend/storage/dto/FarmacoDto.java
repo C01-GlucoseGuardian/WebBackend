@@ -1,7 +1,14 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.Farmaco;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
+import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rappresenta l'output delle funzioni di Farmaco.
@@ -57,5 +64,17 @@ public class FarmacoDto implements Serializable {
 
   public void setConfezione(String confezione) {
     this.confezione = confezione;
+  }
+
+  /**
+   *  Costruisce un FarmacoDto a partire da un {@link Farmaco}.
+   */
+  public static FarmacoDto valueOf(Farmaco farmaco) {
+    FarmacoDto farmacoDto = new FarmacoDto();
+    farmacoDto.setId(farmaco.getId());
+    farmacoDto.setNomeFarmaco(farmaco.getNomeFarmaco());
+    farmacoDto.setConfezione(farmaco.getConfezione());
+    farmacoDto.setPrincipioAttivo(farmaco.getPrincipioAttivo());
+    return farmacoDto;
   }
 }

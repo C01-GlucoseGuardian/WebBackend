@@ -31,12 +31,12 @@ public class NumeroTelefono implements Serializable {
   public NumeroTelefono() {
 
   }
+
   /**
    * Costruttore della entity Numero di telefono.
    */
 
-  public NumeroTelefono(long id, String numero, Paziente paziente) {
-    this.id = id;
+  public NumeroTelefono(String numero, Paziente paziente) {
     this.numero = numero;
     this.paziente = paziente;
   }

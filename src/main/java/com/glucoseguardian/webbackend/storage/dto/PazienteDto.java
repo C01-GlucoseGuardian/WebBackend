@@ -1,7 +1,11 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -25,6 +29,9 @@ public class PazienteDto implements Serializable {
 
   private List<NumeroTelefonoDto> numeriUtili;
 
+  private TerapiaDto terapia;
+
+
   public PazienteDto() {
   }
 
@@ -34,7 +41,7 @@ public class PazienteDto implements Serializable {
   public PazienteDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email, String sesso, String tipoDiabete,
       String comorbilita, String farmaciAssunti, Integer periodoMonitoraggio,
-      List<NumeroTelefonoDto> numeriUtili) {
+      List<NumeroTelefonoDto> numeriUtili, TerapiaDto terapia) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -48,6 +55,7 @@ public class PazienteDto implements Serializable {
     this.farmaciAssunti = farmaciAssunti;
     this.periodoMonitoraggio = periodoMonitoraggio;
     this.numeriUtili = numeriUtili;
+    this.terapia = terapia;
   }
 
   public String getCodiceFiscale() {
@@ -150,8 +158,44 @@ public class PazienteDto implements Serializable {
     return numeriUtili;
   }
 
-  public void setNumeriUtili(
-      List<NumeroTelefonoDto> numeriUtili) {
+  public void setNumeriUtili(List<NumeroTelefonoDto> numeriUtili) {
     this.numeriUtili = numeriUtili;
+  }
+
+  public void setNumeriUtiliFromEntity(List<NumeroTelefono> numeriUtili) {
+    this.numeriUtili = numeriUtili.stream().map(NumeroTelefonoDto::valueOf).toList();
+  }
+
+  /**
+   * Costruisce un PazienteDto a partire da un {@link Paziente}, il campo password non viene
+   * popolato.
+   */
+  public static PazienteDto valueOf(Paziente paziente) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataNascitaPazienteDto = dateFormat.format(paziente.getDataNascita());
+    PazienteDto pazienteDto = new PazienteDto();
+
+    pazienteDto.setCodiceFiscale(paziente.getCodiceFiscale());
+    pazienteDto.setNome(paziente.getNome());
+    pazienteDto.setCognome(paziente.getCognome());
+    pazienteDto.setDataNascita(dataNascitaPazienteDto);
+    pazienteDto.setIndirizzo(paziente.getIndirizzo());
+    pazienteDto.setTelefono(paziente.getTelefono());
+    pazienteDto.setEmail(paziente.getEmail());
+    pazienteDto.setSesso(paziente.getSesso() + "");
+    pazienteDto.setTipoDiabete(paziente.getTipoDiabete());
+    pazienteDto.setComorbilita(paziente.getComorbilita());
+    pazienteDto.setFarmaciAssunti(paziente.getFarmaciAssunti());
+    pazienteDto.setPeriodoMonitoraggio(pazienteDto.getPeriodoMonitoraggio());
+    pazienteDto.setNumeriUtiliFromEntity(paziente.getNumeriUtili());
+    return pazienteDto;
+  }
+
+  public TerapiaDto getTerapia() {
+    return terapia;
+  }
+
+  public void setTerapia(TerapiaDto terapia) {
+    this.terapia = terapia;
   }
 }

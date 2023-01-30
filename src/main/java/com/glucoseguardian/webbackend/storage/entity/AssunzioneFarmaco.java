@@ -25,7 +25,7 @@ public class AssunzioneFarmaco implements Serializable {
   @JoinColumn(name = "farmaco")
   private Farmaco farmaco;
   @NotNull
-  private int dosaggio;
+  private String dosaggio;
   @NotNull
   private Time orarioAssunzione;
 
@@ -42,7 +42,7 @@ public class AssunzioneFarmaco implements Serializable {
   /**
    * costruttore entity.
    */
-  public AssunzioneFarmaco(long id, Farmaco farmaco, int dosaggio, Time orarioAssunzione,
+  public AssunzioneFarmaco(long id, Farmaco farmaco, String dosaggio, Time orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
     this.id = id;
     this.farmaco = farmaco;
@@ -55,7 +55,7 @@ public class AssunzioneFarmaco implements Serializable {
   /**
    * costruttore entity senza id.
    */
-  public AssunzioneFarmaco(Farmaco farmaco, int dosaggio, Time orarioAssunzione,
+  public AssunzioneFarmaco(Farmaco farmaco, String dosaggio, Time orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
     this.farmaco = farmaco;
     this.dosaggio = dosaggio;
@@ -96,11 +96,11 @@ public class AssunzioneFarmaco implements Serializable {
     this.farmaco = farmaco;
   }
 
-  public int getDosaggio() {
+  public String getDosaggio() {
     return dosaggio;
   }
 
-  public void setDosaggio(int dosaggio) {
+  public void setDosaggio(String dosaggio) {
     this.dosaggio = dosaggio;
   }
 

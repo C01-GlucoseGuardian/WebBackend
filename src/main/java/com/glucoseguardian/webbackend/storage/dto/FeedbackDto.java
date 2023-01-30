@@ -2,6 +2,11 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import com.glucoseguardian.webbackend.storage.entity.Feedback;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Rappresenta l'entity feedback.
@@ -109,5 +114,28 @@ public class FeedbackDto {
 
   public void setIdDottore(String idDottore) {
     this.idDottore = idDottore;
+  }
+
+  /**
+   *  Costruisce un {@link FeedbackDto} a partire da un {@link Feedback}.
+   */
+  public static FeedbackDto valueOf(Feedback feedback) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataFeedbackDto = dateFormat.format(feedback.getData());
+
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    String timeString = sdf.format(feedback.getOra());
+
+    FeedbackDto feedbackDto = new FeedbackDto();
+    feedbackDto.setId(feedbackDto.getId());
+    feedbackDto.setOreSonno(feedback.getOreSonno());
+    feedbackDto.setStatoSalute(feedback.getStatoSalute());
+    feedbackDto.setDolori(feedback.getDolori());
+    feedbackDto.setSvenimenti(feedback.getSvenimenti());
+    feedbackDto.setData(dataFeedbackDto);
+    feedbackDto.setOra(timeString);
+    feedbackDto.setIdDottore(feedback.getDottore().getCodiceFiscale());
+    feedbackDto.setIdPaziente(feedback.getPaziente().getCodiceFiscale());
+    return feedbackDto;
   }
 }

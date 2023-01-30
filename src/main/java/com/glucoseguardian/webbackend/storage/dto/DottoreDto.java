@@ -2,7 +2,11 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Rappresenta l'entity dottore.
@@ -47,6 +51,29 @@ public class DottoreDto implements Serializable {
     this.indirizzoStruttura = indirizzoStruttura;
     this.stato = stato;
   }
+
+  /**
+   * Costruttore di Dottore DTO senza password.
+   */
+  public DottoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
+      String indirizzo, String telefono, String email,  String sesso,
+      String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
+      Integer stato) {
+    this.codiceFiscale = codiceFiscale;
+    this.nome = nome;
+    this.cognome = cognome;
+    this.dataNascita = dataNascita;
+    this.indirizzo = indirizzo;
+    this.telefono = telefono;
+    this.email = email;
+    this.sesso = sesso;
+    this.specializzazione = specializzazione;
+    this.codiceAlbo = codiceAlbo;
+    this.nomeStruttura = nomeStruttura;
+    this.indirizzoStruttura = indirizzoStruttura;
+    this.stato = stato;
+  }
+
 
   public DottoreDto() {
   }
@@ -161,5 +188,30 @@ public class DottoreDto implements Serializable {
 
   public void setStato(Integer stato) {
     this.stato = stato;
+  }
+
+  /**
+   *  Costruisce un DottoreDto a partire da un {@link Dottore}.
+   *  Il campo password non viene popolato.
+   */
+  public static DottoreDto valueOf(Dottore dottore) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataNascitaDottoreDto = dateFormat.format(dottore.getDataNascita());
+    DottoreDto dottoreDto = new DottoreDto();
+
+    dottoreDto.setCodiceFiscale(dottore.getCodiceFiscale());
+    dottoreDto.setNome(dottore.getNome());
+    dottoreDto.setCognome(dottore.getCognome());
+    dottoreDto.setDataNascita(dataNascitaDottoreDto);
+    dottoreDto.setIndirizzo(dottore.getIndirizzo());
+    dottoreDto.setTelefono(dottore.getTelefono());
+    dottoreDto.setEmail(dottore.getEmail());
+    dottoreDto.setSesso(dottore.getSesso() + "");
+    dottoreDto.setSpecializzazione(dottore.getSpecializzazione());
+    dottoreDto.setCodiceAlbo(dottore.getCodiceAlbo());
+    dottoreDto.setNomeStruttura(dottore.getNomeStruttura());
+    dottoreDto.setIndirizzoStruttura(dottore.getIndirizzoStruttura());
+    dottoreDto.setStato(dottore.getStato());
+    return dottoreDto;
   }
 }

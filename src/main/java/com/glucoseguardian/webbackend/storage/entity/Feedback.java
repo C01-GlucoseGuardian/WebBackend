@@ -58,8 +58,8 @@ public class Feedback implements Serializable {
   /**
    * Costruttore di default della classe Feedback.
    */
-  public Feedback(long id, String statoSalute, String oreSonno, String dolori, String svenimenti,
-      Date data, Time ora, Paziente paziente) {
+  public Feedback(String statoSalute, String oreSonno, String dolori, String svenimenti, Date data,
+      Time ora, Paziente paziente) {
     this.id = id;
     this.statoSalute = statoSalute;
     this.oreSonno = oreSonno;

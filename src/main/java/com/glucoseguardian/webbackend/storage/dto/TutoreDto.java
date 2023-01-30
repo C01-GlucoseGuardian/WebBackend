@@ -1,7 +1,12 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
+import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,5 +125,32 @@ public class TutoreDto implements Serializable {
 
   public void setPazienteList(List<PazienteDto> pazienteList) {
     this.pazienteList = pazienteList;
+  }
+
+  /**
+   *  Costruisce un TutoreDto a partire da un {@link Tutore},
+   *  il campo password non viene popolato.
+   */
+  public static TutoreDto valueOf(Tutore tutore) {
+    List<PazienteDto> list = new ArrayList<>();
+    for (Paziente paziente : tutore.getPazienteList()) {
+      list.add(PazienteDto.valueOf(paziente));
+    }
+    TutoreDto tutoreDto = new TutoreDto();
+    tutoreDto.setCodiceFiscale(tutore.getCodiceFiscale());
+    tutoreDto.setNome(tutore.getNome());
+    tutoreDto.setCognome(tutore.getCognome());
+    tutoreDto.setIndirizzo(tutore.getIndirizzo());
+    tutoreDto.setTelefono(tutore.getTelefono());
+    tutoreDto.setEmail(tutore.getEmail());
+    tutoreDto.setSesso(tutore.getSesso() + "");
+    tutoreDto.setRelazioneDiParentela(tutore.getRelazioneDiParentela());
+    tutoreDto.setPazienteList(list);
+
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataNascitaPazienteDto = dateFormat.format(tutore.getDataNascita());
+    tutoreDto.setDataNascita(dataNascitaPazienteDto);
+
+    return tutoreDto;
   }
 }

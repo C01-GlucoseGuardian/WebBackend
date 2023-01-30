@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,7 @@ public class AssunzioneFarmacoDto implements Serializable {
 
   private Long id;
   private Long idFarmaco;
-  private Integer dosaggio;
+  private String dosaggio;
   private String orarioAssunzione;
   private String viaDiSomministrazione;
   private String noteAggiuntive;
@@ -20,7 +21,7 @@ public class AssunzioneFarmacoDto implements Serializable {
   /**
    * Costruttore completo.
    */
-  public AssunzioneFarmacoDto(Long id, Long idFarmaco, Integer dosaggio, String orarioAssunzione,
+  public AssunzioneFarmacoDto(Long id, Long idFarmaco, String dosaggio, String orarioAssunzione,
       String viaDiSomministrazione, String noteAggiuntive) {
     this.id = id;
     this.idFarmaco = idFarmaco;
@@ -49,11 +50,11 @@ public class AssunzioneFarmacoDto implements Serializable {
     this.idFarmaco = idFarmaco;
   }
 
-  public Integer getDosaggio() {
+  public String getDosaggio() {
     return dosaggio;
   }
 
-  public void setDosaggio(Integer dosaggio) {
+  public void setDosaggio(String dosaggio) {
     this.dosaggio = dosaggio;
   }
 
@@ -79,5 +80,21 @@ public class AssunzioneFarmacoDto implements Serializable {
 
   public void setNoteAggiuntive(String noteAggiuntive) {
     this.noteAggiuntive = noteAggiuntive;
+  }
+
+  /**
+   *  Costruisce un {@link AssunzioneFarmacoDto} a partire da un {@link AssunzioneFarmaco}.
+   */
+  public static AssunzioneFarmacoDto valueOf(AssunzioneFarmaco assunzioneFarmaco) {
+    String timeString = assunzioneFarmaco.getOrarioAssunzione().toString();
+
+    AssunzioneFarmacoDto assunzioneFarmacoDto = new AssunzioneFarmacoDto();
+    assunzioneFarmacoDto.setIdFarmaco(assunzioneFarmaco.getFarmaco().getId());
+    assunzioneFarmacoDto.setId(assunzioneFarmaco.getId());
+    assunzioneFarmacoDto.setDosaggio(assunzioneFarmaco.getDosaggio());
+    assunzioneFarmacoDto.setOrarioAssunzione(timeString);
+    assunzioneFarmacoDto.setViaDiSomministrazione(assunzioneFarmaco.getViaDiSomministrazione());
+    assunzioneFarmacoDto.setNoteAggiuntive(assunzioneFarmacoDto.getNoteAggiuntive());
+    return assunzioneFarmacoDto;
   }
 }

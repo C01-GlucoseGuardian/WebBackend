@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,12 @@ public class AssunzioneFarmacoServiceStub implements AssunzioneFarmacoServiceInt
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
-    return new ArrayList<>();
+  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
+    return new ListDto<>();
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
-    return new ArrayList<>();
+  public ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
+    return new ListDto<>();
   }
 }

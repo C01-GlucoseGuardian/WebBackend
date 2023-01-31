@@ -5,6 +5,8 @@ import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
+import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
@@ -39,28 +41,30 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
+  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
     Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
       for (AssunzioneFarmaco assunzioneFarmaco : result.getAssunzioneFarmacos()) {
         list.add(AssunzioneFarmacoDto.valueOf(assunzioneFarmaco));
       }
-      return list;
+      ListDto<NotificaDto> listDto = new ListDto<>(list);
+      return listDto;
     } else {
       throw new RuntimeException("Terapia non trovata.");
     }
   }
 
   @Override
-  public List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
       for (AssunzioneFarmaco assunzioneFarmaco : result.getTerapia().getAssunzioneFarmacos()) {
         list.add(AssunzioneFarmacoDto.valueOf(assunzioneFarmaco));
       }
-      return list;
+      ListDto<NotificaDto> listDto = new ListDto<>(list);
+      return listDto;
     } else {
       throw new RuntimeException("Paziente non trovato.");
     }

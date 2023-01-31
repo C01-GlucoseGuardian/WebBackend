@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public List<DottoreDto> findByStato(int stato) {
-    return new ArrayList<>();
+  public ListDto<DottoreDto> findByStato(int stato) {
+    return new ListDto<>();
   }
 
   @Override
@@ -26,8 +27,8 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public List<DottoreDto> findAll() {
-    return new ArrayList<>();
+  public ListDto<DottoreDto> findAll() {
+    return new ListDto<>();
   }
 
   @Override

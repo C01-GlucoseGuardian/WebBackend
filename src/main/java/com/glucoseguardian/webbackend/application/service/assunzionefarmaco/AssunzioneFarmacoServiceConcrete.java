@@ -48,7 +48,7 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       for (AssunzioneFarmaco assunzioneFarmaco : result.getAssunzioneFarmacos()) {
         list.add(AssunzioneFarmacoDto.valueOf(assunzioneFarmaco));
       }
-      ListDto<NotificaDto> listDto = new ListDto<>(list);
+      ListDto<AssunzioneFarmacoDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
       throw new RuntimeException("Terapia non trovata.");
@@ -63,7 +63,7 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       for (AssunzioneFarmaco assunzioneFarmaco : result.getTerapia().getAssunzioneFarmacos()) {
         list.add(AssunzioneFarmacoDto.valueOf(assunzioneFarmaco));
       }
-      ListDto<NotificaDto> listDto = new ListDto<>(list);
+      ListDto<AssunzioneFarmacoDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
       throw new RuntimeException("Paziente non trovato.");

@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.tutore;
 
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class TutoreServiceStub implements TutoreServiceInterface {
   }
 
   @Override
-  public List<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
-    return new ArrayList<>();
+  public ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
+    return new ListDto<>();
   }
 
   @Override

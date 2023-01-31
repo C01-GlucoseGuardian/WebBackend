@@ -2,7 +2,11 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.Feedback;
+import com.glucoseguardian.webbackend.storage.entity.Notifica;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Rappresenta il dto dell'entita notifica.
@@ -60,6 +64,30 @@ public class NotificaDto implements Serializable {
     this.data = data;
     this.time = time;
     this.stato = stato;
+  }
+
+  /**
+   * Costruisce un {@link NotificaDto} a partire da un {@link Notifica}.
+   */
+  public static NotificaDto valueOf(Notifica notifica) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String dataNotificaDto = dateFormat.format(notifica.getData());
+
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    String timeString = sdf.format(notifica.getOra());
+
+    NotificaDto notificaDto = new NotificaDto();
+    notificaDto.setId(notificaDto.getId());
+    notificaDto.setPazienteOggetto(notifica.getPazienteOggetto().getCodiceFiscale());
+    notificaDto.setPazienteDestinatario(notifica.getPazienteDestinatario().getCodiceFiscale());
+    notificaDto.setTutoreDestinatario(notifica.getTutoreDestinatario().getCodiceFiscale());
+    notificaDto.setAdminDestinatario(notifica.getAdminDestinatario().getCodiceFiscale());
+    notificaDto.setDottoreDestinatario(notifica.getDottoreDestinatario().getCodiceFiscale());
+    notificaDto.setMessaggio(notifica.getMessaggio());
+    notificaDto.setData(dataNotificaDto);
+    notificaDto.setTime(timeString);
+    notificaDto.setStato(notifica.getStato());
+    return notificaDto;
   }
 
   public Long getId() {

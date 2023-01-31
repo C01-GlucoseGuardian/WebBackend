@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
+import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
@@ -44,7 +45,8 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
     for (Dottore dottore : result) {
       dottoreDtoStato.add(DottoreDto.valueOf(dottore));
     }
-    return dottoreDtoStato;
+    ListDto<DottoreDto> listDto = new ListDto<>(dottoreDtoStato);
+    return listDto;
   }
 
   @Override
@@ -64,7 +66,8 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
     for (Dottore dottore : result) {
       tuttiDottoriDto.add(DottoreDto.valueOf(dottore));
     }
-    return tuttiDottoriDto;
+    ListDto<DottoreDto> listDto = new ListDto<>(tuttiDottoriDto);
+    return listDto;
   }
 
   @Override

@@ -1,7 +1,9 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
 import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
+import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class FarmacoServiceConcrete implements FarmacoServiceInterface {
   }
 
   @Override
-  public List<FarmacoDto> findFarmaco(String ricerca) {
+  public ListDto<FarmacoDto> findFarmaco(String ricerca) {
     List<Farmaco> listNome = farmacoDao.findByNomeFarmacoContainingIgnoreCase(ricerca);
     List<Farmaco> listPrincipio = farmacoDao.findByPrincipioAttivoContainingIgnoreCase(ricerca);
     List<Farmaco> listConfezione = farmacoDao.findByConfezioneContainingIgnoreCase(ricerca);
@@ -39,6 +41,7 @@ public class FarmacoServiceConcrete implements FarmacoServiceInterface {
     for (Farmaco farmaco : list) {
       ricercaFarmaci.add(FarmacoDto.valueOf(farmaco));
     }
-    return ricercaFarmaci;
+    ListDto<FarmacoDto> listDto = new ListDto<>(ricercaFarmaci);
+    return listDto;
   }
 }

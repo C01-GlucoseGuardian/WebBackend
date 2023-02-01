@@ -1,36 +1,29 @@
 package com.glucoseguardian.webbackend.application.service.auth;
 
-import com.glucoseguardian.webbackend.storage.dao.AdminDao;
-import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
-import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
-import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.LoginOutputDto;
+import com.glucoseguardian.webbackend.storage.dto.TotpDto;
 import com.glucoseguardian.webbackend.storage.entity.TipoUtente;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementazione stab di Auth Service.
+ */
 @Service
 public class AuthServiceStub implements AuthServiceInterface {
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
-
-  @Autowired
-  private AdminDao adminDao;
-
-  @Autowired
-  private DottoreDao dottoreDao;
-
-  @Autowired
-  private PazienteDao pazienteDao;
-
-  @Autowired
-  private TutoreDao tutoreDao;
-
   @Override
   public LoginOutputDto login(String email, String password, Integer otp) {
-    return new LoginOutputDto("CCCCDDDEER", TipoUtente.ADMIN.ordinal(), null);
+    return new LoginOutputDto("CCCCDDDEER", TipoUtente.ADMIN.ordinal(), null, null);
+  }
+
+  @Override
+  public boolean changePw(String email, String password, String newPassword, Integer otp) {
+    return true;
+  }
+
+  @Override
+  public TotpDto getTotpKey(String email, String password, Integer otp) {
+    return new TotpDto();
   }
 
 }

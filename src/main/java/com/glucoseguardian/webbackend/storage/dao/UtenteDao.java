@@ -1,5 +1,9 @@
 package com.glucoseguardian.webbackend.storage.dao;
 
+import com.glucoseguardian.webbackend.storage.entity.Admin;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
+import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +46,24 @@ public class UtenteDao {
     }
 
     return tutoreDao.findByEmail(email);
+  }
+
+  /**
+   * Salva i dati di un {@link Utente} nel database.
+   */
+  public @NonNull Utente save(@NonNull Utente utente) {
+    if (utente instanceof Dottore) {
+      return dottoreDao.save((Dottore) utente);
+    }
+    if (utente instanceof Paziente) {
+      return pazienteDao.save((Paziente) utente);
+    }
+    if (utente instanceof Tutore) {
+      return tutoreDao.save((Tutore) utente);
+    }
+    if (utente instanceof Admin) {
+      return adminDao.save((Admin) utente);
+    }
+    throw new RuntimeException("Tipo Utente non trovato");
   }
 }

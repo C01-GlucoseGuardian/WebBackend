@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.notifica;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
 
@@ -8,15 +9,15 @@ import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
  */
 public interface NotificaServiceInterface {
 
-  NotificaDto findById(Long id);
+  NotificaDto findById(Long id) throws UserNotFoundException;
 
   boolean send(NotificaDto notificaDto);
 
-  ListDto<NotificaDto> findByPaziente(String codiceFiscale);
+  ListDto<NotificaDto> findByPaziente(String codiceFiscale) throws UserNotFoundException;
 
-  ListDto<NotificaDto> findByDottore(String codiceFiscale);
+  ListDto<NotificaDto> findByDottore(String codiceFiscale) throws UserNotFoundException;
 
-  ListDto<NotificaDto> findByTutore(String codiceFiscale);
+  ListDto<NotificaDto> findByTutore(String codiceFiscale) throws UserNotFoundException;
 
-  ListDto<NotificaDto> findByAdmin(String codiceFiscale);
+  ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException;
 }

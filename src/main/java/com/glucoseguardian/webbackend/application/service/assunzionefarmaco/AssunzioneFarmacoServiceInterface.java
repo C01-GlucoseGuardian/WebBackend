@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -11,10 +12,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 public interface AssunzioneFarmacoServiceInterface {
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
-  AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws UserNotFoundException;
+  AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
-  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws UserNotFoundException;
+  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
   ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente)

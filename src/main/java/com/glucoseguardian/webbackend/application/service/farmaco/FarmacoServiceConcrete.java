@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
@@ -22,12 +23,12 @@ public class FarmacoServiceConcrete implements FarmacoServiceInterface {
   private FarmacoDao farmacoDao;
 
   @Override
-  public FarmacoDto findById(Long id) throws UserNotFoundException {
+  public FarmacoDto findById(Long id) throws EntityNotFoundException {
     Farmaco result = farmacoDao.findById(id).orElse(null);
     if (result != null) {
       return FarmacoDto.valueOf(result);
     } else {
-      throw new UserNotFoundException("Farmaco non trovato.");
+      throw new EntityNotFoundException("Farmaco non trovato.");
     }
   }
 

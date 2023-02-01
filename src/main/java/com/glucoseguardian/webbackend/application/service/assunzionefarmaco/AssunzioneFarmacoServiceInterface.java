@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.List;
@@ -9,9 +10,10 @@ import java.util.List;
  */
 public interface AssunzioneFarmacoServiceInterface {
 
-  AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco);
+  AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws UserNotFoundException;
 
-  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia);
+  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws UserNotFoundException;
 
-  ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente);
+  ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente)
+      throws UserNotFoundException;
 }

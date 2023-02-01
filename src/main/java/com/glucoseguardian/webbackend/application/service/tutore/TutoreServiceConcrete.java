@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.tutore;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
@@ -23,27 +24,28 @@ import org.springframework.stereotype.Service;
 public class TutoreServiceConcrete implements TutoreServiceInterface {
 
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
   @Autowired
-  TutoreDao tutoreDao;
+  private TutoreDao tutoreDao;
   @Autowired
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) {
+  public TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) throws UserNotFoundException {
     Tutore result = tutoreDao.findById(codiceFiscaleTutore).orElse(null);
     if (result != null) {
       return TutoreDto.valueOf(result);
     } else {
-      throw new RuntimeException("Tutore non trovato.");
+      throw new UserNotFoundException("Tutore non trovato.");
     }
   }
 
   @Override
-  public ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente)
+      throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result == null) {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
     List<Tutore> list = result.getProfiliTutore();
     List<TutoreDto> tutoreDtos = new ArrayList<>();
@@ -55,13 +57,13 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   }
 
   @Override
-  public boolean save(TutoreDto dto) {
+  public boolean save(TutoreDto dto) throws UserNotFoundException {
 
     String cf = dto.getPazienteList().get(0).getCodiceFiscale();
     Paziente paziente = pazienteDao.findById(cf).orElse(null);
 
     if (paziente == null) {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
 
     //TODO: send email with password

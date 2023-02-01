@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.dottore;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
@@ -21,20 +22,20 @@ import org.springframework.stereotype.Service;
 public class DottoreServiceConcrete implements DottoreServiceInterface {
 
   @Autowired
-  DottoreDao dottoreDao;
+  private DottoreDao dottoreDao;
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
 
   @Autowired
-  PasswordEncoder passwordEncoder;
+  private PasswordEncoder passwordEncoder;
 
   @Override
-  public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) {
+  public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       return DottoreDto.valueOf(result);
     } else {
-      throw new RuntimeException("Dottore non trovato.");
+      throw new UserNotFoundException("Dottore non trovato.");
     }
   }
 
@@ -71,14 +72,15 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato) {
+  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato)
+      throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       result.setStato(nuovoStato);
       dottoreDao.save(result);
       return true;
     } else {
-      throw new RuntimeException("Dottore non trovato.");
+      throw new UserNotFoundException("Dottore non trovato.");
     }
   }
 

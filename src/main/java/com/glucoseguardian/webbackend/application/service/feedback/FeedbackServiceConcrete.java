@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.feedback;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
@@ -23,24 +24,25 @@ import org.springframework.stereotype.Service;
 public class FeedbackServiceConcrete implements FeedbackServiceInterface {
 
   @Autowired
-  FeedbackDao feedbackDao;
+  private FeedbackDao feedbackDao;
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
   @Autowired
-  DottoreDao dottoreDao;
+  private DottoreDao dottoreDao;
 
   @Override
-  public FeedbackDto findById(Long id) {
+  public FeedbackDto findById(Long id) throws UserNotFoundException {
     Feedback result = feedbackDao.findById(id).orElse(null);
     if (result != null) {
       return FeedbackDto.valueOf(result);
     } else {
-      throw new RuntimeException("Feedback non trovato.");
+      throw new UserNotFoundException("Feedback non trovato.");
     }
   }
 
   @Override
-  public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente)
+      throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<FeedbackDto> list = new ArrayList<>();
@@ -50,12 +52,13 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
       ListDto<FeedbackDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 
   @Override
-  public ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore) {
+  public ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore)
+      throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       List<FeedbackDto> list = new ArrayList<>();
@@ -65,7 +68,7 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
       ListDto<FeedbackDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Dottore non trovato.");
+      throw new UserNotFoundException("Dottore non trovato.");
     }
   }
 

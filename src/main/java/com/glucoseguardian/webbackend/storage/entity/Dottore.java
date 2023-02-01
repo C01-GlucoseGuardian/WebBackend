@@ -43,7 +43,7 @@ public class Dottore implements Serializable, Utente {
   @Column(length = 15)
   @NotNull
   private String telefono;
-  @Column(unique=true)
+  @Column(unique = true)
   @NotNull
   private String email;
   @NotNull

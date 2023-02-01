@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ public interface DottoreServiceInterface {
 
   DottoreDto findByCodiceFiscale(String codiceFiscaleDottore);
 
-  List<DottoreDto> findByStato(int stato);
+  ListDto<DottoreDto> findByStato(int stato);
 
   DottoreDto findByPaziente(String codiceFiscalePaziente);
 
-  List<DottoreDto> findAll();
+  ListDto<DottoreDto> findAll();
 
   boolean updateStato(String codiceFiscaleDottore, int nuovoStato);
 

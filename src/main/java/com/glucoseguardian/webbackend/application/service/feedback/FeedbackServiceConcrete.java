@@ -4,6 +4,8 @@ import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
+import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Feedback;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
@@ -15,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * This is an implementation of FarmacoServiceInterface.
+ * This is an implementation of FeedbackServiceInterface.
  */
 @Service
 public class FeedbackServiceConcrete implements FeedbackServiceInterface {
@@ -38,28 +40,30 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
   }
 
   @Override
-  public List<FeedbackDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<FeedbackDto> list = new ArrayList<>();
       for (Feedback feedback : result.getFeedbacks()) {
         list.add(FeedbackDto.valueOf(feedback));
       }
-      return list;
+      ListDto<FeedbackDto> listDto = new ListDto<>(list);
+      return listDto;
     } else {
       throw new RuntimeException("Paziente non trovato.");
     }
   }
 
   @Override
-  public List<FeedbackDto> findByDottore(String codiceFiscaleDottore) {
+  public ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore) {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       List<FeedbackDto> list = new ArrayList<>();
       for (Feedback feedback : result.getFeedbacks()) {
         list.add(FeedbackDto.valueOf(feedback));
       }
-      return list;
+      ListDto<FeedbackDto> listDto = new ListDto<>(list);
+      return listDto;
     } else {
       throw new RuntimeException("Dottore non trovato.");
     }

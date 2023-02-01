@@ -2,6 +2,8 @@ package com.glucoseguardian.webbackend.application.service.tutore;
 
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
+import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
@@ -38,7 +40,7 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   }
 
   @Override
-  public List<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result == null) {
       throw new RuntimeException("Paziente non trovato.");
@@ -48,7 +50,8 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
     for (Tutore tutore : list) {
       tutoreDtos.add(TutoreDto.valueOf(tutore));
     }
-    return tutoreDtos;
+    ListDto<TutoreDto> listDto = new ListDto<>(tutoreDtos);
+    return listDto;
   }
 
   @Override

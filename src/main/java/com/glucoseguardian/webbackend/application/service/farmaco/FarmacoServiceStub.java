@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class FarmacoServiceStub implements FarmacoServiceInterface {
   }
 
   @Override
-  public List<FarmacoDto> findFarmaco(String ricerca) {
-    return new ArrayList<>();
+  public ListDto<FarmacoDto> findFarmaco(String ricerca) {
+    return new ListDto<>();
   }
 }

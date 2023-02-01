@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ public interface AssunzioneFarmacoServiceInterface {
 
   AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco);
 
-  List<AssunzioneFarmacoDto> findByTerapia(Long idTerapia);
+  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia);
 
-  List<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente);
+  ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente);
 }

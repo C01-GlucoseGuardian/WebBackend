@@ -8,6 +8,7 @@ import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NumeroTelefonoDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
@@ -61,7 +62,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public List<PazienteDto> findByDottore(String codiceFiscaleDottore) {
+  public ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore) {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result == null) {
       throw new RuntimeException("Dottore non trovato.");
@@ -71,11 +72,12 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     for (Paziente paziente : list) {
       pazienteDtos.add(PazienteDto.valueOf(paziente));
     }
-    return pazienteDtos;
+    ListDto<PazienteDto> listDto = new ListDto<>(pazienteDtos);
+    return listDto;
   }
 
   @Override
-  public List<PazienteDto> findByTutore(String codiceFiscaleTutore) {
+  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) {
     Tutore result = tutoreDao.findById(codiceFiscaleTutore).orElse(null);
     if (result == null) {
       throw new RuntimeException("Tutore non trovato.");
@@ -85,11 +87,12 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     for (Paziente paziente : list) {
       pazienteDtos.add(PazienteDto.valueOf(paziente));
     }
-    return pazienteDtos;
+    ListDto<PazienteDto> listDto = new ListDto<>(pazienteDtos);
+    return listDto;
   }
 
   @Override
-  public List<PazienteDto> findPaziente(String query) {
+  public ListDto<PazienteDto> findPaziente(String query) {
     List<Paziente> listCf = pazienteDao.findByCodiceFiscaleContainingIgnoreCase(query);
     List<Paziente> listEmail = pazienteDao.findByEmailContainingIgnoreCase(query);
     List<Paziente> listCognome = pazienteDao.findByCognomeContainingIgnoreCase(query);
@@ -104,7 +107,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     for (Paziente paziente : listAll) {
       ricercaPaziente.add(PazienteDto.valueOf(paziente));
     }
-    return ricercaPaziente;
+    ListDto<PazienteDto> listDto = new ListDto<>(ricercaPaziente);
+    return listDto;
   }
 
   @Override

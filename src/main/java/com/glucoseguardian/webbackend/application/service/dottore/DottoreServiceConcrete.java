@@ -2,7 +2,9 @@ package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
+import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.sql.Date;
@@ -37,13 +39,14 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public List<DottoreDto> findByStato(int stato) {
+  public ListDto<DottoreDto> findByStato(int stato) {
     List<Dottore> result = dottoreDao.findByStato(stato);
     List<DottoreDto> dottoreDtoStato = new ArrayList<>();
     for (Dottore dottore : result) {
       dottoreDtoStato.add(DottoreDto.valueOf(dottore));
     }
-    return dottoreDtoStato;
+    ListDto<DottoreDto> listDto = new ListDto<>(dottoreDtoStato);
+    return listDto;
   }
 
   @Override
@@ -57,13 +60,14 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public List<DottoreDto> findAll() {
+  public ListDto<DottoreDto> findAll() {
     List<Dottore> result = dottoreDao.findAll();
     List<DottoreDto> tuttiDottoriDto = new ArrayList<>();
     for (Dottore dottore : result) {
       tuttiDottoriDto.add(DottoreDto.valueOf(dottore));
     }
-    return tuttiDottoriDto;
+    ListDto<DottoreDto> listDto = new ListDto<>(tuttiDottoriDto);
+    return listDto;
   }
 
   @Override

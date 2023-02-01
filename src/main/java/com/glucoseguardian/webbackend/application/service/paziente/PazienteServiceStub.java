@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.paziente;
 
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +16,18 @@ public class PazienteServiceStub implements PazienteServiceInterface {
   }
 
   @Override
-  public List<PazienteDto> findByDottore(String codiceFiscaleDottore) {
-    return new ArrayList<>();
+  public ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore) {
+    return new ListDto<>();
   }
 
   @Override
-  public List<PazienteDto> findByTutore(String codiceFiscaleTutore) {
-    return new ArrayList<>();
+  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) {
+    return new ListDto<>();
   }
 
   @Override
-  public List<PazienteDto> findPaziente(String query) {
-    return new ArrayList<>();
+  public ListDto<PazienteDto> findPaziente(String query) {
+    return new ListDto<>();
   }
 
   @Override

@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.List;
 
 /**
@@ -9,5 +10,5 @@ import java.util.List;
 public interface FarmacoServiceInterface {
   FarmacoDto findById(Long id);
 
-  List<FarmacoDto> findFarmaco(String ricerca);
+  ListDto<FarmacoDto> findFarmaco(String ricerca);
 }

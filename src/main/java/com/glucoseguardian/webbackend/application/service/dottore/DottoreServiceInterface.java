@@ -17,7 +17,7 @@ public interface DottoreServiceInterface {
   ListDto<DottoreDto> findByStato(int stato);
 
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('TUTORE')")
-  DottoreDto findByPaziente(String codiceFiscalePaziente);
+  DottoreDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('ADMIN')")
   ListDto<DottoreDto> findAll();

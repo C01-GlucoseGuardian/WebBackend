@@ -11,10 +11,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 public interface NotificaServiceInterface {
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("isAuthenticated()")
   NotificaDto findById(Long id) throws EntityNotFoundException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("isAuthenticated()")
   boolean send(NotificaDto notificaDto);
 
   @PreAuthorize("hasAuthority('PAZIENTE')")

@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.notifica;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
@@ -11,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public interface NotificaServiceInterface {
 
   @PreAuthorize("hasAnyAuthority()")
-  NotificaDto findById(Long id) throws UserNotFoundException;
+  NotificaDto findById(Long id) throws EntityNotFoundException;
 
   @PreAuthorize("hasAnyAuthority()")
   boolean send(NotificaDto notificaDto);

@@ -51,10 +51,10 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public DottoreDto findByPaziente(String codiceFiscalePaziente) {
+  public DottoreDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result == null) {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
     Dottore dottore = result.getDottore();
     return DottoreDto.valueOf(dottore);

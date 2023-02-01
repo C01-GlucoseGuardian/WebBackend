@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.feedback;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
@@ -31,12 +32,12 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
   private DottoreDao dottoreDao;
 
   @Override
-  public FeedbackDto findById(Long id) throws UserNotFoundException {
+  public FeedbackDto findById(Long id) throws EntityNotFoundException {
     Feedback result = feedbackDao.findById(id).orElse(null);
     if (result != null) {
       return FeedbackDto.valueOf(result);
     } else {
-      throw new UserNotFoundException("Feedback non trovato.");
+      throw new EntityNotFoundException("Feedback non trovato.");
     }
   }
 

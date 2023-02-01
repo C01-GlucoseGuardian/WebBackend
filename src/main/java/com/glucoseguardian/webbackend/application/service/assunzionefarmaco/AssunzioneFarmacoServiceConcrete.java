@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
@@ -32,17 +33,18 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
   private TerapiaDao terapiaDao;
 
   @Override
-  public AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws UserNotFoundException {
+  public AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws EntityNotFoundException {
     AssunzioneFarmaco result = assunzioneFarmacoDao.findById(idAssunzioneFarmaco).orElse(null);
     if (result != null) {
       return AssunzioneFarmacoDto.valueOf(result);
     } else {
-      throw new UserNotFoundException("AssunzioneFarmaco non trovato.");
+      throw new EntityNotFoundException("AssunzioneFarmaco non trovato.");
     }
   }
 
   @Override
-  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws UserNotFoundException {
+  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia)
+      throws EntityNotFoundException {
     Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
@@ -52,7 +54,7 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       ListDto<AssunzioneFarmacoDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new UserNotFoundException("Terapia non trovata.");
+      throw new EntityNotFoundException("Terapia non trovata.");
     }
   }
 

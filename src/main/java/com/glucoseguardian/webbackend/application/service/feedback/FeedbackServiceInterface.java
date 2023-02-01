@@ -16,7 +16,7 @@ public interface FeedbackServiceInterface {
   FeedbackDto findById(Long id) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE')")
-  ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) throws EntityNotFoundException;
+  ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore) throws UserNotFoundException;

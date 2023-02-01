@@ -25,7 +25,7 @@ public interface DottoreServiceInterface {
   @PreAuthorize("hasAuthority('ADMIN')")
   boolean updateStato(String codiceFiscaleDottore, int nuovoStato) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("permitAll()")
   boolean save(DottoreDto dto);
 
 }

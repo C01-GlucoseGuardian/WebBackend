@@ -13,6 +13,6 @@ public interface FarmacoServiceInterface {
   @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE') or hasAuthority('TUTORE')")
   FarmacoDto findById(Long id) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE') or hasAuthority('TUTORE')")
+  @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<FarmacoDto> findFarmaco(String ricerca);
 }

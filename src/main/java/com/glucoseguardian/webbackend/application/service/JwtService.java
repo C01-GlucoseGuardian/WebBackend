@@ -88,7 +88,7 @@ public class JwtService {
   private boolean isTokenInFuture(@NonNull String token) {
     Date future = getClaim(token, Claims::getExpiration);
     if (future != null) {
-      return future.after(new Date());
+      return future.before(new Date());
     }
     return true;
   }

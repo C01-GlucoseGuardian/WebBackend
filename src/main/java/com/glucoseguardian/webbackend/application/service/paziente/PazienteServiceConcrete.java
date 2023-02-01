@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.paziente;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
@@ -35,11 +36,11 @@ import org.springframework.stereotype.Service;
 public class PazienteServiceConcrete implements PazienteServiceInterface {
 
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
   @Autowired
-  DottoreDao dottoreDao;
+  private DottoreDao dottoreDao;
   @Autowired
-  TutoreDao tutoreDao;
+  private TutoreDao tutoreDao;
   @Autowired
   private NumeroTelefonoDao numeroTelefonoDao;
   @Autowired
@@ -52,20 +53,22 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente) {
+  public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente)
+      throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       return PazienteDto.valueOf(result);
     } else {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 
   @Override
-  public ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore) {
+  public ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore)
+      throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result == null) {
-      throw new RuntimeException("Dottore non trovato.");
+      throw new UserNotFoundException("Dottore non trovato.");
     }
     List<Paziente> list = result.getPazientes();
     List<PazienteDto> pazienteDtos = new ArrayList<>();
@@ -77,10 +80,11 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) {
+  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore)
+      throws UserNotFoundException {
     Tutore result = tutoreDao.findById(codiceFiscaleTutore).orElse(null);
     if (result == null) {
-      throw new RuntimeException("Tutore non trovato.");
+      throw new UserNotFoundException("Tutore non trovato.");
     }
     List<Paziente> list = result.getPazienteList();
     List<PazienteDto> pazienteDtos = new ArrayList<>();

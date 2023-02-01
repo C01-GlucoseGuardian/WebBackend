@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.terapia;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
@@ -17,9 +18,9 @@ import org.springframework.stereotype.Service;
 public class TerapiaServiceConcrete implements TerapiaServiceInterface {
 
   @Autowired
-  TerapiaDao terapiaDao;
+  private TerapiaDao terapiaDao;
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
 
   @Override
   public boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci) {
@@ -34,22 +35,22 @@ public class TerapiaServiceConcrete implements TerapiaServiceInterface {
   }
 
   @Override
-  public TerapiaDto findTerapia(Long idTerapia) {
+  public TerapiaDto findTerapia(Long idTerapia) throws UserNotFoundException {
     Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       return TerapiaDto.valueOf(result);
     } else {
-      throw new RuntimeException("Terapia non trovata.");
+      throw new UserNotFoundException("Terapia non trovata.");
     }
   }
 
   @Override
-  public TerapiaDto findByPaziente(String codiceFiscalePaziente) {
+  public TerapiaDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       return TerapiaDto.valueOf(result.getTerapia());
     } else {
-      throw new RuntimeException("Terapia non trovata.");
+      throw new UserNotFoundException("Terapia non trovata.");
     }
   }
 }

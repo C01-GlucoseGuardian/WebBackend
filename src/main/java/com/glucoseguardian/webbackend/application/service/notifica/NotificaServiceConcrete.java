@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.notifica;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.NotificaDao;
@@ -26,23 +27,23 @@ import org.springframework.stereotype.Service;
 public class NotificaServiceConcrete implements NotificaServiceInterface {
 
   @Autowired
-  NotificaDao notificaDao;
+  private NotificaDao notificaDao;
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
   @Autowired
-  DottoreDao dottoreDao;
+  private DottoreDao dottoreDao;
   @Autowired
-  TutoreDao tutoreDao;
+  private TutoreDao tutoreDao;
   @Autowired
-  AdminDao adminDao;
+  private AdminDao adminDao;
 
   @Override
-  public NotificaDto findById(Long id) {
+  public NotificaDto findById(Long id) throws UserNotFoundException {
     Notifica result = notificaDao.findById(id).orElse(null);
     if (result != null) {
       return NotificaDto.valueOf(result);
     } else {
-      throw new RuntimeException("Notifica non trovata.");
+      throw new UserNotFoundException("Notifica non trovata.");
     }
   }
 
@@ -58,7 +59,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   }
 
   @Override
-  public ListDto<NotificaDto> findByPaziente(String codiceFiscale) {
+  public ListDto<NotificaDto> findByPaziente(String codiceFiscale) throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscale).orElse(null);
     if (result != null) {
       List<NotificaDto> list = new ArrayList<>();
@@ -68,12 +69,12 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       ListDto<NotificaDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 
   @Override
-  public ListDto<NotificaDto> findByDottore(String codiceFiscale) {
+  public ListDto<NotificaDto> findByDottore(String codiceFiscale) throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscale).orElse(null);
     if (result != null) {
       List<NotificaDto> list = new ArrayList<>();
@@ -83,12 +84,12 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       ListDto<NotificaDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Dottore non trovato.");
+      throw new UserNotFoundException("Dottore non trovato.");
     }
   }
 
   @Override
-  public ListDto<NotificaDto> findByTutore(String codiceFiscale) {
+  public ListDto<NotificaDto> findByTutore(String codiceFiscale) throws UserNotFoundException {
     Tutore result = tutoreDao.findById(codiceFiscale).orElse(null);
     if (result != null) {
       List<NotificaDto> list = new ArrayList<>();
@@ -98,12 +99,12 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       ListDto<NotificaDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Tutore non trovato.");
+      throw new UserNotFoundException("Tutore non trovato.");
     }
   }
 
   @Override
-  public ListDto<NotificaDto> findByAdmin(String codiceFiscale) {
+  public ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException {
     Admin result = adminDao.findById(codiceFiscale).orElse(null);
     if (result != null) {
       List<NotificaDto> list = new ArrayList<>();
@@ -113,7 +114,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       ListDto<NotificaDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Admin non trovato.");
+      throw new UserNotFoundException("Admin non trovato.");
     }
   }
 }

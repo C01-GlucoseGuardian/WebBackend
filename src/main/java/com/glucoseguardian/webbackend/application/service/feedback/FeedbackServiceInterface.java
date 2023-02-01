@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.feedback;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -12,10 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 public interface FeedbackServiceInterface {
   @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE')")
-  FeedbackDto findById(Long id) throws UserNotFoundException;
+  FeedbackDto findById(Long id) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE')")
-  ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
+  ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore) throws UserNotFoundException;

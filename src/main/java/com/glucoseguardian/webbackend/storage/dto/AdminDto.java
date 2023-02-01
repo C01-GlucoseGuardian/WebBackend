@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  * Rappresenta l'entity admin.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class AdminDto implements Serializable {
+public class AdminDto extends RisultatoDto implements Serializable {
 
   private String codiceFiscale;
   private String nome;

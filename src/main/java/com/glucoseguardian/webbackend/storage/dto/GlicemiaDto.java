@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Rappresenta l'output dell'entità glicemia.
  */
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-public class GlicemiaDto implements Serializable {
+public class GlicemiaDto extends RisultatoDto implements Serializable {
 
   private Integer livelloGlucosio;
   private String timestamp;

@@ -13,7 +13,7 @@ import java.util.List;
  * Rappresenta l'output dell'entità tutore.
  */
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-public class TutoreDto implements Serializable {
+public class TutoreDto extends RisultatoDto implements Serializable {
 
   private String codiceFiscale;
   private String nome;

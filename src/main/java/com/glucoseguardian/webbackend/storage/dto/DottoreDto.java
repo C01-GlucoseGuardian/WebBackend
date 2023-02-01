@@ -3,7 +3,6 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.text.SimpleDateFormat;
  * Rappresenta l'entity dottore.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class DottoreDto implements Serializable {
+public class DottoreDto extends RisultatoDto implements Serializable {
 
   private String codiceFiscale;
   private String nome;

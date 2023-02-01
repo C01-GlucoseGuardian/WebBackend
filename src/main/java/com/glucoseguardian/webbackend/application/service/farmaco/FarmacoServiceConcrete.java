@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
@@ -18,15 +19,15 @@ import org.springframework.stereotype.Service;
 public class FarmacoServiceConcrete implements FarmacoServiceInterface {
 
   @Autowired
-  FarmacoDao farmacoDao;
+  private FarmacoDao farmacoDao;
 
   @Override
-  public FarmacoDto findById(Long id) {
+  public FarmacoDto findById(Long id) throws UserNotFoundException {
     Farmaco result = farmacoDao.findById(id).orElse(null);
     if (result != null) {
       return FarmacoDto.valueOf(result);
     } else {
-      throw new RuntimeException("Farmaco non trovato.");
+      throw new UserNotFoundException("Farmaco non trovato.");
     }
   }
 

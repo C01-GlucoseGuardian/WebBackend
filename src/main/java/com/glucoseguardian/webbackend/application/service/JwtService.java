@@ -54,7 +54,7 @@ public class JwtService {
     Date notBefore = DateUtils.addDays(currentTime, -1);
     Date expirationTime = DateUtils.addSeconds(currentTime, TOKEN_VALIDITY);
     return Jwts.builder()
-        .setClaims(Map.of(TIPO_UTENTE, userDetails.getTipoUtente()))
+        .setClaims(Map.of(TIPO_UTENTE, userDetails.getTipoUtente().name()))
         .setSubject(userDetails.getUsername())
         .setNotBefore(notBefore)
         .setIssuedAt(currentTime)
@@ -88,13 +88,13 @@ public class JwtService {
   private boolean isTokenInFuture(@NonNull String token) {
     Date future = getClaim(token, Claims::getExpiration);
     if (future != null) {
-      return future.after(new Date());
+      return future.before(new Date());
     }
     return true;
   }
 
-  private @Nullable TipoUtente getTipoUtente(@NonNull String token) {
-    return getClaim(token, TIPO_UTENTE, TipoUtente.class);
+  private @NonNull TipoUtente getTipoUtente(@NonNull String token) {
+    return TipoUtente.valueOf(getClaim(token, TIPO_UTENTE, String.class));
   }
 
   private @NonNull Claims extractAllClaims(@NonNull String token) {

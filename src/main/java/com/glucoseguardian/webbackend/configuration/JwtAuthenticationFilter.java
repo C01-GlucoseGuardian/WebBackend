@@ -27,7 +27,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private static final String BEARER = "Bearer ";
 
-  private JwtService jwtService = new JwtService();
+  @Autowired
+  private JwtService jwtService;
   @Autowired
   private UserDetailsService userDetailsService;
 

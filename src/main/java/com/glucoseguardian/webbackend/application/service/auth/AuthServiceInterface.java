@@ -16,11 +16,11 @@ public interface AuthServiceInterface {
   LoginOutputDto login(String email, String password, Integer otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("isAuthenticated()")
   boolean changePw(String email, String password, String newPassword, Integer otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("isAuthenticated()")
   TotpDto getTotpKey(String email, String password, Integer otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
 

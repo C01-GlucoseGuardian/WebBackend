@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.terapia;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Farmaco;
@@ -12,7 +13,7 @@ public interface TerapiaServiceInterface {
 
   boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci);
 
-  TerapiaDto findTerapia(Long idTerapia);
+  TerapiaDto findTerapia(Long idTerapia) throws UserNotFoundException;
 
-  TerapiaDto findByPaziente(String codiceFiscalePaziente);
+  TerapiaDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 }

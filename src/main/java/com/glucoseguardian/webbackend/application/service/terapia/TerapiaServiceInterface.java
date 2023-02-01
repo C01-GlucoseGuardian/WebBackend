@@ -16,6 +16,6 @@ public interface TerapiaServiceInterface {
   boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci);
   @PreAuthorize("hasAuthority('DOTTORE')")
   TerapiaDto findTerapia(Long idTerapia) throws UserNotFoundException;
-  @PreAuthorize("hasAuthority('DOTTORE')")
+  @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE')")
   TerapiaDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 }

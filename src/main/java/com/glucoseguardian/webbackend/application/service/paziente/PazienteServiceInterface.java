@@ -11,19 +11,19 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 public interface PazienteServiceInterface {
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
   PazienteDto findByCodiceFiscale(String codiceFiscalePaziente) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAuthority('TUTORE')")
   ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<PazienteDto> findPaziente(String query);
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAuthority('DOTTORE')")
   boolean save(PazienteDto dto);
 
 }

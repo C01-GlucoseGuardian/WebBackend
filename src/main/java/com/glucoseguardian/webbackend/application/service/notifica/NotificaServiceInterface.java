@@ -16,15 +16,15 @@ public interface NotificaServiceInterface {
   @PreAuthorize("hasAnyAuthority()")
   boolean send(NotificaDto notificaDto);
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("hasAuthority('PAZIENTE')")
   ListDto<NotificaDto> findByPaziente(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<NotificaDto> findByDottore(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("hasAuthority('TUTORE')")
   ListDto<NotificaDto> findByTutore(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAnyAuthority()")
+  @PreAuthorize("hasAuthority('ADMIN')")
   ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException;
 }

@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.notifica;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
@@ -38,12 +39,12 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   private AdminDao adminDao;
 
   @Override
-  public NotificaDto findById(Long id) throws UserNotFoundException {
+  public NotificaDto findById(Long id) throws EntityNotFoundException {
     Notifica result = notificaDao.findById(id).orElse(null);
     if (result != null) {
       return NotificaDto.valueOf(result);
     } else {
-      throw new UserNotFoundException("Notifica non trovata.");
+      throw new EntityNotFoundException("Notifica non trovata.");
     }
   }
 

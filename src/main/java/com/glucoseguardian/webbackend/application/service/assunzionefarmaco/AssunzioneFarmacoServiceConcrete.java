@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.assunzionefarmaco;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
@@ -22,26 +23,26 @@ import org.springframework.stereotype.Service;
 public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServiceInterface {
 
   @Autowired
-  AssunzioneFarmacoDao assunzioneFarmacoDao;
+  private AssunzioneFarmacoDao assunzioneFarmacoDao;
   @Autowired
-  DottoreDao dottoreDao;
+  private DottoreDao dottoreDao;
   @Autowired
-  PazienteDao pazienteDao;
+  private PazienteDao pazienteDao;
   @Autowired
-  TerapiaDao terapiaDao;
+  private TerapiaDao terapiaDao;
 
   @Override
-  public AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) {
+  public AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws UserNotFoundException {
     AssunzioneFarmaco result = assunzioneFarmacoDao.findById(idAssunzioneFarmaco).orElse(null);
     if (result != null) {
       return AssunzioneFarmacoDto.valueOf(result);
     } else {
-      throw new RuntimeException("AssunzioneFarmaco non trovato.");
+      throw new UserNotFoundException("AssunzioneFarmaco non trovato.");
     }
   }
 
   @Override
-  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) {
+  public ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws UserNotFoundException {
     Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
@@ -51,12 +52,13 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       ListDto<AssunzioneFarmacoDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Terapia non trovata.");
+      throw new UserNotFoundException("Terapia non trovata.");
     }
   }
 
   @Override
-  public ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente) {
+  public ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente)
+      throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<AssunzioneFarmacoDto> list = new ArrayList<>();
@@ -66,7 +68,7 @@ public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServic
       ListDto<AssunzioneFarmacoDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new RuntimeException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 }

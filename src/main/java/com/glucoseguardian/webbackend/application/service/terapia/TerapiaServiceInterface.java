@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * This is a TutoreService Interface.
  */
 public interface TerapiaServiceInterface {
+
   @PreAuthorize("hasAuthority('DOTTORE')")
   boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci);
   @PreAuthorize("hasAuthority('DOTTORE')")

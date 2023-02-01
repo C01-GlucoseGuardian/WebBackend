@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public interface TutoreServiceInterface {
   @PreAuthorize("hasAuthority('TUTORE')")
   TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) throws UserNotFoundException;
+
   @PreAuthorize("hasAuthority('TUTORE')")
   ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 

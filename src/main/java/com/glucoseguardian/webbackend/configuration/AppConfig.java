@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.configuration;
 
 import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -18,8 +19,8 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.Secret
 @Configuration
 public class AppConfig {
 
-  private final @NonNull UtenteDao utenteDao = new UtenteDao();
-
+  @Autowired
+  private UtenteDao utenteDao;
 
   /**
    * Usa PBKDF2 come raccomandato dal NIST con i valori consigliati da OWASP.

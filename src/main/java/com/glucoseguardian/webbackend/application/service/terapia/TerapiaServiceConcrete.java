@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.terapia;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
@@ -35,12 +36,12 @@ public class TerapiaServiceConcrete implements TerapiaServiceInterface {
   }
 
   @Override
-  public TerapiaDto findTerapia(Long idTerapia) throws UserNotFoundException {
+  public TerapiaDto findTerapia(Long idTerapia) throws EntityNotFoundException {
     Terapia result = terapiaDao.findById(idTerapia).orElse(null);
     if (result != null) {
       return TerapiaDto.valueOf(result);
     } else {
-      throw new UserNotFoundException("Terapia non trovata.");
+      throw new EntityNotFoundException("Terapia non trovata.");
     }
   }
 
@@ -50,7 +51,7 @@ public class TerapiaServiceConcrete implements TerapiaServiceInterface {
     if (result != null) {
       return TerapiaDto.valueOf(result.getTerapia());
     } else {
-      throw new UserNotFoundException("Terapia non trovata.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 }

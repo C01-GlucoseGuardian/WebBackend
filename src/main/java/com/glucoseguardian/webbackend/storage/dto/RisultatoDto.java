@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 
 /**
- * Rappresenta un messaggio di errore.
+ * Rappresenta un generico DTO, contiene solo un attributo "msg".
  */
 @JsonInclude(Include.NON_ABSENT)
-public class MessaggioDto implements Serializable {
+public class RisultatoDto implements Serializable {
 
   private String msg;
 
-  public MessaggioDto(String msg) {
+  public RisultatoDto(String msg) {
     this.msg = msg;
   }
 
-  public MessaggioDto() {
+  public RisultatoDto() {
   }
 
   public String getMsg() {

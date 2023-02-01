@@ -2,19 +2,13 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.glucoseguardian.webbackend.storage.entity.Farmaco;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
-import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Rappresenta l'output delle funzioni di Farmaco.
  */
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-public class FarmacoDto implements Serializable {
+public class FarmacoDto extends RisultatoDto implements Serializable {
 
   private Long id;
   private String nomeFarmaco;

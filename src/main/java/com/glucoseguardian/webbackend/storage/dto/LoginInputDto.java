@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Rappresenta l'input delle funzioni di login.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class LoginInputDto implements Serializable {
+public class LoginInputDto extends RisultatoDto implements Serializable {
 
   private String email;
   private String password;

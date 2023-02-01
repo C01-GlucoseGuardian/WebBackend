@@ -12,7 +12,7 @@ import java.util.List;
  * Rappresenta l'output delle funzioni di paziente.
  */
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-public class PazienteDto implements Serializable {
+public class PazienteDto extends RisultatoDto implements Serializable {
 
   private String codiceFiscale;
   private String nome;

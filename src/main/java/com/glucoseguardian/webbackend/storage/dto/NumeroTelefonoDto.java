@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Rappresenta l'output delle funzioni di numeroTelefono.
  */
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-public class NumeroTelefonoDto implements Serializable {
+public class NumeroTelefonoDto extends RisultatoDto implements Serializable {
 
   private Long id;
   private String numero;

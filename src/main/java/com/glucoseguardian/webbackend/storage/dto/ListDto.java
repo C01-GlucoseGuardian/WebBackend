@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * This class rappresents a list DTO.
- * Its only attribute is a List of T elements.
+ * This class rappresents a list DTO. Its only attribute is a List of T elements.
  **/
-public class ListDto<T> implements Serializable {
+public class ListDto<T> extends RisultatoDto implements Serializable {
 
   private List<T> list;
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Rappresenta l'entita assunzione farmaco.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class AssunzioneFarmacoDto implements Serializable {
+public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
 
   private Long id;
   private Long idFarmaco;

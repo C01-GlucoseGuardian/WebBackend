@@ -3,10 +3,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
-import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
-import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,7 +14,7 @@ import java.util.List;
  * Rappresenta l'output delle funzioni di login.
  */
 @JsonInclude(Include.NON_ABSENT)
-public class TerapiaDto implements Serializable {
+public class TerapiaDto extends RisultatoDto implements Serializable {
 
   private Long id;
   private String idPaziente;

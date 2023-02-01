@@ -10,21 +10,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 public interface NotificaServiceInterface {
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   NotificaDto findById(Long id) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   boolean send(NotificaDto notificaDto);
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   ListDto<NotificaDto> findByPaziente(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   ListDto<NotificaDto> findByDottore(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   ListDto<NotificaDto> findByTutore(String codiceFiscale) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority()")
   ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException;
 }

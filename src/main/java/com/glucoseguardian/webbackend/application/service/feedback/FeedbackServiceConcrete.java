@@ -43,7 +43,7 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
 
   @Override
   public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente)
-      throws EntityNotFoundException {
+      throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     if (result != null) {
       List<FeedbackDto> list = new ArrayList<>();
@@ -53,7 +53,7 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
       ListDto<FeedbackDto> listDto = new ListDto<>(list);
       return listDto;
     } else {
-      throw new EntityNotFoundException("Paziente non trovato.");
+      throw new UserNotFoundException("Paziente non trovato.");
     }
   }
 

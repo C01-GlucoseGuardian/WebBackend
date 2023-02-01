@@ -8,15 +8,15 @@ import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
  */
 public interface NotificaServiceInterface {
 
-  public NotificaDto findById(Long id);
+  NotificaDto findById(Long id);
 
-  public boolean send(NotificaDto notificaDto);
+  boolean send(NotificaDto notificaDto);
 
-  public ListDto<NotificaDto> findByPaziente(String codiceFiscale);
+  ListDto<NotificaDto> findByPaziente(String codiceFiscale);
 
-  public ListDto<NotificaDto> findByDottore(String codiceFiscale);
+  ListDto<NotificaDto> findByDottore(String codiceFiscale);
 
-  public ListDto<NotificaDto> findByTutore(String codiceFiscale);
+  ListDto<NotificaDto> findByTutore(String codiceFiscale);
 
-  public ListDto<NotificaDto> findByAdmin(String codiceFiscale);
+  ListDto<NotificaDto> findByAdmin(String codiceFiscale);
 }

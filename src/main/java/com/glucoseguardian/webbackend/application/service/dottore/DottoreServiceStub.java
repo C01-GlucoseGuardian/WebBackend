@@ -2,8 +2,6 @@ package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,7 +32,8 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato) {
+  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato,
+      String codiceFiscaleAdmin) {
     return true;
   }
 

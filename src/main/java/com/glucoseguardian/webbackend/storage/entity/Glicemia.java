@@ -113,7 +113,7 @@ public class Glicemia implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, livelloGlucosio, data, ora, paziente);
+    return Objects.hash(id);
   }
 
 

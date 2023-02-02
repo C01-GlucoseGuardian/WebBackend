@@ -211,8 +211,7 @@ public class Tutore implements Serializable, Utente {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey, relazioneDiParentela, pazienteList);
+    return Objects.hash(codiceFiscale);
   }
 
   @Override

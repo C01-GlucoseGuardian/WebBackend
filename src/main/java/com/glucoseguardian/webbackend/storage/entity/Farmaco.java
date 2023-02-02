@@ -56,7 +56,7 @@ public class Farmaco {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nomeFarmaco, principioAttivo, confezione);
+    return Objects.hash(id);
   }
 
   public long getId() {

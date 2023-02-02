@@ -200,8 +200,7 @@ public class Notifica implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, messaggio, data, ora, stato, pazienteOggetto, pazienteDestinatario,
-        dottoreDestinatario, tutoreDestinatario, adminDestinatario);
+    return Objects.hash(id);
   }
 
 

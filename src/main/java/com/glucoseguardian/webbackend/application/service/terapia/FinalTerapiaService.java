@@ -2,8 +2,6 @@ package com.glucoseguardian.webbackend.application.service.terapia;
 
 import com.glucoseguardian.webbackend.application.service.paziente.PazienteServiceConcrete;
 import com.glucoseguardian.webbackend.application.service.paziente.PazienteServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,12 +9,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FinalTerapiaService extends AbstractTerapiaService {
-  @Autowired
-  @Qualifier("TerapiaServiceConcrete")
-  TerapiaServiceInterface terapiaService;
 
   @Override
-  public TerapiaServiceInterface getImplementation() {
-    return terapiaService;
+  public PazienteServiceInterface getImplementation() {
+    return new PazienteServiceConcrete();
   }
 }

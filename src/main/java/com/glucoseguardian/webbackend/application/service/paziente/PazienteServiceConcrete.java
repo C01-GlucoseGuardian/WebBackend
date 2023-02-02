@@ -23,7 +23,9 @@ import java.security.SecureRandom;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,13 +104,13 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     List<Paziente> listCognome = pazienteDao.findByCognomeContainingIgnoreCase(query);
     List<Paziente> listNome = pazienteDao.findByNomeContainingIgnoreCase(query);
 
-    List<Paziente> listAll = listCf;
-    listAll.addAll(listEmail);
-    listAll.addAll(listCognome);
-    listAll.addAll(listNome);
+    Set<Paziente> set = new LinkedHashSet<>(listCf);
+    set.addAll(listEmail);
+    set.addAll(listCognome);
+    set.addAll(listNome);
 
     List<PazienteDto> ricercaPaziente = new ArrayList<>();
-    for (Paziente paziente : listAll) {
+    for (Paziente paziente : set) {
       ricercaPaziente.add(PazienteDto.valueOf(paziente));
     }
     ListDto<PazienteDto> listDto = new ListDto<>(ricercaPaziente);

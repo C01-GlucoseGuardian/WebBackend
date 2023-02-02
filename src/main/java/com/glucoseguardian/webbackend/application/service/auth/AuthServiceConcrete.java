@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.auth;
 
 import com.glucoseguardian.webbackend.application.service.JwtService;
+import com.glucoseguardian.webbackend.exceptions.AccountDisabledException;
 import com.glucoseguardian.webbackend.exceptions.InvalidCredentialsException;
 import com.glucoseguardian.webbackend.exceptions.NeedOtpException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
@@ -31,9 +32,12 @@ public class AuthServiceConcrete implements AuthServiceInterface {
 
   @Override
   public LoginOutputDto login(String email, String password, Integer otp)
-      throws UserNotFoundException, InvalidCredentialsException, NeedOtpException {
+      throws UserNotFoundException, InvalidCredentialsException, NeedOtpException,
+      AccountDisabledException {
     Utente result = checkCredentials(email, password, otp);
-
+    if (!result.isEnabled()) {
+      throw new AccountDisabledException("Utente non abilitato.");
+    }
     return new LoginOutputDto(result.getCodiceFiscale(), result.getTipoUtente().ordinal(), null,
         jwtService.generateToken(result));
   }

@@ -64,8 +64,9 @@ public class JwtService {
   }
 
   /**
-   * Controlla se un token è valido. Un token è vlido se appartiene a un utente presente nel
-   * database, se il suo tipo corrisponde a quello nel toke, se non è scaduto, se non è nel futuro.
+   * Controlla se un token è valido. Un token è vlido se appartiene a un utente con
+   * account abilitato presente nel database, se il suo tipo corrisponde a quello nel token,
+   * se il token non è scaduto, se il token non è nel futuro.
    */
   public boolean isTokenValid(@NonNull String token, @NonNull Utente userDetails) {
     String username = getUsername(token);
@@ -74,7 +75,8 @@ public class JwtService {
     return userDetails.getUsername().equals(username)
         && userDetails.getTipoUtente().equals(tipoUtente)
         && !isTokenExpired(token)
-        && !isTokenInFuture(token);
+        && !isTokenInFuture(token)
+        && userDetails.isEnabled();
   }
 
   private boolean isTokenExpired(@NonNull String token) {

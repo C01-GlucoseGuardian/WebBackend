@@ -4,11 +4,13 @@ import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * This is the stub.
  */
 
+@Service
 public class DottoreServiceStub implements DottoreServiceInterface {
 
   @Override

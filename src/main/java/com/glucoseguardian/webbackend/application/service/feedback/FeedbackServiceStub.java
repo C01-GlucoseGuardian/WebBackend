@@ -5,10 +5,12 @@ import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * This is the stub.
  */
+@Service
 public class FeedbackServiceStub implements FeedbackServiceInterface {
 
   @Override

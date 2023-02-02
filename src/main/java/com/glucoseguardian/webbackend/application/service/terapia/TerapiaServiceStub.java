@@ -3,10 +3,12 @@ package com.glucoseguardian.webbackend.application.service.terapia;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * This is the stub.
  */
+@Service
 public class TerapiaServiceStub implements TerapiaServiceInterface {
 
   @Override

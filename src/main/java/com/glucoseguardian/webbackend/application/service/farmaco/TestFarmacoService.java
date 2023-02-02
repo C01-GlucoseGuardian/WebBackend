@@ -1,7 +1,5 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,12 +7,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestFarmacoService extends AbstractFarmacoService {
-  @Autowired
-  @Qualifier("FarmacoServiceStub")
-  FarmacoServiceInterface farmacoService;
 
   @Override
   public FarmacoServiceInterface getImplentation() {
-    return farmacoService;
+    return new FarmacoServiceConcrete();
   }
 }

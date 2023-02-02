@@ -1,7 +1,5 @@
 package com.glucoseguardian.webbackend.application.service.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
@@ -10,13 +8,8 @@ import org.springframework.stereotype.Service;
  * utilizzare a fini di test.
  */
 @Service
-public class TestAuthService extends AbstractAuthService {
-  @Autowired
-  @Qualifier("AuthServiceStub")
-  AuthServiceInterface authServiceService;
-
-  @Override
+public class TestAuthService extends AbstractAuthService{
   public AuthServiceInterface getImplementation() {
-    return authServiceService;
+    return new AuthServiceConcrete();
   }
 }

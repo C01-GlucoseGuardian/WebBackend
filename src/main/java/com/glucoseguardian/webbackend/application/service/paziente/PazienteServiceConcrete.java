@@ -130,6 +130,9 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
         dto.getTipoDiabete(), dto.getComorbilita(), dto.getFarmaciAssunti(),
         dto.getPeriodoDiMonitoraggio());
 
+    Dottore dottoreEntity = dottoreDao.findById(dto.getIdDottore()).orElse(null);
+    pazienteEntity.setDottore(dottoreEntity);
+
     pazienteDao.saveAndFlush(pazienteEntity);
 
     List<NumeroTelefonoDto> listNumeroDto = dto.getNumeriUtili();
@@ -142,6 +145,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     Terapia terapiaEntity = new Terapia();
     terapiaEntity.setDataInizio(new Date(System.currentTimeMillis()));
     terapiaEntity.setPaziente(pazienteEntity);
+    terapiaEntity.setDottore(dottoreEntity);
     terapiaDao.saveAndFlush(terapiaEntity);
 
     for (AssunzioneFarmacoDto farmacoDto : dto.getTerapia().getFarmaci()) {

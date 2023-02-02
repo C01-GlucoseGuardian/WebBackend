@@ -128,7 +128,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
         Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
         passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
         dto.getTipoDiabete(), dto.getComorbilita(), dto.getFarmaciAssunti(),
-        dto.getPeriodoMonitoraggio());
+        dto.getPeriodoDiMonitoraggio());
 
     pazienteDao.saveAndFlush(pazienteEntity);
 

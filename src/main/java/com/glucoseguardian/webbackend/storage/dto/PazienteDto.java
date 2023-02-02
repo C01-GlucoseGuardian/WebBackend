@@ -25,7 +25,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
   private String tipoDiabete;
   private String comorbilita;
   private String farmaciAssunti;
-  private Integer periodoMonitoraggio;
+  private Integer periodoDiMonitoraggio;
 
   private List<NumeroTelefonoDto> numeriUtili;
 
@@ -40,7 +40,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
    */
   public PazienteDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email, String sesso, String tipoDiabete,
-      String comorbilita, String farmaciAssunti, Integer periodoMonitoraggio,
+      String comorbilita, String farmaciAssunti, Integer periodoDiMonitoraggio,
       List<NumeroTelefonoDto> numeriUtili, TerapiaDto terapia) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
@@ -53,7 +53,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     this.tipoDiabete = tipoDiabete;
     this.comorbilita = comorbilita;
     this.farmaciAssunti = farmaciAssunti;
-    this.periodoMonitoraggio = periodoMonitoraggio;
+    this.periodoDiMonitoraggio = periodoDiMonitoraggio;
     this.numeriUtili = numeriUtili;
     this.terapia = terapia;
   }
@@ -138,12 +138,12 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     this.farmaciAssunti = farmaciAssunti;
   }
 
-  public Integer getPeriodoMonitoraggio() {
-    return periodoMonitoraggio;
+  public Integer getPeriodoDiMonitoraggio() {
+    return periodoDiMonitoraggio;
   }
 
-  public void setPeriodoMonitoraggio(Integer periodoMonitoraggio) {
-    this.periodoMonitoraggio = periodoMonitoraggio;
+  public void setPeriodoDiMonitoraggio(Integer periodoDiMonitoraggio) {
+    this.periodoDiMonitoraggio = periodoDiMonitoraggio;
   }
 
   public String getEmail() {
@@ -186,7 +186,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     pazienteDto.setTipoDiabete(paziente.getTipoDiabete());
     pazienteDto.setComorbilita(paziente.getComorbilita());
     pazienteDto.setFarmaciAssunti(paziente.getFarmaciAssunti());
-    pazienteDto.setPeriodoMonitoraggio(pazienteDto.getPeriodoMonitoraggio());
+    pazienteDto.setPeriodoDiMonitoraggio(pazienteDto.getPeriodoDiMonitoraggio());
     pazienteDto.setNumeriUtiliFromEntity(paziente.getNumeriUtili());
     return pazienteDto;
   }

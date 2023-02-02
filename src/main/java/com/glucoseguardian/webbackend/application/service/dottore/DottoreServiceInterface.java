@@ -9,7 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * This is a DottoreService Interface.
  */
 public interface DottoreServiceInterface {
-  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('PAZIENTE') or hasAuthority('TUTORE')")
+  @PreAuthorize("isAuthenticated()")
   DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('ADMIN')")

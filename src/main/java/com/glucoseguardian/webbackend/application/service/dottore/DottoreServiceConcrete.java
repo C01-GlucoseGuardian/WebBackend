@@ -1,11 +1,12 @@
 package com.glucoseguardian.webbackend.application.service.dottore;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
-import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
+import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.sql.Date;
@@ -28,6 +29,8 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+  @Autowired
+  private AdminDao adminDao;
 
   @Override
   public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) throws UserNotFoundException {
@@ -72,11 +75,13 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato)
+  public boolean updateStato(String codiceFiscaleDottore, int nuovoStato, String codiceFiscaleAdmin)
       throws UserNotFoundException {
     Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
     if (result != null) {
       result.setStato(nuovoStato);
+      Admin admin = adminDao.findById(codiceFiscaleAdmin).orElse(null);
+      result.setConvalidatoDa(admin);
       dottoreDao.save(result);
       return true;
     } else {

@@ -4,10 +4,12 @@ import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * This is the stub.
  */
+@Service
 public class TutoreServiceStub implements TutoreServiceInterface {
 
   @Override

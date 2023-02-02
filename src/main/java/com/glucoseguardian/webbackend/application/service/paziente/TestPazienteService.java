@@ -1,5 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.paziente;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,9 +9,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestPazienteService extends AbstractPazienteService {
+  @Autowired
+  @Qualifier("pazienteServiceStub")
+  PazienteServiceInterface pazienteService;
 
   @Override
   public PazienteServiceInterface getImplementation() {
-    return new PazienteServiceConcrete();
+    return pazienteService;
   }
 }

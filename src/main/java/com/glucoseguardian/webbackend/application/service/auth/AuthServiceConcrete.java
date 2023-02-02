@@ -34,7 +34,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException {
     Utente result = checkCredentials(email, password, otp);
 
-    return new LoginOutputDto(result.getCodiceFiscale(), result.getTipoUtente().ordinal(), false,
+    return new LoginOutputDto(result.getCodiceFiscale(), result.getTipoUtente().ordinal(), null,
         jwtService.generateToken(result));
   }
 

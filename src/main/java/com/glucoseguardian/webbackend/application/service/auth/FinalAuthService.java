@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalAuthService extends AbstractAuthService {
   @Autowired
-  @Qualifier("AuthServiceConcrete")
+  @Qualifier("authServiceConcrete")
   AuthServiceInterface authServiceService;
 
   @Override

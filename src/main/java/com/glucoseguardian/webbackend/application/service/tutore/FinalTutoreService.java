@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalTutoreService extends AbstractTutoreService {
   @Autowired
-  @Qualifier("TutoreServiceConcrete")
+  @Qualifier("tutoreServiceConcrete")
   TutoreServiceInterface tutoreService;
 
   @Override

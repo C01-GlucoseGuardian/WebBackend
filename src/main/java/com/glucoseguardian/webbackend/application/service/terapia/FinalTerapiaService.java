@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalTerapiaService extends AbstractTerapiaService {
   @Autowired
-  @Qualifier("TerapiaServiceConcrete")
+  @Qualifier("terapiaServiceConcrete")
   TerapiaServiceInterface terapiaService;
 
   @Override

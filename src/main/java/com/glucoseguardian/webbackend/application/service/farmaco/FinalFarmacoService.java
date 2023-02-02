@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalFarmacoService extends AbstractFarmacoService {
   @Autowired
-  @Qualifier("FarmacoServiceConcrete")
+  @Qualifier("farmacoServiceConcrete")
   FarmacoServiceInterface farmacoService;
 
   @Override

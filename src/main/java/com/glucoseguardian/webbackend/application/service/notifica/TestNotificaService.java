@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestNotificaService extends AbstractNotificaService {
   @Autowired
-  @Qualifier("NotificaServiceStub")
+  @Qualifier("notificaServiceStub")
   NotificaServiceInterface notificaService;
 
   @Override

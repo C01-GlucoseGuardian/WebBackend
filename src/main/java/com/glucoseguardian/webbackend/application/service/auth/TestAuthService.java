@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestAuthService extends AbstractAuthService {
   @Autowired
-  @Qualifier("AuthServiceStub")
+  @Qualifier("authServiceStub")
   AuthServiceInterface authServiceService;
 
   @Override

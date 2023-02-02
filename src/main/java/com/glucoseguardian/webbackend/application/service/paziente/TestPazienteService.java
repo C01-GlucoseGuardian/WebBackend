@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestPazienteService extends AbstractPazienteService {
   @Autowired
-  @Qualifier("PazienteServiceStub")
+  @Qualifier("pazienteServiceStub")
   PazienteServiceInterface pazienteService;
 
   @Override

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalNotificaService extends AbstractNotificaService {
   @Autowired
-  @Qualifier("NotificaServiceConcrete")
+  @Qualifier("notificaServiceConcrete")
   NotificaServiceInterface notificaService;
 
   @Override

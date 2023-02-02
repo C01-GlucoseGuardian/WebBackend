@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestTutoreService extends AbstractTutoreService {
   @Autowired
-  @Qualifier("TutoreServiceStub")
+  @Qualifier("tutoreServiceStub")
   TutoreServiceInterface tutoreService;
 
   @Override

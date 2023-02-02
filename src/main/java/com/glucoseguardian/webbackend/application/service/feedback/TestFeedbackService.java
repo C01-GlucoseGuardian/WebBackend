@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestFeedbackService extends AbstractFeedbackService {
   @Autowired
-  @Qualifier("FeedbackServiceStub")
+  @Qualifier("feedbackServiceStub")
   FeedbackServiceInterface feedbackService;
 
   @Override

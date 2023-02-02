@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FinalFeedbackService extends AbstractFeedbackService {
   @Autowired
-  @Qualifier("FeedbackServiceConcrete")
+  @Qualifier("feedbackServiceConcrete")
   FeedbackServiceInterface feedbackService;
 
   @Override

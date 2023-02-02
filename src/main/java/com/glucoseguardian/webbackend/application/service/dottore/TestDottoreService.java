@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class TestDottoreService extends AbstractDottoreService {
 
   @Autowired
-  @Qualifier("DottoreServiceStub")
+  @Qualifier("dottoreServiceStub")
   DottoreServiceInterface dottoreService;
 
   @Override

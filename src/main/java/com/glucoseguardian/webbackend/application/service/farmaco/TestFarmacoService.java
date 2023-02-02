@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestFarmacoService extends AbstractFarmacoService {
   @Autowired
-  @Qualifier("FarmacoServiceStub")
+  @Qualifier("farmacoServiceStub")
   FarmacoServiceInterface farmacoService;
 
   @Override

@@ -7,5 +7,5 @@ import com.glucoseguardian.webbackend.application.service.paziente.PazienteServi
  */
 public abstract class AbstractTerapiaService {
 
-  public abstract PazienteServiceInterface getImplementation();
+  public abstract TerapiaServiceInterface getImplementation();
 }

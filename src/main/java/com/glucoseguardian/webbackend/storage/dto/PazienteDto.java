@@ -27,6 +27,8 @@ public class PazienteDto extends RisultatoDto implements Serializable {
   private String farmaciAssunti;
   private Integer periodoDiMonitoraggio;
 
+  private String idDottore;
+
   private List<NumeroTelefonoDto> numeriUtili;
 
   private TerapiaDto terapia;
@@ -40,7 +42,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
    */
   public PazienteDto(String codiceFiscale, String nome, String cognome, String dataNascita,
       String indirizzo, String telefono, String email, String sesso, String tipoDiabete,
-      String comorbilita, String farmaciAssunti, Integer periodoDiMonitoraggio,
+      String comorbilita, String farmaciAssunti, Integer periodoDiMonitoraggio, String idDottore,
       List<NumeroTelefonoDto> numeriUtili, TerapiaDto terapia) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
@@ -54,6 +56,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     this.comorbilita = comorbilita;
     this.farmaciAssunti = farmaciAssunti;
     this.periodoDiMonitoraggio = periodoDiMonitoraggio;
+    this.idDottore = idDottore;
     this.numeriUtili = numeriUtili;
     this.terapia = terapia;
   }
@@ -166,6 +169,14 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     this.numeriUtili = numeriUtili.stream().map(NumeroTelefonoDto::valueOf).toList();
   }
 
+  public void setIdDottore(String idDottore) {
+    this.idDottore = idDottore;
+  }
+
+  public String getIdDottore() {
+    return idDottore;
+  }
+
   /**
    * Costruisce un PazienteDto a partire da un {@link Paziente}, il campo password non viene
    * popolato.
@@ -188,6 +199,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     pazienteDto.setFarmaciAssunti(paziente.getFarmaciAssunti());
     pazienteDto.setPeriodoDiMonitoraggio(pazienteDto.getPeriodoDiMonitoraggio());
     pazienteDto.setNumeriUtiliFromEntity(paziente.getNumeriUtili());
+    pazienteDto.setIdDottore(paziente.getDottore().getCodiceFiscale());
     return pazienteDto;
   }
 

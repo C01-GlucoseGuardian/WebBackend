@@ -33,7 +33,6 @@ public class AssunzioneFarmaco implements Serializable {
   @NotNull
   private String viaDiSomministrazione;
   @Column(length = 300)
-  @NotNull
   private String noteAggiuntive;
   @ManyToOne
   @JoinColumn(name = "terapia")

@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.glucoseguardian.webbackend.storage.entity.Glicemia;
 import java.io.Serializable;
 
 /**
@@ -10,12 +11,12 @@ import java.io.Serializable;
 public class GlicemiaDto extends RisultatoDto implements Serializable {
 
   private Integer livelloGlucosio;
-  private String timestamp;
+  private Long timestamp;
 
   public GlicemiaDto() {
   }
 
-  public GlicemiaDto(Integer livelloGlucosio, String timestamp) {
+  public GlicemiaDto(Integer livelloGlucosio, Long timestamp) {
     this.livelloGlucosio = livelloGlucosio;
     this.timestamp = timestamp;
   }
@@ -28,11 +29,16 @@ public class GlicemiaDto extends RisultatoDto implements Serializable {
     this.livelloGlucosio = livelloGlucosio;
   }
 
-  public String getTimestamp() {
+  public static GlicemiaDto valueOf(Glicemia glicemia) {
+    long timestamp = glicemia.getData().getTime() + glicemia.getOra().getTime();
+    return new GlicemiaDto(glicemia.getLivelloGlucosio(), timestamp);
+  }
+
+  public Long getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(String timestamp) {
+  public void setTimestamp(Long timestamp) {
     this.timestamp = timestamp;
   }
 }

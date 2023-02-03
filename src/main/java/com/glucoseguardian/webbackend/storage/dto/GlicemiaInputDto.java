@@ -17,6 +17,9 @@ public class GlicemiaInputDto extends RisultatoDto implements Serializable {
   public GlicemiaInputDto() {
   }
 
+  /**
+   * Costruttore di default di glicemia input dto.
+   */
   public GlicemiaInputDto(String idPaziente, Long start, Long end) {
     this.idPaziente = idPaziente;
     this.start = start;

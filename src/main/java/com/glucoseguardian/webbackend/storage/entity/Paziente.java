@@ -324,10 +324,7 @@ public class Paziente implements Serializable, Utente {
 
   @Override
   public int hashCode() {
-    return Objects.hash(numeriUtili, notificheInvio, notifiche, glicemie, feedbacks,
-        terapia, dottore, profiliTutore, codiceFiscale, nome, cognome, dataNascita, indirizzo,
-        telefono, email, password, sesso, totpKey, tipoDiabete, comorbilita, farmaciAssunti,
-        periodoDiMonitoraggio);
+    return Objects.hash(codiceFiscale);
   }
 
   @Override

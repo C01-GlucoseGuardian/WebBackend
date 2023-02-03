@@ -110,7 +110,7 @@ public class Terapia implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, dataInizio, feedbacks, assunzioneFarmacos, dottore, paziente);
+    return Objects.hash(id);
   }
 
   @Override

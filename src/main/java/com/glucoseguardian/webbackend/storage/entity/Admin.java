@@ -109,9 +109,7 @@ public class Admin implements Serializable, Utente {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey,
-        stato);
+    return Objects.hash(codiceFiscale);
   }
 
   public String getCodiceFiscale() {

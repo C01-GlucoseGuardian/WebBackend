@@ -153,7 +153,6 @@ public class AssunzioneFarmaco implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, farmaco, dosaggio, orarioAssunzione, viaDiSomministrazione,
-        noteAggiuntive);
+    return Objects.hash(id);
   }
 }

@@ -80,7 +80,7 @@ public class NumeroTelefono implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, numero, paziente);
+    return Objects.hash(id);
   }
 
   @Override

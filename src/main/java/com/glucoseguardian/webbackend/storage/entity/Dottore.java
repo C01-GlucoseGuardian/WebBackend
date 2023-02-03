@@ -294,9 +294,7 @@ public class Dottore implements Serializable, Utente {
 
   @Override
   public int hashCode() {
-    return Objects.hash(codiceFiscale, nome, cognome, dataNascita, indirizzo, telefono, email,
-        password, sesso, totpKey, specializzazione, codiceAlbo, nomeStruttura, indirizzoStruttura,
-        stato, feedbacks, pazientes, terapias, notificas, convalidatoDa);
+    return Objects.hash(codiceFiscale);
   }
 
   @Override

@@ -8,8 +8,7 @@ import com.glucoseguardian.webbackend.storage.dto.GlicemiaDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Glicemia;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
   @Override
   public GlicemiaDto getLast(String codiceFiscale) throws EntityNotFoundException {
     Paziente paziente = getPaziente(codiceFiscale);
-    Glicemia result = glicemiaDao.findTopByPazienteOrderByDataDescOraDesc(paziente).orElse(null);
+    Glicemia result = glicemiaDao.findTopByPazienteOrderByDataOraDesc(paziente).orElse(null);
 
     if (result != null) {
       return GlicemiaDto.valueOf(result);
@@ -43,13 +42,9 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
   public ListDto<GlicemiaDto> getRange(String codiceFiscale, long start, long end)
       throws UserNotFoundException {
     Paziente paziente = getPaziente(codiceFiscale);
-    Date dateStart = new Date(start);
-    Date dateEnd = new Date(end);
-    Time timeStart = new Time(start);
-    Time timeEnd = new Time(end);
 
-    List<Glicemia> list = glicemiaDao.findByPazienteAndDataBetweenAndOraBetween(paziente, dateEnd,
-        dateStart, timeEnd, timeStart);
+    List<Glicemia> list = glicemiaDao.findByPazienteAndDataOraBetweenOrderByDataOraDesc(
+        paziente, new Timestamp(start), new Timestamp(end));
 
     return new ListDto<>(list.stream().map(GlicemiaDto::valueOf).toList());
   }
@@ -59,9 +54,8 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
       throws UserNotFoundException {
     Paziente paziente = getPaziente(codiceFiscale);
     for (GlicemiaDto dto : list.getList()) {
-      Date date = new Date(dto.getTimestamp());
-      Time time = new Time(dto.getTimestamp());
-      Glicemia glicemia = new Glicemia(dto.getLivelloGlucosio(), date, time);
+      Timestamp dateTime = new Timestamp(dto.getTimestamp());
+      Glicemia glicemia = new Glicemia(dto.getLivelloGlucosio(), dateTime);
       glicemia.setPaziente(paziente);
       glicemiaDao.save(glicemia);
     }

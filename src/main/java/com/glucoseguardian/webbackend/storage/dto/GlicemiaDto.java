@@ -30,8 +30,7 @@ public class GlicemiaDto extends RisultatoDto implements Serializable {
   }
 
   public static GlicemiaDto valueOf(Glicemia glicemia) {
-    long timestamp = glicemia.getData().getTime() + glicemia.getOra().getTime();
-    return new GlicemiaDto(glicemia.getLivelloGlucosio(), timestamp);
+    return new GlicemiaDto(glicemia.getLivelloGlucosio(), glicemia.getDataOra().getTime());
   }
 
   public Long getTimestamp() {

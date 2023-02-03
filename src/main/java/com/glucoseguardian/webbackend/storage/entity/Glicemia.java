@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.storage.entity;
 
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,8 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
@@ -23,15 +22,23 @@ public class Glicemia implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
-  private int livelloGlucosio;
-  @NotNull
-  private Date data;
-  @NotNull
-  private Time ora;
+  private Integer livelloGlucosio;
+  private @NotNull Timestamp dataOra;
 
   @ManyToOne
   @JoinColumn(name = "paziente")
   private Paziente paziente;
+
+  /**
+   * Costruttore predefinito della classe Glicemia.
+   */
+  public Glicemia(Integer livelloGlucosio, @NotNull Timestamp dataOra) {
+    this.livelloGlucosio = livelloGlucosio;
+    this.dataOra = dataOra;
+  }
+
+  public Glicemia() {
+  }
 
   public long getId() {
     return id;
@@ -41,28 +48,20 @@ public class Glicemia implements Serializable {
     this.id = id;
   }
 
-  public int getLivelloGlucosio() {
+  public Integer getLivelloGlucosio() {
     return livelloGlucosio;
   }
 
-  public void setLivelloGlucosio(int livelloGlucosio) {
+  public void setLivelloGlucosio(Integer livelloGlucosio) {
     this.livelloGlucosio = livelloGlucosio;
   }
 
-  public Date getData() {
-    return data;
+  public @NotNull Timestamp getDataOra() {
+    return dataOra;
   }
 
-  public void setData(Date data) {
-    this.data = data;
-  }
-
-  public Time getOra() {
-    return ora;
-  }
-
-  public void setOra(Time ora) {
-    this.ora = ora;
+  public void setDataOra(@NotNull Timestamp dataOra) {
+    this.dataOra = dataOra;
   }
 
   public Paziente getPaziente() {
@@ -73,28 +72,10 @@ public class Glicemia implements Serializable {
     this.paziente = paziente;
   }
 
-  /**
-   * Costruttore predefinito della classe Glicemia.
-   */
-  public Glicemia(int livelloGlucosio, Date data, Time ora) {
-    this.livelloGlucosio = livelloGlucosio;
-    this.data = data;
-    this.ora = ora;
-  }
-
-  public Glicemia() {
-  }
-
-
   @Override
   public String toString() {
-    return "Glicemia{"
-        + "id=" + id
-        + ", livelloGlucosio=" + livelloGlucosio
-        + ", data=" + data
-        + ", ora=" + ora
-        + ", paziente=" + paziente
-        + '}';
+    return "Glicemia{" + "id=" + id + ", livelloGlucosio=" + livelloGlucosio + ", data=" + dataOra
+        + ", paziente=" + paziente + '}';
   }
 
   @Override
@@ -106,9 +87,8 @@ public class Glicemia implements Serializable {
       return false;
     }
     Glicemia glicemia = (Glicemia) o;
-    return id == glicemia.id && livelloGlucosio == glicemia.livelloGlucosio
-        && Objects.equals(data, glicemia.data) && Objects.equals(ora,
-        glicemia.ora) && Objects.equals(paziente, glicemia.paziente);
+    return id == glicemia.id && livelloGlucosio == glicemia.livelloGlucosio && Objects.equals(
+        dataOra, glicemia.dataOra) && Objects.equals(paziente, glicemia.paziente);
   }
 
   @Override

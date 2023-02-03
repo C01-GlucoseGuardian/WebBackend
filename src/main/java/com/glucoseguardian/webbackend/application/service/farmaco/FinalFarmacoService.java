@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.application.service.farmaco;
 
-import com.glucoseguardian.webbackend.application.service.dottore.DottoreServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ public class FinalFarmacoService extends AbstractFarmacoService {
   FarmacoServiceInterface farmacoService;
 
   @Override
-  public FarmacoServiceInterface getImplentation() {
+  public FarmacoServiceInterface getImplementation() {
     return farmacoService;
   }
 }

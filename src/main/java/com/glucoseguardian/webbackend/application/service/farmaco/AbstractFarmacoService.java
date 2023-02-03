@@ -5,5 +5,5 @@ package com.glucoseguardian.webbackend.application.service.farmaco;
  */
 public abstract class AbstractFarmacoService {
 
-  public abstract FarmacoServiceInterface getImplentation();
+  public abstract FarmacoServiceInterface getImplementation();
 }

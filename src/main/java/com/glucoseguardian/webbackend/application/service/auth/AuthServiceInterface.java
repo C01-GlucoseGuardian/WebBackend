@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.application.service.auth;
 
+import com.glucoseguardian.webbackend.exceptions.AccountDisabledException;
 import com.glucoseguardian.webbackend.exceptions.InvalidCredentialsException;
 import com.glucoseguardian.webbackend.exceptions.NeedOtpException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
@@ -14,7 +15,8 @@ public interface AuthServiceInterface {
 
   @PreAuthorize("permitAll()")
   LoginOutputDto login(String email, String password, Integer otp)
-      throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
+      throws UserNotFoundException, InvalidCredentialsException, NeedOtpException,
+      AccountDisabledException;
 
   @PreAuthorize("isAuthenticated()")
   boolean changePw(String email, String password, String newPassword, Integer otp)

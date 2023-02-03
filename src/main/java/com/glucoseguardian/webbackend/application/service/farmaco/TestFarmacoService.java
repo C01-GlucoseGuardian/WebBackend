@@ -14,7 +14,7 @@ public class TestFarmacoService extends AbstractFarmacoService {
   FarmacoServiceInterface farmacoService;
 
   @Override
-  public FarmacoServiceInterface getImplentation() {
+  public FarmacoServiceInterface getImplementation() {
     return farmacoService;
   }
 }

@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Rest controller che si occupa di esporre i servizi del package dottore.
+ */
 @RestController
 @RequestMapping("dottore")
 public class DottoreRest {
@@ -32,6 +35,9 @@ public class DottoreRest {
   @Qualifier("finalDottoreService")
   private AbstractDottoreService dottoreService;
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /get.
+   */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getDottore(
       @RequestBody DottoreDto dottore) throws UserNotFoundException {
@@ -55,6 +61,9 @@ public class DottoreRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByStato.
+   */
   @PostMapping(value = "/getByStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByStato(
       @RequestBody DottoreDto dottore) {
@@ -78,6 +87,9 @@ public class DottoreRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByPaziente.
+   */
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
       @RequestBody PazienteDto paziente) throws UserNotFoundException {
@@ -101,6 +113,9 @@ public class DottoreRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getAll.
+   */
   @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getAll() {
 
@@ -123,6 +138,9 @@ public class DottoreRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /updateStato.
+   */
   @PostMapping(value = "/updateStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updateStato(
       @RequestBody DottoreDto dottore) throws UserNotFoundException {
@@ -155,6 +173,9 @@ public class DottoreRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /save.
+   */
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveDottore(
       @RequestBody DottoreDto dottore) {

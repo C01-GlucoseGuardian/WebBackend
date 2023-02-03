@@ -8,7 +8,6 @@ import com.glucoseguardian.webbackend.storage.dto.GlicemiaDto;
 import com.glucoseguardian.webbackend.storage.dto.GlicemiaInputDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Rest controller che si occupa di esporre i servizi del package glicemia.
+ */
 @RestController
 @RequestMapping("glicemia")
 public class GlicemiaRest {
@@ -33,6 +35,9 @@ public class GlicemiaRest {
   @Qualifier("finalGlicemiaService")
   private AbstractGlicemiaService glicemiaService;
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getLast.
+   */
   @PostMapping(value = "/getLast", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getLast(
       @RequestBody GlicemiaInputDto glicemia) throws EntityNotFoundException {
@@ -55,6 +60,9 @@ public class GlicemiaRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getRange.
+   */
   @PostMapping(value = "/getRange", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getRange(
       @RequestBody GlicemiaInputDto glicemia) throws UserNotFoundException {
@@ -78,6 +86,9 @@ public class GlicemiaRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /send.
+   */
   @PostMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveGlicemia(
       @RequestBody ListDto<GlicemiaDto> list) {

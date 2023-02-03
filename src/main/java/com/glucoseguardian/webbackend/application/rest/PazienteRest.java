@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Rest controller che si occupa di esporre i servizi del package paziente.
+ */
 @RestController
 @RequestMapping("paziente")
 public class PazienteRest {
@@ -33,6 +36,9 @@ public class PazienteRest {
   @Qualifier("finalPazienteService")
   private AbstractPazienteService pazienteService;
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /get.
+   */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getPaziente(
       @RequestBody PazienteDto paziente) throws UserNotFoundException {
@@ -55,6 +61,9 @@ public class PazienteRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByDottore.
+   */
   @PostMapping(value = "/getByDottore", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByDottore(
       @RequestBody DottoreDto dottore) throws UserNotFoundException {
@@ -77,6 +86,9 @@ public class PazienteRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByTutore.
+   */
   @PostMapping(value = "/getByTutore", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByTutore(
       @RequestBody TutoreDto tutore) throws UserNotFoundException {
@@ -99,6 +111,9 @@ public class PazienteRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /find.
+   */
   @PostMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> findPaziente(
       @RequestBody RicercaDto query) {
@@ -121,6 +136,9 @@ public class PazienteRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /save.
+   */
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> savePaziente(
       @RequestBody PazienteDto paziente) {

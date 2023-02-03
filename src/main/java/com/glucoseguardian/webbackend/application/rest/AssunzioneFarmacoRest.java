@@ -4,10 +4,8 @@ import com.glucoseguardian.webbackend.application.service.assunzionefarmaco.Abst
 import com.glucoseguardian.webbackend.application.service.assunzionefarmaco.AssunzioneFarmacoServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
-import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
-import com.glucoseguardian.webbackend.storage.dto.RicercaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import java.util.concurrent.CompletableFuture;
@@ -23,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Rest controller che si occupa di esporre i servizi del package assunzioneFarmaco.
+ */
 @RestController
 @RequestMapping("assunzioneFarmaco")
 public class AssunzioneFarmacoRest {
@@ -31,6 +32,9 @@ public class AssunzioneFarmacoRest {
   @Qualifier("finalAssunzioneFarmacoService")
   private AbstractAssunzioneFarmacoService assunzioneFarmacoService;
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /get.
+   */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getAssunzioneFarmaco(
       @RequestBody AssunzioneFarmacoDto assunzioneFarmaco) throws EntityNotFoundException {
@@ -54,6 +58,9 @@ public class AssunzioneFarmacoRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByTerapia.
+   */
   @PostMapping(value = "/getByTerapia", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByTerapia(
       @RequestBody TerapiaDto terapia) throws EntityNotFoundException {
@@ -77,6 +84,9 @@ public class AssunzioneFarmacoRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /getByPaziente.
+   */
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
       @RequestBody PazienteDto paziente) throws EntityNotFoundException {

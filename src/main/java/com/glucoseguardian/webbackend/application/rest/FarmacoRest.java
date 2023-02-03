@@ -3,14 +3,10 @@ package com.glucoseguardian.webbackend.application.rest;
 import com.glucoseguardian.webbackend.application.service.farmaco.AbstractFarmacoService;
 import com.glucoseguardian.webbackend.application.service.farmaco.FarmacoServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
-import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
-import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
-import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.RicercaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
-import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
-import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,14 +14,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Rest controller che si occupa di esporre i servizi del package farmaco.
+ */
 @RestController
 @RequestMapping("farmaco")
 public class FarmacoRest {
@@ -34,6 +31,9 @@ public class FarmacoRest {
   @Qualifier("finalFarmacoService")
   private AbstractFarmacoService farmacoService;
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /get.
+   */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFarmaco(
       @RequestBody FarmacoDto farmaco) throws EntityNotFoundException {
@@ -56,6 +56,9 @@ public class FarmacoRest {
     return CompletableFuture.completedFuture(response);
   }
 
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /find.
+   */
   @PostMapping(value = "/find", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> findFarmaco(
       @RequestBody RicercaDto query) {

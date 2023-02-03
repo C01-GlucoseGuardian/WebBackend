@@ -51,7 +51,8 @@ public class Feedback implements Serializable {
   @JoinColumn(name = "dottore")
   private Dottore dottore;
 
-  public Feedback() {
+  public Feedback(String statoSalute, String oreSonno, String dolori, String svenimenti, Date data,
+      Time ora, String codiceFiscalePaziente) {
 
   }
 

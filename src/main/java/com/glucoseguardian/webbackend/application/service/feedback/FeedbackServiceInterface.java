@@ -23,6 +23,6 @@ public interface FeedbackServiceInterface {
 
   @PreAuthorize("hasAuthority('PAZIENTE')")
   boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
-      Paziente paziente);
+      String codiceFiscalePaziente);
 
 }

@@ -75,10 +75,10 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
 
   @Override
   public boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
-      Paziente paziente) {
+      String codiceFiscalePaziente) {
 
     Feedback feedback = new Feedback(statoSalute, oreSonno, dolori, svenimenti,
-        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), paziente);
+        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), codiceFiscalePaziente);
 
     feedbackDao.saveAndFlush(feedback);
 

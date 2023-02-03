@@ -30,7 +30,7 @@ public class FeedbackServiceStub implements FeedbackServiceInterface {
 
   @Override
   public boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
-      Paziente paziente) {
+      String codiceFiscalePaziente) {
     return true;
   }
 }

@@ -75,13 +75,16 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
 
   @Override
   public boolean send(String statoSalute, String oreSonno, String dolori, String svenimenti,
-      String codiceFiscalePaziente) {
-
-    Feedback feedback = new Feedback(statoSalute, oreSonno, dolori, svenimenti,
-        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), codiceFiscalePaziente);
-
-    feedbackDao.saveAndFlush(feedback);
-
-    return feedbackDao.existsById(feedback.getId());
+      String codiceFiscalePaziente) throws UserNotFoundException {
+    Paziente paziente = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
+    if (paziente != null) {
+      Feedback feedback = new Feedback(statoSalute, oreSonno, dolori, svenimenti,
+          new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), paziente);
+      feedback.setDottore(paziente.getDottore());
+      feedbackDao.save(feedback);
+      return feedbackDao.existsById(feedback.getId());
+    } else {
+      throw new UserNotFoundException("Paziente non trovato.");
+    }
   }
 }

@@ -77,11 +77,21 @@ public class NotificaDto extends RisultatoDto implements Serializable {
 
     NotificaDto notificaDto = new NotificaDto();
     notificaDto.setId(notificaDto.getId());
-    notificaDto.setPazienteOggetto(notifica.getPazienteOggetto().getCodiceFiscale());
-    notificaDto.setPazienteDestinatario(notifica.getPazienteDestinatario().getCodiceFiscale());
-    notificaDto.setTutoreDestinatario(notifica.getTutoreDestinatario().getCodiceFiscale());
-    notificaDto.setAdminDestinatario(notifica.getAdminDestinatario().getCodiceFiscale());
-    notificaDto.setDottoreDestinatario(notifica.getDottoreDestinatario().getCodiceFiscale());
+    if (notifica.getPazienteOggetto() != null) {
+      notificaDto.setPazienteOggetto(notifica.getPazienteOggetto().getCodiceFiscale());
+    }
+    if (notifica.getPazienteDestinatario() != null) {
+      notificaDto.setPazienteDestinatario(notifica.getPazienteDestinatario().getCodiceFiscale());
+    }
+    if (notifica.getTutoreDestinatario() != null) {
+      notificaDto.setTutoreDestinatario(notifica.getTutoreDestinatario().getCodiceFiscale());
+    }
+    if (notifica.getAdminDestinatario() != null) {
+      notificaDto.setAdminDestinatario(notifica.getAdminDestinatario().getCodiceFiscale());
+    }
+    if (notifica.getDottoreDestinatario() != null) {
+      notificaDto.setDottoreDestinatario(notifica.getDottoreDestinatario().getCodiceFiscale());
+    }
     notificaDto.setMessaggio(notifica.getMessaggio());
     notificaDto.setData(dataNotificaDto);
     notificaDto.setTime(timeString);

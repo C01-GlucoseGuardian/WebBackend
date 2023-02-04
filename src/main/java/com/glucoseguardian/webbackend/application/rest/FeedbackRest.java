@@ -1,9 +1,7 @@
-package com.glucoseguardian.webbackend.rest;
+package com.glucoseguardian.webbackend.application.rest;
 
 import com.glucoseguardian.webbackend.application.service.feedback.AbstractFeedbackService;
 import com.glucoseguardian.webbackend.application.service.feedback.FeedbackServiceInterface;
-import com.glucoseguardian.webbackend.application.service.tutore.AbstractTutoreService;
-import com.glucoseguardian.webbackend.application.service.tutore.TutoreServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
@@ -11,7 +9,6 @@ import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
-import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,31 +18,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * implementation TutoreRest.
+ * Feedback Rest implementation.
  */
-public class TutoreRest {
+
+@RestController
+@RequestMapping("feedback")
+public class FeedbackRest {
 
   @Autowired
-  @Qualifier("finalTutoreService")
-  private AbstractTutoreService tutoreService;
+  @Qualifier("finalFeedbackService")
+  private AbstractFeedbackService feedbackService;
 
   /**
-   * Metodo che gestisce il servizio Tutore findByCodiceFiscale.
+   * Metodo che gestisce il servizio Feedback findById.
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedback(
-      @RequestBody TutoreDto input) throws EntityNotFoundException {
+      @RequestBody FeedbackDto input) throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
     try {
-      TutoreDto dto = getService().findByCodiceFiscale(input.getCodiceFiscale());
+      FeedbackDto dto = getService().findById(input.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del Tutore"),
+      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
       ex.printStackTrace();
     }
@@ -57,16 +59,16 @@ public class TutoreRest {
    */
 
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getTutoresByPaziente(
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedbackByPaziente(
       @RequestBody PazienteDto input) throws UserNotFoundException {
     ResponseEntity<RisultatoDto> response;
     try {
-      ListDto<TutoreDto> dto = getService().findByPaziente(input.getCodiceFiscale());
+      ListDto<FeedbackDto> dto = getService().findByPaziente(input.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del tutore"),
+      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
       ex.printStackTrace();
     }
@@ -74,18 +76,41 @@ public class TutoreRest {
   }
 
   /**
-   * Metodo che gestisce il servizio save tutore.
+   * Metodo che gestisce il servizio Feedback findByDottore.
+   */
+
+  @PostMapping(value = "/getByDottore", produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedbackByDottore(
+      @RequestBody DottoreDto input) throws Exception {
+    ResponseEntity<RisultatoDto> response;
+    try {
+      ListDto<FeedbackDto> dto = getService().findByDottore(input.getCodiceFiscale());
+      response = new ResponseEntity<>(dto, HttpStatus.OK);
+    } catch (UserNotFoundException | AccessDeniedException ex) {
+      throw ex;
+    } catch (Exception ex) {
+      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
+          HttpStatus.INTERNAL_SERVER_ERROR);
+      ex.printStackTrace();
+      ex.printStackTrace();
+    }
+    return CompletableFuture.completedFuture(response);
+  }
+
+  /**
+   * Metodo che gestisce il servizio save Feedback.
    */
 
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveTutore(
-      @RequestBody TutoreDto input) throws UserNotFoundException {
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveFeedback(
+      @RequestBody FeedbackDto input) throws UserNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     boolean result = false;
     try {
-      result = getService().save(input);
+      result = getService().send(input.getStatoSalute(), input.getOreSonno(), input.getDolori(),
+          input.getSvenimenti(), input.getIdPaziente());
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
@@ -94,15 +119,15 @@ public class TutoreRest {
 
     if (result) {
       return CompletableFuture.completedFuture(
-          new ResponseEntity<>(new RisultatoDto("Tutore inserito correttamente"), HttpStatus.OK));
+          new ResponseEntity<>(new RisultatoDto("Feedback inserito correttamente"), HttpStatus.OK));
     } else {
       return CompletableFuture.completedFuture(
-          new ResponseEntity<>(new RisultatoDto("Errore durante l'inserimento del Tutore"),
+          new ResponseEntity<>(new RisultatoDto("Errore durante l'inserimento del Feedback"),
               HttpStatus.INTERNAL_SERVER_ERROR));
     }
   }
 
-  private TutoreServiceInterface getService() {
-    return tutoreService.getImplementation();
+  private FeedbackServiceInterface getService() {
+    return feedbackService.getImplementation();
   }
 }

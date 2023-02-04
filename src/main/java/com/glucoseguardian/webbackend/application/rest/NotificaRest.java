@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.rest;
+package com.glucoseguardian.webbackend.application.rest;
 
 import com.glucoseguardian.webbackend.application.service.feedback.AbstractFeedbackService;
 import com.glucoseguardian.webbackend.application.service.feedback.FeedbackServiceInterface;

@@ -13,7 +13,7 @@ public interface TutoreServiceInterface {
   @PreAuthorize("hasAuthority('TUTORE') or hasAuthority('DOTTORE')")
   TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) throws UserNotFoundException;
 
-  @PreAuthorize("hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAnyAuthority('PAZIENTE', 'DOTTORE')")
   ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")

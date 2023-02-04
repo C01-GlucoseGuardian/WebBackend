@@ -74,7 +74,7 @@ public class TerapiaRest {
   }
 
   /**
-   * Metodo che gestisce il servizio save Feedback.
+   * Metodo che gestisce il servizio save Terapia.
    */
 
 

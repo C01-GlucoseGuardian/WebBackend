@@ -51,9 +51,6 @@ public class Tutore implements Serializable, Utente {
   @Nullable
   private String totpKey;
 
-  @Column(nullable = false)
-  private String relazioneDiParentela;
-
   @ManyToMany(mappedBy = "profiliTutore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
 
@@ -79,7 +76,6 @@ public class Tutore implements Serializable, Utente {
     this.password = password;
     this.sesso = sesso;
     this.totpKey = totpKey;
-    this.relazioneDiParentela = relazioneDiParentela;
     this.pazienteList = pazienteList;
   }
 
@@ -163,14 +159,6 @@ public class Tutore implements Serializable, Utente {
     this.totpKey = totpKey;
   }
 
-  public String getRelazioneDiParentela() {
-    return relazioneDiParentela;
-  }
-
-  public void setRelazioneDiParentela(String relazioneDiParentela) {
-    this.relazioneDiParentela = relazioneDiParentela;
-  }
-
   public List<Paziente> getPazienteList() {
     return pazienteList;
   }
@@ -205,7 +193,6 @@ public class Tutore implements Serializable, Utente {
         && Objects.equals(indirizzo, that.indirizzo) && Objects.equals(telefono,
         that.telefono) && Objects.equals(email, that.email) && Objects.equals(
         password, that.password) && Objects.equals(totpKey, that.totpKey)
-        && Objects.equals(relazioneDiParentela, that.relazioneDiParentela)
         && Objects.equals(pazienteList, that.pazienteList);
   }
 
@@ -220,7 +207,7 @@ public class Tutore implements Serializable, Utente {
         + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
         + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
         + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
-        + ", relazioneDiParentela='" + relazioneDiParentela + '\'' + '}';
+        + '}';
   }
 
   public TipoUtente getTipoUtente() {

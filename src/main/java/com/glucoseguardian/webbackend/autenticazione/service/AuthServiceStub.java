@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.application.service.auth;
+package com.glucoseguardian.webbackend.autenticazione.service;
 
 import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.LoginOutputDto;

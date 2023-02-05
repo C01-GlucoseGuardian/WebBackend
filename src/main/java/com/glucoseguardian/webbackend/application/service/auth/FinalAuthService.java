@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.application.service.auth;
 
-import com.glucoseguardian.webbackend.application.service.assunzionefarmaco.AssunzioneFarmacoServiceInterface;
+import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceConcrete;
+import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

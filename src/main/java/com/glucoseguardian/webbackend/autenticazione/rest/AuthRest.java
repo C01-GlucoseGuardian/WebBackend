@@ -1,8 +1,8 @@
-package com.glucoseguardian.webbackend.application.rest;
+package com.glucoseguardian.webbackend.autenticazione.rest;
 
-import com.glucoseguardian.webbackend.application.service.auth.AbstractAuthService;
-import com.glucoseguardian.webbackend.application.service.auth.AuthServiceConcrete;
-import com.glucoseguardian.webbackend.application.service.auth.AuthServiceInterface;
+import com.glucoseguardian.webbackend.autenticazione.service.AbstractAuthService;
+import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceConcrete;
+import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.LoginInputDto;
 import com.glucoseguardian.webbackend.storage.dto.LoginOutputDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;

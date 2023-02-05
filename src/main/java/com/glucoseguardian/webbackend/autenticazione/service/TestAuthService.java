@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.application.service.auth;
+package com.glucoseguardian.webbackend.autenticazione.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

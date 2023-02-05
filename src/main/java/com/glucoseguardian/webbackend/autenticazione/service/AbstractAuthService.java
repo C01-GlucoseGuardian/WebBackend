@@ -1,4 +1,6 @@
-package com.glucoseguardian.webbackend.application.service.auth;
+package com.glucoseguardian.webbackend.autenticazione.service;
+
+import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceInterface;
 
 /**
  * Classe astratta per Auth Service.

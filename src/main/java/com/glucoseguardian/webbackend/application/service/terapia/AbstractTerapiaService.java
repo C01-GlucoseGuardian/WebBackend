@@ -1,7 +1,5 @@
 package com.glucoseguardian.webbackend.application.service.terapia;
 
-import com.glucoseguardian.webbackend.application.service.paziente.PazienteServiceInterface;
-
 /**
  * This is an abstact class of TerapiaService.
  */

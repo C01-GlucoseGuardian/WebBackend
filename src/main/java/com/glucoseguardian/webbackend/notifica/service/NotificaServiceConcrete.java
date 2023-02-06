@@ -122,12 +122,12 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   }
 
   @Override
-  public NotificaDto updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException {
+  public boolean updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException {
     Notifica result = notificaDao.findById(idNotifica).orElse(null);
     if (result != null) {
-      NotificaDto notificaDto = NotificaDto.valueOf(result);
-      notificaDto.setStato(newStato);
-      return notificaDto;
+      result.setStato(newStato);
+      notificaDao.save(result);
+      return true;
     } else {
       throw new EntityNotFoundException("Notifica non trovata.");
     }

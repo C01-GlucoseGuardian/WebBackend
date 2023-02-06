@@ -145,21 +145,26 @@ public class NotificaRest {
    */
   @PostMapping(value = "/updateStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatesato(
-      @RequestBody NotificaDto input, @RequestBody Integer nuovoStato)
+      @RequestBody NotificaDto input)
       throws EntityNotFoundException {
-    ResponseEntity<RisultatoDto> response;
+    boolean result = false;
     try {
-      NotificaDto dto = getService().findById(input.getId());
-      dto.setStato(nuovoStato);
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
+      result = getService().updateStato(input.getId(), input.getStato());
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
       ex.printStackTrace();
     }
-    return CompletableFuture.completedFuture(response);
+
+    if (result) {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Stato notifica aggiornato correttamente"),
+              HttpStatus.OK));
+    } else {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Errore durante l'aggiornamento della Notifica"),
+              HttpStatus.INTERNAL_SERVER_ERROR));
+    }
   }
 
   /**

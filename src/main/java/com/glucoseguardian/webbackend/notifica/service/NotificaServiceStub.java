@@ -41,7 +41,7 @@ public class NotificaServiceStub implements NotificaServiceInterface {
   }
 
   @Override
-  public NotificaDto updateStato(long idNotifica, Integer newStato) {
-    return new NotificaDto();
+  public boolean updateStato(long idNotifica, Integer newStato) {
+    return true;
   }
 }

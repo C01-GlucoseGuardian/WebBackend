@@ -31,5 +31,5 @@ public interface NotificaServiceInterface {
   ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException;
 
   @PreAuthorize("isAuthenticated()")
-  NotificaDto updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException;
+  boolean updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException;
 }

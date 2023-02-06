@@ -10,6 +10,7 @@ import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,8 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   public boolean save(TutoreDto dto) throws UserNotFoundException {
 
     String cf = dto.getPazienteList().get(0).getCodiceFiscale();
-    Paziente paziente = pazienteDao.findById(cf).orElse(null);
 
-    if (paziente == null) {
+    if (!pazienteDao.existsById(cf)) {
       throw new UserNotFoundException("Paziente non trovato.");
     }
 
@@ -74,9 +74,18 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
     Tutore tutoreEntity = new Tutore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
         Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
         passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
-        dto.getRelazioneDiParentela(), List.of(paziente));
+        dto.getRelazioneDiParentela(), Collections.emptyList());
+    tutoreDao.save(tutoreEntity);
 
-    tutoreDao.saveAndFlush(tutoreEntity);
+    Paziente paziente = pazienteDao.findById(cf).orElse(null);
+    if (paziente == null) {
+      throw new UserNotFoundException("Paziente non trovato.");
+    }
+
+    List<Tutore> tutori = paziente.getProfiliTutore();
+    tutori.add(tutoreEntity);
+    paziente.setProfiliTutore(tutori);
+    pazienteDao.save(paziente);
 
     // Check if entity is correctly saved
     return tutoreDao.existsById(tutoreEntity.getCodiceFiscale());

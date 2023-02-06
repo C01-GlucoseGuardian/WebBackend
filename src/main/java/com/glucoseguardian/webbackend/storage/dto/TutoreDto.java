@@ -144,7 +144,6 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     tutoreDto.setTelefono(tutore.getTelefono());
     tutoreDto.setEmail(tutore.getEmail());
     tutoreDto.setSesso(tutore.getSesso() + "");
-    tutoreDto.setRelazioneDiParentela(tutore.getRelazioneDiParentela());
     tutoreDto.setPazienteList(list);
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");

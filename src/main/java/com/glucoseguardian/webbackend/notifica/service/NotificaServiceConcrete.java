@@ -50,6 +50,8 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
 
   @Override
   public boolean send(NotificaDto notificaDto) {
+    // TODO: Send notifications with email/firebase
+    // TODO: Set destinatario/oggetto
     Notifica notifica = new Notifica(notificaDto.getMessaggio(),
         new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()),
         notificaDto.getStato());

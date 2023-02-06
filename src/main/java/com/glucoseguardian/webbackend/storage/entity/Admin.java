@@ -51,7 +51,6 @@ public class Admin implements Serializable, Utente {
   @Nullable
   private String totpKey;
 
-  private int stato = 0;
   @OneToMany(mappedBy = "adminDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Notifica> notifiche;
   @OneToMany(mappedBy = "convalidatoDa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -66,8 +65,7 @@ public class Admin implements Serializable, Utente {
    */
   public Admin(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
-      String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
-      int stato) {
+      String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -78,7 +76,6 @@ public class Admin implements Serializable, Utente {
     this.password = password;
     this.sesso = sesso;
     this.totpKey = totpKey;
-    this.stato = stato;
   }
 
   @Override
@@ -86,8 +83,7 @@ public class Admin implements Serializable, Utente {
     return "Admin{" + "codiceFiscale='" + codiceFiscale + '\'' + ", nome='" + nome + '\''
         + ", cognome='" + cognome + '\'' + ", dataNascita=" + dataNascita + ", indirizzo='"
         + indirizzo + '\'' + ", telefono='" + telefono + '\'' + ", email='" + email + '\''
-        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + '\''
-        + '\'' + ", stato=" + stato + '}';
+        + ", password='" + password + '\'' + ", sesso=" + sesso + ", totpKey='" + totpKey + "'}";
   }
 
   @Override
@@ -99,7 +95,7 @@ public class Admin implements Serializable, Utente {
       return false;
     }
     Admin admin = (Admin) o;
-    return sesso == admin.sesso && stato == admin.stato && Objects.equals(codiceFiscale,
+    return sesso == admin.sesso && Objects.equals(codiceFiscale,
         admin.codiceFiscale) && Objects.equals(nome, admin.nome) && Objects.equals(cognome,
         admin.cognome) && Objects.equals(dataNascita, admin.dataNascita) && Objects.equals(
         indirizzo, admin.indirizzo) && Objects.equals(telefono, admin.telefono) && Objects.equals(
@@ -191,15 +187,7 @@ public class Admin implements Serializable, Utente {
   public void setTotpKey(String totpKey) {
     this.totpKey = totpKey;
   }
-
-  public int getStato() {
-    return stato;
-  }
-
-  public void setStato(int stato) {
-    this.stato = stato;
-  }
-
+  
   public List<Notifica> getNotifiche() {
     return notifiche;
   }

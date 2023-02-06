@@ -18,6 +18,6 @@ public interface TerapiaServiceInterface {
   @PreAuthorize("hasAuthority('DOTTORE')")
   TerapiaDto findTerapia(Long idTerapia) throws EntityNotFoundException;
 
-  @PreAuthorize("hasAuthority('DOTTORE') or hasAuthority('PAZIENTE')")
+  @PreAuthorize("hasAnyAuthority('DOTTORE', 'PAZIENTE', 'TUTORE')")
   TerapiaDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 }

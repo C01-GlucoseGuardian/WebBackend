@@ -2,7 +2,6 @@ package com.glucoseguardian.webbackend.storage.entity;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +27,6 @@ public class Terapia implements Serializable {
   private long id;
   @Nullable
   private Date dataInizio;
-  @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Feedback> feedbacks;
 
   @OneToMany(mappedBy = "terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AssunzioneFarmaco> assunzioneFarmacos;
@@ -59,21 +56,11 @@ public class Terapia implements Serializable {
     this.dataInizio = dataInizio;
   }
 
-  public List<Feedback> getFeedbacks() {
-    return feedbacks;
-  }
-
-  public void setFeedbacks(
-      List<Feedback> feedbacks) {
-    this.feedbacks = feedbacks;
-  }
-
   public List<AssunzioneFarmaco> getAssunzioneFarmacos() {
     return assunzioneFarmacos;
   }
 
-  public void setAssunzioneFarmacos(
-      List<AssunzioneFarmaco> assunzioneFarmacos) {
+  public void setAssunzioneFarmacos(List<AssunzioneFarmaco> assunzioneFarmacos) {
     this.assunzioneFarmacos = assunzioneFarmacos;
   }
 
@@ -102,10 +89,9 @@ public class Terapia implements Serializable {
       return false;
     }
     Terapia terapia = (Terapia) o;
-    return id == terapia.id && Objects.equals(dataInizio, terapia.dataInizio)
-        && Objects.equals(feedbacks, terapia.feedbacks) && Objects.equals(
-        assunzioneFarmacos, terapia.assunzioneFarmacos) && Objects.equals(dottore,
-        terapia.dottore) && Objects.equals(paziente, terapia.paziente);
+    return id == terapia.id && Objects.equals(dataInizio, terapia.dataInizio) && Objects.equals(
+        assunzioneFarmacos, terapia.assunzioneFarmacos) && Objects.equals(dottore, terapia.dottore)
+        && Objects.equals(paziente, terapia.paziente);
   }
 
   @Override
@@ -115,11 +101,7 @@ public class Terapia implements Serializable {
 
   @Override
   public String toString() {
-    return "Terapia{" + "id=" + id
-        + ", dataInizio=" + dataInizio
-        + ", feedbacks=" + feedbacks
-        + ", pazientes=" + paziente
-        + ", assunzioneFarmacos=" + assunzioneFarmacos
-        + ", dottore=" + dottore + '}';
+    return "Terapia{" + "id=" + id + ", dataInizio=" + dataInizio + ", pazientes=" + paziente
+        + ", assunzioneFarmacos=" + assunzioneFarmacos + ", dottore=" + dottore + '}';
   }
 }

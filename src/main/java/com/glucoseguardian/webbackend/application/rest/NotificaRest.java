@@ -23,11 +23,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * implementation NotificaRest.
  */
+@RestController
+@RequestMapping("notifica")
 public class NotificaRest {
 
   @Autowired
@@ -140,10 +144,31 @@ public class NotificaRest {
   }
 
   /**
+   * Metodo che gestisce il servizio Notifica updateStato.
+   */
+  @PostMapping(value = "/updateStato", produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatesato(
+      @RequestBody NotificaDto input, @RequestBody Integer nuovoStato) throws EntityNotFoundException {
+    ResponseEntity<RisultatoDto> response;
+    try {
+      NotificaDto dto = getService().findById(input.getId());
+      dto.setStato(nuovoStato);
+      response = new ResponseEntity<>(dto, HttpStatus.OK);
+    } catch (EntityNotFoundException | AccessDeniedException ex) {
+      throw ex;
+    } catch (Exception ex) {
+      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
+          HttpStatus.INTERNAL_SERVER_ERROR);
+      ex.printStackTrace();
+    }
+    return CompletableFuture.completedFuture(response);
+  }
+
+  /**
    * Metodo che gestisce il servizio save Notifica.
    */
 
-  @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveNotifica(
       @RequestBody NotificaDto input) throws UserNotFoundException {
 

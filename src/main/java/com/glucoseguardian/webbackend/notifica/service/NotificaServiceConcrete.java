@@ -120,5 +120,17 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       throw new UserNotFoundException("Admin non trovato.");
     }
   }
+
+  @Override
+  public NotificaDto updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException {
+    Notifica result = notificaDao.findById(idNotifica).orElse(null);
+    if (result != null) {
+      NotificaDto notificaDto=NotificaDto.valueOf(result);
+      notificaDto.setStato(newStato);
+      return notificaDto;
+    } else {
+      throw new EntityNotFoundException("Notifica non trovata.");
+    }
+  }
 }
 

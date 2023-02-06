@@ -1,9 +1,9 @@
 package com.glucoseguardian.webbackend.notifica.rest;
 
-import com.glucoseguardian.webbackend.notifica.service.AbstractNotificaService;
-import com.glucoseguardian.webbackend.notifica.service.NotificaServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.notifica.service.AbstractNotificaService;
+import com.glucoseguardian.webbackend.notifica.service.NotificaServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.AdminDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -145,7 +145,8 @@ public class NotificaRest {
    */
   @PostMapping(value = "/updateStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatesato(
-      @RequestBody NotificaDto input, @RequestBody Integer nuovoStato) throws EntityNotFoundException {
+      @RequestBody NotificaDto input, @RequestBody Integer nuovoStato)
+      throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
     try {
       NotificaDto dto = getService().findById(input.getId());

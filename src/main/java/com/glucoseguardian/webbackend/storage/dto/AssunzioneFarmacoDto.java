@@ -13,6 +13,7 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
 
   private Long id;
   private Long idFarmaco;
+  private String nomeFarmaco;
   private String dosaggio;
   private String orarioAssunzione;
   private String viaDiSomministrazione;
@@ -82,6 +83,14 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
     this.noteAggiuntive = noteAggiuntive;
   }
 
+  public String getNomeFarmaco() {
+    return nomeFarmaco;
+  }
+
+  public void setNomeFarmaco(String nomeFarmaco) {
+    this.nomeFarmaco = nomeFarmaco;
+  }
+
   /**
    *  Costruisce un {@link AssunzioneFarmacoDto} a partire da un {@link AssunzioneFarmaco}.
    */
@@ -89,6 +98,7 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
     String timeString = assunzioneFarmaco.getOrarioAssunzione().toString();
 
     AssunzioneFarmacoDto assunzioneFarmacoDto = new AssunzioneFarmacoDto();
+    assunzioneFarmacoDto.setNomeFarmaco(assunzioneFarmaco.getFarmaco().getNomeFarmaco());
     assunzioneFarmacoDto.setIdFarmaco(assunzioneFarmaco.getFarmaco().getId());
     assunzioneFarmacoDto.setId(assunzioneFarmaco.getId());
     assunzioneFarmacoDto.setDosaggio(assunzioneFarmaco.getDosaggio());

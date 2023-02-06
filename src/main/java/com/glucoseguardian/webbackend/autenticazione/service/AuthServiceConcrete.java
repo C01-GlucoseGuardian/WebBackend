@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.autenticazione.service;
 
-import com.glucoseguardian.webbackend.application.service.JwtService;
 import com.glucoseguardian.webbackend.exceptions.AccountDisabledException;
 import com.glucoseguardian.webbackend.exceptions.InvalidCredentialsException;
 import com.glucoseguardian.webbackend.exceptions.NeedOtpException;

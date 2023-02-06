@@ -2,7 +2,7 @@ package com.glucoseguardian.webbackend.configuration;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-import com.glucoseguardian.webbackend.application.service.JwtService;
+import com.glucoseguardian.webbackend.autenticazione.service.JwtService;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

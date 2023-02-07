@@ -87,7 +87,7 @@ public class TutoreRest {
       @RequestBody TutoreDto input) throws UserNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
-
+    input.validate();
     boolean result = false;
     try {
       result = getService().save(input);

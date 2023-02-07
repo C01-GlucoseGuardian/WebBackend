@@ -145,7 +145,7 @@ public class PazienteRest {
       @RequestBody PazienteDto paziente) {
 
     // TODO: Add custom checks (es. length, null etc..)
-
+    paziente.validate();
     boolean result = false;
     try {
       Utente dottore = (Utente) getAuthentication().getPrincipal();
@@ -166,6 +166,7 @@ public class PazienteRest {
               HttpStatus.INTERNAL_SERVER_ERROR));
     }
   }
+  //CHECK: forse manca updateTutore
 
   private PazienteServiceInterface getService() {
     return pazienteService.getImplementation();

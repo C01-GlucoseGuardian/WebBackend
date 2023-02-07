@@ -107,5 +107,5 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
     assunzioneFarmacoDto.setNoteAggiuntive(assunzioneFarmacoDto.getNoteAggiuntive());
     return assunzioneFarmacoDto;
   }
-  
+
 }

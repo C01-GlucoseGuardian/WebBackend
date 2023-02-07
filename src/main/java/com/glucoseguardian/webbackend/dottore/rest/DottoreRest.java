@@ -71,15 +71,7 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-    if (dottore == null) {
-      response = new ResponseEntity<>(new RisultatoDto("L'oggetto DottoreDto è null"),
-          HttpStatus.BAD_REQUEST);
-      return CompletableFuture.completedFuture(response);
-    }
-
-    Validate.notNull(dottore.getStato(), "lo stato non puo essere vuoto");
-    Validate.isTrue(dottore.getStato() >= 1 && dottore.getStato() <= 4, "La lunghezza del nome dell'assunzioneFarmaco non può superare i 100 caratteri");
-
+    dottore.validateStato(dottore);
     try {
       ListDto<DottoreDto> dto = getService().findByStato(dottore.getStato());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
@@ -156,15 +148,7 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-    if (dottore == null) {
-      response = new ResponseEntity<>(new RisultatoDto("L'oggetto DottoreDto è null"),
-          HttpStatus.BAD_REQUEST);
-      return CompletableFuture.completedFuture(response);
-    }
-
-    Validate.notBlank(dottore.getCodiceFiscale(), "Il codice fiscale non può essere vuoto");
-    Validate.isTrue(dottore.getCodiceFiscale().length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
-
+    dottore.validateStato(dottore);
     boolean result = false;
     try {
       Utente admin = (Utente) getAuthentication().getPrincipal();
@@ -198,19 +182,7 @@ public class DottoreRest {
       @RequestBody DottoreDto dottore) {
 
     // TODO: Add custom checks (es. length, null etc..)
-
-   /* Validate.notBlank(dottore.getCodiceFiscale(), "Il codice fiscale non può essere vuoto");
-    Validate.isTrue(dottore.getCodiceFiscale().length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
-
-    Validate.notBlank(dottore.getNome(), "Il nome non puo essere vuoto");
-    Validate.isTrue(dottore.getNome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
-
-    Validate.notBlank(dottore.getCognome(), "Il cognome non puo essere vuoto");
-    Validate.isTrue(dottore.getCognome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
-
-    Validate.notBlank(dottore.getDataNascita(), "la data di nascita non puo essere vuota);
-    Validate.isTrue(dottore.getNome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");*/
-
+    dottore.validateDottore();
     boolean result = false;
     try {
       result = getService().save(dottore);

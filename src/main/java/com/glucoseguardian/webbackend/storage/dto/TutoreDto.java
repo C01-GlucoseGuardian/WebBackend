@@ -8,6 +8,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'output dell'entità tutore.
@@ -151,5 +153,45 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     tutoreDto.setDataNascita(dataNascitaPazienteDto);
 
     return tutoreDto;
+  }
+
+  public void validate()throws IllegalArgumentException {
+    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto",
+        Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(codiceFiscale.length() == 16,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(nome, "Il nome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(nome.length() <= 30,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(cognome, "Il cognome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(cognome.length() <= 30,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(sesso, "il sesso non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
+    Pattern pattern = Pattern.compile("^M|F$ ");
+    Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non e' valido");
+
+    Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
+    Pattern pattern1 = Pattern.compile(
+        "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
+    Validate.isTrue(pattern1.matcher(dataNascita).matches(),
+        "la data nascita inserita non e' valida");
+
+    Validate.notNull(email, "la mail non puo essere null");
+    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
+        Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
+
+    Validate.notNull(telefono, "indirizzo non puo essere null");
+    Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
+
+    Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(indirizzo.length() <= 50, "La lunghezza dell'indirizzo non è valida");
+
+    Validate.notNull(relazioneDiParentela,"relazione di parentela non puo essere vuoto");
+    Validate.isTrue(relazioneDiParentela.length() <= 60,"la lunghezza della relazione di parentela non e' valida");
   }
 }

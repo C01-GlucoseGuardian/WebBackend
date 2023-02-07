@@ -9,6 +9,9 @@ import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.security.SecureRandom;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,6 +61,15 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
 
   @Override
   public boolean save(TutoreDto dto) throws UserNotFoundException {
+    DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    String date;
+    try {
+      date = dateSqlFormat.format(dateInputFormat.parse(dto.getDataNascita()));
+    } catch (ParseException parse) {
+      throw new IllegalArgumentException("Data non valida");
+    }
 
     String cf = dto.getPazienteList().get(0).getCodiceFiscale();
 
@@ -72,7 +84,7 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
 
     // Create entity
     Tutore tutoreEntity = new Tutore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
-        Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
+        Date.valueOf(date), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
         passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
         dto.getRelazioneDiParentela(), Collections.emptyList());
     tutoreDao.save(tutoreEntity);

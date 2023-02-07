@@ -3,13 +3,14 @@ package com.glucoseguardian.webbackend.dottore.service;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
-import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,15 +89,25 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
 
   @Override
   public boolean save(DottoreDto dto) {
+    DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    String date;
+    try {
+      date = dateSqlFormat.format(dateInputFormat.parse(dto.getDataNascita()));
+    } catch (ParseException parse) {
+      throw new IllegalArgumentException("Data non valida");
+    }
+
     // Create entity
     Dottore entity = new Dottore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
-        Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
+        Date.valueOf(date), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
         passwordEncoder.encode(dto.getPassword()), dto.getSesso().charAt(0), null,
         dto.getSpecializzazione(), dto.getCodiceAlbo(), dto.getNomeStruttura(),
         dto.getIndirizzoStruttura(), 0);
 
     // persist the new entity
-    dottoreDao.saveAndFlush(entity);
+    dottoreDao.save(entity);
 
     // Check if entity is correctly saved
     return dottoreDao.existsById(entity.getCodiceFiscale());

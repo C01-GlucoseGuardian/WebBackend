@@ -28,7 +28,8 @@ public class Terapia implements Serializable {
   @Nullable
   private Date dataInizio;
 
-  @OneToMany(mappedBy = "terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "terapia", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+      orphanRemoval = true)
   private List<AssunzioneFarmaco> assunzioneFarmacos;
 
   @ManyToOne

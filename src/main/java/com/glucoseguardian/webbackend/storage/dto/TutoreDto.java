@@ -146,7 +146,7 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     tutoreDto.setSesso(tutore.getSesso() + "");
     tutoreDto.setPazienteList(list);
 
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataNascitaPazienteDto = dateFormat.format(tutore.getDataNascita());
     tutoreDto.setDataNascita(dataNascitaPazienteDto);
 

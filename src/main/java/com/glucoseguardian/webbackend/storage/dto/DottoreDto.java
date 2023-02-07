@@ -232,20 +232,19 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    */
 
   public void validateDottore()throws IllegalArgumentException {
-    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto",
-        Pattern.CASE_INSENSITIVE);
+    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto");
     Validate.isTrue(codiceFiscale.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
-    Validate.notNull(nome, "Il nome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(nome, "Il nome non puo essere vuoto");
     Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
-    Validate.notNull(cognome, "Il cognome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(cognome, "Il cognome non puo essere vuoto");
     Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
-    Validate.notNull(sesso, "il sesso non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(sesso, "il sesso non puo' essere vuoto");
     Pattern pattern = Pattern.compile("^M|F$ ");
     Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non e' valido");
 
@@ -256,15 +255,14 @@ public class DottoreDto extends RisultatoDto implements Serializable {
         "la data nascita inserita non e' valida");
 
     Validate.notNull(email, "la mail non puo essere assente");
-    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
-        Pattern.CASE_INSENSITIVE);
+    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
     Validate.notNull(telefono, "indirizzo non puo essere assente");
     Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 
-    Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 

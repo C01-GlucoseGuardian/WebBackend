@@ -145,8 +145,6 @@ public class FeedbackDto extends RisultatoDto implements Serializable {
    */
 
   public void validate() {
-    Validate.notNull(id, "l'id non puo essere vuoto");
-
     Validate.notNull(oreSonno, "le ore sonno non possono essere assente");
     Validate.isTrue(oreSonno.length() <= 300 && oreSonno.length() >= 1,
         "la lunghezza di ore sonno non è valida");

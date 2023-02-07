@@ -172,13 +172,13 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto");
     Pattern pattern = Pattern.compile("^M|F$ ");
-    Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non e' valido");
+    Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non è valido");
 
     Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
     Pattern pattern1 = Pattern.compile(
         "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
-        "la data nascita inserita non e' valida");
+        "la data nascita inserita non è valida");
 
     Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
@@ -194,6 +194,6 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(relazioneDiParentela, "relazione di parentela non puo essere vuoto");
     Validate.isTrue(relazioneDiParentela.length() <= 60,
-        "la lunghezza della relazione di parentela non e' valida");
+        "la lunghezza della relazione di parentela non è valida");
   }
 }

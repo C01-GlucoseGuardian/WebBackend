@@ -74,7 +74,8 @@ public class PazienteRest {
     ResponseEntity<RisultatoDto> response;
     codiceFiscaleDottore.validate();
     try {
-      ListDto<PazienteDto> dto = getService().findByDottore(codiceFiscaleDottore.getCodiceFiscale());
+      ListDto<PazienteDto> dto = getService()
+          .findByDottore(codiceFiscaleDottore.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;

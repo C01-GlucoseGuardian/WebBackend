@@ -4,6 +4,7 @@ import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.farmaco.service.AbstractFarmacoService;
 import com.glucoseguardian.webbackend.farmaco.service.FarmacoServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.FarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.RicercaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -36,14 +37,14 @@ public class FarmacoRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFarmaco(
-      @RequestBody FarmacoDto farmaco) throws EntityNotFoundException {
+      @RequestBody IdDto idFarmaco) throws EntityNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    idFarmaco.validate();
     try {
-      FarmacoDto dto = getService().findById(farmaco.getId());
+      FarmacoDto dto = getService().findById(idFarmaco.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;

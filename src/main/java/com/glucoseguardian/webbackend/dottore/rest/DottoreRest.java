@@ -48,22 +48,23 @@ public class DottoreRest {
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscaleDottore.validate();
-      try {
-        DottoreDto dto = getService().findByCodiceFiscale(codiceFiscaleDottore.getCodiceFiscale());
-        response = new ResponseEntity<>(dto, HttpStatus.OK);
-      } catch (UserNotFoundException | AccessDeniedException ex) {
-        // These exceptions are managed by CustomExceptionHandler
-        throw ex;
-      } catch (Exception ex) {
-        response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
+    try {
+      DottoreDto dto = getService().findByCodiceFiscale(codiceFiscaleDottore.getCodiceFiscale());
+      response = new ResponseEntity<>(dto, HttpStatus.OK);
+    } catch (UserNotFoundException | AccessDeniedException ex) {
+      // These exceptions are managed by CustomExceptionHandler
+      throw ex;
+    } catch (Exception ex) {
+      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
             HttpStatus.INTERNAL_SERVER_ERROR);
-        ex.printStackTrace();
-      }
-      return CompletableFuture.completedFuture(response);
+      ex.printStackTrace();
     }
+    return CompletableFuture.completedFuture(response);
+  }
   /**
    * Metodo che si occupa delle richieste post all'endpoint /getByStato.
    */
+
   @PostMapping(value = "/getByStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByStato(
       @RequestBody DottoreDto dottore) {

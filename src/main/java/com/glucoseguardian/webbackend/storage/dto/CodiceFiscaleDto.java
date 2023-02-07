@@ -24,15 +24,12 @@ public class CodiceFiscaleDto extends RisultatoDto implements Serializable {
     this.codiceFiscale = codiceFiscale;
   }
 
-  @Override
-  public String toString() {
-    return "CodiceFiscaleDto{" +
-        "codiceFiscale='" + codiceFiscale + '\'' +
-        '}';
-  }
-
-  public void validate()throws IllegalArgumentException{
+  /**
+   *  validazione del codice fiscale degli utenti.
+   */
+  public void validate()throws IllegalArgumentException {
     Validate.notNull(codiceFiscale, "il codice fiscale non può essere null");
-    Validate.isTrue(codiceFiscale.length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+    Validate.isTrue(codiceFiscale.length() == 16,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
   }
 }

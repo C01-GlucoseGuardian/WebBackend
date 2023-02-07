@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -216,54 +217,72 @@ public class DottoreDto extends RisultatoDto implements Serializable {
     return dottoreDto;
   }
 
-  public void validateStato(DottoreDto dottoreDto)throws IllegalArgumentException{
+  /**
+   *  validazione dello stato.
+   */
+
+  public void validateStato(DottoreDto dottoreDto)throws IllegalArgumentException {
     Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere null");
-    Validate.isTrue(dottoreDto.getStato() >=1 && dottoreDto.getStato() <= 4,"Lo stato del dottore non è valido");
+    Validate.isTrue(dottoreDto.getStato() >= 1 && dottoreDto.getStato() <= 4,
+        "Lo stato del dottore non è valido");
   }
 
-  public void validateDottore()throws IllegalArgumentException{
-    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(codiceFiscale.length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+  /**
+   *  validazione del dottore.
+   */
+
+  public void validateDottore()throws IllegalArgumentException {
+    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto",
+        Pattern.CASE_INSENSITIVE);
+    Validate.isTrue(codiceFiscale.length() == 16,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(nome, "Il nome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(nome.length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+    Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(cognome, "Il cognome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(cognome.length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+    Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
-    Validate.notNull(sesso,"il sesso non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(sesso, "il sesso non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
     Pattern pattern = Pattern.compile("^M|F$ ");
     Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non e' valido");
 
-
     Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
-    Pattern pattern1 = Pattern.compile("^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
-    Validate.isTrue(pattern1.matcher(dataNascita).matches(), "la data nascita inserita non e' valida");
+    Pattern pattern1 = Pattern.compile(
+        "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
+    Validate.isTrue(pattern1.matcher(dataNascita).matches(),
+        "la data nascita inserita non e' valida");
 
-    Validate.notNull(email,"la mail non puo essere null");
-    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(email, "la mail non puo essere null");
+    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
+        Pattern.CASE_INSENSITIVE);
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono,"indirizzo non puo essere null");
+    Validate.notNull(telefono, "indirizzo non puo essere null");
     Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(indirizzo.length() <= 50, "La lunghezza dell'indirizzo non è valida");
+    Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
+        "La lunghezza dell'indirizzo non è valida");
 
-    Validate.notNull(password,"la password non puo' essere null");
-    Validate.isTrue(password.length() <= 255,"la lunggezza della password non è valida");
+    Validate.notNull(password, "la password non puo' essere null");
+    Validate.isTrue(password.length() <= 255, "la lunggezza della password non è valida");
 
-    Validate.notNull(specializzazione,"la specializzazione non puo essere null");
-    Validate.isTrue(specializzazione.length() <= 100,"la specializzazione non puo superare i 100 carattwri");
+    Validate.notNull(specializzazione, "la specializzazione non puo essere null");
+    Validate.isTrue(specializzazione.length() <= 100,
+        "la specializzazione non puo superare i 100 carattwri");
 
-    Validate.notNull(codiceAlbo,"codice albo non puo essere null");
-    Validate.isTrue(specializzazione.length() <= 50,"codice albo non puo superare i 50 carattwri");
+    Validate.notNull(codiceAlbo, "codice albo non puo essere null");
+    Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 carattwri");
 
-    Validate.notNull(nomeStruttura,"la specializzazione non puo essere null");
-    Validate.isTrue(nomeStruttura.length() <= 100,"il nome struttura non puo superare i 100 carattwri");
+    Validate.notNull(nomeStruttura, "la specializzazione non puo essere null");
+    Validate.isTrue(nomeStruttura.length() <= 100,
+        "il nome struttura non puo superare i 100 carattwri");
 
     Validate.notNull(stato, "lo stato del dottore non può essere null");
-    Validate.isTrue(stato >=1 && stato <= 4,"Lo stato del dottore non è valido");
+    Validate.isTrue(stato >= 1 && stato <= 4, "Lo stato del dottore non è valido");
   }
 }

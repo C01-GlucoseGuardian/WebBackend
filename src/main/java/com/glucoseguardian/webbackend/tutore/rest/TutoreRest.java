@@ -66,7 +66,8 @@ public class TutoreRest {
     ResponseEntity<RisultatoDto> response;
     codiceFiscalePaziente.validate();
     try {
-      ListDto<TutoreDto> dto = getService().findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
+      ListDto<TutoreDto> dto = getService()
+          .findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;

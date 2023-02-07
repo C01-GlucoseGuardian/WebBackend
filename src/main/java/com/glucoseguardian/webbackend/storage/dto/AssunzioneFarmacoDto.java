@@ -92,7 +92,7 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
   }
 
   /**
-   *  Costruisce un {@link AssunzioneFarmacoDto} a partire da un {@link AssunzioneFarmaco}.
+   * Costruisce un {@link AssunzioneFarmacoDto} a partire da un {@link AssunzioneFarmaco}.
    */
   public static AssunzioneFarmacoDto valueOf(AssunzioneFarmaco assunzioneFarmaco) {
     String timeString = assunzioneFarmaco.getOrarioAssunzione().toString();

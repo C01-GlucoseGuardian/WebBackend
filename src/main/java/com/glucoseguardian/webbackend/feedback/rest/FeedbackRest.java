@@ -4,8 +4,10 @@ import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.feedback.service.AbstractFeedbackService;
 import com.glucoseguardian.webbackend.feedback.service.FeedbackServiceInterface;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
+import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -39,10 +41,11 @@ public class FeedbackRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedback(
-      @RequestBody FeedbackDto input) throws EntityNotFoundException {
+      @RequestBody IdDto idFeedback) throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    idFeedback.validate();
     try {
-      FeedbackDto dto = getService().findById(input.getId());
+      FeedbackDto dto = getService().findById(idFeedback.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -60,10 +63,12 @@ public class FeedbackRest {
 
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedbackByPaziente(
-      @RequestBody PazienteDto input) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws UserNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    codiceFiscalePaziente.validate();
     try {
-      ListDto<FeedbackDto> dto = getService().findByPaziente(input.getCodiceFiscale());
+      ListDto<FeedbackDto> dto = getService().findByPaziente(
+          codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -81,10 +86,12 @@ public class FeedbackRest {
 
   @PostMapping(value = "/getByDottore", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedbackByDottore(
-      @RequestBody DottoreDto input) throws Exception {
+      @RequestBody CodiceFiscaleDto codiceFiscaleDottore) throws Exception {
     ResponseEntity<RisultatoDto> response;
+    codiceFiscaleDottore.validate();
     try {
-      ListDto<FeedbackDto> dto = getService().findByDottore(input.getCodiceFiscale());
+      ListDto<FeedbackDto> dto = getService().findByDottore(codiceFiscaleDottore
+          .getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -106,7 +113,7 @@ public class FeedbackRest {
       @RequestBody FeedbackDto input) throws UserNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
-
+    input.validate();
     boolean result = false;
     try {
       result = getService().send(input.getStatoSalute(), input.getOreSonno(), input.getDolori(),

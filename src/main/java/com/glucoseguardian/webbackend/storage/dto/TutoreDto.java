@@ -130,8 +130,7 @@ public class TutoreDto extends RisultatoDto implements Serializable {
   }
 
   /**
-   *  Costruisce un TutoreDto a partire da un {@link Tutore},
-   *  il campo password non viene popolato.
+   * Costruisce un TutoreDto a partire da un {@link Tutore}, il campo password non viene popolato.
    */
   public static TutoreDto valueOf(Tutore tutore) {
     List<PazienteDto> list = new ArrayList<>();
@@ -155,18 +154,21 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     return tutoreDto;
   }
 
-  public void validate()throws IllegalArgumentException {
+  /**
+   *  validazione del tutore.
+   */
+  public void validate() throws IllegalArgumentException {
     Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto",
         Pattern.CASE_INSENSITIVE);
     Validate.isTrue(codiceFiscale.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(nome, "Il nome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(nome.length() <= 30,
+    Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(cognome, "Il cognome non puo essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(cognome.length() <= 30,
+    Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
@@ -189,9 +191,11 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto", Pattern.CASE_INSENSITIVE);
-    Validate.isTrue(indirizzo.length() <= 50, "La lunghezza dell'indirizzo non è valida");
+    Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
+        "La lunghezza dell'indirizzo non è valida");
 
-    Validate.notNull(relazioneDiParentela,"relazione di parentela non puo essere vuoto");
-    Validate.isTrue(relazioneDiParentela.length() <= 60,"la lunghezza della relazione di parentela non e' valida");
+    Validate.notNull(relazioneDiParentela, "relazione di parentela non puo essere vuoto");
+    Validate.isTrue(relazioneDiParentela.length() <= 60,
+        "la lunghezza della relazione di parentela non e' valida");
   }
 }

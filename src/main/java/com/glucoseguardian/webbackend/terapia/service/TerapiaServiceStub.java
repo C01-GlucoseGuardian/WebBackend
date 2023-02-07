@@ -1,7 +1,7 @@
 package com.glucoseguardian.webbackend.terapia.service;
 
+import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
-import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 public class TerapiaServiceStub implements TerapiaServiceInterface {
 
   @Override
-  public boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci) {
+  public boolean updateTerapia(String codiceFiscalePaziente,
+      List<AssunzioneFarmacoDto> listaFarmaci) {
     return true;
   }
 

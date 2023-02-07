@@ -2,8 +2,8 @@ package com.glucoseguardian.webbackend.terapia.service;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
-import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -13,7 +13,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public interface TerapiaServiceInterface {
 
   @PreAuthorize("hasAuthority('DOTTORE')")
-  boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmaco> listaFarmaci);
+  boolean updateTerapia(String codiceFiscalePaziente, List<AssunzioneFarmacoDto> listaFarmaci)
+      throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")
   TerapiaDto findTerapia(Long idTerapia) throws EntityNotFoundException;

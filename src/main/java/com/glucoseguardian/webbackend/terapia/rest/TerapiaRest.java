@@ -2,13 +2,11 @@ package com.glucoseguardian.webbackend.terapia.rest;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
-import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import com.glucoseguardian.webbackend.terapia.service.AbstractTerapiaService;
 import com.glucoseguardian.webbackend.terapia.service.TerapiaServiceInterface;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -77,23 +75,28 @@ public class TerapiaRest {
   /**
    * Metodo che gestisce il servizio updateTerapia.
    */
-  @PostMapping(value = "/updateTerapia", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updateTerapia(
-      @RequestBody TerapiaDto input, @RequestBody List<AssunzioneFarmacoDto> listaFarmaci)
+      @RequestBody TerapiaDto input)
       throws EntityNotFoundException {
-    ResponseEntity<RisultatoDto> response;
+    boolean result = false;
     try {
-      TerapiaDto dto = getService().findTerapia(input.getId());
-      dto.setFarmaci(listaFarmaci);
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
+      result = getService().updateTerapia(input.getIdPaziente(), input.getFarmaci());
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della Terapia"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
       ex.printStackTrace();
     }
-    return CompletableFuture.completedFuture(response);
+
+    if (result) {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Terapia aggiornata correttamente"),
+              HttpStatus.OK));
+    } else {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Errore durante l'aggiornamento della Terapia"),
+              HttpStatus.INTERNAL_SERVER_ERROR));
+    }
   }
 
   private TerapiaServiceInterface getService() {

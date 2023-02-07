@@ -2,6 +2,9 @@ package com.glucoseguardian.webbackend.tutore.rest;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
+import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
+import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -37,10 +40,11 @@ public class TutoreRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFeedback(
-      @RequestBody TutoreDto input) throws EntityNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscaleTutore) throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    codiceFiscaleTutore.validate();
     try {
-      TutoreDto dto = getService().findByCodiceFiscale(input.getCodiceFiscale());
+      TutoreDto dto = getService().findByCodiceFiscale(codiceFiscaleTutore.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -58,10 +62,11 @@ public class TutoreRest {
 
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getTutoresByPaziente(
-      @RequestBody PazienteDto input) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws UserNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    codiceFiscalePaziente.validate();
     try {
-      ListDto<TutoreDto> dto = getService().findByPaziente(input.getCodiceFiscale());
+      ListDto<TutoreDto> dto = getService().findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;

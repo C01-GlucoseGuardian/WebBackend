@@ -100,7 +100,7 @@ public class PazienteRest {
     try {
       ListDto<PazienteDto> dto = getService().findByTutore(tutore.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
+    } catch (AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),

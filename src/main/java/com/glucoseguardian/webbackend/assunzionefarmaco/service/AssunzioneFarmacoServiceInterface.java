@@ -15,9 +15,8 @@ public interface AssunzioneFarmacoServiceInterface {
   AssunzioneFarmacoDto findById(Long idAssunzioneFarmaco) throws EntityNotFoundException;
 
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
-  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia) throws EntityNotFoundException;
+  ListDto<AssunzioneFarmacoDto> findByTerapia(Long idTerapia);
 
   @PreAuthorize("hasAuthority('PAZIENTE') or hasAuthority('DOTTORE') or hasAuthority('TUTORE')")
-  ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente)
-      throws UserNotFoundException;
+  ListDto<AssunzioneFarmacoDto> findByPaziente(String codiceFiscalePaziente);
 }

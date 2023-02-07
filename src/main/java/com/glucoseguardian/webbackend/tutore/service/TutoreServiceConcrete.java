@@ -47,7 +47,7 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
     if (result == null) {
       throw new UserNotFoundException("Paziente non trovato.");
     }
-    List<Tutore> list = result.getProfiliTutore();
+    List<Tutore> list = result.getTutori();
     List<TutoreDto> tutoreDtos = new ArrayList<>();
     for (Tutore tutore : list) {
       tutoreDtos.add(TutoreDto.valueOf(tutore));
@@ -82,9 +82,9 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
       throw new UserNotFoundException("Paziente non trovato.");
     }
 
-    List<Tutore> tutori = paziente.getProfiliTutore();
+    List<Tutore> tutori = paziente.getTutori();
     tutori.add(tutoreEntity);
-    paziente.setProfiliTutore(tutori);
+    paziente.setTutori(tutori);
     pazienteDao.save(paziente);
 
     // Check if entity is correctly saved

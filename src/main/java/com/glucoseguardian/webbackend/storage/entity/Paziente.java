@@ -45,7 +45,7 @@ public class Paziente implements Serializable, Utente {
   @ManyToMany
   @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "paziente"),
       inverseJoinColumns = @JoinColumn(name = "tutore"))
-  List<Tutore> profiliTutore;
+  List<Tutore> tutori;
 
   @Id
   @Column(columnDefinition = "CHAR(16)")
@@ -173,13 +173,13 @@ public class Paziente implements Serializable, Utente {
     this.dottore = dottore;
   }
 
-  public List<Tutore> getProfiliTutore() {
-    return profiliTutore;
+  public List<Tutore> getTutori() {
+    return tutori;
   }
 
-  public void setProfiliTutore(
-      List<Tutore> profiliTutore) {
-    this.profiliTutore = profiliTutore;
+  public void setTutori(
+      List<Tutore> tutori) {
+    this.tutori = tutori;
   }
 
   public String getCodiceFiscale() {
@@ -309,7 +309,7 @@ public class Paziente implements Serializable, Utente {
         paziente.notifiche) && Objects.equals(glicemie, paziente.glicemie)
         && Objects.equals(feedbacks, paziente.feedbacks) && Objects.equals(
         terapia, paziente.terapia) && Objects.equals(dottore, paziente.dottore)
-        && Objects.equals(profiliTutore, paziente.profiliTutore)
+        && Objects.equals(tutori, paziente.tutori)
         && Objects.equals(codiceFiscale, paziente.codiceFiscale)
         && Objects.equals(nome, paziente.nome) && Objects.equals(cognome,
         paziente.cognome) && Objects.equals(dataNascita, paziente.dataNascita)

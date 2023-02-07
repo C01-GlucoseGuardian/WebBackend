@@ -51,7 +51,7 @@ public class Tutore implements Serializable, Utente {
   @Nullable
   private String totpKey;
 
-  @ManyToMany(mappedBy = "profiliTutore", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "tutori", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Paziente> pazienteList;
 
   @OneToMany(mappedBy = "tutoreDestinatario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

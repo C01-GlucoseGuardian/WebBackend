@@ -18,7 +18,7 @@ public interface PazienteServiceInterface {
   ListDto<PazienteDto> findByDottore(String codiceFiscaleDottore) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('TUTORE')")
-  ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) throws UserNotFoundException;
+  ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore);
 
   @PreAuthorize("hasAuthority('DOTTORE')")
   ListDto<PazienteDto> findPaziente(String query);

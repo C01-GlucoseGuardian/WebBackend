@@ -101,7 +101,7 @@ public class FeedbackRest {
    * Metodo che gestisce il servizio save Feedback.
    */
 
-  @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveFeedback(
       @RequestBody FeedbackDto input) throws UserNotFoundException {
 

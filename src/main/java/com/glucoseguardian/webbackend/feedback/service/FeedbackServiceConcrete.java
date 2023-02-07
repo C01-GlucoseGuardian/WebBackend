@@ -7,7 +7,6 @@ import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
-import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Feedback;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.sql.Date;
@@ -27,8 +26,6 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
   private FeedbackDao feedbackDao;
   @Autowired
   private PazienteDao pazienteDao;
-  @Autowired
-  private DottoreDao dottoreDao;
 
   @Override
   public FeedbackDto findById(Long id) throws EntityNotFoundException {
@@ -41,35 +38,25 @@ public class FeedbackServiceConcrete implements FeedbackServiceInterface {
   }
 
   @Override
-  public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente)
-      throws UserNotFoundException {
-    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
-    if (result != null) {
-      List<FeedbackDto> list = new ArrayList<>();
-      for (Feedback feedback : result.getFeedbacks()) {
-        list.add(FeedbackDto.valueOf(feedback));
-      }
-      ListDto<FeedbackDto> listDto = new ListDto<>(list);
-      return listDto;
-    } else {
-      throw new UserNotFoundException("Paziente non trovato.");
+  public ListDto<FeedbackDto> findByPaziente(String codiceFiscalePaziente) {
+    List<Feedback> result = feedbackDao.findByPaziente_codiceFiscale(codiceFiscalePaziente);
+    List<FeedbackDto> list = new ArrayList<>();
+    for (Feedback feedback : result) {
+      list.add(FeedbackDto.valueOf(feedback));
     }
+    ListDto<FeedbackDto> listDto = new ListDto<>(list);
+    return listDto;
   }
 
   @Override
-  public ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore)
-      throws UserNotFoundException {
-    Dottore result = dottoreDao.findById(codiceFiscaleDottore).orElse(null);
-    if (result != null) {
-      List<FeedbackDto> list = new ArrayList<>();
-      for (Feedback feedback : result.getFeedbacks()) {
-        list.add(FeedbackDto.valueOf(feedback));
-      }
-      ListDto<FeedbackDto> listDto = new ListDto<>(list);
-      return listDto;
-    } else {
-      throw new UserNotFoundException("Dottore non trovato.");
+  public ListDto<FeedbackDto> findByDottore(String codiceFiscaleDottore) {
+    List<Feedback> result = feedbackDao.findByDottore_codiceFiscale(codiceFiscaleDottore);
+    List<FeedbackDto> list = new ArrayList<>();
+    for (Feedback feedback : result) {
+      list.add(FeedbackDto.valueOf(feedback));
     }
+    ListDto<FeedbackDto> listDto = new ListDto<>(list);
+    return listDto;
   }
 
   @Override

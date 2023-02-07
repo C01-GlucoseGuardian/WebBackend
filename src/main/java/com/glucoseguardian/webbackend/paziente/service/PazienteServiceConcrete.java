@@ -42,8 +42,6 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   @Autowired
   private DottoreDao dottoreDao;
   @Autowired
-  private TutoreDao tutoreDao;
-  @Autowired
   private NumeroTelefonoDao numeroTelefonoDao;
   @Autowired
   private TerapiaDao terapiaDao;
@@ -82,13 +80,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore)
-      throws UserNotFoundException {
-    Tutore result = tutoreDao.findById(codiceFiscaleTutore).orElse(null);
-    if (result == null) {
-      throw new UserNotFoundException("Tutore non trovato.");
-    }
-    List<Paziente> list = result.getPazienteList();
+  public ListDto<PazienteDto> findByTutore(String codiceFiscaleTutore) {
+    List<Paziente> list = pazienteDao.findByTutori_CodiceFiscale(codiceFiscaleTutore);
     List<PazienteDto> pazienteDtos = new ArrayList<>();
     for (Paziente paziente : list) {
       pazienteDtos.add(PazienteDto.valueOf(paziente));

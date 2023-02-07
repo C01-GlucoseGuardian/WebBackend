@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.storage.dao;
 
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface TerapiaDao extends JpaRepository<Terapia, Long> {
 
+  Optional<Terapia> findByPaziente_codiceFiscale(String codiceFiscale);
 }

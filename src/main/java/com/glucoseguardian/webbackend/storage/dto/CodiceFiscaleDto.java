@@ -27,7 +27,7 @@ public class CodiceFiscaleDto extends RisultatoDto implements Serializable {
   /**
    *  validazione del codice fiscale degli utenti.
    */
-  public void validate()throws IllegalArgumentException {
+  public void validate() throws IllegalArgumentException {
     Validate.notNull(codiceFiscale, "il codice fiscale non può essere assente");
     Validate.isTrue(codiceFiscale.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");

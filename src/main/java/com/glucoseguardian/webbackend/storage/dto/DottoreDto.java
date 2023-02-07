@@ -221,7 +221,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    *  validazione dello stato.
    */
 
-  public void validateStato(DottoreDto dottoreDto)throws IllegalArgumentException {
+  public void validateStato(DottoreDto dottoreDto) throws IllegalArgumentException {
     Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere assente");
     Validate.isTrue(dottoreDto.getStato() >= 1 && dottoreDto.getStato() <= 4,
         "Lo stato del dottore non è valido");
@@ -231,7 +231,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    *  validazione del dottore.
    */
 
-  public void validateDottore()throws IllegalArgumentException {
+  public void validateDottore() throws IllegalArgumentException {
     Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto");
     Validate.isTrue(codiceFiscale.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
@@ -245,7 +245,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto");
-    Pattern pattern = Pattern.compile("^M|F$ ");
+    Pattern pattern = Pattern.compile("^M|F$");
     Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non è valido");
 
     Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
@@ -258,29 +258,26 @@ public class DottoreDto extends RisultatoDto implements Serializable {
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono, "indirizzo non puo essere assente");
-    Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
+    Validate.notNull(telefono, "telefono non puo essere assente");
+    Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono non è valido");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 
     Validate.notNull(password, "la password non puo' essere assente");
-    Validate.isTrue(password.length() <= 255, "la lunggezza della password non è valida");
+    Validate.isTrue(password.length() <= 255, "la lunghezza della password non è valida");
 
     Validate.notNull(specializzazione, "la specializzazione non puo essere assente");
     Validate.isTrue(specializzazione.length() <= 100,
-        "la specializzazione non puo superare i 100 carattwri");
+        "la specializzazione non puo superare i 100 caratteri");
 
     Validate.notNull(codiceAlbo, "codice albo non puo essere assente");
-    Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 carattwri");
+    Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 caratteri");
 
     Validate.notNull(nomeStruttura, "la specializzazione non puo essere assente");
     Validate.isTrue(nomeStruttura.length() <= 100,
-        "il nome struttura non puo superare i 100 carattwri");
-
-    Validate.notNull(stato, "lo stato del dottore non può essere assente");
-    Validate.isTrue(stato >= 1 && stato <= 4, "Lo stato del dottore non è valido");
+        "il nome struttura non puo superare i 100 caratteri");
   }
 }

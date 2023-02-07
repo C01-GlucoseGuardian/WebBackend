@@ -223,7 +223,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto");
-    Pattern pattern = Pattern.compile("^M|F$ ");
+    Pattern pattern = Pattern.compile("^M|F$");
     Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non è valido");
 
     Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
@@ -236,9 +236,9 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono, "indirizzo non puo essere assente");
-    Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
+    Validate.notNull(telefono, "telefono non puo essere assente");
+    Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono non è valido");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,

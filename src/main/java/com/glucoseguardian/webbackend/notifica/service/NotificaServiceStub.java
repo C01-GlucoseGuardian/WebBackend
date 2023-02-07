@@ -39,4 +39,9 @@ public class NotificaServiceStub implements NotificaServiceInterface {
   public ListDto<NotificaDto> findByAdmin(String codiceFiscale) {
     return new ListDto<>();
   }
+
+  @Override
+  public boolean updateStato(long idNotifica, Integer newStato) {
+    return true;
+  }
 }

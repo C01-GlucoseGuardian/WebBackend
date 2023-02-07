@@ -4,6 +4,7 @@ import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
+import com.glucoseguardian.webbackend.storage.entity.Notifica;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
@@ -28,4 +29,7 @@ public interface NotificaServiceInterface {
 
   @PreAuthorize("hasAuthority('ADMIN')")
   ListDto<NotificaDto> findByAdmin(String codiceFiscale) throws UserNotFoundException;
+
+  @PreAuthorize("isAuthenticated()")
+  boolean updateStato(long idNotifica, Integer newStato) throws EntityNotFoundException;
 }

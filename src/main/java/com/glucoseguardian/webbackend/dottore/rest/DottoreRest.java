@@ -3,12 +3,14 @@ package com.glucoseguardian.webbackend.dottore.rest;
 import com.glucoseguardian.webbackend.dottore.service.AbstractDottoreService;
 import com.glucoseguardian.webbackend.dottore.service.DottoreServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -40,30 +42,29 @@ public class DottoreRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getDottore(
-      @RequestBody DottoreDto dottore) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscaleDottore) throws Exception {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    codiceFiscaleDottore.validate();
     try {
-      DottoreDto dto = getService().findByCodiceFiscale(dottore.getCodiceFiscale());
+      DottoreDto dto = getService().findByCodiceFiscale(codiceFiscaleDottore.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       // These exceptions are managed by CustomExceptionHandler
       throw ex;
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
+            HttpStatus.INTERNAL_SERVER_ERROR);
       ex.printStackTrace();
     }
-
     return CompletableFuture.completedFuture(response);
   }
-
   /**
    * Metodo che si occupa delle richieste post all'endpoint /getByStato.
    */
+
   @PostMapping(value = "/getByStato", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByStato(
       @RequestBody DottoreDto dottore) {
@@ -71,7 +72,7 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    dottore.validateStato(dottore);
     try {
       ListDto<DottoreDto> dto = getService().findByStato(dottore.getStato());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
@@ -92,14 +93,14 @@ public class DottoreRest {
    */
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
-      @RequestBody PazienteDto paziente) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws Exception {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    codiceFiscalePaziente.validate();
     try {
-      DottoreDto dto = getService().findByPaziente(paziente.getCodiceFiscale());
+      DottoreDto dto = getService().findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       // These exceptions are managed by CustomExceptionHandler
@@ -148,6 +149,7 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
+    dottore.validateStato(dottore);
     boolean result = false;
     try {
       Utente admin = (Utente) getAuthentication().getPrincipal();
@@ -181,7 +183,7 @@ public class DottoreRest {
       @RequestBody DottoreDto dottore) {
 
     // TODO: Add custom checks (es. length, null etc..)
-
+    dottore.validateDottore();
     boolean result = false;
     try {
       result = getService().save(dottore);

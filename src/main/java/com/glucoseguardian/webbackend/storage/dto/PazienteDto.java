@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'output delle funzioni di paziente.
@@ -201,6 +203,63 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     pazienteDto.setNumeriUtiliFromEntity(paziente.getNumeriUtili());
     pazienteDto.setIdDottore(paziente.getDottore().getCodiceFiscale());
     return pazienteDto;
+  }
+
+  /**
+   *  validazione del paziente.
+   */
+
+  public void validate() throws IllegalArgumentException {
+    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto");
+    Validate.isTrue(codiceFiscale.length() == 16,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(nome, "Il nome non puo essere vuoto");
+    Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(cognome, "Il cognome non puo essere vuoto");
+    Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notNull(sesso, "il sesso non puo' essere vuoto");
+    Pattern pattern = Pattern.compile("^M|F$");
+    Validate.isTrue(pattern.matcher(sesso).matches(), "il sesso non è valido");
+
+    Validate.notNull(dataNascita, "la data di nascita non puo essere vuota");
+    Pattern pattern1 = Pattern.compile(
+        "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
+    Validate.isTrue(pattern1.matcher(dataNascita).matches(),
+        "la data nascita inserita non è valida");
+
+    Validate.notNull(email, "la mail non puo essere assente");
+    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
+    Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
+
+    Validate.notNull(telefono, "telefono non puo essere assente");
+    Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono non è valido");
+
+    Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
+    Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
+        "La lunghezza dell'indirizzo non è valida");
+
+    Validate.notNull(numeriUtili, "indirizzo non puo essere assente");
+    for (NumeroTelefonoDto numeroTelefonoDto : numeriUtili) {
+      Validate.isTrue((pattern3.matcher(numeroTelefonoDto.getNumero())).matches());
+    }
+
+    Validate.notNull(tipoDiabete, "tipo diabete non puo' essere assente");
+    Validate.isTrue(tipoDiabete.length() <= 10 && tipoDiabete.length() >= 1,
+        "La lunghezza del tipo diabete non è valida");
+
+    Validate.notNull(comorbilita, "commorbilità non puo' essere assente");
+    Validate.isTrue(comorbilita.length() <= 100, "La lunghezza della commorbilità non è valida");
+
+    Validate.notNull(farmaciAssunti, "farmaci assunti non puo' essere vuoto");
+    Validate.isTrue(farmaciAssunti.length() <= 100, "la lunghezza di farmaci assunti non è valida");
+
+    Validate.notNull(periodoDiMonitoraggio, "periodo di monitoraggio non puo essere assente");
   }
 
   public TerapiaDto getTerapia() {

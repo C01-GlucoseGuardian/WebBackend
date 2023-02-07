@@ -30,7 +30,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
   private JwtService jwtService;
 
   @Override
-  public LoginOutputDto login(String email, String password, Integer otp)
+  public LoginOutputDto login(String email, String password, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException,
       AccountDisabledException {
     Utente result = checkCredentials(email, password, otp);
@@ -42,7 +42,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
   }
 
   @Override
-  public boolean changePw(String email, String password, String newPassword, Integer otp)
+  public boolean changePw(String email, String password, String newPassword, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException {
     Utente result = checkCredentials(email, password, otp);
     result.setPassword(passwordEncoder.encode(newPassword));
@@ -51,7 +51,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
   }
 
   @Override
-  public TotpDto getTotpKey(String email, String password, Integer otp)
+  public TotpDto getTotpKey(String email, String password, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException {
     Utente result = checkCredentials(email, password, otp);
     String totpKey = Base32.random();
@@ -60,7 +60,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
     return new TotpDto(totpKey);
   }
 
-  private Utente checkCredentials(String email, String password, Integer otp)
+  private Utente checkCredentials(String email, String password, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException {
     Utente user = utenteDao.findByEmail(email).orElse(null);
     if (user == null) {
@@ -74,7 +74,7 @@ public class AuthServiceConcrete implements AuthServiceInterface {
         throw new NeedOtpException("Need otp");
       } else {
         Totp totp = new Totp(user.getTotpKey());
-        if (!totp.verify(otp.toString())) {
+        if (!totp.verify(otp)) {
           throw new InvalidCredentialsException("Credenziali non valide");
         }
       }

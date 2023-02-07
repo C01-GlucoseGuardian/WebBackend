@@ -119,7 +119,7 @@ public class FeedbackDto extends RisultatoDto implements Serializable {
    *  Costruisce un {@link FeedbackDto} a partire da un {@link Feedback}.
    */
   public static FeedbackDto valueOf(Feedback feedback) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataFeedbackDto = dateFormat.format(feedback.getData());
 
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");

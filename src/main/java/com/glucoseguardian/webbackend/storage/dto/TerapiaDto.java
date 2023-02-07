@@ -92,7 +92,7 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
     terapiaDto.setIdDottore(terapia.getDottore().getCodiceFiscale());
     terapiaDto.setFarmaci(list);
 
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataInizioTerapia = dateFormat.format(terapia.getDataInizio());
     terapiaDto.setDataInizio(dataInizioTerapia);
 

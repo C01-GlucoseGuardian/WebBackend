@@ -69,7 +69,7 @@ public class NotificaDto extends RisultatoDto implements Serializable {
    * Costruisce un {@link NotificaDto} a partire da un {@link Notifica}.
    */
   public static NotificaDto valueOf(Notifica notifica) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataNotificaDto = dateFormat.format(notifica.getData());
 
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");

@@ -182,7 +182,7 @@ public class PazienteDto extends RisultatoDto implements Serializable {
    * popolato.
    */
   public static PazienteDto valueOf(Paziente paziente) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataNascitaPazienteDto = dateFormat.format(paziente.getDataNascita());
     PazienteDto pazienteDto = new PazienteDto();
 

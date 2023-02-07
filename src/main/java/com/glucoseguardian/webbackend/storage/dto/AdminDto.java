@@ -48,7 +48,7 @@ public class AdminDto extends RisultatoDto implements Serializable {
    */
 
   public static AdminDto valueOf(Admin admin) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataNascitaDottoreDto = dateFormat.format(admin.getDataNascita());
     AdminDto adminDto = new AdminDto();
 

@@ -194,7 +194,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    *  Il campo password non viene popolato.
    */
   public static DottoreDto valueOf(Dottore dottore) {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String dataNascitaDottoreDto = dateFormat.format(dottore.getDataNascita());
     DottoreDto dottoreDto = new DottoreDto();
 

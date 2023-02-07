@@ -7,7 +7,6 @@ import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.NumeroTelefonoDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
-import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NumeroTelefonoDto;
@@ -18,10 +17,12 @@ import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
-import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -112,6 +113,15 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
 
   @Override
   public boolean save(PazienteDto dto) {
+    DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    String date;
+    try {
+      date = dateSqlFormat.format(dateInputFormat.parse(dto.getDataNascita()));
+    } catch (ParseException parse) {
+      throw new IllegalArgumentException("Data non valida");
+    }
 
     //TODO: send email with password
 
@@ -120,7 +130,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
 
     // Create entity
     Paziente pazienteEntity = new Paziente(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
-        Date.valueOf(dto.getDataNascita()), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
+        Date.valueOf(date), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
         passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
         dto.getTipoDiabete(), dto.getComorbilita(), dto.getFarmaciAssunti(),
         dto.getPeriodoDiMonitoraggio());
@@ -154,7 +164,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     }
 
     // persist the new entity
-    pazienteDao.saveAndFlush(pazienteEntity);
+    pazienteDao.save(pazienteEntity);
 
     // Check if entity is correctly saved
     return pazienteDao.existsById(pazienteEntity.getCodiceFiscale());

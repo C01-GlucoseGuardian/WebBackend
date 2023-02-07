@@ -14,16 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public interface AuthServiceInterface {
 
   @PreAuthorize("permitAll()")
-  LoginOutputDto login(String email, String password, Integer otp)
+  LoginOutputDto login(String email, String password, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException,
       AccountDisabledException;
 
   @PreAuthorize("isAuthenticated()")
-  boolean changePw(String email, String password, String newPassword, Integer otp)
+  boolean changePw(String email, String password, String newPassword, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
 
   @PreAuthorize("isAuthenticated()")
-  TotpDto getTotpKey(String email, String password, Integer otp)
+  TotpDto getTotpKey(String email, String password, String otp)
       throws UserNotFoundException, InvalidCredentialsException, NeedOtpException;
 
 }

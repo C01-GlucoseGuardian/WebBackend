@@ -3,12 +3,14 @@ package com.glucoseguardian.webbackend.dottore.rest;
 import com.glucoseguardian.webbackend.dottore.service.AbstractDottoreService;
 import com.glucoseguardian.webbackend.dottore.service.DottoreServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -40,27 +42,25 @@ public class DottoreRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getDottore(
-      @RequestBody DottoreDto dottore) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscaleDottore) throws Exception {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
-    try {
-      DottoreDto dto = getService().findByCodiceFiscale(dottore.getCodiceFiscale());
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
-      // These exceptions are managed by CustomExceptionHandler
-      throw ex;
-    } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
+    codiceFiscaleDottore.validate();
+      try {
+        DottoreDto dto = getService().findByCodiceFiscale(codiceFiscaleDottore.getCodiceFiscale());
+        response = new ResponseEntity<>(dto, HttpStatus.OK);
+      } catch (UserNotFoundException | AccessDeniedException ex) {
+        // These exceptions are managed by CustomExceptionHandler
+        throw ex;
+      } catch (Exception ex) {
+        response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
+            HttpStatus.INTERNAL_SERVER_ERROR);
+        ex.printStackTrace();
+      }
+      return CompletableFuture.completedFuture(response);
     }
-
-    return CompletableFuture.completedFuture(response);
-  }
-
   /**
    * Metodo che si occupa delle richieste post all'endpoint /getByStato.
    */
@@ -71,6 +71,14 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
+    if (dottore == null) {
+      response = new ResponseEntity<>(new RisultatoDto("L'oggetto DottoreDto è null"),
+          HttpStatus.BAD_REQUEST);
+      return CompletableFuture.completedFuture(response);
+    }
+
+    Validate.notNull(dottore.getStato(), "lo stato non puo essere vuoto");
+    Validate.isTrue(dottore.getStato() >= 1 && dottore.getStato() <= 4, "La lunghezza del nome dell'assunzioneFarmaco non può superare i 100 caratteri");
 
     try {
       ListDto<DottoreDto> dto = getService().findByStato(dottore.getStato());
@@ -92,14 +100,14 @@ public class DottoreRest {
    */
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
-      @RequestBody PazienteDto paziente) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws Exception {
 
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    codiceFiscalePaziente.validate();
     try {
-      DottoreDto dto = getService().findByPaziente(paziente.getCodiceFiscale());
+      DottoreDto dto = getService().findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       // These exceptions are managed by CustomExceptionHandler
@@ -148,6 +156,15 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
+    if (dottore == null) {
+      response = new ResponseEntity<>(new RisultatoDto("L'oggetto DottoreDto è null"),
+          HttpStatus.BAD_REQUEST);
+      return CompletableFuture.completedFuture(response);
+    }
+
+    Validate.notBlank(dottore.getCodiceFiscale(), "Il codice fiscale non può essere vuoto");
+    Validate.isTrue(dottore.getCodiceFiscale().length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
     boolean result = false;
     try {
       Utente admin = (Utente) getAuthentication().getPrincipal();
@@ -181,6 +198,18 @@ public class DottoreRest {
       @RequestBody DottoreDto dottore) {
 
     // TODO: Add custom checks (es. length, null etc..)
+
+   /* Validate.notBlank(dottore.getCodiceFiscale(), "Il codice fiscale non può essere vuoto");
+    Validate.isTrue(dottore.getCodiceFiscale().length() == 16, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notBlank(dottore.getNome(), "Il nome non puo essere vuoto");
+    Validate.isTrue(dottore.getNome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notBlank(dottore.getCognome(), "Il cognome non puo essere vuoto");
+    Validate.isTrue(dottore.getCognome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
+    Validate.notBlank(dottore.getDataNascita(), "la data di nascita non puo essere vuota);
+    Validate.isTrue(dottore.getNome().length() <=30, "La lunghezza del codice fiscale deve essere di 16 caratteri");*/
 
     boolean result = false;
     try {

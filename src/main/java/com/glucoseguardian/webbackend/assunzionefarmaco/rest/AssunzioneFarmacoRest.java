@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.apache.commons.lang3.Validate;
 /**
  * Rest controller che si occupa di esporre i servizi del package assunzioneFarmaco.
  */
@@ -42,6 +42,11 @@ public class AssunzioneFarmacoRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
+    if (assunzioneFarmaco == null) {
+      response = new ResponseEntity<>(new RisultatoDto("L'oggetto AssunzioneFarmacoDto è null"),
+          HttpStatus.BAD_REQUEST);
+      return CompletableFuture.completedFuture(response);
+    }
 
     try {
       AssunzioneFarmacoDto dto = getService().findById(assunzioneFarmaco.getId());
@@ -68,6 +73,11 @@ public class AssunzioneFarmacoRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
+    if (terapia == null) {
+      response = new ResponseEntity<>(new RisultatoDto("L'oggetto TerapiaDto è null"),
+          HttpStatus.BAD_REQUEST);
+      return CompletableFuture.completedFuture(response);
+    }
 
     try {
       ListDto<AssunzioneFarmacoDto> dto = getService().findByTerapia(terapia.getId());
@@ -94,7 +104,11 @@ public class AssunzioneFarmacoRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    if (paziente == null) {
+      response = new ResponseEntity<>(new RisultatoDto("L'oggetto PazienteDto è null"),
+          HttpStatus.BAD_REQUEST);
+      return CompletableFuture.completedFuture(response);
+    }
     try {
       ListDto<AssunzioneFarmacoDto> dto = getService().findByPaziente(paziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);

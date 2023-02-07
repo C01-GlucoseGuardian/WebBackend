@@ -72,7 +72,7 @@ public class AssunzioneFarmacoRest {
     try {
       ListDto<AssunzioneFarmacoDto> dto = getService().findByTerapia(terapia.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (EntityNotFoundException | AccessDeniedException ex) {
+    } catch (AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca"
@@ -98,7 +98,7 @@ public class AssunzioneFarmacoRest {
     try {
       ListDto<AssunzioneFarmacoDto> dto = getService().findByPaziente(paziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (EntityNotFoundException | AccessDeniedException ex) {
+    } catch (AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca"

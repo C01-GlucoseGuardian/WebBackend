@@ -28,20 +28,16 @@ public class TerapiaServiceConcrete implements TerapiaServiceInterface {
   @Autowired
   private TerapiaDao terapiaDao;
   @Autowired
-  private PazienteDao pazienteDao;
-  @Autowired
   private FarmacoDao farmacoDao;
 
   @Override
   public boolean updateTerapia(String codiceFiscalePaziente,
       List<AssunzioneFarmacoDto> listaFarmaci) throws EntityNotFoundException {
 
-    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
-    if (result == null) {
+    Terapia terapia = terapiaDao.findByPaziente_codiceFiscale(codiceFiscalePaziente).orElse(null);
+    if (terapia == null) {
       throw new UserNotFoundException("Paziente non trovato");
     }
-
-    Terapia terapia = result.getTerapia();
 
     List<AssunzioneFarmaco> assunzioneFarmacos = new ArrayList<>();
     for (AssunzioneFarmacoDto assunzioneFarmaco : listaFarmaci) {
@@ -85,9 +81,9 @@ public class TerapiaServiceConcrete implements TerapiaServiceInterface {
 
   @Override
   public TerapiaDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException {
-    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
+    Terapia result = terapiaDao.findByPaziente_codiceFiscale(codiceFiscalePaziente).orElse(null);
     if (result != null) {
-      return TerapiaDto.valueOf(result.getTerapia());
+      return TerapiaDto.valueOf(result);
     } else {
       throw new UserNotFoundException("Paziente non trovato.");
     }

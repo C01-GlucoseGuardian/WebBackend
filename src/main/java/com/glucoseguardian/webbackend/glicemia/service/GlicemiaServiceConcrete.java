@@ -28,8 +28,8 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
 
   @Override
   public GlicemiaDto getLast(String codiceFiscale) throws EntityNotFoundException {
-    Paziente paziente = getPaziente(codiceFiscale);
-    Glicemia result = glicemiaDao.findTopByPazienteOrderByDataOraDesc(paziente).orElse(null);
+    Glicemia result = glicemiaDao.findTopByPaziente_codiceFiscaleOrderByDataOraDesc(codiceFiscale)
+        .orElse(null);
 
     if (result != null) {
       return GlicemiaDto.valueOf(result);
@@ -39,12 +39,9 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
   }
 
   @Override
-  public ListDto<GlicemiaDto> getRange(String codiceFiscale, long start, long end)
-      throws UserNotFoundException {
-    Paziente paziente = getPaziente(codiceFiscale);
-
-    List<Glicemia> list = glicemiaDao.findByPazienteAndDataOraBetweenOrderByDataOraDesc(
-        paziente, new Timestamp(start), new Timestamp(end));
+  public ListDto<GlicemiaDto> getRange(String codiceFiscale, long start, long end) {
+    List<Glicemia> list = glicemiaDao.findByPaziente_codiceFiscaleAndDataOraBetweenOrderByDataOraDesc(
+        codiceFiscale, new Timestamp(start), new Timestamp(end));
 
     return new ListDto<>(list.stream().map(GlicemiaDto::valueOf).toList());
   }

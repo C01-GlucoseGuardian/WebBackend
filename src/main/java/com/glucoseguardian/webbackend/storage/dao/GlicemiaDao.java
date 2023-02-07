@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.storage.dao;
 
 import com.glucoseguardian.webbackend.storage.entity.Glicemia;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +11,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface GlicemiaDao extends JpaRepository<Glicemia, Long> {
 
-  Optional<Glicemia> findTopByPazienteOrderByDataOraDesc(Paziente paziente);
+  Optional<Glicemia> findTopByPaziente_codiceFiscaleOrderByDataOraDesc(String codiceFiscale);
 
-  List<Glicemia> findByPazienteAndDataOraBetweenOrderByDataOraDesc(Paziente paziente,
+  List<Glicemia> findByPaziente_codiceFiscaleAndDataOraBetweenOrderByDataOraDesc(String codiceFiscale,
       Timestamp start, Timestamp end);
+
 
 }

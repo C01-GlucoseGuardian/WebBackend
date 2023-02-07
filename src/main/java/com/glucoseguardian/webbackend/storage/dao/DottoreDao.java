@@ -17,4 +17,7 @@ public interface DottoreDao extends JpaRepository<Dottore, String> {
 
   @NotNull
   List<Dottore> findByStato(int stato);
+
+  Optional<Dottore> findByPazientes_codiceFiscale(String codiceFiscale);
+
 }

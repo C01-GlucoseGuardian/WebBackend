@@ -24,8 +24,6 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
 
   @Autowired
   private DottoreDao dottoreDao;
-  @Autowired
-  private PazienteDao pazienteDao;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -55,11 +53,10 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
 
   @Override
   public DottoreDto findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException {
-    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
-    if (result == null) {
-      throw new UserNotFoundException("Paziente non trovato.");
+    Dottore dottore = dottoreDao.findByPazientes_codiceFiscale(codiceFiscalePaziente).orElse(null);
+    if (dottore == null) {
+      throw new UserNotFoundException("Dottore non trovato.");
     }
-    Dottore dottore = result.getDottore();
     return DottoreDto.valueOf(dottore);
   }
 

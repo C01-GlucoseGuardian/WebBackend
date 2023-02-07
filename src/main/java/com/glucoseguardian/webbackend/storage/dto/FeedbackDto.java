@@ -147,19 +147,19 @@ public class FeedbackDto extends RisultatoDto implements Serializable {
   public void validate() {
     Validate.notNull(id, "l'id non puo essere vuoto");
 
-    Validate.notNull(oreSonno, "le ore sonno non possono essere null");
+    Validate.notNull(oreSonno, "le ore sonno non possono essere assente");
     Validate.isTrue(oreSonno.length() <= 300 && oreSonno.length() >= 1,
         "la lunghezza di ore sonno non è valida");
 
-    Validate.notNull(statoSalute, "stato salute non puo essere null");
+    Validate.notNull(statoSalute, "stato salute non puo essere assente");
     Validate.isTrue(statoSalute.length() <= 300 && statoSalute.length() >= 1,
         "la lunghezza di stato salute non è valida");
 
-    Validate.notNull(dolori, "dolori non puo essere null");
+    Validate.notNull(dolori, "dolori non puo essere assente");
     Validate.isTrue(dolori.length() <= 300 && dolori.length() >= 1,
         "la lunghezza di dolori non è valida");
 
-    Validate.notNull(svenimenti, "svenimenti non puo essere null");
+    Validate.notNull(svenimenti, "svenimenti non puo essere assente");
     Validate.isTrue(svenimenti.length() <= 300 && svenimenti.length() >= 1,
         "la lunghezza di svenimenti non è valida");
 

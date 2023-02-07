@@ -222,7 +222,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    */
 
   public void validateStato(DottoreDto dottoreDto)throws IllegalArgumentException {
-    Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere null");
+    Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere assente");
     Validate.isTrue(dottoreDto.getStato() >= 1 && dottoreDto.getStato() <= 4,
         "Lo stato del dottore non è valido");
   }
@@ -255,12 +255,12 @@ public class DottoreDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non e' valida");
 
-    Validate.notNull(email, "la mail non puo essere null");
+    Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
         Pattern.CASE_INSENSITIVE);
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono, "indirizzo non puo essere null");
+    Validate.notNull(telefono, "indirizzo non puo essere assente");
     Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 
@@ -268,21 +268,21 @@ public class DottoreDto extends RisultatoDto implements Serializable {
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 
-    Validate.notNull(password, "la password non puo' essere null");
+    Validate.notNull(password, "la password non puo' essere assente");
     Validate.isTrue(password.length() <= 255, "la lunggezza della password non è valida");
 
-    Validate.notNull(specializzazione, "la specializzazione non puo essere null");
+    Validate.notNull(specializzazione, "la specializzazione non puo essere assente");
     Validate.isTrue(specializzazione.length() <= 100,
         "la specializzazione non puo superare i 100 carattwri");
 
-    Validate.notNull(codiceAlbo, "codice albo non puo essere null");
+    Validate.notNull(codiceAlbo, "codice albo non puo essere assente");
     Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 carattwri");
 
-    Validate.notNull(nomeStruttura, "la specializzazione non puo essere null");
+    Validate.notNull(nomeStruttura, "la specializzazione non puo essere assente");
     Validate.isTrue(nomeStruttura.length() <= 100,
         "il nome struttura non puo superare i 100 carattwri");
 
-    Validate.notNull(stato, "lo stato del dottore non può essere null");
+    Validate.notNull(stato, "lo stato del dottore non può essere assente");
     Validate.isTrue(stato >= 1 && stato <= 4, "Lo stato del dottore non è valido");
   }
 }

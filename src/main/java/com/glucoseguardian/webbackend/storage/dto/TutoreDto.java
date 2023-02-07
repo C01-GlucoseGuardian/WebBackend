@@ -181,12 +181,12 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non e' valida");
 
-    Validate.notNull(email, "la mail non puo essere null");
+    Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
         Pattern.CASE_INSENSITIVE);
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono, "indirizzo non puo essere null");
+    Validate.notNull(telefono, "indirizzo non puo essere assente");
     Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 

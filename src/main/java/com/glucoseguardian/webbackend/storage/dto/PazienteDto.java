@@ -233,12 +233,12 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non e' valida");
 
-    Validate.notNull(email, "la mail non puo essere null");
+    Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$",
         Pattern.CASE_INSENSITIVE);
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
-    Validate.notNull(telefono, "indirizzo non puo essere null");
+    Validate.notNull(telefono, "indirizzo non puo essere assente");
     Pattern pattern3 = Pattern.compile("^+?\\d{5,15}$");
     Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono è valido");
 
@@ -246,23 +246,23 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 
-    Validate.notNull(numeriUtili, "indirizzo non puo essere null");
+    Validate.notNull(numeriUtili, "indirizzo non puo essere assente");
     for (NumeroTelefonoDto numeroTelefonoDto : numeriUtili) {
       Validate.isTrue((pattern3.matcher(numeroTelefonoDto.getNumero())).matches());
     }
 
-    Validate.notNull(tipoDiabete, "tipo diabete non puo' essere null", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(tipoDiabete, "tipo diabete non puo' essere assente", Pattern.CASE_INSENSITIVE);
     Validate.isTrue(tipoDiabete.length() <= 10 && tipoDiabete.length() >= 1,
         "La lunghezza del tipo diabete non è valida");
 
-    Validate.notNull(comorbilita, "commorbilità non puo' essere null", Pattern.CASE_INSENSITIVE);
+    Validate.notNull(comorbilita, "commorbilità non puo' essere assente", Pattern.CASE_INSENSITIVE);
     Validate.isTrue(comorbilita.length() <= 100, "La lunghezza della commorbilità non è valida");
 
     Validate.notNull(farmaciAssunti, "farmaci assunti non puo' essere vuoto",
         Pattern.CASE_INSENSITIVE);
     Validate.isTrue(farmaciAssunti.length() <= 100, "la lunghezza di farmaci assunti non è valida");
 
-    Validate.notNull(periodoDiMonitoraggio, "periodo di monitoraggio non puo essere null");
+    Validate.notNull(periodoDiMonitoraggio, "periodo di monitoraggio non puo essere assente");
   }
 
   public TerapiaDto getTerapia() {

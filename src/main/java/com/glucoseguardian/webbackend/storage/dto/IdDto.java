@@ -32,6 +32,6 @@ public class IdDto extends RisultatoDto implements Serializable {
    *  validazione dell'id.
    */
   public void validate() {
-    Validate.notNull(id, "l'id non puo essere null");
+    Validate.notNull(id, "l'id non puo essere assente");
   }
 }

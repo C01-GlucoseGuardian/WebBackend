@@ -10,3 +10,21 @@ spring.datasource.password=
 spring.datasource.driver-class-name=org.postgresql.Driver
 # TODO: Change secret in production
 jwt.secret = 8GgZV79flpOfc7+IrF6vq/I4g70d1fgi7QP7gKx6EwdfchB6bE/QdmHVEVPJb1hG7fGR3pQM5D3iEPbiyn3/cw
+
+# TODO: Change mail values in production
+spring.mail.from=info@test.it
+spring.mail.username=user
+spring.mail.password=pass
+spring.mail.host=127.0.0.1
+spring.mail.port=25
+spring.mail.protocol=smtp
+spring.mail.test-connection=false
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.encoding=UTF-8
+spring.mail.properties.mail.debug=true
+
+# TODO: customize in production
+firebase.credentials=classpath:firebase-service-account.json
+# TODO: set to true in production
+firebase.checkValidity=false

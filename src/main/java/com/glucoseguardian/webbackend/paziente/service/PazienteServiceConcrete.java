@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
@@ -52,6 +53,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   private AssunzioneFarmacoDao assunzioneFarmacoDao;
   @Autowired
   private PasswordEncoder passwordEncoder;
+  @Autowired
+  private MailService mailService;
 
   @Override
   public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente)
@@ -123,8 +126,6 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
       throw new IllegalArgumentException("Data non valida");
     }
 
-    //TODO: send email with password
-
     String randomPassword = RandomStringUtils.random(16, 0, 0, true, true, null,
         new SecureRandom());
 
@@ -167,6 +168,15 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     pazienteDao.save(pazienteEntity);
 
     // Check if entity is correctly saved
-    return pazienteDao.existsById(pazienteEntity.getCodiceFiscale());
+    boolean result = pazienteDao.existsById(pazienteEntity.getCodiceFiscale());
+
+    if (result) {
+      mailService.sendNotification("Account registrato",
+          "Ciao " + dto.getNome() + ",\nBenvenut* nella nostra piattaforma, "
+              + "questa è la tua password temporanea: " + randomPassword
+              + "\nTi invitiamo a cambiarla il prima possibile.", dto.getEmail());
+    }
+
+    return result;
   }
 }

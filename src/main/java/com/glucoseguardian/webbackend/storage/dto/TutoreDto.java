@@ -25,7 +25,6 @@ public class TutoreDto extends RisultatoDto implements Serializable {
   private String telefono;
   private String email;
   private String sesso;
-  private String relazioneDiParentela;
   private List<PazienteDto> pazienteList;
 
   public TutoreDto() {
@@ -35,8 +34,7 @@ public class TutoreDto extends RisultatoDto implements Serializable {
    * Construttore predefinito di TutoreDto.
    */
   public TutoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
-      String indirizzo, String telefono, String email, String sesso, String relazioneDiParentela,
-      List<PazienteDto> pazienteList) {
+      String indirizzo, String telefono, String email, String sesso, List<PazienteDto> pazienteList) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -45,7 +43,6 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     this.telefono = telefono;
     this.email = email;
     this.sesso = sesso;
-    this.relazioneDiParentela = relazioneDiParentela;
     this.pazienteList = pazienteList;
   }
 
@@ -111,14 +108,6 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
   public void setSesso(String sesso) {
     this.sesso = sesso;
-  }
-
-  public String getRelazioneDiParentela() {
-    return relazioneDiParentela;
-  }
-
-  public void setRelazioneDiParentela(String relazioneDiParentela) {
-    this.relazioneDiParentela = relazioneDiParentela;
   }
 
   public List<PazienteDto> getPazienteList() {
@@ -191,9 +180,5 @@ public class TutoreDto extends RisultatoDto implements Serializable {
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
-
-    Validate.notNull(relazioneDiParentela, "relazione di parentela non puo essere vuoto");
-    Validate.isTrue(relazioneDiParentela.length() <= 60,
-        "la lunghezza della relazione di parentela non è valida");
   }
 }

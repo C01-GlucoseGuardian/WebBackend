@@ -1,8 +1,10 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
+import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -26,4 +28,7 @@ public interface PazienteServiceInterface {
   @PreAuthorize("hasAuthority('DOTTORE')")
   boolean save(PazienteDto dto);
 
+  @PreAuthorize("hasAuthority('DOTTORE')")
+  boolean updateTutore(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)
+      throws UserNotFoundException;
 }

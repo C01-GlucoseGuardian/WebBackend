@@ -8,16 +8,21 @@ import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.NumeroTelefonoDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
+import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NumeroTelefonoDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
+import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
+import com.glucoseguardian.webbackend.storage.entity.Tutore;
+import jakarta.validation.constraints.Null;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.sql.Time;
@@ -27,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +61,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   private PasswordEncoder passwordEncoder;
   @Autowired
   private MailService mailService;
+  @Autowired
+  private TutoreDao tutoreDao;
 
   @Override
   public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente)
@@ -178,5 +186,28 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     }
 
     return result;
+  }
+
+  @Override
+  public boolean updateTutore(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)
+      throws UserNotFoundException {
+    Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
+    List<Tutore> nuoviTutori = new ArrayList<>();
+    if (result != null) {
+      for (CodiceFiscaleDto tmp : list) {
+        Tutore tutore = tutoreDao.findById(tmp.getCodiceFiscale()).orElse(null);
+        if (tutore != null) {
+          nuoviTutori.add(tutore);
+        } else {
+          throw new UserNotFoundException("Tutore non trovato.");
+        }
+      }
+    } else {
+      throw new UserNotFoundException("Paziente non trovato.");
+    }
+    result.getTutori().clear();
+    result.getTutori().addAll(nuoviTutori);
+    pazienteDao.save(result);
+    return true;
   }
 }

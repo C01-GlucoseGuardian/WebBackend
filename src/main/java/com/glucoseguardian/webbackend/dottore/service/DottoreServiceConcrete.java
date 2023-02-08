@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.dottore.service;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
@@ -33,6 +34,8 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   private AdminDao adminDao;
   @Autowired
   private MailService mailService;
+  @Autowired
+  private FirebaseService firebase;
 
   @Override
   public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) throws UserNotFoundException {
@@ -120,7 +123,9 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
       mailService.sendNotification("Nuovo dottore da convalidare",
           "Ciao,\n c'è un nuovo dottore da convalidare: " + entity.getEmail(),
           adminDao.findAll().stream().map(Admin::getEmail).toList());
-      // TODO: send firebase notification too
+      firebase.sendNotification("Nuovo dottore da convalidare",
+          "Ciao,\n c'è un nuovo dottore da convalidare: " + entity.getEmail(),
+          adminDao.findAll().stream().map(Admin::getEmail).toList());
     }
 
     return result;

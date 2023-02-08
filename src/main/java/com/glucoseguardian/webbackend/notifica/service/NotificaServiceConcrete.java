@@ -40,6 +40,8 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   private AdminDao adminDao;
   @Autowired
   private MailService mailService;
+  @Autowired
+  private FirebaseService firebaseService;
 
   @Override
   public NotificaDto findById(Long id) throws EntityNotFoundException {
@@ -53,7 +55,6 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
 
   @Override
   public boolean send(NotificaDto notificaDto) throws UserNotFoundException {
-    // TODO: Send notifications with firebase
     Notifica notifica = new Notifica(notificaDto.getMessaggio(),
         new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()),
         notificaDto.getStato());
@@ -116,6 +117,8 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
 
     if (result) {
       mailService.sendNotification("Hai una nuova notifica", notifica.getMessaggio(), destinatari);
+      firebaseService.sendNotification("Hai una nuova notifica", notifica.getMessaggio(),
+          destinatari);
     }
 
     return result;

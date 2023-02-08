@@ -4,13 +4,10 @@ import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.AbstractNotificaService;
 import com.glucoseguardian.webbackend.notifica.service.NotificaServiceInterface;
-import com.glucoseguardian.webbackend.storage.dto.AdminDto;
-import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
-import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
-import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
+import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,78 +56,23 @@ public class NotificaRest {
   }
 
   /**
-   * Metodo che gestisce il servizio Notifica findByPaziente.
+   * Metodo che gestisce il servizio Notifica getAll.
    */
-
-  @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getNotificaByPaziente(
-      @RequestBody PazienteDto input) throws UserNotFoundException {
+  @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getAll() throws Exception {
     ResponseEntity<RisultatoDto> response;
     try {
-      ListDto<NotificaDto> dto = getService().findByPaziente(input.getCodiceFiscale());
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
-      throw ex;
-    } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
-    }
-    return CompletableFuture.completedFuture(response);
-  }
+      Utente utente = (Utente) getAuthentication().getPrincipal();
+      ListDto<NotificaDto> dto;
 
-  /**
-   * Metodo che gestisce il servizio Feedback findByDottore.
-   */
+      switch (utente.getTipoUtente()) {
+        case ADMIN -> dto = getService().findByAdmin(utente.getCodiceFiscale());
+        case DOTTORE -> dto = getService().findByDottore(utente.getCodiceFiscale());
+        case PAZIENTE -> dto = getService().findByPaziente(utente.getCodiceFiscale());
+        case TUTORE -> dto = getService().findByTutore(utente.getCodiceFiscale());
+        default -> throw new AccessDeniedException("Utente non autorizzato");
+      }
 
-  @PostMapping(value = "/getByDottore", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getNotificaByDottore(
-      @RequestBody DottoreDto input) throws Exception {
-    ResponseEntity<RisultatoDto> response;
-    try {
-      ListDto<NotificaDto> dto = getService().findByDottore(input.getCodiceFiscale());
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
-      throw ex;
-    } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
-      ex.printStackTrace();
-    }
-    return CompletableFuture.completedFuture(response);
-  }
-
-  /**
-   * Metodo che gestisce il servizio Notifica getByTutore.
-   */
-  @PostMapping(value = "/getByTutore", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getNotificaByTutore(
-      @RequestBody TutoreDto input) throws Exception {
-    ResponseEntity<RisultatoDto> response;
-    try {
-      ListDto<NotificaDto> dto = getService().findByDottore(input.getCodiceFiscale());
-      response = new ResponseEntity<>(dto, HttpStatus.OK);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
-      throw ex;
-    } catch (Exception ex) {
-      response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
-          HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
-      ex.printStackTrace();
-    }
-    return CompletableFuture.completedFuture(response);
-  }
-
-  /**
-   * Metodo che gestisce il servizio Notifica getByAdmin.
-   */
-  @PostMapping(value = "/getByAdmin", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getNotificaByAdmin(
-      @RequestBody AdminDto input) throws Exception {
-    ResponseEntity<RisultatoDto> response;
-    try {
-      ListDto<NotificaDto> dto = getService().findByDottore(input.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -198,5 +143,9 @@ public class NotificaRest {
 
   private NotificaServiceInterface getService() {
     return notificaService.getImplementation();
+  }
+
+  private Authentication getAuthentication() {
+    return SecurityContextHolder.getContext().getAuthentication();
   }
 }

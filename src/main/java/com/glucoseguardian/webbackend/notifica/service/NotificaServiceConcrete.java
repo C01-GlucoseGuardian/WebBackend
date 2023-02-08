@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,14 +50,58 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   }
 
   @Override
-  public boolean send(NotificaDto notificaDto) {
+  public boolean send(NotificaDto notificaDto) throws UserNotFoundException {
     // TODO: Send notifications with email/firebase
-    // TODO: Set destinatario/oggetto
     Notifica notifica = new Notifica(notificaDto.getMessaggio(),
         new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()),
         notificaDto.getStato());
 
-    notificaDao.saveAndFlush(notifica);
+    if (notificaDto.getDottoreDestinatario() != null) {
+      Optional<Dottore> utente = dottoreDao.findById(notificaDto.getDottoreDestinatario());
+      if (utente.isPresent()) {
+        notifica.setDottoreDestinatario(utente.get());
+      } else {
+        throw new UserNotFoundException("Dottore non trovato");
+      }
+    }
+
+    if (notificaDto.getPazienteDestinatario() != null) {
+      Optional<Paziente> utente = pazienteDao.findById(notificaDto.getPazienteDestinatario());
+      if (utente.isPresent()) {
+        notifica.setPazienteDestinatario(utente.get());
+      } else {
+        throw new UserNotFoundException("Paziente non trovato");
+      }
+    }
+
+    if (notificaDto.getPazienteOggetto() != null) {
+      Optional<Paziente> utente = pazienteDao.findById(notificaDto.getPazienteOggetto());
+      if (utente.isPresent()) {
+        notifica.setPazienteOggetto(utente.get());
+      } else {
+        throw new UserNotFoundException("Paziente non trovato");
+      }
+    }
+
+    if (notificaDto.getTutoreDestinatario() != null) {
+      Optional<Tutore> utente = tutoreDao.findById(notificaDto.getTutoreDestinatario());
+      if (utente.isPresent()) {
+        notifica.setTutoreDestinatario(utente.get());
+      } else {
+        throw new UserNotFoundException("Tutore non trovato");
+      }
+    }
+
+    if (notificaDto.getAdminDestinatario() != null) {
+      Optional<Admin> utente = adminDao.findById(notificaDto.getAdminDestinatario());
+      if (utente.isPresent()) {
+        notifica.setAdminDestinatario(utente.get());
+      } else {
+        throw new UserNotFoundException("Admin non trovato");
+      }
+    }
+
+    notificaDao.save(notifica);
 
     return notificaDao.existsById(notifica.getId());
   }

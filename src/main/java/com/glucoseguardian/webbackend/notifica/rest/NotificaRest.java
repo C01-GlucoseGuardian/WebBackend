@@ -125,7 +125,7 @@ public class NotificaRest {
     boolean result = false;
     try {
       result = getService().send(input);
-    } catch (AccessDeniedException ex) {
+    } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
       ex.printStackTrace();

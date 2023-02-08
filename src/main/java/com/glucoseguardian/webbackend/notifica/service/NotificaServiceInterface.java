@@ -16,7 +16,7 @@ public interface NotificaServiceInterface {
   NotificaDto findById(Long id) throws EntityNotFoundException;
 
   @PreAuthorize("isAuthenticated()")
-  boolean send(NotificaDto notificaDto);
+  boolean send(NotificaDto notificaDto) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('PAZIENTE')")
   ListDto<NotificaDto> findByPaziente(String codiceFiscale) throws UserNotFoundException;

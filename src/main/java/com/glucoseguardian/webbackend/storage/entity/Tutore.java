@@ -65,7 +65,7 @@ public class Tutore implements Serializable, Utente {
    */
   public Tutore(String codiceFiscale, String nome, String cognome, Date dataNascita,
       String indirizzo, String telefono, String email, String password, char sesso, String totpKey,
-      String relazioneDiParentela, List<Paziente> pazienteList) {
+      List<Paziente> pazienteList) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;

@@ -85,8 +85,7 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
     // Create entity
     Tutore tutoreEntity = new Tutore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
         Date.valueOf(date), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
-        passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
-        dto.getRelazioneDiParentela(), Collections.emptyList());
+        passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null, Collections.emptyList());
     tutoreDao.save(tutoreEntity);
 
     Paziente paziente = pazienteDao.findById(cf).orElse(null);

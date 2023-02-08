@@ -172,14 +172,19 @@ public class PazienteRest {
               HttpStatus.INTERNAL_SERVER_ERROR));
     }
   }
+
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /updateTutore.
+   */
   @PostMapping(value = "/updateTutore", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatetutori (
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatetutori(
       @RequestBody TutoreUpdateDto input)
       throws EntityNotFoundException {
     input.validate();
     boolean result = false;
     try {
-      result = getService().updateTutore(input.getCodiceFiscaleDto(),input.getCodiceFiscaleTutori());
+      result = getService().updateTutore(input.getCodiceFiscaleDto(),
+          input.getCodiceFiscaleTutori());
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {

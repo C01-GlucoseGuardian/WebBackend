@@ -29,7 +29,7 @@ public class TutoreUpdateDto extends RisultatoDto implements Serializable {
   }
 
   public void setCodiceFiscaleDto(
-     String codiceFiscaleDto) {
+      String codiceFiscaleDto) {
     this.codiceFiscaleDto = codiceFiscaleDto;
   }
 
@@ -41,11 +41,15 @@ public class TutoreUpdateDto extends RisultatoDto implements Serializable {
       List<CodiceFiscaleDto> codiceFiscaleTutori) {
     this.codiceFiscaleTutori = codiceFiscaleTutori;
   }
-  public void validate(){
+
+  /**
+   * Validazione di TutoreUpdateDto.
+   */
+  public void validate() {
     Validate.notNull(codiceFiscaleDto, "Il codice fiscale non può essere vuoto");
     Validate.isTrue(codiceFiscaleDto.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
-    for (CodiceFiscaleDto tutore:codiceFiscaleTutori){
+    for (CodiceFiscaleDto tutore : codiceFiscaleTutori) {
       Validate.notNull(tutore, "Il codice fiscale non può essere vuoto");
       Validate.isTrue(tutore.getCodiceFiscale().length() == 16,
           "La lunghezza del codice fiscale deve essere di 16 caratteri");

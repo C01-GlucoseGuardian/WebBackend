@@ -45,6 +45,6 @@ public class MailService {
    */
   @Async
   public void sendNotification(String title, String message, List<String> destinatari) {
-    destinatari.forEach(email -> sendNotification(title, message, destinatari));
+    destinatari.forEach(email -> sendNotification(title, message, email));
   }
 }

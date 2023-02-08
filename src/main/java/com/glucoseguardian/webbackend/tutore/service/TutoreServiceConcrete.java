@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.tutore.service;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -32,6 +33,8 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   private TutoreDao tutoreDao;
   @Autowired
   private PasswordEncoder passwordEncoder;
+  @Autowired
+  private MailService mailService;
 
   @Override
   public TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) throws UserNotFoundException {
@@ -77,15 +80,14 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
       throw new UserNotFoundException("Paziente non trovato.");
     }
 
-    //TODO: send email with password
-
     String randomPassword = RandomStringUtils.random(16, 0, 0, true, true, null,
         new SecureRandom());
 
     // Create entity
     Tutore tutoreEntity = new Tutore(dto.getCodiceFiscale(), dto.getNome(), dto.getCognome(),
         Date.valueOf(date), dto.getIndirizzo(), dto.getTelefono(), dto.getEmail(),
-        passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null, Collections.emptyList());
+        passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
+        Collections.emptyList());
     tutoreDao.save(tutoreEntity);
 
     Paziente paziente = pazienteDao.findById(cf).orElse(null);
@@ -99,6 +101,14 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
     pazienteDao.save(paziente);
 
     // Check if entity is correctly saved
-    return tutoreDao.existsById(tutoreEntity.getCodiceFiscale());
+    boolean result = tutoreDao.existsById(tutoreEntity.getCodiceFiscale());
+    if (result) {
+      mailService.sendNotification("Account registrato",
+          "Ciao " + dto.getNome() + ",\nBenvenut* nella nostra piattaforma, "
+              + "questa è la tua password temporanea: " + randomPassword
+              + "\nTi invitiamo a cambiarla il prima possibile.", dto.getEmail());
+    }
+
+    return result;
   }
 }

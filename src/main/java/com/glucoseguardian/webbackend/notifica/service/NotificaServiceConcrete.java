@@ -38,6 +38,8 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   private TutoreDao tutoreDao;
   @Autowired
   private AdminDao adminDao;
+  @Autowired
+  private MailService mailService;
 
   @Override
   public NotificaDto findById(Long id) throws EntityNotFoundException {
@@ -51,15 +53,18 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
 
   @Override
   public boolean send(NotificaDto notificaDto) throws UserNotFoundException {
-    // TODO: Send notifications with email/firebase
+    // TODO: Send notifications with firebase
     Notifica notifica = new Notifica(notificaDto.getMessaggio(),
         new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()),
         notificaDto.getStato());
+
+    List<String> destinatari = new ArrayList<>();
 
     if (notificaDto.getDottoreDestinatario() != null) {
       Optional<Dottore> utente = dottoreDao.findById(notificaDto.getDottoreDestinatario());
       if (utente.isPresent()) {
         notifica.setDottoreDestinatario(utente.get());
+        destinatari.add(utente.get().getEmail());
       } else {
         throw new UserNotFoundException("Dottore non trovato");
       }
@@ -69,6 +74,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       Optional<Paziente> utente = pazienteDao.findById(notificaDto.getPazienteDestinatario());
       if (utente.isPresent()) {
         notifica.setPazienteDestinatario(utente.get());
+        destinatari.add(utente.get().getEmail());
       } else {
         throw new UserNotFoundException("Paziente non trovato");
       }
@@ -87,6 +93,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       Optional<Tutore> utente = tutoreDao.findById(notificaDto.getTutoreDestinatario());
       if (utente.isPresent()) {
         notifica.setTutoreDestinatario(utente.get());
+        destinatari.add(utente.get().getEmail());
       } else {
         throw new UserNotFoundException("Tutore non trovato");
       }
@@ -96,6 +103,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       Optional<Admin> utente = adminDao.findById(notificaDto.getAdminDestinatario());
       if (utente.isPresent()) {
         notifica.setAdminDestinatario(utente.get());
+        destinatari.add(utente.get().getEmail());
       } else {
         throw new UserNotFoundException("Admin non trovato");
       }
@@ -103,7 +111,14 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
 
     notificaDao.save(notifica);
 
-    return notificaDao.existsById(notifica.getId());
+    // Check if entity is correctly saved
+    boolean result = notificaDao.existsById(notifica.getId());
+
+    if (result) {
+      mailService.sendNotification("Hai una nuova notifica", notifica.getMessaggio(), destinatari);
+    }
+
+    return result;
   }
 
   @Override

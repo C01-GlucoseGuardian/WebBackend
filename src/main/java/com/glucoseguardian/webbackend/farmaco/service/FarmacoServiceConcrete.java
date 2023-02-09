@@ -10,12 +10,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
  * This is an implementation of FarmacoServiceInterface.
  */
 @Service
+@Primary
 public class FarmacoServiceConcrete implements FarmacoServiceInterface {
 
   @Autowired

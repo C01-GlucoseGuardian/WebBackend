@@ -3,17 +3,13 @@ package com.glucoseguardian.webbackend.tutore.rest;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
-import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
-import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
-import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.tutore.service.AbstractTutoreService;
 import com.glucoseguardian.webbackend.tutore.service.TutoreServiceInterface;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TutoreRest {
 
   @Autowired
-  @Qualifier("finalTutoreService")
   private AbstractTutoreService tutoreService;
 
   /**

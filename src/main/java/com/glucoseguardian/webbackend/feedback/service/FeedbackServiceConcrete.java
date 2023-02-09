@@ -2,7 +2,6 @@ package com.glucoseguardian.webbackend.feedback.service;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
-import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
@@ -14,12 +13,14 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
  * This is an implementation of FeedbackServiceInterface.
  */
 @Service
+@Primary
 public class FeedbackServiceConcrete implements FeedbackServiceInterface {
 
   @Autowired

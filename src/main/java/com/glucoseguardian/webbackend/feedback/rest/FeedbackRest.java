@@ -5,15 +5,12 @@ import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.feedback.service.AbstractFeedbackService;
 import com.glucoseguardian.webbackend.feedback.service.FeedbackServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
-import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
-import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeedbackRest {
 
   @Autowired
-  @Qualifier("finalFeedbackService")
   private AbstractFeedbackService feedbackService;
 
   /**

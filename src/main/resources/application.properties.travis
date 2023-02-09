@@ -1,7 +1,7 @@
 ## This is the configuration for travis CI
 
 # update: Hibernate changes the database according to the given entity structures.
-# TODO: Switch to none in production
+# TODO: Switch to update in production
 spring.jpa.hibernate.ddl-auto=create-drop
 spring.datasource.url=jdbc:postgresql://localhost:5432/travis_ci_test
 # TODO: Change credentials in production
@@ -35,3 +35,11 @@ auth.pbkdf.iterations = 1
 auth.pbkdf.saltLength = 16
 # TODO: Set secret in production
 auth.pbkdf.secret =
+
+## Database initialization
+# Always initialize database - TODO: switch to never in production
+spring.sql.init.mode=never
+# Let hibernate do its own initialization before spring jpa
+spring.jpa.defer-datasource-initialization=true
+# Data sql path - Note that changing the pbkdf settings above will invalidate the passwords
+spring.sql.init.data-locations=classpath:data.sql

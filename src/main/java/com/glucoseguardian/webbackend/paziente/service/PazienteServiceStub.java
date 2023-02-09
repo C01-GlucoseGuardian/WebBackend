@@ -1,7 +1,10 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +35,11 @@ public class PazienteServiceStub implements PazienteServiceInterface {
 
   @Override
   public boolean save(PazienteDto dto) {
+    return true;
+  }
+
+  @Override
+  public boolean updateTutori(String codiceFiscalePaziente, List<CodiceFiscaleDto> list) {
     return true;
   }
 }

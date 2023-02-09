@@ -120,7 +120,7 @@ public class NotificaRest {
 
   @PostMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveNotifica(
-      @RequestBody NotificaDto input) throws UserNotFoundException, IllegalAccessException {
+      @RequestBody NotificaDto input) throws UserNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
     input.validateNotifica();

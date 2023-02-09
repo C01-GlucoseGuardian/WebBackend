@@ -69,7 +69,11 @@ public class LoginInputDto extends RisultatoDto implements Serializable {
     Validate.notNull(password, "la vecchia password non può essere vuota");
     Validate.notNull(newPassword, "la nuova password non può essere vuota");
     Validate.isTrue(password.equals(newPassword),
-        "la nuova password non può essere uguale alla vecchia passowrd");
+        "la nuova password non può essere uguale alla vecchia password");
+  }
+
+  public void validatePw() {
+    Validate.notNull(password, "la vecchia password non può essere vuota");
   }
 
   /**

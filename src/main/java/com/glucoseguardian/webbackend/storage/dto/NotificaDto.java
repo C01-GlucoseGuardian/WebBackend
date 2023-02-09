@@ -179,7 +179,7 @@ public class NotificaDto extends RisultatoDto implements Serializable {
     this.stato = stato;
   }
 
-  public void validateStato() {
+  public void validateStato() throws IllegalArgumentException {
     Validate.notNull(stato, "lo stato del messaggio non può essere assente");
     Validate.isTrue(stato >= 0 && stato <= 4, "lo stato del messaggio è errato");
   }
@@ -187,9 +187,9 @@ public class NotificaDto extends RisultatoDto implements Serializable {
   /**
    *  validazione della notifica.
    */
-  public void validateNotifica() throws IllegalAccessException {
+  public void validateNotifica() throws IllegalArgumentException {
     Validate.notNull(messaggio, "il messaggio della notifica non può essere assente");
-    Validate.isTrue(messaggio.length() >= 1024 && messaggio.length() <= 1,
+    Validate.isTrue(messaggio.length() <= 1024 && messaggio.length() >= 1,
         "il messaggio della notifica è di lunghezza errata");
     Validate.notNull(pazienteOggetto, "il paziente oggetto non può essere assente");
     Validate.isTrue(pazienteOggetto.length() == 16,

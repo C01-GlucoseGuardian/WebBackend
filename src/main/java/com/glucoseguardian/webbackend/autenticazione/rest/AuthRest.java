@@ -72,7 +72,7 @@ public class AuthRest {
       @RequestBody LoginInputDto input) throws Exception {
 
     // TODO: Add custom checks (es. length, null etc..)
-    input.validateChangePw();
+    input.validatePw();
     TotpDto dto = getService().getTotpKey(getAuthentication().getName(), input.getPassword(),
         input.getOtp());
     ResponseEntity<RisultatoDto> response = new ResponseEntity<>(dto, HttpStatus.OK);

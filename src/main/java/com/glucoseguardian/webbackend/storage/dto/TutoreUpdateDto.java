@@ -49,9 +49,7 @@ public class TutoreUpdateDto extends RisultatoDto implements Serializable {
     Validate.isTrue(idPaziente.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
     for (CodiceFiscaleDto tutore : list) {
-      Validate.notNull(tutore, "Il codice fiscale non può essere vuoto");
-      Validate.isTrue(tutore.getCodiceFiscale().length() == 16,
-          "La lunghezza del codice fiscale deve essere di 16 caratteri");
+      tutore.validate();
     }
   }
 }

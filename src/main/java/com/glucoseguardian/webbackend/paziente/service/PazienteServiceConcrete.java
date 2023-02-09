@@ -32,6 +32,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -162,8 +163,15 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     for (AssunzioneFarmacoDto farmacoDto : dto.getTerapia().getFarmaci()) {
       Farmaco farmaco = farmacoDao.findById(farmacoDto.getIdFarmaco()).orElse(null);
       if (farmaco != null) {
+        StringBuilder orarioAssunzione = new StringBuilder(farmacoDto.getOrarioAssunzione());
+        int matches = StringUtils.countMatches(orarioAssunzione.toString(), ":");
+        while (matches < 2) {
+          orarioAssunzione.append(":00");
+          matches++;
+        }
+        Time time = Time.valueOf(orarioAssunzione.toString());
         AssunzioneFarmaco assFarmaco = new AssunzioneFarmaco(farmaco, farmacoDto.getDosaggio(),
-            Time.valueOf(farmacoDto.getOrarioAssunzione()), farmacoDto.getViaDiSomministrazione(),
+            time, farmacoDto.getViaDiSomministrazione(),
             farmacoDto.getViaDiSomministrazione());
         assunzioneFarmacoDao.save(assFarmaco);
       }

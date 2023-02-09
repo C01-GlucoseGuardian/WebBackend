@@ -19,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(uniqueConstraints = {
     @UniqueConstraint(
-        columnNames = {"productId", "serial"})
+        columnNames = {"paziente", "numero"})
 })
 public class NumeroTelefono implements Serializable {
 

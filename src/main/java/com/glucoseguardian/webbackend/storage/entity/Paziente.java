@@ -50,7 +50,7 @@ public class Paziente implements Serializable, Utente {
       joinColumns = @JoinColumn(name = "paziente"),
       inverseJoinColumns = @JoinColumn(name = "tutore"),
       uniqueConstraints = {
-          @UniqueConstraint(columnNames = {"productId", "serial"})
+          @UniqueConstraint(columnNames = {"paziente", "tutore"})
       }
   )
   List<Tutore> tutori;

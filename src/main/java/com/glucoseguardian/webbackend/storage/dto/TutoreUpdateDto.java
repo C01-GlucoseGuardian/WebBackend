@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
@@ -12,44 +11,44 @@ import org.apache.commons.lang3.Validate;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class TutoreUpdateDto extends RisultatoDto implements Serializable {
 
-  private String codiceFiscaleDto;
-  private List<CodiceFiscaleDto> codiceFiscaleTutori;
+  private String idPaziente;
+  private List<CodiceFiscaleDto> list;
 
-  public TutoreUpdateDto(String codiceFiscaleDto,
-      List<CodiceFiscaleDto> codiceFiscaleTutori) {
-    this.codiceFiscaleDto = codiceFiscaleDto;
-    this.codiceFiscaleTutori = codiceFiscaleTutori;
+  public TutoreUpdateDto(String idPaziente,
+      List<CodiceFiscaleDto> list) {
+    this.idPaziente = idPaziente;
+    this.list = list;
   }
 
   public TutoreUpdateDto() {
   }
 
-  public String getCodiceFiscaleDto() {
-    return codiceFiscaleDto;
+  public String getIdPaziente() {
+    return idPaziente;
   }
 
-  public void setCodiceFiscaleDto(
-      String codiceFiscaleDto) {
-    this.codiceFiscaleDto = codiceFiscaleDto;
+  public void setIdPaziente(
+      String idPaziente) {
+    this.idPaziente = idPaziente;
   }
 
-  public List<CodiceFiscaleDto> getCodiceFiscaleTutori() {
-    return codiceFiscaleTutori;
+  public List<CodiceFiscaleDto> getList() {
+    return list;
   }
 
-  public void setCodiceFiscaleTutori(
-      List<CodiceFiscaleDto> codiceFiscaleTutori) {
-    this.codiceFiscaleTutori = codiceFiscaleTutori;
+  public void setList(
+      List<CodiceFiscaleDto> list) {
+    this.list = list;
   }
 
   /**
    * Validazione di TutoreUpdateDto.
    */
   public void validate() {
-    Validate.notNull(codiceFiscaleDto, "Il codice fiscale non può essere vuoto");
-    Validate.isTrue(codiceFiscaleDto.length() == 16,
+    Validate.notNull(idPaziente, "Il codice fiscale non può essere vuoto");
+    Validate.isTrue(idPaziente.length() == 16,
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
-    for (CodiceFiscaleDto tutore : codiceFiscaleTutori) {
+    for (CodiceFiscaleDto tutore : list) {
       Validate.notNull(tutore, "Il codice fiscale non può essere vuoto");
       Validate.isTrue(tutore.getCodiceFiscale().length() == 16,
           "La lunghezza del codice fiscale deve essere di 16 caratteri");

@@ -189,7 +189,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public boolean updateTutore(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)
+  public boolean updateTutori(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)
       throws UserNotFoundException {
     Paziente result = pazienteDao.findById(codiceFiscalePaziente).orElse(null);
     List<Tutore> nuoviTutori = new ArrayList<>();

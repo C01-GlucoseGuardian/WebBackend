@@ -42,8 +42,8 @@ public class GlicemiaDto extends RisultatoDto implements Serializable {
     this.timestamp = timestamp;
   }
 
-  public void validate() throws IllegalArgumentException{
-    Validate.notNull(livelloGlucosio,"il livello di glucosio non può essere assente");
-    Validate.notNull(timestamp,"l'ora non può essere assente");
+  public void validate() throws IllegalArgumentException {
+    Validate.notNull(livelloGlucosio, "il livello di glucosio non può essere assente");
+    Validate.notNull(timestamp, "l'ora non può essere assente");
   }
 }

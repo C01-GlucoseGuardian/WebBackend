@@ -51,11 +51,18 @@ public class GlicemiaInputDto extends RisultatoDto implements Serializable {
     this.end = end;
   }
 
+  /**
+   *  validazione del codice fiscale del paziente.
+   */
   public void validateIdPaziente() {
     Validate.notNull(idPaziente, "il codice fiscale del paziente non può essere vuoto");
     Validate.isTrue(idPaziente.length() == 16,
         "il codice fiscale del paziente è di lunghezza errata");
   }
+
+  /**
+   *  validazione del range.
+   */
 
   public void validateRange() {
     Validate.notNull(idPaziente, "il codice fiscale del paziente non può essere vuoto");

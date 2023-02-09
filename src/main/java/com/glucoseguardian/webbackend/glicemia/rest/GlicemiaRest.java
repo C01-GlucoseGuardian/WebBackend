@@ -96,7 +96,7 @@ public class GlicemiaRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     boolean result = false;
-    for(GlicemiaDto glicemiaDto:list.getList()){
+    for (GlicemiaDto glicemiaDto : list.getList()) {
       glicemiaDto.validate();
     }
     try {

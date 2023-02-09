@@ -62,11 +62,19 @@ public class LoginInputDto extends RisultatoDto implements Serializable {
     this.newPassword = newPassword;
   }
 
-  public void validateChangePw(){
-    Validate.notNull(password,"la vecchia password non può essere vuota");
-    Validate.notNull(newPassword,"la nuova password non può essere vuota");
-    Validate.isTrue(password.equals(newPassword),"la nuova password non può essere uguale alla vecchia passowrd");
+  /**
+   *  validazione del cambio password.
+   */
+  public void validateChangePw() {
+    Validate.notNull(password, "la vecchia password non può essere vuota");
+    Validate.notNull(newPassword, "la nuova password non può essere vuota");
+    Validate.isTrue(password.equals(newPassword),
+        "la nuova password non può essere uguale alla vecchia passowrd");
   }
+
+  /**
+   *  validazione del login.
+   */
   public void validate() {
     Validate.notNull(email, "la mail non può essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");

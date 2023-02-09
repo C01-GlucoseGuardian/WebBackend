@@ -223,7 +223,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
 
   public void validateStato(DottoreDto dottoreDto) throws IllegalArgumentException {
     Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere assente");
-    Validate.isTrue(dottoreDto.getStato() >= 1 && dottoreDto.getStato() <= 4,
+    Validate.isTrue(dottoreDto.getStato() >= 0 && dottoreDto.getStato() <= 2,
         "Lo stato del dottore non è valido");
   }
 

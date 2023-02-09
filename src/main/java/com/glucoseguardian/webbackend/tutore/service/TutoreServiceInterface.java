@@ -2,7 +2,9 @@ package com.glucoseguardian.webbackend.tutore.service;
 
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
+import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 

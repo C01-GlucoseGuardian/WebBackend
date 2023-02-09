@@ -1,15 +1,15 @@
 package com.glucoseguardian.webbackend.paziente.rest;
 
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.paziente.service.AbstractPazienteService;
 import com.glucoseguardian.webbackend.paziente.service.PazienteServiceInterface;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
-import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RicercaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
-import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
+import com.glucoseguardian.webbackend.storage.dto.TutoreUpdateDto;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +167,35 @@ public class PazienteRest {
               HttpStatus.INTERNAL_SERVER_ERROR));
     }
   }
-  //CHECK: forse manca updateTutore
+
+  /**
+   * Metodo che si occupa delle richieste post all'endpoint /updateTutori.
+   */
+  @PostMapping(value = "/updateTutori", produces = MediaType.APPLICATION_JSON_VALUE)
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatetutori(
+      @RequestBody TutoreUpdateDto input)
+      throws EntityNotFoundException {
+    input.validate();
+    boolean result = false;
+    try {
+      result = getService().updateTutori(input.getIdPaziente(),
+          input.getList());
+    } catch (EntityNotFoundException | AccessDeniedException ex) {
+      throw ex;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+    if (result) {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Tutori modificati correttamente"),
+              HttpStatus.OK));
+    } else {
+      return CompletableFuture.completedFuture(
+          new ResponseEntity<>(new RisultatoDto("Errore nell'aggiornamento dei tutori"),
+              HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+  }
 
   private PazienteServiceInterface getService() {
     return pazienteService.getImplementation();

@@ -121,7 +121,6 @@ public class NotificaRest {
       @RequestBody NotificaDto input) throws UserNotFoundException {
 
     // TODO: Add custom checks (es. length, null etc..)
-
     boolean result = false;
     try {
       result = getService().send(input);

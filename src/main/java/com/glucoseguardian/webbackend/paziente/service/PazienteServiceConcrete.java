@@ -8,7 +8,9 @@ import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
 import com.glucoseguardian.webbackend.storage.dao.NumeroTelefonoDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
+import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NumeroTelefonoDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
@@ -18,6 +20,7 @@ import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
+import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.sql.Time;
@@ -55,6 +58,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   private PasswordEncoder passwordEncoder;
   @Autowired
   private MailService mailService;
+  @Autowired
+  private TutoreDao tutoreDao;
 
   @Override
   public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente)
@@ -178,5 +183,29 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     }
 
     return result;
+  }
+
+  @Override
+  public boolean updateTutori(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)
+      throws UserNotFoundException {
+    Paziente result;
+    List<Tutore> nuoviTutori = new ArrayList<>();
+    try {
+      result = pazienteDao.getReferenceById(codiceFiscalePaziente);
+      for (CodiceFiscaleDto tmp : list) {
+        try {
+          Tutore tutore = tutoreDao.getReferenceById(tmp.getCodiceFiscale());
+          nuoviTutori.add(tutore);
+        } catch (Exception ex) {
+          throw new UserNotFoundException("Tutore non trovato.");
+        }
+      }
+    } catch (Exception ex) {
+      throw new UserNotFoundException("Paziente non trovato.");
+    }
+    result.getTutori().clear();
+    result.getTutori().addAll(nuoviTutori);
+    pazienteDao.save(result);
+    return true;
   }
 }

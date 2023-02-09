@@ -12,6 +12,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
@@ -43,8 +45,14 @@ public class Paziente implements Serializable, Utente {
   @JoinColumn(name = "dottore")
   Dottore dottore;
   @ManyToMany
-  @JoinTable(name = "pazienteTutore", joinColumns = @JoinColumn(name = "paziente"),
-      inverseJoinColumns = @JoinColumn(name = "tutore"))
+  @JoinTable(
+      name = "pazienteTutore",
+      joinColumns = @JoinColumn(name = "paziente"),
+      inverseJoinColumns = @JoinColumn(name = "tutore"),
+      uniqueConstraints = {
+          @UniqueConstraint(columnNames = {"paziente", "tutore"})
+      }
+  )
   List<Tutore> tutori;
 
   @Id

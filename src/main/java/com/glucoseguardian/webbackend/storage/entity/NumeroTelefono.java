@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,6 +17,10 @@ import java.util.Objects;
  * Questa classe rappresenta l'entity NumeroTelefono.
  */
 @Entity
+@Table(uniqueConstraints = {
+    @UniqueConstraint(
+        columnNames = {"paziente", "numero"})
+})
 public class NumeroTelefono implements Serializable {
 
   @Id

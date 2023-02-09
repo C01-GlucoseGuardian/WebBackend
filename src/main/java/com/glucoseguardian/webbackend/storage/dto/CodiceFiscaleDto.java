@@ -12,6 +12,10 @@ import org.apache.commons.lang3.Validate;
 public class CodiceFiscaleDto extends RisultatoDto implements Serializable {
   private String codiceFiscale;
 
+  public CodiceFiscaleDto() {
+
+  }
+
   public CodiceFiscaleDto(String codiceFiscale) {
     this.codiceFiscale = codiceFiscale;
   }

@@ -28,3 +28,10 @@ spring.mail.properties.mail.debug=true
 firebase.credentials=classpath:firebase-service-account.json
 # TODO: set to true in production
 firebase.checkValidity=false
+
+## Warning, changing these options will invalidate all stored passwords!!!
+# TODO: set at least 600 iterations in production
+auth.pbkdf.iterations = 1
+auth.pbkdf.saltLength = 16
+# TODO: Set secret in production
+auth.pbkdf.secret =

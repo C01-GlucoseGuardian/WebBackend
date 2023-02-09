@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -20,6 +22,10 @@ import java.util.Objects;
  * Questa classe rappresenta l'entità Terapia.
  */
 @Entity
+@Table(uniqueConstraints = {
+    @UniqueConstraint(
+        columnNames = {"productId", "serial"})
+})
 public class Terapia implements Serializable {
 
   @Id

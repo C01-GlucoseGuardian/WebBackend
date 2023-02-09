@@ -4,6 +4,7 @@ import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.AbstractNotificaService;
 import com.glucoseguardian.webbackend.notifica.service.NotificaServiceInterface;
+import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -40,10 +41,11 @@ public class NotificaRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getNotifica(
-      @RequestBody NotificaDto input) throws EntityNotFoundException {
+      @RequestBody IdDto idNotifica) throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    idNotifica.validate();
     try {
-      NotificaDto dto = getService().findById(input.getId());
+      NotificaDto dto = getService().findById(idNotifica.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -64,7 +66,6 @@ public class NotificaRest {
     try {
       Utente utente = (Utente) getAuthentication().getPrincipal();
       ListDto<NotificaDto> dto;
-
       switch (utente.getTipoUtente()) {
         case ADMIN -> dto = getService().findByAdmin(utente.getCodiceFiscale());
         case DOTTORE -> dto = getService().findByDottore(utente.getCodiceFiscale());
@@ -92,6 +93,7 @@ public class NotificaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatesato(
       @RequestBody NotificaDto input)
       throws EntityNotFoundException {
+    input.validateStato();
     boolean result = false;
     try {
       result = getService().updateStato(input.getId(), input.getStato());
@@ -118,9 +120,10 @@ public class NotificaRest {
 
   @PostMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveNotifica(
-      @RequestBody NotificaDto input) throws UserNotFoundException {
+      @RequestBody NotificaDto input) throws UserNotFoundException, IllegalAccessException {
 
     // TODO: Add custom checks (es. length, null etc..)
+    input.validateNotifica();
     boolean result = false;
     try {
       result = getService().send(input);

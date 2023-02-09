@@ -45,7 +45,7 @@ public class GlicemiaRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    glicemia.validateIdPaziente();
     try {
       GlicemiaDto dto = getService().getLast(glicemia.getIdPaziente());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
@@ -70,7 +70,7 @@ public class GlicemiaRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-
+    glicemia.validateRange();
     try {
       ListDto<GlicemiaDto> dto = getService().getRange(glicemia.getIdPaziente(),
           glicemia.getStart(), glicemia.getEnd());
@@ -96,6 +96,9 @@ public class GlicemiaRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     boolean result = false;
+    for(GlicemiaDto glicemiaDto:list.getList()){
+      glicemiaDto.validate();
+    }
     try {
       Utente paziente = (Utente) getAuthentication().getPrincipal();
       result = getService().send(paziente.getCodiceFiscale(), list);

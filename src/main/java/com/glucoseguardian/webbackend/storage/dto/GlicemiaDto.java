@@ -3,6 +3,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.glucoseguardian.webbackend.storage.entity.Glicemia;
 import java.io.Serializable;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'output dell'entità glicemia.
@@ -39,5 +40,10 @@ public class GlicemiaDto extends RisultatoDto implements Serializable {
 
   public void setTimestamp(Long timestamp) {
     this.timestamp = timestamp;
+  }
+
+  public void validate() throws IllegalArgumentException{
+    Validate.notNull(livelloGlucosio,"il livello di glucosio non può essere assente");
+    Validate.notNull(timestamp,"l'ora non può essere assente");
   }
 }

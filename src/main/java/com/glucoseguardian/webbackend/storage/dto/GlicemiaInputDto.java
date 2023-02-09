@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'input dell'entità glicemia.
@@ -48,5 +49,19 @@ public class GlicemiaInputDto extends RisultatoDto implements Serializable {
 
   public void setEnd(Long end) {
     this.end = end;
+  }
+
+  public void validateIdPaziente() {
+    Validate.notNull(idPaziente, "il codice fiscale del paziente non può essere vuoto");
+    Validate.isTrue(idPaziente.length() == 16,
+        "il codice fiscale del paziente è di lunghezza errata");
+  }
+
+  public void validateRange() {
+    Validate.notNull(idPaziente, "il codice fiscale del paziente non può essere vuoto");
+    Validate.isTrue(idPaziente.length() == 16,
+        "il codice fiscale del paziente è di lunghezza errata");
+    Validate.notNull(start, "start non può essere vuoto");
+    Validate.notNull(end, "end non può essere vuoto");
   }
 }

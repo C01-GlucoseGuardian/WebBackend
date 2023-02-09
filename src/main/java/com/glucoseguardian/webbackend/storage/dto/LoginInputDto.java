@@ -3,6 +3,8 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'input delle funzioni di login.
@@ -58,5 +60,18 @@ public class LoginInputDto extends RisultatoDto implements Serializable {
 
   public void setNewPassword(String newPassword) {
     this.newPassword = newPassword;
+  }
+
+  public void validateChangePw(){
+    Validate.notNull(password,"la vecchia password non può essere vuota");
+    Validate.notNull(newPassword,"la nuova password non può essere vuota");
+    Validate.isTrue(password.equals(newPassword),"la nuova password non può essere uguale alla vecchia passowrd");
+  }
+  public void validate() {
+    Validate.notNull(email, "la mail non può essere assente");
+    Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
+    Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
+
+    Validate.notNull(password, "la password non può essere assente");
   }
 }

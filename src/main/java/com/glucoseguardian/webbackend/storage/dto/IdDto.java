@@ -11,7 +11,7 @@ import org.apache.commons.lang3.Validate;
 @JsonInclude(Include.NON_ABSENT)
 public class IdDto extends RisultatoDto implements Serializable {
 
-  private long id;
+  private Long id;
 
   public IdDto() {
   }

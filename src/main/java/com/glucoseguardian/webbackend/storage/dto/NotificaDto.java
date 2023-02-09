@@ -6,6 +6,8 @@ import com.glucoseguardian.webbackend.storage.entity.Notifica;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta il dto dell'entita notifica.
@@ -69,12 +71,6 @@ public class NotificaDto extends RisultatoDto implements Serializable {
    * Costruisce un {@link NotificaDto} a partire da un {@link Notifica}.
    */
   public static NotificaDto valueOf(Notifica notifica) {
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    String dataNotificaDto = dateFormat.format(notifica.getData());
-
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-    String timeString = sdf.format(notifica.getOra());
-
     NotificaDto notificaDto = new NotificaDto();
     notificaDto.setId(notificaDto.getId());
     if (notifica.getPazienteOggetto() != null) {
@@ -92,6 +88,10 @@ public class NotificaDto extends RisultatoDto implements Serializable {
     if (notifica.getDottoreDestinatario() != null) {
       notificaDto.setDottoreDestinatario(notifica.getDottoreDestinatario().getCodiceFiscale());
     }
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    String dataNotificaDto = dateFormat.format(notifica.getData());
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    String timeString = sdf.format(notifica.getOra());
     notificaDto.setMessaggio(notifica.getMessaggio());
     notificaDto.setData(dataNotificaDto);
     notificaDto.setTime(timeString);
@@ -179,5 +179,38 @@ public class NotificaDto extends RisultatoDto implements Serializable {
     this.stato = stato;
   }
 
+  public void validateStato() throws IllegalArgumentException {
+    Validate.notNull(stato, "lo stato del messaggio non può essere assente");
+    Validate.isTrue(stato >= 0 && stato <= 4, "lo stato del messaggio è errato");
+  }
 
+  /**
+   *  validazione della notifica.
+   */
+  public void validateNotifica() throws IllegalArgumentException {
+    Validate.notNull(messaggio, "il messaggio della notifica non può essere assente");
+    Validate.isTrue(messaggio.length() <= 1024 && messaggio.length() >= 1,
+        "il messaggio della notifica è di lunghezza errata");
+    Validate.notNull(pazienteOggetto, "il paziente oggetto non può essere assente");
+    Validate.isTrue(pazienteOggetto.length() == 16,
+        "la lunghezza del codice fiscale deve essere 16 caratteri");
+    if (pazienteDestinatario == null && tutoreDestinatario == null && adminDestinatario == null
+        && dottoreDestinatario == null) {
+      throw new IllegalArgumentException("Tutti i destinatari sono vuoti");
+    }
+    if (pazienteDestinatario != null) {
+      Validate.isTrue(pazienteDestinatario.length() == 16,
+          "il codice fiscale è di lunghezza errata");
+    }
+    if (tutoreDestinatario != null) {
+      Validate.isTrue(tutoreDestinatario.length() == 16, "il codice fiscale è di lunghezza errata");
+    }
+    if (adminDestinatario != null) {
+      Validate.isTrue(adminDestinatario.length() == 16, "il codice fiscale è di lunghezza errata");
+    }
+    if (dottoreDestinatario != null) {
+      Validate.isTrue(dottoreDestinatario.length() == 16,
+          "il codice fiscale è di lunghezza errata");
+    }
+  }
 }

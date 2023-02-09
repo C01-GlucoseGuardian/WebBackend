@@ -11,8 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 
 /**
  * JavaSpring configuration.
@@ -24,14 +22,8 @@ public class AppConfig {
   @Autowired
   private UtenteDao utenteDao;
 
-  /**
-   * Usa PBKDF2 come raccomandato dal NIST con i valori consigliati da OWASP.
-   */
-  @Bean
-  public PasswordEncoder encoder() {
-    return new Pbkdf2PasswordEncoder("", 16, 600_000,
-        SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
-  }
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Bean
   public @NonNull UserDetailsService userDetailsService() throws UsernameNotFoundException {
@@ -46,7 +38,7 @@ public class AppConfig {
   public @NonNull AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService());
-    authProvider.setPasswordEncoder(encoder());
+    authProvider.setPasswordEncoder(passwordEncoder);
     return authProvider;
   }
 }

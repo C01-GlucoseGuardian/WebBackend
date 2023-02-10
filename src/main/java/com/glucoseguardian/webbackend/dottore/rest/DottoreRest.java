@@ -155,6 +155,8 @@ public class DottoreRest {
     } catch (AccessDeniedException | UserNotFoundException ex) {
       // These exceptions are managed by CustomExceptionHandler
       throw ex;
+    } catch (ClassCastException ex) {
+      throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
       ex.printStackTrace();
     }

@@ -75,6 +75,8 @@ public class NotificaRest {
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
+    } catch (ClassCastException ex) {
+      throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
           HttpStatus.INTERNAL_SERVER_ERROR);

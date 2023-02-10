@@ -153,11 +153,11 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(nome, "Il nome non puo essere vuoto");
     Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
-        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+        "La lunghezza del nome non è valida");
 
-    Validate.notNull(cognome, "Il cognome non puo essere vuoto");
+    Validate.notNull(cognome, "Il cognome non può essere vuoto");
     Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
-        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+        "La lunghezza del cognome non è valida");
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto");
     Pattern pattern = Pattern.compile("^M|F$");
@@ -175,7 +175,7 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(telefono, "telefono non puo essere assente");
     Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono non è valido");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il campo numero di telefono non rispetta il formato");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,

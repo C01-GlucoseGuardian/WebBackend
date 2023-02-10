@@ -43,8 +43,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo del nome non è stato compilato");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del nome non è valida");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -63,8 +62,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo del cognome non è stato compilato");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del cognome non è valida");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -84,7 +82,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo del codice fiscale non rispetta il formato");
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -104,8 +102,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché è già presente un profilo tutore nel sistema con lo stesso codice fiscale (PGRVTT06G22H501E)");
+    RisultatoDto oracolo = new RisultatoDto("Codice fiscale già presente nel database");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -124,8 +121,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo sesso non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("il sesso non è valido");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -139,14 +135,13 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/0687/2001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo data di nascita non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("la data nascita inserita non è valida");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -160,14 +155,13 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/07/3001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo data di nascita è nel futuro");
+    RisultatoDto oracolo = new RisultatoDto("La data di nascita è nel futuro");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -181,14 +175,13 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/07/2001");
     tutore.setEmail("vitopiegari.it");
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo email non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("L'email non è valida");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -204,14 +197,13 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/07/2001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché l’email inserita è gia presente nel sistema");
+    RisultatoDto oracolo = new RisultatoDto("Email già presente nel database");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -224,14 +216,13 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/07/2001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("36f2324kjkk");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo numero di telefono non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("il campo numero di telefono non rispetta il formato");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -244,15 +235,14 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("M");
     tutore.setDataNascita("10/07/2001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("36f2324kjkk");
     tutore.setIndirizzo(
         "C.so Garibaldi, 12 22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222rrwasd22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
 
-    RisultatoDto oracolo = new RisultatoDto(
-        "Il tutore non è stato inserito perché il campo indirizzo supera la lunghezza massima consentita");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza dell'indirizzo non è valida");
     testSave(tutore, status().isBadRequest(), oracolo);
   }
 
@@ -271,7 +261,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
-    RisultatoDto oracolo = new RisultatoDto("Il tutore è stato inserito correttamente");
+    RisultatoDto oracolo = new RisultatoDto("Tutore inserito correttamente");
     testSave(tutore, status().isOk(), oracolo);
   }
 

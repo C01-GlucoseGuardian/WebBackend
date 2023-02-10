@@ -56,6 +56,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setDosaggio("1 mg");
     input2.setOrarioAssunzione("20:00");
     input2.setViaDiSomministrazione("orale");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 
@@ -76,6 +77,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setOrarioAssunzione("13:00");
     input2.setDosaggio("");
     input2.setViaDiSomministrazione("orale");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 
@@ -95,6 +97,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setDosaggio("2 mg");
     input2.setOrarioAssunzione("13.00");
     input2.setViaDiSomministrazione("orale");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 
@@ -114,6 +117,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setDosaggio("2.5 mg");
     input2.setOrarioAssunzione("12:00");
     input2.setViaDiSomministrazione("");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 
@@ -139,6 +143,7 @@ public class TerapiaRestTest extends AbstractRestTest {
             + "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
             + "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
             + "ooooooooooooooooooooooooooooooooooooo");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 
@@ -159,6 +164,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setOrarioAssunzione("12:00");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive("da assumere prima di un pasto");
+    input2.setNoteAggiuntive("");
     list.add(input2);
     input.setFarmaci(list);
 

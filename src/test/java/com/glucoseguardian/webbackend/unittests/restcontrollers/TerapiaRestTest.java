@@ -32,9 +32,8 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend1() throws Exception {
-    TerapiaDto input = new TerapiaDto();
-    AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
     List<AssunzioneFarmacoDto> list = new ArrayList<>();
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("la lista farmaci non può essere vuota");
@@ -46,9 +45,7 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend2() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco(
         "Diabrezideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
             + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
@@ -57,7 +54,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setOrarioAssunzione("20:00");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("il nome del farmaco è della lunghezza errata");
@@ -70,15 +69,15 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend3() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Diamicron");
     input2.setOrarioAssunzione("13:00");
     input2.setDosaggio("");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del dosaggio è errata");
@@ -90,15 +89,15 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend4() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Diabrezide");
     input2.setDosaggio("2 mg");
     input2.setOrarioAssunzione("13.00");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("l'orario di assunzione non è valido");
@@ -110,15 +109,15 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend5() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Gleucos");
     input2.setDosaggio("2.5 mg");
     input2.setOrarioAssunzione("12:00");
     input2.setViaDiSomministrazione("");
     input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza della via di somministrazione è errata");
@@ -130,9 +129,7 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend6() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Diabrezide");
     input2.setDosaggio("2 mg");
     input2.setOrarioAssunzione("13:00");
@@ -143,8 +140,9 @@ public class TerapiaRestTest extends AbstractRestTest {
             + "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
             + "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
             + "ooooooooooooooooooooooooooooooooooooo");
-    input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("le note aggiuntive superano la lunghezza consentita");
@@ -156,16 +154,15 @@ public class TerapiaRestTest extends AbstractRestTest {
    */
   @Test
   public void testSend7() throws Exception {
-    TerapiaDto input = new TerapiaDto();
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
-    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Dramion");
     input2.setDosaggio("3 mg");
     input2.setOrarioAssunzione("12:00");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive("da assumere prima di un pasto");
-    input2.setNoteAggiuntive("");
+    List<AssunzioneFarmacoDto> list = new ArrayList<>();
     list.add(input2);
+    TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
     RisultatoDto oracolo = new RisultatoDto("Terapia aggiornata correttamente");

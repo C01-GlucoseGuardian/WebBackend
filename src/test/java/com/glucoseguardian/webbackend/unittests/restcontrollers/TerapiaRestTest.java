@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.unittests.restcontrollers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -37,6 +38,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("1");
+
+    RisultatoDto oracolo = new RisultatoDto("la lista dei farmaci è assente");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   /**
@@ -48,14 +52,20 @@ public class TerapiaRestTest extends AbstractRestTest {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
     List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco(
-        "Diabrezideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n"
-            + "\n");
+        "Diabrezideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            + "eeeeeeeeeeeeeee\n");
     input2.setDosaggio("1 mg");
     input2.setOrarioAssunzione("20:00");
     input2.setViaDiSomministrazione("orale");
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("1");
+
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza del nome del farmaco non è valida");
+    testSend(input, status().isBadRequest(), oracolo);
+
   }
 
   /**
@@ -80,6 +90,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("2");
+
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza del dosaggio non è valida");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   /**
@@ -97,6 +110,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("3");
+
+    RisultatoDto oracolo = new RisultatoDto("il formato dell'orario di assunzione non è valido");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   /**
@@ -113,6 +129,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("3");
+
+    RisultatoDto oracolo = new RisultatoDto("la via di somministrazione è assente");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   /**
@@ -128,10 +147,17 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setOrarioAssunzione("13:00");
     input2.setViaDiSomministrazione("orale");
     input2.setNoteAggiuntive(
-        "da assumere prima di un pastoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        "da assumere prima di un pastoooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+            + "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+            + "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+            + "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+            + "oooooooooooooooooooooooooooooooooooooooooooooooooooo");
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("3");
+
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza delle note aggiuintive non è valida");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   /**
@@ -151,6 +177,9 @@ public class TerapiaRestTest extends AbstractRestTest {
     list.add(input2);
     input.setFarmaci(list);
     input.setIdPaziente("4");
+
+    RisultatoDto oracolo = new RisultatoDto("Terapia aggiornata correttamente");
+    testSend(input, status().isBadRequest(), oracolo);
   }
 
   @WithMockUser(username = "dottore", authorities = {"DOTTORE"})

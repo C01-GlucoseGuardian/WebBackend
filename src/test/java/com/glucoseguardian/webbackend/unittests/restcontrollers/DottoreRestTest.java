@@ -28,7 +28,7 @@ public class DottoreRestTest extends AbstractRestTest {
    * Test ID TC_2.1.
    */
   @Test
-  public void testSend1() throws Exception {
+  public void TestSave1() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("");
     input.setCognome("Aldi");
@@ -45,14 +45,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo nome non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.2.
    */
   @Test
-  public void testSend2() throws Exception {
+  public void TestSave2() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome(
@@ -70,14 +70,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo cognome non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.3.
    */
   @Test
-  public void testSend3() throws Exception {
+  public void TestSave3() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -94,14 +94,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo codice fiscale non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.4.
    */
   @Test
-  public void testSend4() throws Exception {
+  public void TestSave4() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -119,14 +119,14 @@ public class DottoreRestTest extends AbstractRestTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "è già presente un dottore nel sistema con quel codice fiscale");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.5.
    */
   @Test
-  public void testSend5() throws Exception {
+  public void TestSave5() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -143,14 +143,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("il campo sesso non rispetta il formato");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.6.
    */
   @Test
-  public void testSend6() throws Exception {
+  public void TestSave6() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -167,14 +167,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("il campo data di nascita non rispetta il formato");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.7.
    */
   @Test
-  public void testSend7() throws Exception {
+  public void TestSave7() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -191,14 +191,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la data di nascita è nel futuro");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.8.
    */
   @Test
-  public void testSend8() throws Exception {
+  public void TestSave8() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -215,14 +215,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("il campo email non rispetta il formato");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.9.
    */
   @Test
-  public void testSend9() throws Exception {
+  public void TestSave9() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -240,14 +240,14 @@ public class DottoreRestTest extends AbstractRestTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "un dottore con quella email è già registrato nel sistema");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.10.
    */
   @Test
-  public void testSend10() throws Exception {
+  public void TestSave10() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -264,14 +264,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("il campo numero di telefono non rispetta il formato");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.11.
    */
   @Test
-  public void testSend11() throws Exception {
+  public void TestSave11() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -288,14 +288,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo indirizzo non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.12.
    */
   @Test
-  public void testSend12() throws Exception {
+  public void TestSave12() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -312,14 +312,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo password non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.13.
    */
   @Test
-  public void testSend13() throws Exception {
+  public void TestSave13() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -337,14 +337,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Specializzazione non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.14.
    */
   @Test
-  public void testSend14() throws Exception {
+  public void TestSave14() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -361,14 +361,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Codice Albo non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.15.
    */
   @Test
-  public void testSend15() throws Exception {
+  public void TestSave15() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -385,14 +385,14 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Nome Struttura non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.16.
    */
   @Test
-  public void testSend16() throws Exception {
+  public void TestSave16() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -411,14 +411,14 @@ public class DottoreRestTest extends AbstractRestTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "la lunghezza del campo Indirizzo Struttura non è valida");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isBadRequest(), oracolo);
   }
 
   /**
    * Test ID TC_2.17.
    */
   @Test
-  public void testSend17() throws Exception {
+  public void TestSave17() throws Exception {
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -435,15 +435,15 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("dottore registrato correttamente");
-    testSend(input, status().isBadRequest(), oracolo);
+    TestSave(input, status().isOk(), oracolo);
   }
 
   @WithMockUser(username = "dottore", authorities = {"DOTTORE"})
   // Mock User dottore with tipo Dottore
-  private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+  private void TestSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
       throws Exception {
 
-    performSync(post("/dottore/send").contentType(MediaType.APPLICATION_JSON)
+    performSync(post("/dottore/save").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));

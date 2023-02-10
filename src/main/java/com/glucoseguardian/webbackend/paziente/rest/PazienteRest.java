@@ -92,7 +92,7 @@ public class PazienteRest {
    */
   @PostMapping(value = "/getByTutore", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByTutore(
-      @RequestBody CodiceFiscaleDto codiceFiscaleTutore) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscaleTutore) {
 
     // TODO: Add custom checks (es. length, null etc..)
 
@@ -153,6 +153,8 @@ public class PazienteRest {
       result = getService().save(paziente);
     } catch (AccessDeniedException | DuplicatedEntityException ex) {
       throw ex;
+    } catch (ClassCastException ex) {
+      throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
       ex.printStackTrace();
     }

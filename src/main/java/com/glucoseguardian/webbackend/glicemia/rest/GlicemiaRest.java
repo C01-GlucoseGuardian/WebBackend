@@ -102,6 +102,8 @@ public class GlicemiaRest {
       result = getService().send(paziente.getCodiceFiscale(), list);
     } catch (AccessDeniedException ex) {
       throw ex;
+    } catch (ClassCastException ex) {
+      throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
       ex.printStackTrace();
     }

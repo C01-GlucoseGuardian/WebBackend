@@ -17,3 +17,4 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
           level: warning
+          workdir: src/main

@@ -72,7 +72,7 @@ public class NotificaDto extends RisultatoDto implements Serializable {
    */
   public static NotificaDto valueOf(Notifica notifica) {
     NotificaDto notificaDto = new NotificaDto();
-    notificaDto.setId(notificaDto.getId());
+    notificaDto.setId(notifica.getId());
     if (notifica.getPazienteOggetto() != null) {
       notificaDto.setPazienteOggetto(notifica.getPazienteOggetto().getCodiceFiscale());
     }

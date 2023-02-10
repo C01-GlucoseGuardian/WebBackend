@@ -13,7 +13,18 @@ before_install:
   - chmod +x mvnw
   # Create test database
   - psql -c 'create database travis_ci_test;' -U postgres
-
+  # use travis pom
+  - cp -f pom.xml.travis pom.xml
+  # use custom coveralls-maven-plugin
+  - wget https://github.com/HandyMenny/coveralls-maven-plugin/releases/download/v4.4.1/coveralls-maven-plugin-4.4.1-SNAPSHOT.jar
+  - mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=coveralls-maven-plugin-4.4.1-SNAPSHOT.jar
 script:
   # Run build, test and integration tests
   - mvn verify
+  # Send output to coveralls
+  - mvn coveralls:report
+
+jobs:
+  exclude:
+    - if: branch != main OR type == pull_request
+      script: mvn coveralls:report

@@ -74,11 +74,12 @@ public class TerapiaRestTest extends AbstractRestTest {
     List<AssunzioneFarmacoDto> list = new ArrayList<>();
     input2.setNomeFarmaco("Diamicron");
     input2.setOrarioAssunzione("13:00");
+    input2.setDosaggio("");
     input2.setViaDiSomministrazione("orale");
     list.add(input2);
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("il dosaggio non può essere vuoto");
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza del dosaggio è errata");
     testSend(input, status().isBadRequest(), oracolo);
   }
 
@@ -112,10 +113,11 @@ public class TerapiaRestTest extends AbstractRestTest {
     input2.setNomeFarmaco("Gleucos");
     input2.setDosaggio("2.5 mg");
     input2.setOrarioAssunzione("12:00");
+    input2.setViaDiSomministrazione("");
     list.add(input2);
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("la via di somministrazione non può essere assente");
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza della via di somministrazione è errata");
     testSend(input, status().isBadRequest(), oracolo);
   }
 

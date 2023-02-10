@@ -119,15 +119,16 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
     Validate.isTrue(nomeFarmaco.length() <= 50 && nomeFarmaco.length() >= 1,
         "il nome del farmaco è della lunghezza errata");
     Validate.notNull(dosaggio, "il dosaggio non può essere vuoto");
-    Validate.isTrue(dosaggio.length() <= 1000 && dosaggio.length() >= 1, "il dosaggio non può essere vuoto");
+    Validate.isTrue(dosaggio.length() <= 1000 && dosaggio.length() >= 1,
+        "la lunghezza del dosaggio è errata");
     Validate.notNull(orarioAssunzione, "l'orario di assunzione non può essere vuoto");
     Pattern pattern = Pattern.compile("([0-1][0-9]|2[0-3]):[0-5][0-9]");
     Validate.isTrue(pattern.matcher(orarioAssunzione).matches(),
         "l'orario di assunzione non è valido");
     Validate.notNull(viaDiSomministrazione, "la via di somministrazione non può essere assente");
     Validate.isTrue(viaDiSomministrazione.length() <= 300 && viaDiSomministrazione.length() >= 1,
-        "la lunghezza della via di somministrazione è della lunghezza errata");
-    if(noteAggiuntive != null) {
+        "la lunghezza della via di somministrazione è errata");
+    if (noteAggiuntive != null) {
       Validate.isTrue(noteAggiuntive.length() <= 300,
           "le note aggiuntive superano la lunghezza consentita");
     }

@@ -1,10 +1,12 @@
 package com.glucoseguardian.webbackend.dottore.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
+import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
@@ -38,6 +40,8 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   private MailService mailService;
   @Autowired
   private FirebaseService firebase;
+  @Autowired
+  private UtenteDao utenteDao;
 
   @Override
   public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) throws UserNotFoundException {
@@ -96,7 +100,15 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean save(DottoreDto dto) {
+  public boolean save(DottoreDto dto) throws DuplicatedEntityException {
+    if (dottoreDao.existsById(dto.getCodiceFiscale())) {
+      throw new DuplicatedEntityException("Codice fiscale già presente nel database");
+    }
+
+    if (utenteDao.existsByEmail(dto.getEmail())) {
+      throw new DuplicatedEntityException("Email già presente nel database");
+    }
+
     DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
     DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
 

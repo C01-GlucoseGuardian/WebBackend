@@ -49,6 +49,17 @@ public class UtenteDao {
   }
 
   /**
+   * Ritorna true se esiste un utente con una email uguale a quella data in input.
+   * Ricerca nell'ordine Admin, Dottore, Paziente, Tutore
+   */
+  public boolean existsByEmail(@NonNull String email) {
+    return adminDao.existsByEmail(email)
+        || dottoreDao.existsByEmail(email)
+        || pazienteDao.existsByEmail(email)
+        || tutoreDao.existsByEmail(email);
+  }
+
+  /**
    * Salva i dati di un {@link Utente} nel database.
    */
   public @NonNull Utente save(@NonNull Utente utente) {

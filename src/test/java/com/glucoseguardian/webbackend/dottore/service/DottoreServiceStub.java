@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.dottore.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DottoreServiceStub implements DottoreServiceInterface {
+
+  public boolean duplicatedId;
+  public boolean duplicatedEmail;
 
   @Override
   public DottoreDto findByCodiceFiscale(String codiceFiscaleDottore) {
@@ -38,7 +42,13 @@ public class DottoreServiceStub implements DottoreServiceInterface {
   }
 
   @Override
-  public boolean save(DottoreDto dto) {
+  public boolean save(DottoreDto dto) throws DuplicatedEntityException {
+    if (duplicatedId) {
+      throw new DuplicatedEntityException("Codice fiscale già presente nel database");
+    }
+    if (duplicatedEmail) {
+      throw new DuplicatedEntityException("Email già presente nel database");
+    }
     return true;
   }
 }

@@ -2,10 +2,10 @@ package com.glucoseguardian.webbackend.storage.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.Validate;
@@ -58,9 +58,8 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    * Costruttore di Dottore DTO senza password.
    */
   public DottoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
-      String indirizzo, String telefono, String email,  String sesso,
-      String specializzazione, String codiceAlbo, String nomeStruttura, String indirizzoStruttura,
-      Integer stato) {
+      String indirizzo, String telefono, String email, String sesso, String specializzazione,
+      String codiceAlbo, String nomeStruttura, String indirizzoStruttura, Integer stato) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -78,6 +77,31 @@ public class DottoreDto extends RisultatoDto implements Serializable {
 
 
   public DottoreDto() {
+  }
+
+  /**
+   * Costruisce un DottoreDto a partire da un {@link Dottore}. Il campo password non viene
+   * popolato.
+   */
+  public static DottoreDto valueOf(Dottore dottore) {
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    String dataNascitaDottoreDto = dateFormat.format(dottore.getDataNascita());
+    DottoreDto dottoreDto = new DottoreDto();
+
+    dottoreDto.setCodiceFiscale(dottore.getCodiceFiscale());
+    dottoreDto.setNome(dottore.getNome());
+    dottoreDto.setCognome(dottore.getCognome());
+    dottoreDto.setDataNascita(dataNascitaDottoreDto);
+    dottoreDto.setIndirizzo(dottore.getIndirizzo());
+    dottoreDto.setTelefono(dottore.getTelefono());
+    dottoreDto.setEmail(dottore.getEmail());
+    dottoreDto.setSesso(dottore.getSesso() + "");
+    dottoreDto.setSpecializzazione(dottore.getSpecializzazione());
+    dottoreDto.setCodiceAlbo(dottore.getCodiceAlbo());
+    dottoreDto.setNomeStruttura(dottore.getNomeStruttura());
+    dottoreDto.setIndirizzoStruttura(dottore.getIndirizzoStruttura());
+    dottoreDto.setStato(dottore.getStato());
+    return dottoreDto;
   }
 
   public String getCodiceFiscale() {
@@ -193,32 +217,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
   }
 
   /**
-   *  Costruisce un DottoreDto a partire da un {@link Dottore}.
-   *  Il campo password non viene popolato.
-   */
-  public static DottoreDto valueOf(Dottore dottore) {
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    String dataNascitaDottoreDto = dateFormat.format(dottore.getDataNascita());
-    DottoreDto dottoreDto = new DottoreDto();
-
-    dottoreDto.setCodiceFiscale(dottore.getCodiceFiscale());
-    dottoreDto.setNome(dottore.getNome());
-    dottoreDto.setCognome(dottore.getCognome());
-    dottoreDto.setDataNascita(dataNascitaDottoreDto);
-    dottoreDto.setIndirizzo(dottore.getIndirizzo());
-    dottoreDto.setTelefono(dottore.getTelefono());
-    dottoreDto.setEmail(dottore.getEmail());
-    dottoreDto.setSesso(dottore.getSesso() + "");
-    dottoreDto.setSpecializzazione(dottore.getSpecializzazione());
-    dottoreDto.setCodiceAlbo(dottore.getCodiceAlbo());
-    dottoreDto.setNomeStruttura(dottore.getNomeStruttura());
-    dottoreDto.setIndirizzoStruttura(dottore.getIndirizzoStruttura());
-    dottoreDto.setStato(dottore.getStato());
-    return dottoreDto;
-  }
-
-  /**
-   *  validazione dello stato.
+   * validazione dello stato.
    */
 
   public void validateStato(DottoreDto dottoreDto) throws IllegalArgumentException {
@@ -228,7 +227,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
   }
 
   /**
-   *  validazione del dottore.
+   * validazione del dottore.
    */
 
   public void validateDottore() throws IllegalArgumentException {
@@ -253,31 +252,44 @@ public class DottoreDto extends RisultatoDto implements Serializable {
         "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non è valida");
-
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+      long diff = dateFormat.parse(dataNascita).getTime() - new java.util.Date().getTime();
+      Validate.isTrue(diff < 0, "La data di nascita è nel futuro");
+    } catch (ParseException ex) {
+      throw new IllegalArgumentException("la data nascita inserita non è valida");
+    }
     Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
     Validate.notNull(telefono, "telefono non puo essere assente");
     Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il campo numero di telefono non rispetta il formato");
+    Validate.isTrue(pattern3.matcher(telefono).matches(),
+        "il campo numero di telefono non rispetta il formato");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 
     Validate.notNull(password, "la password non puo' essere assente");
-    Validate.isTrue(password.length() <= 255, "la lunghezza della password non è valida");
+    Validate.isTrue(password.length() <= 30 && password.length() >= 8,
+        "La lunghezza del campo password non è valida");
 
     Validate.notNull(specializzazione, "la specializzazione non puo essere assente");
-    Validate.isTrue(specializzazione.length() <= 100,
+    Validate.isTrue(specializzazione.length() <= 100 && specializzazione.length() >= 1,
         "la lunghezza del campo Specializzazione non è valida");
 
     Validate.notNull(codiceAlbo, "codice albo non puo essere assente");
-    Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 caratteri");
+    Validate.isTrue(codiceAlbo.length() <= 50 && codiceAlbo.length() >= 4,
+        "La lunghezza del campo Codice Albo non è valida");
 
-    Validate.notNull(nomeStruttura, "la specializzazione non puo essere assente");
-    Validate.isTrue(nomeStruttura.length() <= 100,
-        "il nome struttura non puo superare i 100 caratteri");
+    Validate.notNull(nomeStruttura, "la struttura non può essere assente");
+    Validate.isTrue(nomeStruttura.length() <= 100 && nomeStruttura.length() >= 1,
+        "La lunghezza del campo Nome Struttura non è valida");
+
+    Validate.notNull(indirizzoStruttura, "l'indirizzo struttura non può essere assente");
+    Validate.isTrue(indirizzoStruttura.length() <= 100 && indirizzoStruttura.length() >= 1,
+        "La lunghezza del campo Indirizzo Struttura non è valida");
   }
 }

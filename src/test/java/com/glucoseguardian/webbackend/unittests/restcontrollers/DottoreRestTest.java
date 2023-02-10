@@ -9,7 +9,9 @@ import com.glucoseguardian.webbackend.dottore.service.DottoreServiceStub;
 import com.glucoseguardian.webbackend.dottore.service.TestDottoreService;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -23,6 +25,9 @@ import org.springframework.test.web.servlet.ResultMatcher;
 // Import Test service and Service Stub
 @Import({DottoreServiceStub.class, TestDottoreService.class})
 public class DottoreRestTest extends AbstractRestTest {
+
+  @Autowired
+  DottoreServiceStub serviceStub;
 
   /**
    * Test ID TC_2.1.
@@ -102,6 +107,8 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave4() throws Exception {
+    serviceStub.duplicatedEmail = true;
+
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -118,7 +125,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "è già presente un dottore nel sistema con quel codice fiscale");
+        "Email già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -190,7 +197,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la data di nascita è nel futuro");
+    RisultatoDto oracolo = new RisultatoDto("La data di nascita è nel futuro");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -223,6 +230,8 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave9() throws Exception {
+    serviceStub.duplicatedId = true;
+
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -239,7 +248,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "un dottore con quella email è già registrato nel sistema");
+        "Codice fiscale già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -311,7 +320,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo password non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo password non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -356,11 +365,11 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzo("Caserta Via Vico 1");
     input.setPassword("blabla*blabla-");
     input.setSpecializzazione("Diabetologo");
-    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setCodiceAlbo("5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada5545 San nicola la strada");
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Codice Albo non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo Codice Albo non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -384,7 +393,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Nome Struttura non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo Nome Struttura non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -410,7 +419,7 @@ public class DottoreRestTest extends AbstractRestTest {
         "Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "la lunghezza del campo Indirizzo Struttura non è valida");
+        "La lunghezza del campo Indirizzo Struttura non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -447,6 +456,12 @@ public class DottoreRestTest extends AbstractRestTest {
         .content(toJsonString(input))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
+  }
+
+  @BeforeEach
+  public void resetServiceStub() {
+    serviceStub.duplicatedId = false;
+    serviceStub.duplicatedEmail = false;
   }
 
 }

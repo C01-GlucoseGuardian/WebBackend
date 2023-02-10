@@ -11,4 +11,5 @@ public interface AdminDao extends JpaRepository<Admin, String> {
 
   Optional<Admin> findByEmail(String email);
 
+  boolean existsByEmail(String email);
 }

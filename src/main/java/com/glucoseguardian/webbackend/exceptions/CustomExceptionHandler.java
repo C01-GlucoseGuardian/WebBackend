@@ -67,6 +67,20 @@ public class CustomExceptionHandler {
     return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(NullPointerException.class)
+  public final ResponseEntity<RisultatoDto> handleNullPointerException(
+      NullPointerException ex, WebRequest request) {
+    RisultatoDto errorDetails = new RisultatoDto(ex.getMessage());
+    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(DuplicatedEntityException.class)
+  public final ResponseEntity<RisultatoDto> handleDuplicatedEntityException(
+      DuplicatedEntityException ex, WebRequest request) {
+    RisultatoDto errorDetails = new RisultatoDto(ex.getMessage());
+    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+  }
+
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public final ResponseEntity<RisultatoDto> handleHttpMessageNotReadable(
       HttpMessageNotReadableException ex, WebRequest request) {

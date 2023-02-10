@@ -5,6 +5,7 @@ import com.glucoseguardian.webbackend.storage.entity.NumeroTelefono;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -232,13 +233,22 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non è valida");
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+      long diff = dateFormat.parse(dataNascita).getTime() - new java.util.Date().getTime();
+      Validate.isTrue(diff < 0, "La data di nascita è nel futuro");
+    } catch (ParseException ex) {
+      throw new IllegalArgumentException("la data nascita inserita non è valida");
+    }
+
     Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
     Validate.notNull(telefono, "telefono non puo essere assente");
     Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il campo numero di telefono non rispetta il formato");
+    Validate.isTrue(pattern3.matcher(telefono).matches(),
+        "il campo numero di telefono non rispetta il formato");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,

@@ -5,6 +5,7 @@ import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,8 @@ public class TutoreDto extends RisultatoDto implements Serializable {
    * Construttore predefinito di TutoreDto.
    */
   public TutoreDto(String codiceFiscale, String nome, String cognome, String dataNascita,
-      String indirizzo, String telefono, String email, String sesso, List<PazienteDto> pazienteList) {
+      String indirizzo, String telefono, String email, String sesso,
+      List<PazienteDto> pazienteList) {
     this.codiceFiscale = codiceFiscale;
     this.nome = nome;
     this.cognome = cognome;
@@ -168,6 +170,14 @@ public class TutoreDto extends RisultatoDto implements Serializable {
         "^(0[1-9]|[1-2]\\d|3[01])\\/(0[1-9]|1[0-2])\\/\\d\\d\\d\\d$");
     Validate.isTrue(pattern1.matcher(dataNascita).matches(),
         "la data nascita inserita non è valida");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+      long diff = dateFormat.parse(dataNascita).getTime() - new java.util.Date().getTime();
+      Validate.isTrue(diff < 0, "La data di nascita è nel futuro");
+    } catch (ParseException ex) {
+      throw new IllegalArgumentException("la data nascita inserita non è valida");
+    }
+
 
     Validate.notNull(email, "la mail non puo essere assente");
     Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-\\.]+)\\w$");
@@ -175,7 +185,8 @@ public class TutoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(telefono, "telefono non puo essere assente");
     Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il campo numero di telefono non rispetta il formato");
+    Validate.isTrue(pattern3.matcher(telefono).matches(),
+        "il campo numero di telefono non rispetta il formato");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,

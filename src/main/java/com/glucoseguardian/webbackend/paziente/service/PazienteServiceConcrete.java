@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
@@ -9,6 +10,7 @@ import com.glucoseguardian.webbackend.storage.dao.NumeroTelefonoDao;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
+import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -63,6 +65,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   private MailService mailService;
   @Autowired
   private TutoreDao tutoreDao;
+  @Autowired
+  private UtenteDao utenteDao;
 
   @Override
   public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente)
@@ -123,7 +127,15 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public boolean save(PazienteDto dto) {
+  public boolean save(PazienteDto dto) throws DuplicatedEntityException {
+    if (pazienteDao.existsById(dto.getCodiceFiscale())) {
+      throw new DuplicatedEntityException("Codice fiscale già presente nel database");
+    }
+
+    if (utenteDao.existsByEmail(dto.getEmail())) {
+      throw new DuplicatedEntityException("Email già presente nel database");
+    }
+
     DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
     DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
 

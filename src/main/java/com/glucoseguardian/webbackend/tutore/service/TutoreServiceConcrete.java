@@ -1,9 +1,11 @@
 package com.glucoseguardian.webbackend.tutore.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
 import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
+import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
@@ -37,6 +39,8 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   private PasswordEncoder passwordEncoder;
   @Autowired
   private MailService mailService;
+  @Autowired
+  private UtenteDao utenteDao;
 
   @Override
   public TutoreDto findByCodiceFiscale(String codiceFiscaleTutore) throws UserNotFoundException {
@@ -65,7 +69,15 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
   }
 
   @Override
-  public boolean save(TutoreDto dto) throws UserNotFoundException {
+  public boolean save(TutoreDto dto) throws UserNotFoundException, DuplicatedEntityException {
+    if (tutoreDao.existsById(dto.getCodiceFiscale())) {
+      throw new DuplicatedEntityException("Codice fiscale già presente nel database");
+    }
+
+    if (utenteDao.existsByEmail(dto.getEmail())) {
+      throw new DuplicatedEntityException("Email già presente nel database");
+    }
+
     DateFormat dateInputFormat = new SimpleDateFormat("dd/MM/yyyy");
     DateFormat dateSqlFormat = new SimpleDateFormat("yyyy-MM-dd");
 

@@ -2,6 +2,7 @@ package com.glucoseguardian.webbackend.dottore.rest;
 
 import com.glucoseguardian.webbackend.dottore.service.AbstractDottoreService;
 import com.glucoseguardian.webbackend.dottore.service.DottoreServiceInterface;
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
@@ -176,13 +177,15 @@ public class DottoreRest {
    */
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveDottore(
-      @RequestBody DottoreDto dottore) {
+      @RequestBody DottoreDto dottore) throws DuplicatedEntityException {
 
     // TODO: Add custom checks (es. length, null etc..)
     dottore.validateDottore();
     boolean result = false;
     try {
       result = getService().save(dottore);
+    } catch (DuplicatedEntityException ex) {
+      throw ex;
     } catch (Exception ex) {
       ex.printStackTrace();
     }

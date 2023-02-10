@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PazienteServiceStub implements PazienteServiceInterface {
+
+  public boolean duplicatedId;
+  public boolean duplicatedEmail;
 
   @Override
   public PazienteDto findByCodiceFiscale(String codiceFiscalePaziente) {
@@ -33,10 +37,15 @@ public class PazienteServiceStub implements PazienteServiceInterface {
   }
 
   @Override
-  public boolean save(PazienteDto dto) {
+  public boolean save(PazienteDto dto) throws DuplicatedEntityException {
+    if (duplicatedId) {
+      throw new DuplicatedEntityException("Codice fiscale già presente nel database");
+    }
+    if (duplicatedEmail) {
+      throw new DuplicatedEntityException("Email già presente nel database");
+    }
     return true;
   }
-
   @Override
   public boolean updateTutori(String codiceFiscalePaziente, List<CodiceFiscaleDto> list) {
     return true;

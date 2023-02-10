@@ -21,4 +21,6 @@ public interface PazienteDao extends JpaRepository<Paziente, String> {
   List<Paziente> findByCognomeContainingIgnoreCase(String query);
 
   List<Paziente> findByTutori_CodiceFiscale(String codiceFiscale);
+
+  boolean existsByEmail(String email);
 }

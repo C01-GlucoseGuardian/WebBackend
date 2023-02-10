@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -25,7 +26,7 @@ public interface PazienteServiceInterface {
   ListDto<PazienteDto> findPaziente(String query);
 
   @PreAuthorize("hasAuthority('DOTTORE')")
-  boolean save(PazienteDto dto);
+  boolean save(PazienteDto dto) throws DuplicatedEntityException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")
   boolean updateTutori(String codiceFiscalePaziente, List<CodiceFiscaleDto> list)

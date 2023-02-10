@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import com.glucoseguardian.webbackend.storage.entity.Terapia;
+import jakarta.validation.Valid;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'output delle funzioni di login.
@@ -97,5 +99,11 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
     terapiaDto.setDataInizio(dataInizioTerapia);
 
     return terapiaDto;
+  }
+  public void validate(){
+    Validate.notNull(id,"l'id non può essere assente");
+    for (AssunzioneFarmacoDto assunzioneFarmacoDto:farmaci){
+      assunzioneFarmacoDto.validate();
+    }
   }
 }

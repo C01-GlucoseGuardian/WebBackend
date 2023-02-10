@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.io.Serializable;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Rappresenta l'entita assunzione farmaco.
@@ -107,5 +109,17 @@ public class AssunzioneFarmacoDto extends RisultatoDto implements Serializable {
     assunzioneFarmacoDto.setNoteAggiuntive(assunzioneFarmacoDto.getNoteAggiuntive());
     return assunzioneFarmacoDto;
   }
-
+  public void validate(){
+    Validate.notNull(id,"id non può essere vuoto");
+    Validate.notNull(nomeFarmaco,"il nome del farmaco non può essere vuoto");
+    Validate.isTrue(nomeFarmaco.length() <= 50 && nomeFarmaco.length() >= 1,"il nome del farmaco è della lunghezza errata");
+    Validate.notNull(dosaggio,"il dosaggio non puà essere vuoto");
+    Validate.isTrue(dosaggio.length() <= 1000 && dosaggio.length() >= 0);
+    Validate.notNull(orarioAssunzione,"l'orario di assunzione non può essere vuoto");
+    Pattern pattern = Pattern.compile("([0-1][0-9]|2[0-3]):[0-5][0-9]");
+    Validate.isTrue(pattern.matcher(orarioAssunzione).matches(), "l'orario di assunzione non è valido");
+    Validate.notNull(viaDiSomministrazione,"la via di somministrazione non può essere assente");
+    Validate.isTrue(viaDiSomministrazione.length() <= 300 && viaDiSomministrazione.length() >=1,"la lunghezza della via di somministrazione è della lunghezza errata");
+    Validate.isTrue(noteAggiuntive.length() <=300,"le note aggiuntive superano la lunghezza consentita");
+  }
 }

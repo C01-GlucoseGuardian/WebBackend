@@ -2,6 +2,8 @@ package com.glucoseguardian.webbackend.terapia.rest;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
+import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
+import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
@@ -34,10 +36,11 @@ public class TerapiaRest {
    */
   @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getTerapia(
-      @RequestBody TerapiaDto input) throws EntityNotFoundException {
+      @RequestBody IdDto idTerapia) throws EntityNotFoundException {
     ResponseEntity<RisultatoDto> response;
+    idTerapia.validate();
     try {
-      TerapiaDto dto = getService().findTerapia(input.getId());
+      TerapiaDto dto = getService().findTerapia(idTerapia.getId());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -55,10 +58,10 @@ public class TerapiaRest {
 
   @PostMapping(value = "/getByPaziente", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getTerapiaByPaziente(
-      @RequestBody PazienteDto input) throws UserNotFoundException {
+      @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws UserNotFoundException {
     ResponseEntity<RisultatoDto> response;
     try {
-      TerapiaDto dto = getService().findByPaziente(input.getCodiceFiscale());
+      TerapiaDto dto = getService().findByPaziente(codiceFiscalePaziente.getCodiceFiscale());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
@@ -77,6 +80,7 @@ public class TerapiaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updateTerapia(
       @RequestBody TerapiaDto input)
       throws EntityNotFoundException {
+    input.validate();
     boolean result = false;
     try {
       result = getService().updateTerapia(input.getIdPaziente(), input.getFarmaci());

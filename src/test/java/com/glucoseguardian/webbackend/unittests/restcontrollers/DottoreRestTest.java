@@ -9,7 +9,9 @@ import com.glucoseguardian.webbackend.dottore.service.DottoreServiceStub;
 import com.glucoseguardian.webbackend.dottore.service.TestDottoreService;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -23,6 +25,9 @@ import org.springframework.test.web.servlet.ResultMatcher;
 // Import Test service and Service Stub
 @Import({DottoreServiceStub.class, TestDottoreService.class})
 public class DottoreRestTest extends AbstractRestTest {
+
+  @Autowired
+  DottoreServiceStub serviceStub;
 
   /**
    * Test ID TC_2.1.
@@ -102,6 +107,8 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave4() throws Exception {
+    serviceStub.duplicatedEmail = true;
+
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -118,7 +125,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "è già presente un dottore nel sistema con quel codice fiscale");
+        "Email già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -223,6 +230,8 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave9() throws Exception {
+    serviceStub.duplicatedId = true;
+
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");
     input.setCognome("Aldi");
@@ -239,7 +248,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "un dottore con quella email è già registrato nel sistema");
+        "Codice fiscale già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -447,6 +456,12 @@ public class DottoreRestTest extends AbstractRestTest {
         .content(toJsonString(input))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
+  }
+
+  @BeforeEach
+  public void resetServiceStub() {
+    serviceStub.duplicatedId = false;
+    serviceStub.duplicatedEmail = false;
   }
 
 }

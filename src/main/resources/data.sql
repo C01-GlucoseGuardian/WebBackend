@@ -1102,3 +1102,13 @@ VALUES (1, '2023-02-09 15:29:15.000000', 40, 'MRTLDA01L55C514M'),
        (998, '2023-02-11 00:43:15.000000', 150, 'MRTLDA01L55C514M'),
        (999, '2023-02-11 00:45:15.000000', 150, 'MRTLDA01L55C514M')
 ON CONFLICT DO NOTHING;
+
+/* Reset sequences */
+SELECT setval('farmaco_seq', 4);
+SELECT setval('numero_telefono_seq', 3);
+SELECT setval('terapia_seq', 2);
+SELECT setval('assunzione_farmaco_seq', 3);
+SELECT setval('feedback_seq', 2);
+SELECT setval('notifica_seq', 4);
+SELECT setval('glicemia_seq', 999);
+

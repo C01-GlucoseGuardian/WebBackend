@@ -34,6 +34,7 @@ import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ import org.springframework.stereotype.Service;
  * This is an implementation of PazienteServiceInterface.
  */
 @Service
+@Primary
 public class PazienteServiceConcrete implements PazienteServiceInterface {
 
   @Autowired

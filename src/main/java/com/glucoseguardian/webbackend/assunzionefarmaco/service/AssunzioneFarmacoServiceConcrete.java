@@ -2,19 +2,20 @@ package com.glucoseguardian.webbackend.assunzionefarmaco.service;
 
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
-import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.entity.AssunzioneFarmaco;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
  * This is an implementation of AssunzioneFarmacoServiceInterface.
  */
 @Service
+@Primary
 public class AssunzioneFarmacoServiceConcrete implements AssunzioneFarmacoServiceInterface {
 
   @Autowired

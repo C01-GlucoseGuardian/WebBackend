@@ -11,6 +11,7 @@ import com.glucoseguardian.webbackend.storage.entity.Utente;
 import org.jboss.aerogear.security.otp.Totp;
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
  * Implementazione concreta di Auth Service.
  */
 @Service
+@Primary
 public class AuthServiceConcrete implements AuthServiceInterface {
 
   @Autowired

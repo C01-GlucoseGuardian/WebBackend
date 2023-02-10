@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.tutore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestTutoreService extends AbstractTutoreService {
   @Autowired
-  @Qualifier("tutoreServiceStub")
-  TutoreServiceInterface tutoreService;
+  private TutoreServiceInterface tutoreService;
 
   @Override
   public TutoreServiceInterface getImplementation() {

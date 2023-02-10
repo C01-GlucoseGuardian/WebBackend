@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
  * Implementazione concreta di Glicemia Service.
  */
 @Service
+@Primary
 public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
 
   @Autowired
@@ -40,8 +42,12 @@ public class GlicemiaServiceConcrete implements GlicemiaServiceInterface {
 
   @Override
   public ListDto<GlicemiaDto> getRange(String codiceFiscale, long start, long end) {
-    List<Glicemia> list = glicemiaDao.findByPaziente_codiceFiscaleAndDataOraBetweenOrderByDataOraDesc(
-        codiceFiscale, new Timestamp(start), new Timestamp(end));
+    List<Glicemia> list = glicemiaDao
+        .findByPaziente_codiceFiscaleAndDataOraBetweenOrderByDataOraDesc(
+            codiceFiscale,
+            new Timestamp(start),
+            new Timestamp(end)
+        );
 
     return new ListDto<>(list.stream().map(GlicemiaDto::valueOf).toList());
   }

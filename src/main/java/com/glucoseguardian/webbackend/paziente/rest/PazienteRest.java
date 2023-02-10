@@ -13,7 +13,6 @@ import com.glucoseguardian.webbackend.storage.dto.TutoreUpdateDto;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PazienteRest {
 
   @Autowired
-  @Qualifier("finalPazienteService")
   private AbstractPazienteService pazienteService;
 
   /**

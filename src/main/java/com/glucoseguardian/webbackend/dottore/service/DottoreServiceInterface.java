@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.dottore.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
@@ -26,6 +27,6 @@ public interface DottoreServiceInterface {
       throws UserNotFoundException;
 
   @PreAuthorize("permitAll()")
-  boolean save(DottoreDto dto);
+  boolean save(DottoreDto dto) throws DuplicatedEntityException;
 
 }

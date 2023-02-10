@@ -1,11 +1,9 @@
 package com.glucoseguardian.webbackend.tutore.service;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
-import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
-import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
@@ -19,6 +17,6 @@ public interface TutoreServiceInterface {
   ListDto<TutoreDto> findByPaziente(String codiceFiscalePaziente) throws UserNotFoundException;
 
   @PreAuthorize("hasAuthority('DOTTORE')")
-  boolean save(TutoreDto dto) throws UserNotFoundException;
+  boolean save(TutoreDto dto) throws UserNotFoundException, DuplicatedEntityException;
 
 }

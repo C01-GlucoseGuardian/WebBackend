@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.tutore.rest;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.storage.dto.CodiceFiscaleDto;
@@ -80,14 +81,14 @@ public class TutoreRest {
 
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveTutore(
-      @RequestBody TutoreDto input) throws UserNotFoundException {
+      @RequestBody TutoreDto input) throws UserNotFoundException, DuplicatedEntityException {
 
     // TODO: Add custom checks (es. length, null etc..)
     input.validate();
     boolean result = false;
     try {
       result = getService().save(input);
-    } catch (UserNotFoundException | AccessDeniedException ex) {
+    } catch (UserNotFoundException | AccessDeniedException | DuplicatedEntityException ex) {
       throw ex;
     } catch (Exception ex) {
       ex.printStackTrace();

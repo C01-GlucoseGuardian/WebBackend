@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.paziente.rest;
 
+import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.paziente.service.AbstractPazienteService;
@@ -141,7 +142,7 @@ public class PazienteRest {
    */
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> savePaziente(
-      @RequestBody PazienteDto paziente) {
+      @RequestBody PazienteDto paziente) throws DuplicatedEntityException {
 
     // TODO: Add custom checks (es. length, null etc..)
     paziente.validate();
@@ -150,7 +151,7 @@ public class PazienteRest {
       Utente dottore = (Utente) getAuthentication().getPrincipal();
       paziente.setIdDottore(dottore.getCodiceFiscale());
       result = getService().save(paziente);
-    } catch (AccessDeniedException ex) {
+    } catch (AccessDeniedException | DuplicatedEntityException ex) {
       throw ex;
     } catch (Exception ex) {
       ex.printStackTrace();

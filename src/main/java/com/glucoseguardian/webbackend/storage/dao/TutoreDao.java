@@ -1,6 +1,5 @@
 package com.glucoseguardian.webbackend.storage.dao;
 
-import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TutoreDao extends JpaRepository<Tutore, String> {
 
   Optional<Tutore> findByEmail(String email);
+
+  boolean existsByEmail(String email);
 
 }

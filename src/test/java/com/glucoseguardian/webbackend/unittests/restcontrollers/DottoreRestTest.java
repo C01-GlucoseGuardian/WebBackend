@@ -44,7 +44,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo nome non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo nome non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -69,7 +69,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo cognome non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del cognome non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -93,7 +93,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo codice fiscale non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del codice fiscale deve essere di 16 caratteri");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -142,7 +142,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("il campo sesso non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("il sesso non è valido");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -166,7 +166,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("il campo data di nascita non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("la data nascita inserita non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -214,7 +214,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("il campo email non rispetta il formato");
+    RisultatoDto oracolo = new RisultatoDto("L'email non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -287,7 +287,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo indirizzo non è valida");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza dell'indirizzo non è valida");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -434,7 +434,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
-    RisultatoDto oracolo = new RisultatoDto("dottore registrato correttamente");
+    RisultatoDto oracolo = new RisultatoDto("Dottore registrato correttamente");
     testSave(input, status().isOk(), oracolo);
   }
 

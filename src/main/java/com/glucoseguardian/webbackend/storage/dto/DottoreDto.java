@@ -238,11 +238,11 @@ public class DottoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(nome, "Il nome non puo essere vuoto");
     Validate.isTrue(nome.length() <= 30 && nome.length() > 3,
-        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+        "La lunghezza del campo nome non è valida");
 
     Validate.notNull(cognome, "Il cognome non puo essere vuoto");
     Validate.isTrue(cognome.length() <= 30 && cognome.length() > 2,
-        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+        "La lunghezza del cognome non è valida");
 
     Validate.notNull(sesso, "il sesso non puo' essere vuoto");
     Pattern pattern = Pattern.compile("^M|F$");
@@ -260,7 +260,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(telefono, "telefono non puo essere assente");
     Pattern pattern3 = Pattern.compile("^\\+?\\d{5,15}$");
-    Validate.isTrue(pattern3.matcher(telefono).matches(), "il telefono non è valido");
+    Validate.isTrue(pattern3.matcher(telefono).matches(), "il campo numero di telefono non rispetta il formato");
 
     Validate.notNull(indirizzo, "l'indirizzo non puo' essere vuoto");
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
@@ -271,7 +271,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
 
     Validate.notNull(specializzazione, "la specializzazione non puo essere assente");
     Validate.isTrue(specializzazione.length() <= 100,
-        "la specializzazione non puo superare i 100 caratteri");
+        "la lunghezza del campo Specializzazione non è valida");
 
     Validate.notNull(codiceAlbo, "codice albo non puo essere assente");
     Validate.isTrue(specializzazione.length() <= 50, "codice albo non puo superare i 50 caratteri");

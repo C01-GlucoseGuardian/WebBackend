@@ -190,7 +190,7 @@ public class DottoreRest {
     if (result) {
       return CompletableFuture.completedFuture(
           new ResponseEntity<>(
-              new RisultatoDto("Dottore inserito correttamente"),
+              new RisultatoDto("Dottore registrato correttamente"),
               HttpStatus.OK
           )
       );

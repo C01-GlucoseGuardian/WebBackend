@@ -258,7 +258,6 @@ public class TutoreRestTest extends AbstractRestTest {
 
   /**
    * Test ID TC_3.12
-   *
    */
   @Test
   public void testSave12() throws Exception {
@@ -275,7 +274,6 @@ public class TutoreRestTest extends AbstractRestTest {
     RisultatoDto oracolo = new RisultatoDto("Il tutore è stato inserito correttamente");
     testSave(tutore, status().isOk(), oracolo);
   }
-
 
 
   @WithMockUser(username = "tutore", authorities = {"TUTORE"})

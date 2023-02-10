@@ -128,7 +128,7 @@ public class FeedbackDto extends RisultatoDto implements Serializable {
     String timeString = sdf.format(feedback.getOra());
 
     FeedbackDto feedbackDto = new FeedbackDto();
-    feedbackDto.setId(feedbackDto.getId());
+    feedbackDto.setId(feedback.getId());
     feedbackDto.setOreSonno(feedback.getOreSonno());
     feedbackDto.setStatoSalute(feedback.getStatoSalute());
     feedbackDto.setDolori(feedback.getDolori());

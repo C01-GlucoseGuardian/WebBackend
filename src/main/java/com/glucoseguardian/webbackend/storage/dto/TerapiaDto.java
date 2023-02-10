@@ -81,7 +81,7 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
   }
 
   /**
-   *  Costruisce un {@link TerapiaDto} a partire da un {@link Terapia}.
+   * Costruisce un {@link TerapiaDto} a partire da un {@link Terapia}.
    */
   public static TerapiaDto valueOf(Terapia terapia) {
     List<AssunzioneFarmacoDto> list = new ArrayList<>();
@@ -105,9 +105,11 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
    * Validation of Farmaco.
    */
   public void validate() {
-    Validate.notNull(id, "l'id non può essere assente");
-    for (AssunzioneFarmacoDto assunzioneFarmacoDto : farmaci) {
-      assunzioneFarmacoDto.validate();
+    Validate.isTrue(!farmaci.isEmpty(), "la lista farmaci non può essere vuota");
+    if (!(farmaci.size() == 0)) {
+      for (AssunzioneFarmacoDto assunzioneFarmacoDto : farmaci) {
+        assunzioneFarmacoDto.validate();
+      }
     }
   }
 }

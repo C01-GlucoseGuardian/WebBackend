@@ -100,9 +100,13 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
 
     return terapiaDto;
   }
-  public void validate(){
-    Validate.notNull(id,"l'id non può essere assente");
-    for (AssunzioneFarmacoDto assunzioneFarmacoDto:farmaci){
+
+  /**
+   * Validation of Farmaco.
+   */
+  public void validate() {
+    Validate.notNull(id, "l'id non può essere assente");
+    for (AssunzioneFarmacoDto assunzioneFarmacoDto : farmaci) {
       assunzioneFarmacoDto.validate();
     }
   }

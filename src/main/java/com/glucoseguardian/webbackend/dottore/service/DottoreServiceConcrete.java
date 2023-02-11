@@ -139,7 +139,7 @@ public class DottoreServiceConcrete implements DottoreServiceInterface {
           adminDao.findAll().stream().map(Admin::getEmail).toList());
       firebase.sendNotification("Nuovo dottore da convalidare",
           "Ciao,\n c'è un nuovo dottore da convalidare: " + entity.getEmail(),
-          adminDao.findAll().stream().map(Admin::getEmail).toList());
+          adminDao.findAll().stream().map(Admin::getCodiceFiscale).toList());
     }
 
     return result;

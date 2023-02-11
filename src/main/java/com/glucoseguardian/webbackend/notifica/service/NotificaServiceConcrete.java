@@ -62,12 +62,14 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
         notificaDto.getStato());
 
     List<String> destinatari = new ArrayList<>();
+    List<String> destinatariCf = new ArrayList<>();
 
     if (notificaDto.getDottoreDestinatario() != null) {
       Optional<Dottore> utente = dottoreDao.findById(notificaDto.getDottoreDestinatario());
       if (utente.isPresent()) {
         notifica.setDottoreDestinatario(utente.get());
         destinatari.add(utente.get().getEmail());
+        destinatariCf.add(utente.get().getCodiceFiscale());
       } else {
         throw new UserNotFoundException("Dottore non trovato");
       }
@@ -78,6 +80,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       if (utente.isPresent()) {
         notifica.setPazienteDestinatario(utente.get());
         destinatari.add(utente.get().getEmail());
+        destinatariCf.add(utente.get().getCodiceFiscale());
       } else {
         throw new UserNotFoundException("Paziente non trovato");
       }
@@ -97,6 +100,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       if (utente.isPresent()) {
         notifica.setTutoreDestinatario(utente.get());
         destinatari.add(utente.get().getEmail());
+        destinatariCf.add(utente.get().getCodiceFiscale());
       } else {
         throw new UserNotFoundException("Tutore non trovato");
       }
@@ -107,6 +111,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       if (utente.isPresent()) {
         notifica.setAdminDestinatario(utente.get());
         destinatari.add(utente.get().getEmail());
+        destinatariCf.add(utente.get().getCodiceFiscale());
       } else {
         throw new UserNotFoundException("Admin non trovato");
       }
@@ -120,7 +125,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
     if (result) {
       mailService.sendNotification("Hai una nuova notifica", notifica.getMessaggio(), destinatari);
       firebaseService.sendNotification("Hai una nuova notifica", notifica.getMessaggio(),
-          destinatari);
+          destinatariCf);
     }
 
     return result;

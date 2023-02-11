@@ -108,7 +108,7 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave4() throws Exception {
-    serviceStub.duplicatedEmail = true;
+    serviceStub.duplicatedId = true;
 
     DottoreDto input = new DottoreDto();
     input.setNome("Aldo");
@@ -126,7 +126,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "Codice Fiscale già presente nel database");
+        "Codice fiscale già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -231,7 +231,7 @@ public class DottoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave9() throws Exception {
-    serviceStub.duplicatedId = true;
+    serviceStub.duplicatedEmail = true;
 
     DottoreDto input = new DottoreDto();
     input.setNome("Matteo");

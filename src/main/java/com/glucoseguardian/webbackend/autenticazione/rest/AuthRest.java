@@ -3,6 +3,7 @@ package com.glucoseguardian.webbackend.autenticazione.rest;
 import com.glucoseguardian.webbackend.autenticazione.service.AbstractAuthService;
 import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceConcrete;
 import com.glucoseguardian.webbackend.autenticazione.service.AuthServiceInterface;
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.storage.dto.LoginInputDto;
 import com.glucoseguardian.webbackend.storage.dto.LoginOutputDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
@@ -29,6 +30,8 @@ public class AuthRest {
 
   @Autowired
   private AbstractAuthService authService;
+  @Autowired
+  private Utils utils;
 
   /**
    * Metodo che gestisce il servizio login.
@@ -79,7 +82,7 @@ public class AuthRest {
   }
 
   private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
+    return utils.getAuthentication();
   }
 
   private AuthServiceInterface getService() {

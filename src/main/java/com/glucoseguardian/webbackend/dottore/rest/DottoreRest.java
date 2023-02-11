@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.dottore.rest;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.dottore.service.AbstractDottoreService;
 import com.glucoseguardian.webbackend.dottore.service.DottoreServiceInterface;
 import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
@@ -33,6 +34,8 @@ public class DottoreRest {
 
   @Autowired
   private AbstractDottoreService dottoreService;
+  @Autowired
+  private Utils utils;
 
   /**
    * Metodo che si occupa delle richieste post all'endpoint /get.
@@ -211,7 +214,7 @@ public class DottoreRest {
   }
 
   private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
+    return utils.getAuthentication();
   }
 }
 

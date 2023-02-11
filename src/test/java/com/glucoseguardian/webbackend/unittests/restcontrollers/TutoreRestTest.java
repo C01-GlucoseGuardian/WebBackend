@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
@@ -22,7 +23,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 @WebMvcTest(TutoreRest.class)
 @AutoConfigureMockMvc(addFilters = false)
-@Import({TutoreServiceStub.class, TestTutoreService.class})
+@Import({Utils.class, TutoreServiceStub.class, TestTutoreService.class})
 public class TutoreRestTest extends AbstractRestTest {
 
   @Autowired

@@ -254,9 +254,10 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Validate.isTrue(indirizzo.length() <= 50 && indirizzo.length() >= 4,
         "La lunghezza dell'indirizzo non è valida");
 
-    Validate.notNull(numeriUtili, "indirizzo non puo essere assente");
+    Validate.notNull(numeriUtili, "numeriUtili non può essere assente");
     for (NumeroTelefonoDto numeroTelefonoDto : numeriUtili) {
-      Validate.isTrue((pattern3.matcher(numeroTelefonoDto.getNumero())).matches());
+      Validate.isTrue((pattern3.matcher(numeroTelefonoDto.getNumero())).matches(),
+          "campo numeri utili non valido");
     }
 
     Validate.notNull(tipoDiabete, "tipo diabete non puo' essere assente");
@@ -267,9 +268,21 @@ public class PazienteDto extends RisultatoDto implements Serializable {
     Validate.isTrue(comorbilita.length() <= 100, "La lunghezza della commorbilità non è valida");
 
     Validate.notNull(farmaciAssunti, "farmaci assunti non puo' essere vuoto");
-    Validate.isTrue(farmaciAssunti.length() <= 100, "la lunghezza di farmaci assunti non è valida");
+    Validate.isTrue(farmaciAssunti.length() <= 100, "La lunghezza di farmaci assunti non è valida");
+
+    Validate.notNull(terapia, "La terapia non può essere assente");
+
+    Validate.notNull(terapia.getFarmaci(), "Farmaci non possono essere assenti");
+    Validate.isTrue(terapia.getFarmaci().size() > 0 && terapia.getFarmaci().size() < 20,
+        "Numero Farmaci non valido");
+
+    terapia.getFarmaci().forEach(AssunzioneFarmacoDto::validate);
+
 
     Validate.notNull(periodoDiMonitoraggio, "periodo di monitoraggio non puo essere assente");
+    Validate.isTrue(periodoDiMonitoraggio > 0, "periodo di monitoraggio non valido");
+
+
   }
 
   public TerapiaDto getTerapia() {

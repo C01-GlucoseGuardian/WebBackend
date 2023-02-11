@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.paziente.rest;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
@@ -35,6 +36,8 @@ public class PazienteRest {
 
   @Autowired
   private AbstractPazienteService pazienteService;
+  @Autowired
+  private Utils utils;
 
   /**
    * Metodo che si occupa delle richieste post all'endpoint /get.
@@ -203,7 +206,7 @@ public class PazienteRest {
   }
 
   private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
+    return utils.getAuthentication();
   }
 }
 

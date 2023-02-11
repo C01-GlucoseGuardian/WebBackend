@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.feedback.rest.FeedbackRest;
 import com.glucoseguardian.webbackend.feedback.service.FeedbackServiceStub;
 import com.glucoseguardian.webbackend.feedback.service.TestFeedbackService;
@@ -21,7 +22,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 // Remove security filters
 @AutoConfigureMockMvc(addFilters = false)
 // Import Test service and Service Stub
-@Import({FeedbackServiceStub.class, TestFeedbackService.class})
+@Import({Utils.class, FeedbackServiceStub.class, TestFeedbackService.class})
 public class FeedbackRestTest extends AbstractRestTest {
   /**
    * Test ID TC_1.1.

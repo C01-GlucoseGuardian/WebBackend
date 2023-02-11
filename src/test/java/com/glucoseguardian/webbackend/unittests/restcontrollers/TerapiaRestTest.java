@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
@@ -24,7 +25,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 // Remove security filters
 @AutoConfigureMockMvc(addFilters = false)
 // Import Test service and Service Stub
-@Import({TerapiaServiceStub.class, TestTerapiaService.class})
+@Import({Utils.class, TerapiaServiceStub.class, TestTerapiaService.class})
 public class TerapiaRestTest extends AbstractRestTest {
 
   /**
@@ -46,6 +47,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend2() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco(
         "Diabrezideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
             + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
@@ -70,6 +72,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend3() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco("Diamicron");
     input2.setOrarioAssunzione("13:00");
     input2.setDosaggio("");
@@ -80,7 +83,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza del dosaggio è errata");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del dosaggio è errata");
     testSend(input, status().isBadRequest(), oracolo);
   }
 
@@ -90,6 +93,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend4() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco("Diabrezide");
     input2.setDosaggio("2 mg");
     input2.setOrarioAssunzione("13.00");
@@ -100,7 +104,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("l'orario di assunzione non è valido");
+    RisultatoDto oracolo = new RisultatoDto("L'orario di assunzione non è valido");
     testSend(input, status().isBadRequest(), oracolo);
   }
 
@@ -110,6 +114,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend5() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco("Gleucos");
     input2.setDosaggio("2.5 mg");
     input2.setOrarioAssunzione("12:00");
@@ -120,7 +125,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("la lunghezza della via di somministrazione è errata");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza della via di somministrazione è errata");
     testSend(input, status().isBadRequest(), oracolo);
   }
 
@@ -130,6 +135,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend6() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco("Diabrezide");
     input2.setDosaggio("2 mg");
     input2.setOrarioAssunzione("13:00");
@@ -145,7 +151,7 @@ public class TerapiaRestTest extends AbstractRestTest {
     TerapiaDto input = new TerapiaDto();
     input.setFarmaci(list);
 
-    RisultatoDto oracolo = new RisultatoDto("le note aggiuntive superano la lunghezza consentita");
+    RisultatoDto oracolo = new RisultatoDto("Le note aggiuntive superano la lunghezza consentita");
     testSend(input, status().isBadRequest(), oracolo);
   }
 
@@ -155,6 +161,7 @@ public class TerapiaRestTest extends AbstractRestTest {
   @Test
   public void testSend7() throws Exception {
     AssunzioneFarmacoDto input2 = new AssunzioneFarmacoDto();
+    input2.setIdFarmaco(1L);
     input2.setNomeFarmaco("Dramion");
     input2.setDosaggio("3 mg");
     input2.setOrarioAssunzione("12:00");

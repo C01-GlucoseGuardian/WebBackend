@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glucoseguardian.webbackend.configuration.JwtAuthenticationFilter;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -53,6 +54,9 @@ public abstract class AbstractRestTest {
   }
 
   public Authentication createSecurityContext(Utente principal) {
+    if (principal == null) {
+      return new UsernamePasswordAuthenticationToken("", "", List.of());
+    }
     return new UsernamePasswordAuthenticationToken(principal,
         principal.getPassword(), principal.getAuthorities());
   }

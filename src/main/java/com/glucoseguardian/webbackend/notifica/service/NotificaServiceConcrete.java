@@ -58,8 +58,7 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
   @Override
   public boolean send(NotificaDto notificaDto) throws UserNotFoundException {
     Notifica notifica = new Notifica(notificaDto.getMessaggio(),
-        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()),
-        notificaDto.getStato());
+        new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), 1);
 
     List<String> destinatari = new ArrayList<>();
     List<String> destinatariCf = new ArrayList<>();
@@ -115,6 +114,10 @@ public class NotificaServiceConcrete implements NotificaServiceInterface {
       } else {
         throw new UserNotFoundException("Admin non trovato");
       }
+    }
+
+    if (destinatari.isEmpty()) {
+      throw new IllegalArgumentException("Nessun destinatario presente");
     }
 
     notificaDao.save(notifica);

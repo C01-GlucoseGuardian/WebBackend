@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.notifica.rest;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.AbstractNotificaService;
@@ -33,6 +34,8 @@ public class NotificaRest {
 
   @Autowired
   private AbstractNotificaService notificaService;
+  @Autowired
+  private Utils utils;
 
   /**
    * Metodo che gestisce il servizio Notifica findById.
@@ -148,6 +151,6 @@ public class NotificaRest {
   }
 
   private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
+    return utils.getAuthentication();
   }
 }

@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.glicemia.rest;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.glicemia.service.AbstractGlicemiaService;
@@ -32,6 +33,8 @@ public class GlicemiaRest {
 
   @Autowired
   private AbstractGlicemiaService glicemiaService;
+  @Autowired
+  private Utils utils;
 
   /**
    * Metodo che si occupa delle richieste post all'endpoint /getLast.
@@ -124,7 +127,7 @@ public class GlicemiaRest {
   }
 
   private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
+    return utils.getAuthentication();
   }
 }
 

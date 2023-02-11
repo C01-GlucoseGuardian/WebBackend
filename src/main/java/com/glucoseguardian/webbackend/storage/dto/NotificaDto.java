@@ -191,12 +191,9 @@ public class NotificaDto extends RisultatoDto implements Serializable {
     Validate.notNull(messaggio, "il messaggio della notifica non può essere assente");
     Validate.isTrue(messaggio.length() <= 1024 && messaggio.length() >= 1,
         "il messaggio della notifica è di lunghezza errata");
-    Validate.notNull(pazienteOggetto, "il paziente oggetto non può essere assente");
-    Validate.isTrue(pazienteOggetto.length() == 16,
-        "la lunghezza del codice fiscale deve essere 16 caratteri");
-    if (pazienteDestinatario == null && tutoreDestinatario == null && adminDestinatario == null
-        && dottoreDestinatario == null) {
-      throw new IllegalArgumentException("Tutti i destinatari sono vuoti");
+    if (pazienteOggetto != null) {
+      Validate.isTrue(pazienteOggetto.length() == 16,
+          "la lunghezza del codice fiscale deve essere 16 caratteri");
     }
     if (pazienteDestinatario != null) {
       Validate.isTrue(pazienteDestinatario.length() == 16,
@@ -211,6 +208,10 @@ public class NotificaDto extends RisultatoDto implements Serializable {
     if (dottoreDestinatario != null) {
       Validate.isTrue(dottoreDestinatario.length() == 16,
           "il codice fiscale è di lunghezza errata");
+    }
+    if (pazienteDestinatario == null && tutoreDestinatario == null && adminDestinatario == null
+        && dottoreDestinatario == null) {
+      throw new IllegalArgumentException("Tutti i destinatari sono vuoti");
     }
   }
 }

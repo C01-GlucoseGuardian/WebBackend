@@ -138,7 +138,7 @@ public class NotificaRest {
 
     if (result) {
       return CompletableFuture.completedFuture(
-          new ResponseEntity<>(new RisultatoDto("Notifica inserito correttamente"), HttpStatus.OK));
+          new ResponseEntity<>(new RisultatoDto("Notifica inviata correttamente"), HttpStatus.OK));
     } else {
       return CompletableFuture.completedFuture(
           new ResponseEntity<>(new RisultatoDto("Errore durante l'inserimento della Notifica"),

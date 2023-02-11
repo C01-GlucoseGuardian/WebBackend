@@ -88,12 +88,6 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
       throw new IllegalArgumentException("Data non valida");
     }
 
-    String cf = dto.getPazienteList().get(0).getCodiceFiscale();
-
-    if (!pazienteDao.existsById(cf)) {
-      throw new UserNotFoundException("Paziente non trovato.");
-    }
-
     String randomPassword = RandomStringUtils.random(16, 0, 0, true, true, null,
         new SecureRandom());
 
@@ -103,16 +97,6 @@ public class TutoreServiceConcrete implements TutoreServiceInterface {
         passwordEncoder.encode(randomPassword), dto.getSesso().charAt(0), null,
         Collections.emptyList());
     tutoreDao.save(tutoreEntity);
-
-    Paziente paziente = pazienteDao.findById(cf).orElse(null);
-    if (paziente == null) {
-      throw new UserNotFoundException("Paziente non trovato.");
-    }
-
-    List<Tutore> tutori = paziente.getTutori();
-    tutori.add(tutoreEntity);
-    paziente.setTutori(tutori);
-    pazienteDao.save(paziente);
 
     // Check if entity is correctly saved
     boolean result = tutoreDao.existsById(tutoreEntity.getCodiceFiscale());

@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
@@ -24,7 +25,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 // Remove security filters
 @AutoConfigureMockMvc(addFilters = false)
 // Import Test service and Service Stub
-@Import({TerapiaServiceStub.class, TestTerapiaService.class})
+@Import({Utils.class, TerapiaServiceStub.class, TestTerapiaService.class})
 public class TerapiaRestTest extends AbstractRestTest {
 
   /**

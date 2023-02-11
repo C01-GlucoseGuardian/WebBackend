@@ -7,10 +7,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glucoseguardian.webbackend.configuration.JwtAuthenticationFilter;
+import com.glucoseguardian.webbackend.storage.entity.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -48,6 +50,11 @@ public abstract class AbstractRestTest {
       ex.printStackTrace();
       return null;
     }
+  }
+
+  public Authentication createSecurityContext(Utente principal) {
+    return new UsernamePasswordAuthenticationToken(principal,
+        principal.getPassword(), principal.getAuthorities());
   }
 
 }

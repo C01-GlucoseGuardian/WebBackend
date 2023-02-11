@@ -150,11 +150,7 @@ public class Feedback implements Serializable {
       return false;
     }
     Feedback feedback = (Feedback) o;
-    return id == feedback.id && Objects.equals(statoSalute, feedback.statoSalute)
-        && Objects.equals(oreSonno, feedback.oreSonno) && Objects.equals(dolori,
-        feedback.dolori) && Objects.equals(svenimenti, feedback.svenimenti)
-        && Objects.equals(data, feedback.data) && Objects.equals(ora,
-        feedback.ora);
+    return id == feedback.id;
   }
 
 

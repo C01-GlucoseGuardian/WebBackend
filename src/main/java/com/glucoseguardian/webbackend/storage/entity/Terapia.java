@@ -96,9 +96,7 @@ public class Terapia implements Serializable {
       return false;
     }
     Terapia terapia = (Terapia) o;
-    return id == terapia.id && Objects.equals(dataInizio, terapia.dataInizio) && Objects.equals(
-        assunzioneFarmacos, terapia.assunzioneFarmacos) && Objects.equals(dottore, terapia.dottore)
-        && Objects.equals(paziente, terapia.paziente);
+    return id == terapia.id;
   }
 
   @Override

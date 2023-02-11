@@ -95,12 +95,7 @@ public class Admin implements Serializable, Utente {
       return false;
     }
     Admin admin = (Admin) o;
-    return sesso == admin.sesso && Objects.equals(codiceFiscale,
-        admin.codiceFiscale) && Objects.equals(nome, admin.nome) && Objects.equals(cognome,
-        admin.cognome) && Objects.equals(dataNascita, admin.dataNascita) && Objects.equals(
-        indirizzo, admin.indirizzo) && Objects.equals(telefono, admin.telefono) && Objects.equals(
-        email, admin.email) && Objects.equals(password, admin.password) && Objects.equals(totpKey,
-        admin.totpKey);
+    return Objects.equals(codiceFiscale, admin.codiceFiscale);
   }
 
   @Override

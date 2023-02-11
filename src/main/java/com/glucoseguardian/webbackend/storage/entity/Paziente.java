@@ -311,23 +311,7 @@ public class Paziente implements Serializable, Utente {
       return false;
     }
     Paziente paziente = (Paziente) o;
-    return periodoDiMonitoraggio == paziente.periodoDiMonitoraggio && Objects.equals(numeriUtili,
-        paziente.numeriUtili) && Objects.equals(notificheInvio,
-        paziente.notificheInvio) && Objects.equals(notifiche,
-        paziente.notifiche) && Objects.equals(glicemie, paziente.glicemie)
-        && Objects.equals(feedbacks, paziente.feedbacks) && Objects.equals(
-        terapia, paziente.terapia) && Objects.equals(dottore, paziente.dottore)
-        && Objects.equals(tutori, paziente.tutori)
-        && Objects.equals(codiceFiscale, paziente.codiceFiscale)
-        && Objects.equals(nome, paziente.nome) && Objects.equals(cognome,
-        paziente.cognome) && Objects.equals(dataNascita, paziente.dataNascita)
-        && Objects.equals(indirizzo, paziente.indirizzo) && Objects.equals(
-        telefono, paziente.telefono) && Objects.equals(email, paziente.email)
-        && Objects.equals(password, paziente.password) && Objects.equals(sesso,
-        paziente.sesso) && Objects.equals(totpKey, paziente.totpKey)
-        && Objects.equals(tipoDiabete, paziente.tipoDiabete) && Objects.equals(
-        comorbilita, paziente.comorbilita) && Objects.equals(farmaciAssunti,
-        paziente.farmaciAssunti);
+    return Objects.equals(codiceFiscale, paziente.codiceFiscale);
   }
 
   @Override

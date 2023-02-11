@@ -86,8 +86,7 @@ public class Glicemia implements Serializable {
       return false;
     }
     Glicemia glicemia = (Glicemia) o;
-    return id == glicemia.id && livelloGlucosio == glicemia.livelloGlucosio && Objects.equals(
-        dataOra, glicemia.dataOra) && Objects.equals(paziente, glicemia.paziente);
+    return id == glicemia.id;
   }
 
   @Override

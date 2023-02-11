@@ -172,7 +172,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
     terapiaEntity.setDataInizio(new Date(System.currentTimeMillis()));
     terapiaEntity.setPaziente(pazienteEntity);
     terapiaEntity.setDottore(dottoreEntity);
-    terapiaDao.saveAndFlush(terapiaEntity);
+    terapiaDao.save(terapiaEntity);
 
     for (AssunzioneFarmacoDto farmacoDto : dto.getTerapia().getFarmaci()) {
       Farmaco farmaco = farmacoDao.findById(farmacoDto.getIdFarmaco()).orElse(null);
@@ -187,12 +187,10 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
         AssunzioneFarmaco assFarmaco = new AssunzioneFarmaco(farmaco, farmacoDto.getDosaggio(),
             time, farmacoDto.getViaDiSomministrazione(),
             farmacoDto.getViaDiSomministrazione());
+        assFarmaco.setTerapia(terapiaEntity);
         assunzioneFarmacoDao.save(assFarmaco);
       }
     }
-
-    // persist the new entity
-    pazienteDao.save(pazienteEntity);
 
     // Check if entity is correctly saved
     boolean result = pazienteDao.existsById(pazienteEntity.getCodiceFiscale());

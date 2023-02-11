@@ -116,7 +116,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
-    tutore.setSesso("Q");
+    tutore.setSesso("Sesso");
     tutore.setDataNascita("10/07/2001");
     tutore.setEmail("vito@piegari.it");
     tutore.setTelefono("3663212456");

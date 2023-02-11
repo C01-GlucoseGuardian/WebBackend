@@ -1,6 +1,7 @@
 package com.glucoseguardian.webbackend.paziente.service;
 
 import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
+import com.glucoseguardian.webbackend.exceptions.EntityNotFoundException;
 import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
@@ -127,7 +128,7 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
   }
 
   @Override
-  public boolean save(PazienteDto dto) throws DuplicatedEntityException {
+  public boolean save(PazienteDto dto) throws DuplicatedEntityException, EntityNotFoundException {
     if (pazienteDao.existsById(dto.getCodiceFiscale())) {
       throw new DuplicatedEntityException("Codice fiscale già presente nel database");
     }
@@ -157,6 +158,11 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
         dto.getPeriodoDiMonitoraggio());
 
     Dottore dottoreEntity = dottoreDao.findById(dto.getIdDottore()).orElse(null);
+
+    if (dottoreEntity == null) {
+      throw new UserNotFoundException("Dottore non trovato");
+    }
+
     pazienteEntity.setDottore(dottoreEntity);
 
     pazienteDao.saveAndFlush(pazienteEntity);
@@ -188,6 +194,8 @@ public class PazienteServiceConcrete implements PazienteServiceInterface {
             time, farmacoDto.getViaDiSomministrazione(),
             farmacoDto.getViaDiSomministrazione());
         assunzioneFarmacoDao.save(assFarmaco);
+      } else {
+        throw new EntityNotFoundException("Farmaco non trovato");
       }
     }
 

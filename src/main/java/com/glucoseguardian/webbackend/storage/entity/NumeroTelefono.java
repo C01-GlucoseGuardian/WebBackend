@@ -80,8 +80,7 @@ public class NumeroTelefono implements Serializable {
       return false;
     }
     NumeroTelefono that = (NumeroTelefono) o;
-    return id == that.id && Objects.equals(numero, that.numero) && Objects.equals(
-        paziente, that.paziente);
+    return id == that.id;
   }
 
   @Override

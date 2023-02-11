@@ -111,22 +111,22 @@ public class DottoreRestTest extends AbstractRestTest {
     serviceStub.duplicatedEmail = true;
 
     DottoreDto input = new DottoreDto();
-    input.setNome("Matteo");
-    input.setCognome("Aldi");
-    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setNome("Aldo");
+    input.setCognome("Bianchi");
+    input.setCodiceFiscale("BNCLDA72E17A535H");
     input.setSesso("M");
-    input.setDataNascita("09/06/2001");
-    input.setEmail("matteo.aldi@hotmail.it");
+    input.setDataNascita("17/05/1972");
+    input.setEmail("dottore2@glucoseguardian.it");
     input.setTelefono("3938776542");
-    input.setIndirizzo("Caserta Via Vico 1");
+    input.setIndirizzo("Pozzuoli, Corso umberto 61");
     input.setPassword("blabla*blabla-");
     input.setSpecializzazione("Diabetologo");
-    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setCodiceAlbo("NA1234");
     input.setNomeStruttura("Studio Medico  Nuova Salute");
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "Email già presente nel database");
+        "Codice Fiscale già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -139,7 +139,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setNome("Matteo");
     input.setCognome("Aldi");
     input.setCodiceFiscale("LDAMTT01H09B963Y");
-    input.setSesso("N");
+    input.setSesso("Sesso");
     input.setDataNascita("09/06/2001");
     input.setEmail("matteo.aldi@hotmail.it");
     input.setTelefono("3938776542");
@@ -239,7 +239,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setCodiceFiscale("LDAMTT01H09B963Y");
     input.setSesso("M");
     input.setDataNascita("09/06/2001");
-    input.setEmail("matteo.aldi@hotmail.it");
+    input.setEmail("dottore@glucoseguardian.it");
     input.setTelefono("3938776542");
     input.setIndirizzo("Caserta Via Vico 1");
     input.setPassword("blabla*blabla-");
@@ -249,7 +249,7 @@ public class DottoreRestTest extends AbstractRestTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto(
-        "Codice fiscale già presente nel database");
+        "Email già presente nel database");
     testSave(input, status().isBadRequest(), oracolo);
   }
 

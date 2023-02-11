@@ -180,8 +180,13 @@ public class NotificaDto extends RisultatoDto implements Serializable {
   }
 
   public void validateStato() throws IllegalArgumentException {
-    Validate.notNull(stato, "lo stato del messaggio non può essere assente");
-    Validate.isTrue(stato >= 0 && stato <= 4, "lo stato del messaggio è errato");
+    Validate.notNull(stato, "Lo stato del messaggio non può essere assente");
+    Validate.isTrue(stato >= 0 && stato <= 4, "Lo stato del messaggio non è valido");
+  }
+
+  public void validateId() throws IllegalArgumentException {
+    Validate.notNull(id, "L'id del messaggio non può essere assente");
+    Validate.isTrue(id >= 0, "L'id del messaggio non è valido");
   }
 
   /**

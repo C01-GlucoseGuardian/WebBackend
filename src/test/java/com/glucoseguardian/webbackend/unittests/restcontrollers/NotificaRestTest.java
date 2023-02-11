@@ -263,7 +263,7 @@ public class NotificaRestTest extends AbstractRestTest {
   public void testGet1() throws Exception {
     IdDto id = new IdDto();
 
-    RisultatoDto oracolo = new RisultatoDto("L'id del messaggio non può essere assente");
+    RisultatoDto oracolo = new RisultatoDto("L'id non puo essere assente");
     testGet(id, status().isBadRequest(), oracolo);
   }
 
@@ -274,12 +274,12 @@ public class NotificaRestTest extends AbstractRestTest {
   public void testGet2() throws Exception {
     IdDto id = new IdDto(-100L);
 
-    RisultatoDto oracolo = new RisultatoDto("L'id del messaggio non è valido");
+    RisultatoDto oracolo = new RisultatoDto("L'id non è valido");
     testGet(id, status().isBadRequest(), oracolo);
   }
 
   /**
-   * get notifica: everithing ok
+   * get notifica: everything ok
    */
   @Test
   public void testGet3() throws Exception {

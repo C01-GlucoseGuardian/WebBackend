@@ -8,6 +8,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Rappresenta il dto dell'entita notifica.
@@ -218,5 +220,25 @@ public class NotificaDto extends RisultatoDto implements Serializable {
         && dottoreDestinatario == null) {
       throw new IllegalArgumentException("Tutti i destinatari sono vuoti");
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    NotificaDto that = (NotificaDto) o;
+
+    return new EqualsBuilder().append(id, that.id).append(pazienteOggetto, that.pazienteOggetto)
+        .append(pazienteDestinatario, that.pazienteDestinatario)
+        .append(tutoreDestinatario, that.tutoreDestinatario)
+        .append(adminDestinatario, that.adminDestinatario)
+        .append(dottoreDestinatario, that.dottoreDestinatario).append(messaggio, that.messaggio)
+        .append(data, that.data).append(time, that.time).append(stato, that.stato).isEquals();
   }
 }

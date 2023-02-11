@@ -188,14 +188,7 @@ public class Notifica implements Serializable {
       return false;
     }
     Notifica notifica = (Notifica) o;
-    return id == notifica.id && stato == notifica.stato && Objects.equals(messaggio,
-        notifica.messaggio) && Objects.equals(data, notifica.data)
-        && Objects.equals(ora, notifica.ora) && Objects.equals(pazienteOggetto,
-        notifica.pazienteOggetto) && Objects.equals(pazienteDestinatario,
-        notifica.pazienteDestinatario) && Objects.equals(dottoreDestinatario,
-        notifica.dottoreDestinatario) && Objects.equals(tutoreDestinatario,
-        notifica.tutoreDestinatario) && Objects.equals(adminDestinatario,
-        notifica.adminDestinatario);
+    return id == notifica.id;
   }
 
   @Override

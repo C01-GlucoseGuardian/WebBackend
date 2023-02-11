@@ -49,9 +49,7 @@ public class Farmaco {
       return false;
     }
     Farmaco farmaco = (Farmaco) o;
-    return id == farmaco.id && Objects.equals(nomeFarmaco, farmaco.nomeFarmaco)
-        && Objects.equals(principioAttivo, farmaco.principioAttivo)
-        && Objects.equals(confezione, farmaco.confezione);
+    return id == farmaco.id;
   }
 
   @Override

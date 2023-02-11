@@ -276,20 +276,7 @@ public class Dottore implements Serializable, Utente {
       return false;
     }
     Dottore dottore = (Dottore) o;
-    return sesso == dottore.sesso && stato == dottore.stato && Objects.equals(codiceFiscale,
-        dottore.codiceFiscale) && Objects.equals(nome, dottore.nome)
-        && Objects.equals(cognome, dottore.cognome) && Objects.equals(dataNascita,
-        dottore.dataNascita) && Objects.equals(indirizzo, dottore.indirizzo)
-        && Objects.equals(telefono, dottore.telefono) && Objects.equals(email,
-        dottore.email) && Objects.equals(password, dottore.password)
-        && Objects.equals(totpKey, dottore.totpKey) && Objects.equals(
-        specializzazione, dottore.specializzazione) && Objects.equals(codiceAlbo,
-        dottore.codiceAlbo) && Objects.equals(nomeStruttura, dottore.nomeStruttura)
-        && Objects.equals(indirizzoStruttura, dottore.indirizzoStruttura)
-        && Objects.equals(feedbacks, dottore.feedbacks) && Objects.equals(
-        pazientes, dottore.pazientes) && Objects.equals(terapias, dottore.terapias)
-        && Objects.equals(notificas, dottore.notificas) && Objects.equals(
-        convalidatoDa, dottore.convalidatoDa);
+    return Objects.equals(codiceFiscale, dottore.codiceFiscale);
   }
 
   @Override

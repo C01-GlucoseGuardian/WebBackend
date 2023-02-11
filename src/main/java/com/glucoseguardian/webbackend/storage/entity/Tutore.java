@@ -187,13 +187,7 @@ public class Tutore implements Serializable, Utente {
       return false;
     }
     Tutore that = (Tutore) o;
-    return sesso == that.sesso && Objects.equals(codiceFiscale, that.codiceFiscale)
-        && Objects.equals(nome, that.nome) && Objects.equals(cognome,
-        that.cognome) && Objects.equals(dataNascita, that.dataNascita)
-        && Objects.equals(indirizzo, that.indirizzo) && Objects.equals(telefono,
-        that.telefono) && Objects.equals(email, that.email) && Objects.equals(
-        password, that.password) && Objects.equals(totpKey, that.totpKey)
-        && Objects.equals(pazienteList, that.pazienteList);
+    return Objects.equals(codiceFiscale, that.codiceFiscale);
   }
 
   @Override

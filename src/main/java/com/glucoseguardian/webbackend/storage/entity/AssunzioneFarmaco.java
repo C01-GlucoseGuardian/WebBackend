@@ -144,10 +144,7 @@ public class AssunzioneFarmaco implements Serializable {
       return false;
     }
     AssunzioneFarmaco that = (AssunzioneFarmaco) o;
-    return id == that.id && dosaggio == that.dosaggio && Objects.equals(farmaco,
-        that.farmaco) && Objects.equals(orarioAssunzione, that.orarioAssunzione)
-        && Objects.equals(viaDiSomministrazione, that.viaDiSomministrazione)
-        && Objects.equals(noteAggiuntive, that.noteAggiuntive);
+    return id == that.id;
   }
 
   @Override

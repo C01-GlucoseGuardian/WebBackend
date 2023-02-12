@@ -1,5 +1,6 @@
 package com.glucoseguardian.webbackend.unittests.restcontrollers;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -10,11 +11,13 @@ import com.glucoseguardian.webbackend.dottore.service.DottoreServiceStub;
 import com.glucoseguardian.webbackend.dottore.service.TestDottoreService;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
+import com.glucoseguardian.webbackend.storage.entity.Admin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -29,6 +32,9 @@ public class DottoreRestTest extends AbstractRestTest {
 
   @Autowired
   DottoreServiceStub serviceStub;
+
+  @MockBean
+  Utils utils;
 
   /**
    * Test ID TC_2.1.
@@ -648,6 +654,95 @@ public class DottoreRestTest extends AbstractRestTest {
       throws Exception {
 
     performSync(post("/dottore/save").contentType(MediaType.APPLICATION_JSON)
+        .content(toJsonString(input))).andExpect(status)
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(content().json(toJsonString(oracolo)));
+  }
+
+
+  /**
+   * UpdateStato: stato assente
+   */
+  @Test
+  public void testUpdateStato1() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setStato(null);
+    RisultatoDto oracolo = new RisultatoDto("lo stato del dottore non può essere assente");
+    testUpdateStato(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * UpdateStato: stato negativo
+   */
+  @Test
+  public void testUpdateStato2() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setStato(-1);
+    RisultatoDto oracolo = new RisultatoDto("Lo stato del dottore non è valido");
+    testUpdateStato(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * UpdateStato: stato troppo grande
+   */
+  @Test
+  public void testUpdateStato3() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setStato(10);
+    RisultatoDto oracolo = new RisultatoDto("Lo stato del dottore non è valido");
+    testUpdateStato(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * UpdateStato: codice fiscale assente
+   */
+  @Test
+  public void testUpdateStato4() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setStato(1);
+    RisultatoDto oracolo = new RisultatoDto("Il codice fiscale non può essere vuoto");
+    testUpdateStato(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * UpdateStato: codice fiscale lunghezza errata
+   */
+  @Test
+  public void testUpdateStato5() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setStato(1);
+    input.setCodiceFiscale("AAAA");
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del codice fiscale deve essere di 16 caratteri");
+    testUpdateStato(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * UpdateStato: input valido
+   */
+  @Test
+  public void testUpdateStato6() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setStato(1);
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    RisultatoDto oracolo = new RisultatoDto("Modifica effettuata con successo");
+    testUpdateStato(input, status().isOk(), oracolo);
+  }
+
+
+  @WithMockUser(username = "admin", authorities = {"ADMIN"})
+  // Mock User dottore with tipo Dottore
+  private void testUpdateStato(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+      throws Exception {
+    // Mock admin
+    Admin admin = new Admin();
+    admin.setCodiceFiscale("RSSNTN90A01H703B");
+    admin.setEmail("dottore@glucoseguardian.it");
+    when(utils.getAuthentication()).thenReturn(createSecurityContext(admin));
+
+    performSync(post("/dottore/updateStato").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));

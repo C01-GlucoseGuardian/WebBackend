@@ -29,7 +29,7 @@ public class DottoreDto extends RisultatoDto implements Serializable {
   private String codiceAlbo;
   private String nomeStruttura;
   private String indirizzoStruttura;
-  private Integer stato = 0;
+  private Integer stato;
 
   /**
    * Costruttore completo.
@@ -220,9 +220,9 @@ public class DottoreDto extends RisultatoDto implements Serializable {
    * validazione dello stato.
    */
 
-  public void validateStato(DottoreDto dottoreDto) throws IllegalArgumentException {
-    Validate.notNull(dottoreDto.getStato(), "lo stato del dottore non può essere assente");
-    Validate.isTrue(dottoreDto.getStato() >= 0 && dottoreDto.getStato() <= 2,
+  public void validateStato() throws IllegalArgumentException {
+    Validate.notNull(getStato(), "lo stato del dottore non può essere assente");
+    Validate.isTrue(getStato() >= 0 && getStato() <= 2,
         "Lo stato del dottore non è valido");
   }
 
@@ -291,5 +291,12 @@ public class DottoreDto extends RisultatoDto implements Serializable {
     Validate.notNull(indirizzoStruttura, "l'indirizzo struttura non può essere assente");
     Validate.isTrue(indirizzoStruttura.length() <= 100 && indirizzoStruttura.length() >= 1,
         "La lunghezza del campo Indirizzo Struttura non è valida");
+  }
+
+  public void validateCodiceFiscale() {
+    Validate.notNull(codiceFiscale, "Il codice fiscale non può essere vuoto");
+    Validate.isTrue(codiceFiscale.length() == 16,
+        "La lunghezza del codice fiscale deve essere di 16 caratteri");
+
   }
 }

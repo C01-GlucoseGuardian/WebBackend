@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,7 +71,7 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-    dottore.validateStato(dottore);
+    dottore.validateStato();
     try {
       ListDto<DottoreDto> dto = getService().findByStato(dottore.getStato());
       response = new ResponseEntity<>(dto, HttpStatus.OK);
@@ -149,7 +148,8 @@ public class DottoreRest {
     // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
-    dottore.validateStato(dottore);
+    dottore.validateStato();
+    dottore.validateCodiceFiscale();
     boolean result = false;
     try {
       Utente admin = (Utente) getAuthentication().getPrincipal();

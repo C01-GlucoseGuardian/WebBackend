@@ -88,14 +88,10 @@ public class Admin implements Serializable, Utente {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Admin) {
+      return Objects.equals(codiceFiscale, ((Admin) o).codiceFiscale);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Admin admin = (Admin) o;
-    return Objects.equals(codiceFiscale, admin.codiceFiscale);
+    return false;
   }
 
   @Override

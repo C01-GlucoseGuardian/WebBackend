@@ -269,14 +269,10 @@ public class Dottore implements Serializable, Utente {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Dottore) {
+      return Objects.equals(codiceFiscale, ((Dottore) o).codiceFiscale);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Dottore dottore = (Dottore) o;
-    return Objects.equals(codiceFiscale, dottore.codiceFiscale);
+    return false;
   }
 
   @Override

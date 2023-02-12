@@ -137,14 +137,10 @@ public class AssunzioneFarmaco implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof AssunzioneFarmaco) {
+      return Objects.equals(id, ((AssunzioneFarmaco) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AssunzioneFarmaco that = (AssunzioneFarmaco) o;
-    return id == that.id;
+    return false;
   }
 
   @Override

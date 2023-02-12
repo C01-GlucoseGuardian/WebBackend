@@ -79,14 +79,10 @@ public class Glicemia implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Glicemia) {
+      return Objects.equals(id, ((Glicemia) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Glicemia glicemia = (Glicemia) o;
-    return id == glicemia.id;
+    return false;
   }
 
   @Override

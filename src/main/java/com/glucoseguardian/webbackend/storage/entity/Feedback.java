@@ -143,14 +143,10 @@ public class Feedback implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Feedback) {
+      return Objects.equals(id, ((Feedback) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Feedback feedback = (Feedback) o;
-    return id == feedback.id;
+    return false;
   }
 
 

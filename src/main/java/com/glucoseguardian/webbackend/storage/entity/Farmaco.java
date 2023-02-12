@@ -42,14 +42,10 @@ public class Farmaco {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Farmaco) {
+      return Objects.equals(id, ((Farmaco) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Farmaco farmaco = (Farmaco) o;
-    return id == farmaco.id;
+    return false;
   }
 
   @Override

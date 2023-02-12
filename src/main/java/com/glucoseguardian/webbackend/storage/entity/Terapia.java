@@ -89,14 +89,10 @@ public class Terapia implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Terapia) {
+      return Objects.equals(id, ((Terapia) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Terapia terapia = (Terapia) o;
-    return id == terapia.id;
+    return false;
   }
 
   @Override

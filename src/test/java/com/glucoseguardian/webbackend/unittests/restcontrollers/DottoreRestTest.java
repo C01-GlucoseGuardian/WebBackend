@@ -448,6 +448,200 @@ public class DottoreRestTest extends AbstractRestTest {
     testSave(input, status().isOk(), oracolo);
   }
 
+
+  /**
+   * Nome troppo lungo
+   */
+  @Test
+  public void testSave18() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("MatteoMatteoMatteoMatteoMatteoMatteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo nome non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Cognome troppo breve
+   */
+  @Test
+  public void testSave19() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del cognome non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Indirizzo troppo lungo
+   */
+  @Test
+  public void testSave20() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("ViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaVia");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza dell'indirizzo non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Password troppo lunga
+   */
+  @Test
+  public void testSave21() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-ViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaViaVia");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo password non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Specializzazione troppo breve
+   */
+  @Test
+  public void testSave22() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("la lunghezza del campo Specializzazione non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * codice albo troppo breve
+   */
+  @Test
+  public void testSave23() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo Codice Albo non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+
+  /**
+   * indirizzo struttura troppo breve
+   */
+  @Test
+  public void testSave24() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("Studio Medico  Nuova Salute");
+    input.setIndirizzoStruttura("");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo Indirizzo Struttura non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * indirizzo struttura troppo lungo
+   */
+  @Test
+  public void testSave25() throws Exception {
+    DottoreDto input = new DottoreDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setPassword("blabla*blabla-");
+    input.setSpecializzazione("Diabetologo");
+    input.setCodiceAlbo("5545 San nicola la strada");
+    input.setNomeStruttura("okokokokooooooooooookkookokokokokokokokokokokokokokokookokokokooooooooooookkookokokokokokokokokokokokokokoko");
+    input.setIndirizzoStruttura("Caserta Via Roma 52");
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo Nome Struttura non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
   @WithMockUser(username = "dottore", authorities = {"DOTTORE"})
   // Mock User dottore with tipo Dottore
   private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)

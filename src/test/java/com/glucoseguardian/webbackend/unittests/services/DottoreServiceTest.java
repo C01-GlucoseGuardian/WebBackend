@@ -8,12 +8,15 @@ import static org.mockito.Mockito.when;
 
 import com.glucoseguardian.webbackend.dottore.service.DottoreServiceConcrete;
 import com.glucoseguardian.webbackend.exceptions.DuplicatedEntityException;
+import com.glucoseguardian.webbackend.exceptions.UserNotFoundException;
 import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dao.AdminDao;
 import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
 import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -163,6 +166,24 @@ public class DottoreServiceTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     assertTrue(dottoreServiceConcrete.save(input));
+  }
+
+  /**
+   * updateStato: dottore non trovato
+   */
+  @Test
+  public void testUpdateStato1() {
+    assertThrows(UserNotFoundException.class, () ->
+        dottoreServiceConcrete.updateStato("BNCLDA72E17A535F", 0, ""));
+  }
+
+  /**
+   * updateStato: all ok
+   */
+  @Test
+  public void testUpdateStato2() throws UserNotFoundException {
+    when(dottoreDao.findById("BNCLDA72E17A535H")).thenReturn(Optional.of(new Dottore()));
+    assertTrue(dottoreServiceConcrete.updateStato("BNCLDA72E17A535H", 0, "RSSMRA80A01F205X"));
   }
 
 

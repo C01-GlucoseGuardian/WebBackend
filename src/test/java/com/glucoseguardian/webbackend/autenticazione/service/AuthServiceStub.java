@@ -13,7 +13,7 @@ public class AuthServiceStub implements AuthServiceInterface {
 
   @Override
   public LoginOutputDto login(String email, String password, String otp) {
-    return new LoginOutputDto("CCCCDDDEER", TipoUtente.ADMIN.ordinal(), null, null);
+    return new LoginOutputDto("RSSMRA80A01F205X", TipoUtente.ADMIN.ordinal(), null, null);
   }
 
   @Override

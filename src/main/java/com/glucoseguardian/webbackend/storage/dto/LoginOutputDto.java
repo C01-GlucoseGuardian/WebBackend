@@ -3,6 +3,7 @@ package com.glucoseguardian.webbackend.storage.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 /**
  * Rappresenta l'output delle funzioni di login.
@@ -58,5 +59,15 @@ public class LoginOutputDto extends RisultatoDto implements Serializable {
 
   public void setToken(String token) {
     this.token = token;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof LoginOutputDto that)) {
+      return false;
+    }
+
+    return new EqualsBuilder().append(idUtente, that.idUtente).append(tipoUtente, that.tipoUtente)
+        .append(needOtp, that.needOtp).isEquals();
   }
 }

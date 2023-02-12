@@ -12,7 +12,7 @@ public class NotificaServiceStub implements NotificaServiceInterface {
 
   @Override
   public NotificaDto findById(Long id) {
-    return new NotificaDto();
+    return new NotificaDto(id);
   }
 
   @Override

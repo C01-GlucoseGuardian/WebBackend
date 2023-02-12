@@ -16,15 +16,15 @@ public class IdDto extends RisultatoDto implements Serializable {
   public IdDto() {
   }
 
-  public IdDto(long id) {
+  public IdDto(Long id) {
     this.id = id;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -32,6 +32,8 @@ public class IdDto extends RisultatoDto implements Serializable {
    *  validazione dell'id.
    */
   public void validate() {
-    Validate.notNull(id, "l'id non puo essere assente");
+    Validate.notNull(id, "L'id non puo essere assente");
+    Validate.isTrue(id >= 0, "L'id non è valido");
+
   }
 }

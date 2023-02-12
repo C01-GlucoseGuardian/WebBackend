@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,10 +92,10 @@ public class NotificaRest {
    * Metodo che gestisce il servizio Notifica updateStato.
    */
   @PostMapping(value = "/updateStato", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updatesato(
-      @RequestBody NotificaDto input)
-      throws EntityNotFoundException {
+  public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updateStato(
+      @RequestBody NotificaDto input) throws EntityNotFoundException {
     input.validateStato();
+    input.validateId();
     boolean result = false;
     try {
       result = getService().updateStato(input.getId(), input.getStato());

@@ -68,8 +68,10 @@ public class LoginInputDto extends RisultatoDto implements Serializable {
   public void validateChangePw() {
     Validate.notNull(password, "la vecchia password non può essere vuota");
     Validate.notNull(newPassword, "la nuova password non può essere vuota");
-    Validate.isTrue(password.equals(newPassword),
+    Validate.isTrue(!password.equals(newPassword),
         "la nuova password non può essere uguale alla vecchia password");
+    Validate.isTrue(newPassword.length() <= 30 && newPassword.length() >= 8,
+        "La lunghezza della nuova password non è valida");
   }
 
   public void validatePw() {
@@ -85,5 +87,7 @@ public class LoginInputDto extends RisultatoDto implements Serializable {
     Validate.isTrue(pattern2.matcher(email).matches(), "L'email non è valida");
 
     Validate.notNull(password, "la password non può essere assente");
+    Validate.isTrue(password.length() <= 30 && password.length() >= 8,
+        "La lunghezza del campo password non è valida");
   }
 }

@@ -1,7 +1,6 @@
 package com.glucoseguardian.webbackend.notifica.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Primary
 public class FinalNotificaService extends AbstractNotificaService {
   @Autowired
-  @Qualifier("notificaServiceConcrete")
   NotificaServiceInterface notificaService;
 
   @Override

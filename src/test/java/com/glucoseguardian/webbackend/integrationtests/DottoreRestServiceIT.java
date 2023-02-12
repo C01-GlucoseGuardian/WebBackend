@@ -11,7 +11,6 @@ import com.glucoseguardian.webbackend.dottore.service.DottoreServiceConcrete;
 import com.glucoseguardian.webbackend.dottore.service.FinalDottoreService;
 import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
 import com.glucoseguardian.webbackend.notifica.service.MailService;
-import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
@@ -28,9 +27,6 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 @Import({Utils.class, DottoreRest.class, DottoreServiceConcrete.class, FinalDottoreService.class, MailService.class, FirebaseService.class})
 public class DottoreRestServiceIT extends AbstractIntegrationTest {
-
-  @MockBean
-  FeedbackDao feedbackDao;
 
   @MockBean
   JavaMailSender javaMailSender;

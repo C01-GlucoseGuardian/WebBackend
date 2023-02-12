@@ -1,5 +1,6 @@
-package com.glucoseguardian.webbackend.unittests.restcontrollers;
+package com.glucoseguardian.webbackend.integrationtests;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,32 +9,79 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.glucoseguardian.webbackend.configuration.Utils;
 import com.glucoseguardian.webbackend.notifica.rest.NotificaRest;
-import com.glucoseguardian.webbackend.notifica.service.NotificaServiceStub;
-import com.glucoseguardian.webbackend.notifica.service.TestNotificaService;
+import com.glucoseguardian.webbackend.notifica.service.FinalNotificaService;
+import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
+import com.glucoseguardian.webbackend.notifica.service.MailService;
+import com.glucoseguardian.webbackend.notifica.service.NotificaServiceConcrete;
+import com.glucoseguardian.webbackend.storage.dao.NotificaDao;
 import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import com.glucoseguardian.webbackend.storage.entity.Notifica;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
+import com.glucoseguardian.webbackend.storage.entity.Utente;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.List;
+import java.util.Optional;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@WebMvcTest(NotificaRest.class)
-@AutoConfigureMockMvc(addFilters = false)
-@Import({Utils.class, NotificaServiceStub.class, TestNotificaService.class})
-public class NotificaRestTest extends AbstractRestTest {
+@Import({Utils.class, NotificaRest.class, NotificaServiceConcrete.class, FinalNotificaService.class, MailService.class, FirebaseService.class})
+public class NotificaRestServiceIT extends AbstractIntegrationTest {
 
   @MockBean
-  Utils utils;
+  NotificaDao notifcaDao;
+
+  @MockBean
+  JavaMailSender javaMailSender;
+
+  private static final Dottore dottore = new Dottore();
+  private static final Admin admin = new Admin();
+  private static final Paziente paziente = new Paziente();
+  private static final Tutore tutore = new Tutore();
+
+  @BeforeAll
+  public static void setupClass() {
+    admin.setCodiceFiscale("RSSMRA80A01F205X");
+    admin.setEmail("admin@glucoseguardian.it");
+    admin.setNotifiche(List.of());
+
+    dottore.setEmail("dottore@glucoseguardian.it");
+    dottore.setCodiceFiscale("RSSNTN90A01H703B");
+    dottore.setStato(1);
+    dottore.setNotifiche(List.of());
+
+    paziente.setEmail("paziente@glucoseguardian.it");
+    paziente.setCodiceFiscale("MRACMB95A13A717X");
+    Notifica notifica = new Notifica();
+    notifica.setId(1L);
+    notifica.setOra(Time.valueOf("01:01:01"));
+    notifica.setData(Date.valueOf("2022-01-01"));
+    notifica.setPazienteOggetto(paziente);
+    notifica.setPazienteDestinatario(paziente);
+    paziente.setNotifiche(List.of(notifica));
+
+    tutore.setCodiceFiscale("TTOGNN65M07G273H");
+    tutore.setEmail("tutore@glucoseguardian.it");
+    tutore.setNotifiche(List.of(notifica, notifica));
+  }
+
+  @BeforeEach
+  public void resetDottoreStato() {
+    dottore.setStato(1);
+  }
 
 
   /**
@@ -45,7 +93,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setMessaggio(null);
 
     RisultatoDto oracolo = new RisultatoDto("il messaggio della notifica non può essere assente");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -59,7 +107,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setTutoreDestinatario("TTOGNN65M07G273H");
 
     RisultatoDto oracolo = new RisultatoDto("il messaggio della notifica è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -73,7 +121,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setTutoreDestinatario("TTOGNN65M07G273H");
 
     RisultatoDto oracolo = new RisultatoDto("il messaggio della notifica è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
 
@@ -86,7 +134,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setMessaggio("Nuova notifica");
 
     RisultatoDto oracolo = new RisultatoDto("Tutti i destinatari sono vuoti");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -99,7 +147,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setAdminDestinatario("A");
 
     RisultatoDto oracolo = new RisultatoDto("il codice fiscale è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -112,7 +160,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setDottoreDestinatario("A");
 
     RisultatoDto oracolo = new RisultatoDto("il codice fiscale è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -125,7 +173,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setPazienteDestinatario("A");
 
     RisultatoDto oracolo = new RisultatoDto("il codice fiscale è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -138,7 +186,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setTutoreDestinatario("A");
 
     RisultatoDto oracolo = new RisultatoDto("il codice fiscale è di lunghezza errata");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -152,31 +200,45 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setAdminDestinatario("RSSMRA80A01F205X");
 
     RisultatoDto oracolo = new RisultatoDto("la lunghezza del codice fiscale deve essere 16 caratteri");
-    testSend(notifica, status().isBadRequest(), oracolo);
+    testSend(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
-   * Notifica: Tutto ok
+   * Notifica: Everything ok
    */
   @Test
   public void testSend10() throws Exception {
     NotificaDto notifica = new NotificaDto();
     notifica.setMessaggio("Nuova notifica");
-    notifica.setPazienteOggetto("MRTLDA01L55C514M");
-    notifica.setPazienteDestinatario("MRTLDA01L55C514M");
-    notifica.setDottoreDestinatario("BNCLDA72E17A535H");
-    notifica.setAdminDestinatario("RSSMRA80A01F205X");
-    notifica.setTutoreDestinatario("TTOGNN65M07G273H");
+    notifica.setDottoreDestinatario(dottore.getCodiceFiscale());
 
     RisultatoDto oracolo = new RisultatoDto("Notifica inviata correttamente");
-    testSend(notifica, status().isOk(), oracolo);
+    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(Optional.of(dottore));
+    when(notifcaDao.existsById(any())).thenReturn(true);
+    testSend(notifica, status().isOk(), oracolo, dottore);
   }
 
-  private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+  /**
+   * Notifica: Internal error
+   */
+  @Test
+  public void testSend11() throws Exception {
+    NotificaDto notifica = new NotificaDto();
+    notifica.setMessaggio("Nuova notifica");
+    notifica.setDottoreDestinatario(dottore.getCodiceFiscale());
+
+    RisultatoDto oracolo = new RisultatoDto("Errore durante l'inserimento della Notifica");
+    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(Optional.of(dottore));
+    testSend(notifica, status().isInternalServerError(), oracolo, dottore);
+  }
+
+  private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
 
+    Optional optional = Optional.of(utente);
+    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
     performSync(post("/notifica/send").contentType(MediaType.APPLICATION_JSON)
-        .content(toJsonString(input))).andExpect(status)
+        .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
   }
@@ -190,7 +252,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setStato(0);
 
     RisultatoDto oracolo = new RisultatoDto("L'id del messaggio non può essere assente");
-    testUpdate(notifica, status().isBadRequest(), oracolo);
+    testUpdate(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -203,7 +265,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setStato(0);
 
     RisultatoDto oracolo = new RisultatoDto("L'id del messaggio non è valido");
-    testUpdate(notifica, status().isBadRequest(), oracolo);
+    testUpdate(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -215,7 +277,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setId(0L);
 
     RisultatoDto oracolo = new RisultatoDto("Lo stato del messaggio non può essere assente");
-    testUpdate(notifica, status().isBadRequest(), oracolo);
+    testUpdate(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -228,7 +290,7 @@ public class NotificaRestTest extends AbstractRestTest {
     notifica.setStato(100);
 
     RisultatoDto oracolo = new RisultatoDto("Lo stato del messaggio non è valido");
-    testUpdate(notifica, status().isBadRequest(), oracolo);
+    testUpdate(notifica, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -239,17 +301,20 @@ public class NotificaRestTest extends AbstractRestTest {
     NotificaDto notifica = new NotificaDto();
     notifica.setId(0L);
     notifica.setStato(1);
-
+    when(notifcaDao.findById(0L)).thenReturn(Optional.of(new Notifica()));
     RisultatoDto oracolo = new RisultatoDto("Stato notifica aggiornato correttamente");
-    testUpdate(notifica, status().isOk(), oracolo);
+    testUpdate(notifica, status().isOk(), oracolo, dottore);
   }
 
 
-  private void testUpdate(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+  private void testUpdate(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
 
+    Optional optional = Optional.of(utente);
+    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
+    
     performSync(post("/notifica/updateStato").contentType(MediaType.APPLICATION_JSON)
-        .content(toJsonString(input))).andExpect(status)
+        .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
   }
@@ -264,7 +329,7 @@ public class NotificaRestTest extends AbstractRestTest {
     IdDto id = new IdDto();
 
     RisultatoDto oracolo = new RisultatoDto("L'id non puo essere assente");
-    testGet(id, status().isBadRequest(), oracolo);
+    testGet(id, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -275,7 +340,7 @@ public class NotificaRestTest extends AbstractRestTest {
     IdDto id = new IdDto(-100L);
 
     RisultatoDto oracolo = new RisultatoDto("L'id non è valido");
-    testGet(id, status().isBadRequest(), oracolo);
+    testGet(id, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -285,15 +350,23 @@ public class NotificaRestTest extends AbstractRestTest {
   public void testGet3() throws Exception {
     IdDto id = new IdDto(0L);
 
-    RisultatoDto oracolo = new NotificaDto(0L);
-    testGet(id, status().isOk(), oracolo);
+    Notifica notifica = new Notifica();
+    notifica.setId(0L);
+    notifica.setStato(0);
+    notifica.setData(Date.valueOf("2022-01-01"));
+    notifica.setOra(Time.valueOf("01:01:01"));
+    RisultatoDto oracolo = NotificaDto.valueOf(notifica);
+
+    when(notifcaDao.findById(0L)).thenReturn(Optional.of(notifica));
+    testGet(id, status().isOk(), oracolo, dottore);
   }
 
-  private void testGet(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+  private void testGet(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
+    Optional optional = Optional.of(utente);
+    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
     performSync(post("/notifica/get").contentType(MediaType.APPLICATION_JSON)
-        .content(toJsonString(input))).andExpect(status)
+        .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
   }
@@ -305,7 +378,8 @@ public class NotificaRestTest extends AbstractRestTest {
   @Test
   public void testGetAll1() throws Exception {
     RisultatoDto oracolo = new RisultatoDto("Errore durante la ricerca della notifica");
-    testGetAll(status().isInternalServerError(), oracolo);
+    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(null);
+    testGetAll(status().isInternalServerError(), oracolo, dottore);
   }
 
   /**
@@ -313,10 +387,9 @@ public class NotificaRestTest extends AbstractRestTest {
    */
   @Test
   public void testGetAll2() throws Exception {
-    when(utils.getAuthentication()).thenReturn(createSecurityContext(null));
-
     RisultatoDto oracolo = new RisultatoDto("Utente non autorizzato");
-    testGetAll(status().isForbidden(), oracolo);
+    dottore.setStato(0);
+    testGetAll(status().isForbidden(), oracolo, dottore);
   }
 
   /**
@@ -324,10 +397,9 @@ public class NotificaRestTest extends AbstractRestTest {
    */
   @Test
   public void testGetAll3() throws Exception {
-    when(utils.getAuthentication()).thenReturn(createSecurityContext(new Admin()));
-
     RisultatoDto oracolo = new ListDto<>();
-    testGetAll(status().isOk(), oracolo);
+    when(adminDao.findById(admin.getCodiceFiscale())).thenReturn(Optional.of(admin));
+    testGetAll(status().isOk(), oracolo, admin);
   }
 
   /**
@@ -335,10 +407,9 @@ public class NotificaRestTest extends AbstractRestTest {
    */
   @Test
   public void testGetAll4() throws Exception {
-    when(utils.getAuthentication()).thenReturn(createSecurityContext(new Dottore()));
-
     RisultatoDto oracolo = new ListDto<>();
-    testGetAll(status().isOk(), oracolo);
+    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(Optional.of(dottore));
+    testGetAll(status().isOk(), oracolo, dottore);
   }
 
   /**
@@ -346,10 +417,10 @@ public class NotificaRestTest extends AbstractRestTest {
    */
   @Test
   public void testGetAll5() throws Exception {
-    when(utils.getAuthentication()).thenReturn(createSecurityContext(new Paziente()));
-
-    RisultatoDto oracolo = new ListDto<>();
-    testGetAll(status().isOk(), oracolo);
+    RisultatoDto oracolo = new ListDto<>(paziente.getNotifiche().stream().map(NotificaDto::valueOf).toList());
+    when(pazienteDao.findById(paziente.getCodiceFiscale())).thenReturn(
+        Optional.ofNullable(paziente));
+    testGetAll(status().isOk(), oracolo, paziente);
   }
 
   /**
@@ -357,20 +428,18 @@ public class NotificaRestTest extends AbstractRestTest {
    */
   @Test
   public void testGetAll6() throws Exception {
-    when(utils.getAuthentication()).thenReturn(createSecurityContext(new Tutore()));
-
     RisultatoDto oracolo = new ListDto<>();
-    testGetAll(status().isOk(), oracolo);
+    when(tutoreDao.findById(tutore.getCodiceFiscale())).thenReturn(Optional.of(tutore));
+    testGetAll(status().isOk(), oracolo, tutore);
   }
 
-  private void testGetAll(ResultMatcher status, RisultatoDto oracolo)
+  private void testGetAll(ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    performSync(get("/notifica/getAll"))
+    Optional optional = Optional.of(utente);
+    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
+    performSync(get("/notifica/getAll").header("Authorization", "Bearer " + generateJwtToken(utente)))
         .andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
   }
-
-
 }

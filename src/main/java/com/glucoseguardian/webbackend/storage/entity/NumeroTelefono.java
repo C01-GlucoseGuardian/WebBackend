@@ -73,14 +73,10 @@ public class NumeroTelefono implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof NumeroTelefono) {
+      return Objects.equals(id, ((NumeroTelefono) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    NumeroTelefono that = (NumeroTelefono) o;
-    return id == that.id;
+    return false;
   }
 
   @Override

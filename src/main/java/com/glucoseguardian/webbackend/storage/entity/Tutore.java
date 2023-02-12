@@ -180,14 +180,10 @@ public class Tutore implements Serializable, Utente {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Tutore) {
+      return Objects.equals(codiceFiscale, ((Tutore) o).codiceFiscale);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Tutore that = (Tutore) o;
-    return Objects.equals(codiceFiscale, that.codiceFiscale);
+    return false;
   }
 
   @Override

@@ -181,14 +181,10 @@ public class Notifica implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Notifica) {
+      return Objects.equals(id, ((Notifica) o).id);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Notifica notifica = (Notifica) o;
-    return id == notifica.id;
+    return false;
   }
 
   @Override

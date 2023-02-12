@@ -304,14 +304,10 @@ public class Paziente implements Serializable, Utente {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Paziente) {
+      return Objects.equals(codiceFiscale, ((Paziente) o).codiceFiscale);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Paziente paziente = (Paziente) o;
-    return Objects.equals(codiceFiscale, paziente.codiceFiscale);
+    return false;
   }
 
   @Override

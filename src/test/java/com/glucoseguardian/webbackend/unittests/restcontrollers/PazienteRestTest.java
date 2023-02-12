@@ -869,6 +869,179 @@ public class PazienteRestTest extends AbstractRestTest {
   }
 
 
+  /**
+   * Test: Cognome troppo lungo
+   */
+  @Test
+  public void testSave25() throws Exception {
+    PazienteDto input = new PazienteDto();
+    input.setNome("Matteo");
+    input.setCognome("AldiAldiAldiAldiAldiAldiAldiAldiAldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setNumeriUtili(List.of(new NumeroTelefonoDto(null, "3911697894")));
+    input.setTipoDiabete("Tipo 1");
+    input.setComorbilita("");
+    input.setFarmaciAssunti("");
+    input.setPeriodoDiMonitoraggio(14);
+
+    List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
+    AssunzioneFarmacoDto assunzioneFarmaco = new AssunzioneFarmacoDto();
+    assunzioneFarmaco.setNomeFarmaco("Diabrezide");
+    assunzioneFarmaco.setIdFarmaco(0L);
+    assunzioneFarmaco.setDosaggio("1");
+    assunzioneFarmaco.setOrarioAssunzione("20:00");
+    assunzioneFarmaco.setViaDiSomministrazione("orale");
+    assunzioneFarmaco.setNoteAggiuntive("");
+    farmaci.add(assunzioneFarmaco);
+
+    input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del cognome non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Test: Nome troppo lungo
+   */
+  @Test
+  public void testSave26() throws Exception {
+    PazienteDto input = new PazienteDto();
+    input.setNome("MatteoAldiAldiAldiAldiAldiAldiAldiAldi");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setNumeriUtili(List.of(new NumeroTelefonoDto(null, "3911697894")));
+    input.setTipoDiabete("Tipo 1");
+    input.setComorbilita("");
+    input.setFarmaciAssunti("");
+    input.setPeriodoDiMonitoraggio(14);
+
+    List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
+    AssunzioneFarmacoDto assunzioneFarmaco = new AssunzioneFarmacoDto();
+    assunzioneFarmaco.setNomeFarmaco("Diabrezide");
+    assunzioneFarmaco.setIdFarmaco(0L);
+    assunzioneFarmaco.setDosaggio("1");
+    assunzioneFarmaco.setOrarioAssunzione("20:00");
+    assunzioneFarmaco.setViaDiSomministrazione("orale");
+    assunzioneFarmaco.setNoteAggiuntive("");
+    farmaci.add(assunzioneFarmaco);
+
+    input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del campo nome non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Test: Indirizzo troppo breve
+   */
+  @Test
+  public void testSave27() throws Exception {
+    PazienteDto input = new PazienteDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Via");
+    input.setNumeriUtili(List.of(new NumeroTelefonoDto(null, "3911697894")));
+    input.setTipoDiabete("Tipo 1");
+    input.setComorbilita("");
+    input.setFarmaciAssunti("");
+    input.setPeriodoDiMonitoraggio(14);
+
+    List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
+    AssunzioneFarmacoDto assunzioneFarmaco = new AssunzioneFarmacoDto();
+    assunzioneFarmaco.setNomeFarmaco("Diabrezide");
+    assunzioneFarmaco.setIdFarmaco(0L);
+    assunzioneFarmaco.setDosaggio("1");
+    assunzioneFarmaco.setOrarioAssunzione("20:00");
+    assunzioneFarmaco.setViaDiSomministrazione("orale");
+    assunzioneFarmaco.setNoteAggiuntive("");
+    farmaci.add(assunzioneFarmaco);
+
+    input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza dell'indirizzo non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Test: Tipo diabete troppo breve
+   */
+  @Test
+  public void testSave28() throws Exception {
+    PazienteDto input = new PazienteDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setNumeriUtili(List.of(new NumeroTelefonoDto(null, "3911697894")));
+    input.setTipoDiabete("");
+    input.setComorbilita("");
+    input.setFarmaciAssunti("");
+    input.setPeriodoDiMonitoraggio(14);
+
+    List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
+    AssunzioneFarmacoDto assunzioneFarmaco = new AssunzioneFarmacoDto();
+    assunzioneFarmaco.setNomeFarmaco("Diabrezide");
+    assunzioneFarmaco.setIdFarmaco(0L);
+    assunzioneFarmaco.setDosaggio("1");
+    assunzioneFarmaco.setOrarioAssunzione("20:00");
+    assunzioneFarmaco.setViaDiSomministrazione("orale");
+    assunzioneFarmaco.setNoteAggiuntive("");
+    farmaci.add(assunzioneFarmaco);
+
+    input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
+
+    RisultatoDto oracolo = new RisultatoDto("La lunghezza del tipo diabete non è valida");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+  /**
+   * Test: Nessun farmaco
+   */
+  @Test
+  public void testSave29() throws Exception {
+    PazienteDto input = new PazienteDto();
+    input.setNome("Matteo");
+    input.setCognome("Aldi");
+    input.setCodiceFiscale("LDAMTT01H09B963Y");
+    input.setSesso("M");
+    input.setDataNascita("09/06/2001");
+    input.setEmail("matteo.aldi@hotmail.it");
+    input.setTelefono("3938776542");
+    input.setIndirizzo("Caserta Via Vico 1");
+    input.setNumeriUtili(List.of(new NumeroTelefonoDto(null, "3911697894")));
+    input.setTipoDiabete("Tipo 1");
+    input.setComorbilita("");
+    input.setFarmaciAssunti("");
+    input.setPeriodoDiMonitoraggio(14);
+
+    List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
+
+    input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
+
+    RisultatoDto oracolo = new RisultatoDto("Numero Farmaci non valido");
+    testSave(input, status().isBadRequest(), oracolo);
+  }
+
+
   @WithMockUser(username = "dottore@glucoseguardian.it", authorities = {"DOTTORE"})
   // Mock User dottore with tipo Dottore
   private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)

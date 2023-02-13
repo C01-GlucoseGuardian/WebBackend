@@ -47,7 +47,6 @@ public class TerapiaRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della Terapia"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -68,7 +67,6 @@ public class TerapiaRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -87,7 +85,6 @@ public class TerapiaRest {
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

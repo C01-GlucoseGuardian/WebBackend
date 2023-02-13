@@ -82,8 +82,6 @@ public class NotificaRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca della notifica"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -102,7 +100,6 @@ public class NotificaRest {
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {
@@ -124,7 +121,6 @@ public class NotificaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveNotifica(
       @RequestBody NotificaDto input) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validateNotifica();
     boolean result = false;
     try {
@@ -132,7 +128,6 @@ public class NotificaRest {
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

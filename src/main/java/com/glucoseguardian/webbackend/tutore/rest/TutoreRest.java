@@ -47,7 +47,6 @@ public class TutoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del Tutore"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -70,7 +69,6 @@ public class TutoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del tutore"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -83,7 +81,6 @@ public class TutoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveTutore(
       @RequestBody TutoreDto input) throws UserNotFoundException, DuplicatedEntityException {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validate();
     boolean result = false;
     try {
@@ -91,7 +88,6 @@ public class TutoreRest {
     } catch (UserNotFoundException | AccessDeniedException | DuplicatedEntityException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

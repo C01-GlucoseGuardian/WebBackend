@@ -37,7 +37,6 @@ public class FarmacoRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getFarmaco(
       @RequestBody IdDto idFarmaco) throws EntityNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     idFarmaco.validate();
@@ -49,7 +48,6 @@ public class FarmacoRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del farmaco"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -62,7 +60,6 @@ public class FarmacoRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> findFarmaco(
       @RequestBody RicercaDto query) {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
 
@@ -74,7 +71,6 @@ public class FarmacoRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del farmaco"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);

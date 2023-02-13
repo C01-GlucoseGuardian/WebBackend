@@ -1,69 +1,34 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.configuration.Utils;
-import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
-import com.glucoseguardian.webbackend.notifica.service.MailService;
-import com.glucoseguardian.webbackend.paziente.rest.PazienteRest;
-import com.glucoseguardian.webbackend.paziente.service.FinalPazienteService;
-import com.glucoseguardian.webbackend.paziente.service.PazienteServiceConcrete;
-import com.glucoseguardian.webbackend.storage.dao.AssunzioneFarmacoDao;
-import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
-import com.glucoseguardian.webbackend.storage.dao.NumeroTelefonoDao;
-import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.NumeroTelefonoDto;
 import com.glucoseguardian.webbackend.storage.dto.PazienteDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Farmaco;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@Import({Utils.class, PazienteRest.class, PazienteServiceConcrete.class, FinalPazienteService.class, MailService.class, FirebaseService.class})
-public class PazienteRestServiceIT extends AbstractIntegrationTest {
-
-  @MockBean
-  JavaMailSender javaMailSender;
-
-  @MockBean
-  NumeroTelefonoDao numeroTelefonoDao;
-
-  @MockBean
-  TerapiaDao terapiaDao;
-
-  @MockBean
-  FarmacoDao farmacoDao;
-
-  @MockBean
-  AssunzioneFarmacoDao assunzioneFarmacoDao;
+@SpringBootTest
+public class PazienteRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private static final Dottore dottore = new Dottore();
-  private static final Paziente paziente = new Paziente();
 
   @BeforeAll
   public static void setupClass() {
     dottore.setEmail("dottore@glucoseguardian.it");
     dottore.setCodiceFiscale("RSSNTN90A01H703B");
     dottore.setStato(1);
-    paziente.setEmail("paziente2@glucoseguardian.it");
-    paziente.setCodiceFiscale("MRTLDA01L55C514M");
   }
 
   /**
@@ -195,7 +160,6 @@ public class PazienteRestServiceIT extends AbstractIntegrationTest {
     input.setTerapia(new TerapiaDto(null, null, null, null, List.of(assunzioneFarmaco)));
 
     RisultatoDto oracolo = new RisultatoDto("Codice fiscale già presente nel database");
-    when(pazienteDao.existsById(paziente.getCodiceFiscale())).thenReturn(true);
     testSave(input, status().isBadRequest(), oracolo, dottore);
   }
 
@@ -361,7 +325,6 @@ public class PazienteRestServiceIT extends AbstractIntegrationTest {
     input.setTerapia(new TerapiaDto(null, null, null, null, List.of(assunzioneFarmaco)));
 
     RisultatoDto oracolo = new RisultatoDto("Email già presente nel database");
-    when(utenteDao.existsByEmail("paziente@glucoseguardian.it")).thenReturn(true);
     testSave(input, status().isBadRequest(), oracolo, dottore);
   }
 
@@ -878,7 +841,7 @@ public class PazienteRestServiceIT extends AbstractIntegrationTest {
     List<AssunzioneFarmacoDto> farmaci = new ArrayList<>();
     AssunzioneFarmacoDto assunzioneFarmaco = new AssunzioneFarmacoDto();
     assunzioneFarmaco.setNomeFarmaco("Diabrezide");
-    assunzioneFarmaco.setIdFarmaco(0L);
+    assunzioneFarmaco.setIdFarmaco(4L);
     assunzioneFarmaco.setDosaggio("1");
     assunzioneFarmaco.setOrarioAssunzione("20:00");
     assunzioneFarmaco.setViaDiSomministrazione("orale");
@@ -888,11 +851,6 @@ public class PazienteRestServiceIT extends AbstractIntegrationTest {
     input.setTerapia(new TerapiaDto(null, null, null, null, farmaci));
 
     RisultatoDto oracolo = new RisultatoDto("Paziente inserito correttamente");
-
-    final int[] counter = {0};
-    when(pazienteDao.existsById("LDAMTT01H09B963Y")).then(invocation -> counter[0]++ > 0);
-    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(Optional.of(dottore));
-    when(farmacoDao.findById(any())).thenReturn(Optional.of(new Farmaco()));
 
     testSave(input, status().isOk(), oracolo, dottore);
   }
@@ -1075,9 +1033,6 @@ public class PazienteRestServiceIT extends AbstractIntegrationTest {
   private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
 
-    Optional optional = Optional.of(utente);
-    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
-    
     performSync(post("/paziente/save").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))

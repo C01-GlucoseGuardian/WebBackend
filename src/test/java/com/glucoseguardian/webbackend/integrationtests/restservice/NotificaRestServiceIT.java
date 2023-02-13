@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservice;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

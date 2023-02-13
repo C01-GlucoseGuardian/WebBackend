@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservice;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -10,7 +10,6 @@ import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import com.glucoseguardian.webbackend.tutore.rest.TutoreRest;

@@ -1,4 +1,4 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservice;
 
 import static org.hamcrest.Matchers.anything;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;

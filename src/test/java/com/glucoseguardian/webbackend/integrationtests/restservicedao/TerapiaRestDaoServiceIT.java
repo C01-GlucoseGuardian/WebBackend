@@ -1,42 +1,25 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.storage.dao.FarmacoDao;
-import com.glucoseguardian.webbackend.storage.dao.TerapiaDao;
 import com.glucoseguardian.webbackend.storage.dto.AssunzioneFarmacoDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TerapiaDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Farmaco;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
-import com.glucoseguardian.webbackend.storage.entity.Terapia;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import com.glucoseguardian.webbackend.terapia.rest.TerapiaRest;
-import com.glucoseguardian.webbackend.terapia.service.FinalTerapiaService;
-import com.glucoseguardian.webbackend.terapia.service.TerapiaServiceConcrete;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@Import({TerapiaRest.class, TerapiaServiceConcrete.class, FinalTerapiaService.class})
-public class TerapiaRestServiceIT extends AbstractIntegrationTest {
-
-  @MockBean
-  TerapiaDao terapiaDao;
-
-  @MockBean
-  FarmacoDao farmacoDao;
+@SpringBootTest
+public class TerapiaRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private static final Paziente paziente = new Paziente();
   private static final Dottore dottore = new Dottore();
@@ -196,12 +179,6 @@ public class TerapiaRestServiceIT extends AbstractIntegrationTest {
     input.setIdPaziente(paziente.getCodiceFiscale());
 
     RisultatoDto oracolo = new RisultatoDto("Terapia aggiornata correttamente");
-    Terapia terapia = new Terapia();
-    terapia.setId(0);
-    terapia.setAssunzioneFarmacos(new ArrayList<>());
-    when(terapiaDao.findByPaziente_codiceFiscale(paziente.getCodiceFiscale())).thenReturn(Optional.of(terapia));
-    when(farmacoDao.findById(any())).thenReturn(Optional.of(new Farmaco()));
-    when(terapiaDao.existsById(terapia.getId())).thenReturn(true);
     testSend(input, status().isOk(), oracolo, dottore);
   }
 
@@ -209,9 +186,6 @@ public class TerapiaRestServiceIT extends AbstractIntegrationTest {
 
   private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    Optional optional = Optional.of(utente);
-    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
 
     performSync(
         post("/terapia/update")

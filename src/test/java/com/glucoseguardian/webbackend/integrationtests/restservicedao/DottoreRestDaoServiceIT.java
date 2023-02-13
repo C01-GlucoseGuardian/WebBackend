@@ -1,33 +1,24 @@
-package com.glucoseguardian.webbackend.integrationtests;
+package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.configuration.Utils;
-import com.glucoseguardian.webbackend.dottore.rest.DottoreRest;
-import com.glucoseguardian.webbackend.dottore.service.DottoreServiceConcrete;
-import com.glucoseguardian.webbackend.dottore.service.FinalDottoreService;
-import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
-import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@Import({Utils.class, DottoreRest.class, DottoreServiceConcrete.class, FinalDottoreService.class, MailService.class, FirebaseService.class})
-public class DottoreRestServiceIT extends AbstractIntegrationTest {
-
+@SpringBootTest
+public class DottoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
   @MockBean
   JavaMailSender javaMailSender;
 
@@ -138,7 +129,6 @@ public class DottoreRestServiceIT extends AbstractIntegrationTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "Codice fiscale già presente nel database");
-    when(dottoreDao.existsById("BNCLDA72E17A535H")).thenReturn(true);
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -260,7 +250,6 @@ public class DottoreRestServiceIT extends AbstractIntegrationTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "Email già presente nel database");
-    when(utenteDao.existsByEmail(dottore.getEmail())).thenReturn(true);
     testSave(input, status().isBadRequest(), oracolo);
   }
 
@@ -456,8 +445,6 @@ public class DottoreRestServiceIT extends AbstractIntegrationTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("Dottore registrato correttamente");
-    final int[] counter = {0};
-    when(dottoreDao.existsById("LDAMTT01H09B963Y")).then(invocation -> counter[0]++ > 0);
 
     testSave(input, status().isOk(), oracolo);
   }
@@ -735,7 +722,6 @@ public class DottoreRestServiceIT extends AbstractIntegrationTest {
     input.setCodiceFiscale("RSSNTN90A01H703B");
     RisultatoDto oracolo = new RisultatoDto("Modifica effettuata con successo");
 
-    when(dottoreDao.findById(dottore.getCodiceFiscale())).thenReturn(Optional.of(new Dottore()));
 
     testUpdateStato(input, status().isOk(), oracolo, admin);
   }
@@ -743,9 +729,6 @@ public class DottoreRestServiceIT extends AbstractIntegrationTest {
 
   private void testUpdateStato(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-    Optional optional = Optional.of(utente);
-    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
-
     performSync(post("/dottore/updateStato").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente)))
         .andExpect(status)

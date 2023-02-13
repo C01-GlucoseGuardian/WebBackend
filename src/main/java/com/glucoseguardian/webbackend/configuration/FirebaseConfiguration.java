@@ -46,7 +46,11 @@ public class FirebaseConfiguration {
         .setCredentials(credentials)
         .build();
 
-    return FirebaseApp.initializeApp(options);
+    if (FirebaseApp.getApps().isEmpty()) {
+      return FirebaseApp.initializeApp(options);
+    } else {
+      return FirebaseApp.getApps().get(0);
+    }
   }
 
   @Bean

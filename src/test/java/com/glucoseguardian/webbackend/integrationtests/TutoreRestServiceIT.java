@@ -1,33 +1,47 @@
-package com.glucoseguardian.webbackend.unittests.restcontrollers;
+package com.glucoseguardian.webbackend.integrationtests;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.configuration.Utils;
+import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
+import com.glucoseguardian.webbackend.notifica.service.MailService;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
+import com.glucoseguardian.webbackend.storage.entity.Dottore;
+import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Tutore;
+import com.glucoseguardian.webbackend.storage.entity.Utente;
 import com.glucoseguardian.webbackend.tutore.rest.TutoreRest;
-import com.glucoseguardian.webbackend.tutore.service.TestTutoreService;
-import com.glucoseguardian.webbackend.tutore.service.TutoreServiceStub;
-import org.junit.jupiter.api.BeforeEach;
+import com.glucoseguardian.webbackend.tutore.service.FinalTutoreService;
+import com.glucoseguardian.webbackend.tutore.service.TutoreServiceConcrete;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@WebMvcTest(TutoreRest.class)
-@AutoConfigureMockMvc(addFilters = false)
-@Import({Utils.class, TutoreServiceStub.class, TestTutoreService.class})
-public class TutoreRestTest extends AbstractRestTest {
+@Import({TutoreRest.class, TutoreServiceConcrete.class, FinalTutoreService.class, MailService.class, FirebaseService.class})
+public class TutoreRestServiceIT extends AbstractIntegrationTest {
 
-  @Autowired
-  TutoreServiceStub serviceStub;
+  @MockBean
+  JavaMailSender javaMailSender;
+
+  private static final Tutore tutore = new Tutore();
+  private static final Dottore dottore = new Dottore();
+
+  @BeforeAll
+  public static void setupClass() {
+    tutore.setEmail("tutore@glucoseguardian.it");
+    tutore.setCodiceFiscale("TTOGNN65M07G273H");
+    dottore.setEmail("dottore@glucoseguardian.it");
+    dottore.setCodiceFiscale("RSSNTN90A01H703B");
+    dottore.setStato(1);
+  }
 
   /**
    * Test ID TC_3.1
@@ -45,7 +59,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("La lunghezza del nome non è valida");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -64,7 +78,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("La lunghezza del cognome non è valida");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -84,7 +98,7 @@ public class TutoreRestTest extends AbstractRestTest {
 
     RisultatoDto oracolo = new RisultatoDto(
         "La lunghezza del codice fiscale deve essere di 16 caratteri");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -92,7 +106,6 @@ public class TutoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave4() throws Exception {
-    serviceStub.duplicatedId = true;
     TutoreDto tutore = new TutoreDto();
     tutore.setNome("Gianni");
     tutore.setCognome("Otto");
@@ -104,7 +117,8 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("Palermo Corso Vittorio Emanuele 10");
 
     RisultatoDto oracolo = new RisultatoDto("Codice fiscale già presente nel database");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    when(tutoreDao.existsById(tutore.getCodiceFiscale())).thenReturn(true);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -123,7 +137,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("il sesso non è valido");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
 
@@ -143,7 +157,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("la data nascita inserita non è valida");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
 
@@ -163,7 +177,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("La data di nascita è nel futuro");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
 
@@ -183,7 +197,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("L'email non è valida");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
 
@@ -192,8 +206,6 @@ public class TutoreRestTest extends AbstractRestTest {
    */
   @Test
   public void testSave9() throws Exception {
-    serviceStub.duplicatedEmail = true;
-
     TutoreDto tutore = new TutoreDto();
     tutore.setNome("Vito");
     tutore.setCognome("Piegari");
@@ -205,7 +217,8 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("Email già presente nel database");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    when(utenteDao.existsByEmail(tutore.getEmail())).thenReturn(true);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -224,7 +237,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("il campo numero di telefono non rispetta il formato");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -244,7 +257,7 @@ public class TutoreRestTest extends AbstractRestTest {
         "C.so Garibaldi, 12 22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222rrwasd22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
 
     RisultatoDto oracolo = new RisultatoDto("La lunghezza dell'indirizzo non è valida");
-    testSave(tutore, status().isBadRequest(), oracolo);
+    testSave(tutore, status().isBadRequest(), oracolo, dottore);
   }
 
   /**
@@ -263,25 +276,29 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("Tutore inserito correttamente");
-    testSave(tutore, status().isOk(), oracolo);
+    final int[] counter = {0};
+    when(tutoreDao.existsById("PGRVTT06G22H501E")).then(invocation -> counter[0]++ > 0);
+    testSave(tutore, status().isOk(), oracolo, dottore);
   }
 
 
-  @WithMockUser(username = "tutore", authorities = {"TUTORE"})
-  // Mock User tutore with tipo Tutore
-  private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo)
+
+  private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
 
-    performSync(post("/tutore/save").contentType(MediaType.APPLICATION_JSON)
-        .content(toJsonString(input))).andExpect(status)
+    Optional optional = Optional.of(utente);
+    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
+
+    performSync(
+        post("/tutore/save")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(toJsonString(input))
+            .header("Authorization", "Bearer " + generateJwtToken(utente))
+    )
+        .andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(toJsonString(oracolo)));
   }
 
-  @BeforeEach
-  public void resetServiceStub() {
-    serviceStub.duplicatedId = false;
-    serviceStub.duplicatedEmail = false;
-  }
 
 }

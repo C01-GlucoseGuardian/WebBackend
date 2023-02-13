@@ -38,7 +38,7 @@ auth.pbkdf.secret =
 
 ## Database initialization
 # Always initialize database - TODO: switch to never in production
-spring.sql.init.mode=never
+spring.sql.init.mode=always
 # Let hibernate do its own initialization before spring jpa
 spring.jpa.defer-datasource-initialization=true
 # Data sql path - Note that changing the pbkdf settings above will invalidate the passwords

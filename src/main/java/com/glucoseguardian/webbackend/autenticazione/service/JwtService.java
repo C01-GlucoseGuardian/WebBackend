@@ -5,6 +5,7 @@ import com.glucoseguardian.webbackend.storage.entity.Utente;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.PrematureJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -37,14 +38,22 @@ public class JwtService {
 
   private <T> @Nullable T getClaim(@NonNull String token,
       @NonNull Function<Claims, T> claimsResolver) {
-    final Claims claims = extractAllClaims(token);
-    return claimsResolver.apply(claims);
+    try {
+      final Claims claims = extractAllClaims(token);
+      return claimsResolver.apply(claims);
+    } catch (MalformedJwtException e) {
+      return null;
+    }
   }
 
   private <T> @Nullable T getClaim(@NonNull String token, @NonNull String key,
-      @NonNull Class<T> type) {
-    final Claims claims = extractAllClaims(token);
-    return claims.get(key, type);
+      @NonNull Class<T> type)  {
+    try {
+      final Claims claims = extractAllClaims(token);
+      return claims.get(key, type);
+    } catch (MalformedJwtException e) {
+      return null;
+    }
   }
 
   /**
@@ -112,7 +121,7 @@ public class JwtService {
     return TipoUtente.valueOf(getClaim(token, TIPO_UTENTE, String.class));
   }
 
-  private @NonNull Claims extractAllClaims(@NonNull String token) {
+  private @NonNull Claims extractAllClaims(@NonNull String token) throws MalformedJwtException {
     try {
       return Jwts
           .parserBuilder()

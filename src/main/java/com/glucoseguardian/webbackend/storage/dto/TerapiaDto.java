@@ -106,10 +106,8 @@ public class TerapiaDto extends RisultatoDto implements Serializable {
    */
   public void validate() {
     Validate.isTrue(!farmaci.isEmpty(), "la lista farmaci non può essere vuota");
-    if (!(farmaci.size() == 0)) {
-      for (AssunzioneFarmacoDto assunzioneFarmacoDto : farmaci) {
-        assunzioneFarmacoDto.validate();
-      }
+    for (AssunzioneFarmacoDto assunzioneFarmacoDto : farmaci) {
+      assunzioneFarmacoDto.validate();
     }
   }
 }

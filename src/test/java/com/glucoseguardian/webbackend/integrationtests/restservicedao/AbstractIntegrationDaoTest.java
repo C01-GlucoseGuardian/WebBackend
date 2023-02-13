@@ -7,34 +7,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glucoseguardian.webbackend.autenticazione.service.JwtService;
-import com.glucoseguardian.webbackend.storage.dao.AdminDao;
-import com.glucoseguardian.webbackend.storage.dao.DottoreDao;
-import com.glucoseguardian.webbackend.storage.dao.PazienteDao;
-import com.glucoseguardian.webbackend.storage.dao.TutoreDao;
-import com.glucoseguardian.webbackend.storage.dao.UtenteDao;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public abstract class AbstractIntegrationDaoTest {
   private final ObjectMapper mapper = new ObjectMapper();
 
-  @MockBean
-  UtenteDao utenteDao;
-  @MockBean
-  PazienteDao pazienteDao;
-  @MockBean
-  TutoreDao tutoreDao;
-  @MockBean
-  DottoreDao dottoreDao;
-  @MockBean
-  AdminDao adminDao;
   @Autowired(required = false)
   JwtService jwtService;
 

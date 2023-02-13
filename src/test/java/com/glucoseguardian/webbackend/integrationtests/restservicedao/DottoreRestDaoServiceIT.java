@@ -1,17 +1,14 @@
 package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 import com.glucoseguardian.webbackend.storage.dto.DottoreDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -448,7 +445,6 @@ public class DottoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
     input.setIndirizzoStruttura("Caserta Via Roma 52");
 
     RisultatoDto oracolo = new RisultatoDto("Dottore registrato correttamente");
-    final int[] counter = {0};
 
     testSave(input, status().isOk(), oracolo);
   }
@@ -733,8 +729,6 @@ public class DottoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private void testUpdateStato(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-    Optional optional = Optional.of(utente);
-
     performSync(post("/dottore/updateStato").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente)))
         .andExpect(status)

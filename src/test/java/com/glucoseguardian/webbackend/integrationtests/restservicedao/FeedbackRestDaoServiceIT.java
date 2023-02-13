@@ -1,28 +1,21 @@
 package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
+
 import com.glucoseguardian.webbackend.storage.dto.FeedbackDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Paziente;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 @SpringBootTest
 public class FeedbackRestDaoServiceIT extends AbstractIntegrationDaoTest {
-
-  @MockBean
-  FeedbackDao feedbackDao;
 
   static Paziente paziente = new Paziente();
 
@@ -112,17 +105,11 @@ public class FeedbackRestDaoServiceIT extends AbstractIntegrationDaoTest {
     input.setIdPaziente(paziente.getCodiceFiscale());
 
     RisultatoDto oracolo = new RisultatoDto("Feedback inserito correttamente");
-
-    when(pazienteDao.findById(paziente.getCodiceFiscale())).thenReturn(Optional.of(paziente));
-    when(feedbackDao.existsById(any())).thenReturn(true);
     testSend(input, status().isOk(), oracolo, paziente);
   }
 
   private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    Optional optional = Optional.of(utente);
-    when(utenteDao.findByEmail(utente.getEmail())).thenReturn(optional);
 
     performSync(
         post("/feedback/send")

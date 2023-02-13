@@ -1,19 +1,10 @@
 package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.configuration.Utils;
-import com.glucoseguardian.webbackend.notifica.rest.NotificaRest;
-import com.glucoseguardian.webbackend.notifica.service.FinalNotificaService;
-import com.glucoseguardian.webbackend.notifica.service.FirebaseService;
-import com.glucoseguardian.webbackend.notifica.service.MailService;
-import com.glucoseguardian.webbackend.notifica.service.NotificaServiceConcrete;
-import com.glucoseguardian.webbackend.storage.dao.NotificaDao;
 import com.glucoseguardian.webbackend.storage.dto.IdDto;
 import com.glucoseguardian.webbackend.storage.dto.ListDto;
 import com.glucoseguardian.webbackend.storage.dto.NotificaDto;
@@ -27,27 +18,16 @@ import com.glucoseguardian.webbackend.storage.entity.Utente;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
-import java.util.Optional;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-@Import({Utils.class, NotificaRest.class, NotificaServiceConcrete.class, FinalNotificaService.class, MailService.class, FirebaseService.class})
 public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
-  @MockBean
-  NotificaDao notifcaDao;
-
-  @MockBean
-  JavaMailSender javaMailSender;
-
-  private static final Dottore dottore = new Dottore();
+   private static final Dottore dottore = new Dottore();
   private static final Admin admin = new Admin();
   private static final Paziente paziente = new Paziente();
   private static final Tutore tutore = new Tutore();
@@ -79,8 +59,8 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
   }
 
   @BeforeEach
-  public void resetDottoreStato() {
-    dottore.setStato(1);
+  public void resetDottoreEmail() {
+    dottore.setEmail("dottore@glucoseguardian.it");
   }
 
 
@@ -213,27 +193,12 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
     notifica.setDottoreDestinatario(dottore.getCodiceFiscale());
 
     RisultatoDto oracolo = new RisultatoDto("Notifica inviata correttamente");
-    when(notifcaDao.existsById(any())).thenReturn(true);
     testSend(notifica, status().isOk(), oracolo, dottore);
-  }
-
-  /**
-   * Notifica: Internal error
-   */
-  @Test
-  public void testSend11() throws Exception {
-    NotificaDto notifica = new NotificaDto();
-    notifica.setMessaggio("Nuova notifica");
-    notifica.setDottoreDestinatario(dottore.getCodiceFiscale());
-
-    RisultatoDto oracolo = new RisultatoDto("Errore durante l'inserimento della Notifica");
-    testSend(notifica, status().isInternalServerError(), oracolo, dottore);
   }
 
   private void testSend(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
 
-    Optional optional = Optional.of(utente);
     performSync(post("/notifica/send").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -296,9 +261,8 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
   @Test
   public void testUpdate5() throws Exception {
     NotificaDto notifica = new NotificaDto();
-    notifica.setId(0L);
+    notifica.setId(1L);
     notifica.setStato(1);
-    when(notifcaDao.findById(0L)).thenReturn(Optional.of(new Notifica()));
     RisultatoDto oracolo = new RisultatoDto("Stato notifica aggiornato correttamente");
     testUpdate(notifica, status().isOk(), oracolo, dottore);
   }
@@ -306,8 +270,6 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private void testUpdate(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    Optional optional = Optional.of(utente);
 
     performSync(post("/notifica/updateStato").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
@@ -344,22 +306,21 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
    */
   @Test
   public void testGet3() throws Exception {
-    IdDto id = new IdDto(0L);
+    IdDto id = new IdDto(1L);
 
     Notifica notifica = new Notifica();
-    notifica.setId(0L);
-    notifica.setStato(0);
-    notifica.setData(Date.valueOf("2022-01-01"));
-    notifica.setOra(Time.valueOf("01:01:01"));
+    notifica.setId(1L);
+    notifica.setStato(2);
+    notifica.setMessaggio("Nuovo dottore da convalidare: dottore2@glucoseguardian.it");
+    notifica.setData(Date.valueOf("2022-02-05"));
+    notifica.setOra(Time.valueOf("07:55:00"));
     RisultatoDto oracolo = NotificaDto.valueOf(notifica);
 
-    when(notifcaDao.findById(0L)).thenReturn(Optional.of(notifica));
     testGet(id, status().isOk(), oracolo, dottore);
   }
 
   private void testGet(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-    Optional optional = Optional.of(utente);
     performSync(post("/notifica/get").contentType(MediaType.APPLICATION_JSON)
         .content(toJsonString(input)).header("Authorization", "Bearer " + generateJwtToken(utente))).andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -368,21 +329,12 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
 
   /**
-   * getAll: internal server error
-   */
-  @Test
-  public void testGetAll1() throws Exception {
-    RisultatoDto oracolo = new RisultatoDto("Errore durante la ricerca della notifica");
-    testGetAll(status().isInternalServerError(), oracolo, dottore);
-  }
-
-  /**
    * getAll: no authenticated user
    */
   @Test
   public void testGetAll2() throws Exception {
     RisultatoDto oracolo = new RisultatoDto("Utente non autorizzato");
-    dottore.setStato(0);
+    dottore.setEmail("dottore2@glucoseguardian.it");
     testGetAll(status().isForbidden(), oracolo, dottore);
   }
 
@@ -409,7 +361,7 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
    */
   @Test
   public void testGetAll5() throws Exception {
-    RisultatoDto oracolo = new ListDto<>(paziente.getNotifiche().stream().map(NotificaDto::valueOf).toList());
+    RisultatoDto oracolo = new ListDto<>();
     testGetAll(status().isOk(), oracolo, paziente);
   }
 
@@ -424,7 +376,6 @@ public class NotificaRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private void testGetAll(ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-    Optional optional = Optional.of(utente);
     performSync(get("/notifica/getAll").header("Authorization", "Bearer " + generateJwtToken(utente)))
         .andExpect(status)
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))

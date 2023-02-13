@@ -137,7 +137,7 @@ public class PazienteRest {
    */
   @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> savePaziente(
-      @RequestBody PazienteDto paziente) throws DuplicatedEntityException {
+      @RequestBody PazienteDto paziente) throws DuplicatedEntityException, EntityNotFoundException {
 
     paziente.validate();
     boolean result = false;
@@ -145,7 +145,7 @@ public class PazienteRest {
       Utente dottore = (Utente) getAuthentication().getPrincipal();
       paziente.setIdDottore(dottore.getCodiceFiscale());
       result = getService().save(paziente);
-    } catch (AccessDeniedException | DuplicatedEntityException ex) {
+    } catch (AccessDeniedException | EntityNotFoundException | DuplicatedEntityException ex) {
       throw ex;
     } catch (ClassCastException ex) {
       throw new AccessDeniedException("Utente non autorizzato");

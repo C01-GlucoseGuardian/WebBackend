@@ -1,34 +1,25 @@
 package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.glucoseguardian.webbackend.integrationtests.restservice.AbstractIntegrationTest;
-import com.glucoseguardian.webbackend.storage.dao.FeedbackDao;
 import com.glucoseguardian.webbackend.storage.dto.LoginInputDto;
 import com.glucoseguardian.webbackend.storage.dto.LoginOutputDto;
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.entity.Admin;
 import com.glucoseguardian.webbackend.storage.entity.TipoUtente;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 @SpringBootTest
-public class AuthRestDaoServiceIT extends AbstractIntegrationTest {
-
-  @MockBean
-  FeedbackDao feedbackDao;
-
+public class AuthRestDaoServiceIT extends AbstractIntegrationDaoTest {
   @Autowired
   PasswordEncoder passwordEncoder;
 
@@ -111,7 +102,6 @@ public class AuthRestDaoServiceIT extends AbstractIntegrationTest {
     LoginOutputDto oracolo = new LoginOutputDto();
     oracolo.setIdUtente("RSSMRA80A01F205X");
     oracolo.setTipoUtente(TipoUtente.ADMIN.ordinal());
-    Optional optional = Optional.of(admin);
     testLogin(input, status().isOk(), oracolo);
   }
 
@@ -205,8 +195,6 @@ public class AuthRestDaoServiceIT extends AbstractIntegrationTest {
 
   private void testChangePw(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    Optional optional = Optional.of(utente);
 
     performSync(
         post("/auth/changePw")

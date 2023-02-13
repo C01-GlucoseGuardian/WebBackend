@@ -3,33 +3,24 @@ package com.glucoseguardian.webbackend.integrationtests.restservicedao;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.glucoseguardian.webbackend.storage.dto.RisultatoDto;
 import com.glucoseguardian.webbackend.storage.dto.TutoreDto;
 import com.glucoseguardian.webbackend.storage.entity.Dottore;
-import com.glucoseguardian.webbackend.storage.entity.Tutore;
 import com.glucoseguardian.webbackend.storage.entity.Utente;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 @SpringBootTest
 public class TutoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
-  @MockBean
-  JavaMailSender javaMailSender;
-
-  private static final Tutore tutore = new Tutore();
   private static final Dottore dottore = new Dottore();
 
   @BeforeAll
   public static void setupClass() {
-    tutore.setEmail("tutore@glucoseguardian.it");
-    tutore.setCodiceFiscale("TTOGNN65M07G273H");
     dottore.setEmail("dottore@glucoseguardian.it");
     dottore.setCodiceFiscale("RSSNTN90A01H703B");
     dottore.setStato(1);
@@ -266,7 +257,6 @@ public class TutoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
     tutore.setIndirizzo("C.so Garibaldi, 12");
 
     RisultatoDto oracolo = new RisultatoDto("Tutore inserito correttamente");
-    final int[] counter = {0};
     testSave(tutore, status().isOk(), oracolo, dottore);
   }
 
@@ -274,8 +264,6 @@ public class TutoreRestDaoServiceIT extends AbstractIntegrationDaoTest {
 
   private void testSave(RisultatoDto input, ResultMatcher status, RisultatoDto oracolo, Utente utente)
       throws Exception {
-
-    Optional optional = Optional.of(utente);
 
     performSync(
         post("/tutore/save")

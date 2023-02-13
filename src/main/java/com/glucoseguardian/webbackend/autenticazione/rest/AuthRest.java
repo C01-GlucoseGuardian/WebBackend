@@ -40,7 +40,6 @@ public class AuthRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> login(
       @RequestBody LoginInputDto input) throws Exception {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validate();
     LoginOutputDto dto = getService().login(input.getEmail(), input.getPassword(), input.getOtp());
     ResponseEntity<RisultatoDto> response = new ResponseEntity<>(dto, HttpStatus.OK);
@@ -55,7 +54,6 @@ public class AuthRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> changePw(
       @RequestBody LoginInputDto input) throws Exception {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validateChangePw();
     getService().changePw(getAuthentication().getName(), input.getPassword(),
         input.getNewPassword(), input.getOtp());
@@ -72,7 +70,6 @@ public class AuthRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getTotpKey(
       @RequestBody LoginInputDto input) throws Exception {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validatePw();
     TotpDto dto = getService().getTotpKey(getAuthentication().getName(), input.getPassword(),
         input.getOtp());

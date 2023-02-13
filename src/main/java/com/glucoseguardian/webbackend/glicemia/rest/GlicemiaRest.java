@@ -43,7 +43,6 @@ public class GlicemiaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getLast(
       @RequestBody GlicemiaInputDto glicemia) throws EntityNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     glicemia.validateIdPaziente();
@@ -55,7 +54,6 @@ public class GlicemiaRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante il recupero della glicemia"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -68,7 +66,6 @@ public class GlicemiaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getRange(
       @RequestBody GlicemiaInputDto glicemia) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     glicemia.validateRange();
@@ -81,7 +78,6 @@ public class GlicemiaRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante il recupero della glicemia"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -94,7 +90,6 @@ public class GlicemiaRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveGlicemia(
       @RequestBody ListDto<GlicemiaDto> list) {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     boolean result = false;
     for (GlicemiaDto glicemiaDto : list.getList()) {
@@ -108,7 +103,6 @@ public class GlicemiaRest {
     } catch (ClassCastException ex) {
       throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

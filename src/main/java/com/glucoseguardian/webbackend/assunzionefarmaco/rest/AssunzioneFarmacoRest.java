@@ -37,7 +37,6 @@ public class AssunzioneFarmacoRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getAssunzioneFarmaco(
       @RequestBody IdDto idAssunzineFarmaco) throws EntityNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     idAssunzineFarmaco.validate();
@@ -50,7 +49,6 @@ public class AssunzioneFarmacoRest {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca"
           + " dell'assunzioneFarmaco"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -63,7 +61,6 @@ public class AssunzioneFarmacoRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByTerapia(
       @RequestBody IdDto idTerapia) throws EntityNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     idTerapia.validate();
@@ -77,7 +74,6 @@ public class AssunzioneFarmacoRest {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca"
           + " dell'assunzioneFarmaco"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -90,7 +86,6 @@ public class AssunzioneFarmacoRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
       @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws EntityNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscalePaziente.validate();
@@ -104,7 +99,6 @@ public class AssunzioneFarmacoRest {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca"
           + " dell'assunzioneFarmaco"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);

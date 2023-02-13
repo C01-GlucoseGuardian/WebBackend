@@ -46,7 +46,6 @@ public class PazienteRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getPaziente(
       @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscalePaziente.validate();
@@ -58,7 +57,6 @@ public class PazienteRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -71,7 +69,6 @@ public class PazienteRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByDottore(
       @RequestBody CodiceFiscaleDto codiceFiscaleDottore) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscaleDottore.validate();
@@ -84,7 +81,6 @@ public class PazienteRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -97,7 +93,6 @@ public class PazienteRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByTutore(
       @RequestBody CodiceFiscaleDto codiceFiscaleTutore) {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscaleTutore.validate();
@@ -109,7 +104,6 @@ public class PazienteRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -122,7 +116,6 @@ public class PazienteRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> findPaziente(
       @RequestBody RicercaDto query) {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
 
@@ -134,7 +127,6 @@ public class PazienteRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -147,7 +139,6 @@ public class PazienteRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> savePaziente(
       @RequestBody PazienteDto paziente) throws DuplicatedEntityException {
 
-    // TODO: Add custom checks (es. length, null etc..)
     paziente.validate();
     boolean result = false;
     try {
@@ -159,7 +150,6 @@ public class PazienteRest {
     } catch (ClassCastException ex) {
       throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {
@@ -187,7 +177,6 @@ public class PazienteRest {
     } catch (EntityNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

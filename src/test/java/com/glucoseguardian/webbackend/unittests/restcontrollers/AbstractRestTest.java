@@ -48,7 +48,6 @@ public abstract class AbstractRestTest {
     try {
       return mapper.writeValueAsString(obj);
     } catch (JsonProcessingException ex) {
-      ex.printStackTrace();
       return null;
     }
   }

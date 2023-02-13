@@ -43,7 +43,6 @@ public class DottoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getDottore(
       @RequestBody CodiceFiscaleDto codiceFiscaleDottore) throws Exception {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscaleDottore.validate();
@@ -56,7 +55,6 @@ public class DottoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del paziente"),
             HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -68,7 +66,6 @@ public class DottoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByStato(
       @RequestBody DottoreDto dottore) {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     dottore.validateStato();
@@ -81,7 +78,6 @@ public class DottoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante il recupero dei dottori"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -94,7 +90,6 @@ public class DottoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getByPaziente(
       @RequestBody CodiceFiscaleDto codiceFiscalePaziente) throws Exception {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     codiceFiscalePaziente.validate();
@@ -107,7 +102,6 @@ public class DottoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante il recupero dei dottori"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -119,7 +113,6 @@ public class DottoreRest {
   @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> getAll() {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
 
@@ -132,7 +125,6 @@ public class DottoreRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante il recupero dei dottori"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
 
     return CompletableFuture.completedFuture(response);
@@ -145,7 +137,6 @@ public class DottoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> updateStato(
       @RequestBody DottoreDto dottore) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
 
     ResponseEntity<RisultatoDto> response;
     dottore.validateStato();
@@ -161,7 +152,6 @@ public class DottoreRest {
     } catch (ClassCastException ex) {
       throw new AccessDeniedException("Utente non autorizzato");
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {
@@ -184,7 +174,6 @@ public class DottoreRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveDottore(
       @RequestBody DottoreDto dottore) throws DuplicatedEntityException {
 
-    // TODO: Add custom checks (es. length, null etc..)
     dottore.validateDottore();
     boolean result = false;
     try {
@@ -192,7 +181,6 @@ public class DottoreRest {
     } catch (DuplicatedEntityException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

@@ -88,7 +88,6 @@ public class JwtService {
           && !isTokenInFuture(token)
           && userDetails.isEnabled();
     } catch (Exception ex) {
-      ex.printStackTrace();
       return false;
     }
   }

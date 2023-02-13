@@ -85,7 +85,6 @@ public class CustomExceptionHandler {
   public final ResponseEntity<RisultatoDto> handleHttpMessageNotReadable(
       HttpMessageNotReadableException ex, WebRequest request) {
     RisultatoDto errorDetails = new RisultatoDto("Malformed JSON request");
-    ex.printStackTrace();
     return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
   }
 

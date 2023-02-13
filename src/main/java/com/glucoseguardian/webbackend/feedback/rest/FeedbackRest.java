@@ -48,7 +48,6 @@ public class FeedbackRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -71,7 +70,6 @@ public class FeedbackRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -94,8 +92,6 @@ public class FeedbackRest {
     } catch (Exception ex) {
       response = new ResponseEntity<>(new RisultatoDto("Errore durante la ricerca del feedback"),
           HttpStatus.INTERNAL_SERVER_ERROR);
-      ex.printStackTrace();
-      ex.printStackTrace();
     }
     return CompletableFuture.completedFuture(response);
   }
@@ -108,7 +104,6 @@ public class FeedbackRest {
   public @ResponseBody CompletableFuture<ResponseEntity<RisultatoDto>> saveFeedback(
       @RequestBody FeedbackDto input) throws UserNotFoundException {
 
-    // TODO: Add custom checks (es. length, null etc..)
     input.validate();
     boolean result = false;
     try {
@@ -117,7 +112,6 @@ public class FeedbackRest {
     } catch (UserNotFoundException | AccessDeniedException ex) {
       throw ex;
     } catch (Exception ex) {
-      ex.printStackTrace();
     }
 
     if (result) {

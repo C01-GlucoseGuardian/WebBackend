@@ -94,14 +94,14 @@ public class TutoreRestTest extends AbstractRestTest {
   public void testSave4() throws Exception {
     serviceStub.duplicatedId = true;
     TutoreDto tutore = new TutoreDto();
-    tutore.setNome("Vito");
-    tutore.setCognome("Piegari");
-    tutore.setCodiceFiscale("PGRVTT06G22H501E");
+    tutore.setNome("Gianni");
+    tutore.setCognome("Otto");
+    tutore.setCodiceFiscale("TTOGNN65M07G273H");
     tutore.setSesso("M");
-    tutore.setDataNascita("10/07/2001");
-    tutore.setEmail("vito@piegari.it");
+    tutore.setDataNascita("07/08/1965");
+    tutore.setEmail("tutore@glucoseguardian.it");
     tutore.setTelefono("3663212456");
-    tutore.setIndirizzo("C.so Garibaldi, 12");
+    tutore.setIndirizzo("Palermo Corso Vittorio Emanuele 10");
 
     RisultatoDto oracolo = new RisultatoDto("Codice fiscale già presente nel database");
     testSave(tutore, status().isBadRequest(), oracolo);
@@ -200,7 +200,7 @@ public class TutoreRestTest extends AbstractRestTest {
     tutore.setCodiceFiscale("PGRVTT06G22H501E");
     tutore.setSesso("M");
     tutore.setDataNascita("10/07/2001");
-    tutore.setEmail("vito@piegari.it");
+    tutore.setEmail("tutore@glucoseguardian.it");
     tutore.setTelefono("3663212456");
     tutore.setIndirizzo("C.so Garibaldi, 12");
 

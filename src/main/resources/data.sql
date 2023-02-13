@@ -7,7 +7,11 @@ VALUES (1, 'FIASP*flextouch 5 penne 100 u/ml 3 ml',
         'INSULINA GLARGINE 1.000UI', 'Insulina glargine'),
        (4, 'HUMALOG*MIX 25 1 fiala SC 10 ml 100 U/ml',
         'INSULINA LISPRO DA DNA RICOMBINANTE',
-        'Insulina lispro da DNA ricomb/insulina lispro protamina')
+        'Insulina lispro da DNA ricomb/insulina lispro protamina'),
+       (5, '30 mg compresse','Diamicron','Gliclazide'),
+       (6, '60 mg compresse','Diabrezide','Gliclazide'),
+       (7, '30 mg compresse','Gleucos', 'Gliclazide'),
+       (8, '60 mg compresse','Dramion','Gliclazide')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO public.admin (codice_fiscale, cognome, data_nascita, email, indirizzo, nome, password,
@@ -1104,7 +1108,7 @@ VALUES (1, '2023-02-09 15:29:15.000000', 40, 'MRTLDA01L55C514M'),
 ON CONFLICT DO NOTHING;
 
 /* Reset sequences */
-SELECT setval('farmaco_seq', 4);
+SELECT setval('farmaco_seq', 8);
 SELECT setval('numero_telefono_seq', 3);
 SELECT setval('terapia_seq', 2);
 SELECT setval('assunzione_farmaco_seq', 3);

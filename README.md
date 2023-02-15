@@ -2,11 +2,11 @@
 [![Build Status](https://travis-ci.com/C01-GlucoseGuardian/WebBackend.svg?branch=main)](https://travis-ci.com/C01-GlucoseGuardian/WebBackend) [![Coverage Status](https://coveralls.io/repos/github/C01-GlucoseGuardian/WebBackend/badge.svg)](https://coveralls.io/github/C01-GlucoseGuardian/WebBackend) [![Docker](https://github.com/C01-GlucoseGuardian/WebBackend/actions/workflows/docker-image.yml/badge.svg)](https://github.com/C01-GlucoseGuardian/WebBackend/actions/workflows/docker-image.yml) [![checkstyle](https://github.com/C01-GlucoseGuardian/WebBackend/actions/workflows/checkstyle.yml/badge.svg)](https://github.com/C01-GlucoseGuardian/WebBackend/actions/workflows/checkstyle.yml)
 
 ## Introduzione
-Questa repo contiene il codice sorgente del backend del progetto Glucose Guardian, basato sul framework Java Spring Boot e DBMS Postgres.
+Questa repo contiene il codice sorgente del backend del progetto Glucose Guardian, basato sul framework Java Spring Boot e DBMS PostgreSQL.
 
 ## Installazione con Docker
 ### 1. Creare l'immagine docker dai sorgenti (Opzionale)
-1. Installare git e docker
+1. Installare Git e Docker
 2. Aprire un terminale e clonare questo progetto:
 
    ````
@@ -17,19 +17,19 @@ Questa repo contiene il codice sorgente del backend del progetto Glucose Guardia
    cd webbackend
    ````
 4. Effettuare tutte le modifiche necessarie al file di configurazione in [src/main/java/resources/application.properties](https://github.com/C01-GlucoseGuardian/WebBackend/blob/524a9ccb0d55aed8681325b0a2744497df12e11e/src/main/resources/application.properties) (Opzionale)
-5. Compilare l'immagine docker:
+5. Compilare l'immagine Docker:
    ````
    docker build -t c01glucoseguardian/webbackend .
    ````
-### 2. Lanciare l'immagine docker
+### 2. Lanciare l'immagine Docker
 > **Warning**<br>
-> Il server non si avvierà senza una connessione con il DBMS Postgres. È quindi importante configurare correttamente i parametri in production.properties
+> Il server non si avvierà senza una connessione con il DBMS PostgreSQL. È quindi importante configurare correttamente tali parametri in production.properties
 
 > **Note**<br>
-> Per utilizzare un instanza di postgres locale, potete utilizzare il dominio host.docker.internal o l'ip 172.17.0.1. Verificare che la configurazione di postgres accetti connessioni dalla subnet 172.17.0.0/16 (la default di docker)
+> Per utilizzare un'istanza di PostgreSQL locale, potete utilizzare il dominio host.docker.internal o l'ip 172.17.0.1. Verificare che la configurazione di PostgreSQL accetti connessioni dalla subnet 172.17.0.0/16 (la default per la rete bridge di Docker)
 
 
-Un esempio di commando per eseguire l'immagine docker è il seguente:
+Un esempio di commando per eseguire l'immagine Docker è il seguente:
 ```
  docker run --name webbackend -p 8081:8080 -v ./production.properties:/config/production.properties:ro -d c01glucoseguardian/webbackend
 ```
@@ -40,10 +40,10 @@ Dove:
 - ```-d``` utilizza la modalità detached ovvero il container verrà eseguito in background.
 - ```c01glucoseguardian/webbackend``` specifica l'immagine da utilizzare. Nel caso in cui non sia stata compilata nel punto precedente, verrà scaricata da [dockerhub](https://hub.docker.com/r/c01glucoseguardian/webbackend).
 
-Per altre informazioni si rimanda alla [documentazione di docker](https://docs.docker.com/engine/reference/commandline/run/).
+Per altre informazioni si rimanda alla [documentazione di Docker](https://docs.docker.com/engine/reference/commandline/run/).
 
 ## Installazione da sorgenti
-1. Installare git e la JDK 17 o superiore
+1. Installare Git e la JDK 17 o superiore
 2. Aprire un terminale e clonare questo progetto:
 
    ````
@@ -60,7 +60,7 @@ Per altre informazioni si rimanda alla [documentazione di docker](https://docs.d
    ````
 6. Eseguire il file .jar:
    > **Warning**<br>
-   > Il server non si avvierà senza una connessione con il DBMS Postgres. È quindi importante configurare correttamente i parametri in application.properties
+   > Il server non si avvierà senza una connessione con il DBMS PostgreSQL. È quindi importante configurare correttamente tali parametri in application.properties
    ````
    java -jar target/*.jar
    ````

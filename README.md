@@ -26,7 +26,8 @@ Questa repo contiene il codice sorgente del backend del progetto Glucose Guardia
 > Il server non si avvierà senza una connessione con il DBMS PostgreSQL. È quindi importante configurare correttamente tali parametri in production.properties
 
 > **Note**<br>
-> Per utilizzare un'istanza di PostgreSQL locale, potete utilizzare il dominio host.docker.internal o l'ip 172.17.0.1. Verificare che la configurazione di PostgreSQL accetti connessioni dalla subnet 172.17.0.0/16 (la default per la rete bridge di Docker)
+> Per utilizzare un'istanza di PostgreSQL locale, potete utilizzare il dominio host.docker.internal o l'ip 172.17.0.1.<br>
+> In tal caso verificare che la configurazione di PostgreSQL accetti connessioni dalla subnet 172.17.0.0/16 (la default per la rete bridge di Docker)
 
 
 Un esempio di commando per eseguire l'immagine Docker è il seguente:
@@ -36,9 +37,9 @@ Un esempio di commando per eseguire l'immagine Docker è il seguente:
 Dove:
 - ```--name``` indica il nome da dare al container.
 - ```-p 8081:8080``` espone la porta 8080 del container sulla porta 8081 dell'host.
-- ```-v ./production.properties:/config/production.properties:ro``` monta il file di configurazione locale (esterno al container) production.properties al posto del file di [configurazione predefinito](https://github.com/C01-GlucoseGuardian/WebBackend/blob/524a9ccb0d55aed8681325b0a2744497df12e11e/src/main/resources/application.properties).
+- ```-v ./production.properties:/config/production.properties:ro``` monta il file di configurazione locale production.properties al posto del file di [configurazione predefinito](https://github.com/C01-GlucoseGuardian/WebBackend/blob/524a9ccb0d55aed8681325b0a2744497df12e11e/src/main/resources/application.properties).
 - ```-d``` utilizza la modalità detached ovvero il container verrà eseguito in background.
-- ```c01glucoseguardian/webbackend``` specifica l'immagine da utilizzare. Nel caso in cui non sia stata compilata nel punto precedente, verrà scaricata da [dockerhub](https://hub.docker.com/r/c01glucoseguardian/webbackend).
+- ```c01glucoseguardian/webbackend``` specifica l'immagine da utilizzare. Nel caso in cui non sia disponibile localmente, verrà scaricata da [dockerhub](https://hub.docker.com/r/c01glucoseguardian/webbackend).
 
 Per altre informazioni si rimanda alla [documentazione di Docker](https://docs.docker.com/engine/reference/commandline/run/).
 

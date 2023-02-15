@@ -5,7 +5,7 @@
 Questa repo contiene il codice sorgente del backend del progetto Glucose Guardian, basato sul framework Java Spring Boot e DBMS PostgreSQL.
 
 ## Installazione con Docker
-### 1. Creare l'immagine docker dai sorgenti (Opzionale)
+### Creare l'immagine docker dai sorgenti (Opzionale)
 1. Installare Git e Docker
 2. Aprire un terminale e clonare questo progetto:
 
@@ -21,7 +21,7 @@ Questa repo contiene il codice sorgente del backend del progetto Glucose Guardia
    ````
    docker build -t c01glucoseguardian/webbackend .
    ````
-### 2. Lanciare l'immagine Docker
+### Lanciare l'immagine Docker
 > **Warning**<br>
 > Il server non si avvierà senza una connessione con il DBMS PostgreSQL. È quindi importante configurare correttamente tali parametri in production.properties
 
